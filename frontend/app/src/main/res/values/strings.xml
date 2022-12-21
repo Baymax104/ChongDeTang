@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChongDeTang</string>
+    <string name="nav_menu_index">首页</string>
+    <string name="nav_menu_exhibit">展览</string>
+    <string name="nav_menu_shop">文创商店</string>
+    <string name="nav_menu_my">我的</string>
 </resources>
