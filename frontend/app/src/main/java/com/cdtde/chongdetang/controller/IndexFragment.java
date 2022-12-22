@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
 
 /**
  * @Description
@@ -27,14 +28,13 @@ import com.cdtde.chongdetang.R;
  * @Version 1
  */
 public class IndexFragment extends Fragment {
-    private View view;
+    private FragmentIndexBinding binding;
 
-    private Toolbar toolbar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_index, container, false);
-        return view;
+        binding = FragmentIndexBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class IndexFragment extends Fragment {
 
         initView();
 
-        toolbar.setOnMenuItemClickListener(item -> {
+        binding.indexToolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
                 SearchActivity.actionStart(getContext());
@@ -55,16 +55,20 @@ public class IndexFragment extends Fragment {
     }
 
     private void initView() {
-        toolbar = view.findViewById(R.id.index_toolbar);
-        toolbar.inflateMenu(R.menu.index_toolbar_menu);
+        binding.indexToolbar.inflateMenu(R.menu.index_toolbar_menu);
 
         // 设置toolbar适应状态栏
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        binding.indexToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
 
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

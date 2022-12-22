@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.FragmentExhibitionBinding;
 
 import java.util.Objects;
 
@@ -27,15 +28,14 @@ import java.util.Objects;
  * @Version 1
  */
 public class ExhibitFragment extends Fragment {
-    private View view;
 
-    private Toolbar toolbar;
+    private FragmentExhibitionBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_exhibition, container, false);
-        return view;
+        binding = FragmentExhibitionBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -48,12 +48,16 @@ public class ExhibitFragment extends Fragment {
     }
 
     private void initView() {
-        toolbar = view.findViewById(R.id.exhibit_toolbar);
-        toolbar.inflateMenu(R.menu.index_toolbar_menu);
+        binding.exhibitToolbar.inflateMenu(R.menu.index_toolbar_menu);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        binding.exhibitToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

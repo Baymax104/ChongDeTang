@@ -1,68 +1,62 @@
 package com.cdtde.chongdetang.controller;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ActivityMainBinding;
 import com.cdtde.chongdetang.util.FragmentAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView navigationView;
-    private ViewPager2 viewPager;
-    private List<Fragment> fragments;
-    private FragmentAdapter adapter;
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         initView();
 
-        navigationView.setOnItemSelectedListener(item -> {
+        binding.mainNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_index) {
-                viewPager.setCurrentItem(0);
+                binding.viewPager.setCurrentItem(0);
             } else if (id == R.id.nav_exhibit) {
-                viewPager.setCurrentItem(1);
+                binding.viewPager.setCurrentItem(1);
             } else if (id == R.id.nav_shop) {
-                viewPager.setCurrentItem(2);
+                binding.viewPager.setCurrentItem(2);
             } else if (id == R.id.nav_my) {
-                viewPager.setCurrentItem(3);
+                binding.viewPager.setCurrentItem(3);
             }
             return true;
         });
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                navigationView.getMenu().getItem(position).setChecked(true);
+                binding.mainNav.getMenu().getItem(position).setChecked(true);
             }
         });
     }
 
     private void initView() {
-        navigationView = findViewById(R.id.main_nav);
-        viewPager = findViewById(R.id.main_view_pager);
-
-        fragments = new ArrayList<>();
+        List<Fragment> fragments = new ArrayList<>();
         fragments.add(new IndexFragment());
         fragments.add(new ExhibitFragment());
         fragments.add(new ShopFragment());
         fragments.add(new MyFragment());
-        adapter = new FragmentAdapter(this, fragments);
-        viewPager.setAdapter(adapter);
+        FragmentAdapter adapter = new FragmentAdapter(this, fragments);
+        binding.viewPager.setAdapter(adapter);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
