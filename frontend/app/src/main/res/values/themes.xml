@@ -15,9 +15,4 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <!--溢出菜单不覆盖焦点-->
-    <style name="OverflowMenuTheme" parent="Widget.AppCompat.PopupMenu.Overflow">
-        <item name="overlapAnchor">false</item>
-    </style>
-
 </resources>

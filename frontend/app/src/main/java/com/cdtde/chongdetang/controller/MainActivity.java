@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.util.FragmentAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.main_nav);
         viewPager = findViewById(R.id.main_view_pager);
 
@@ -64,18 +64,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new FragmentAdapter(this, fragments);
         viewPager.setAdapter(adapter);
 
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
-        return true;
-    }
 }

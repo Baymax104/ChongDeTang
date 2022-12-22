@@ -6,33 +6,10 @@
         android:layout_height="match_parent"
         tools:context=".controller.MainActivity">
     
-    <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar_layout">
-
-        <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bar_color"
-                android:id="@+id/toolbar"
-                app:popupTheme="@style/OverflowMenuTheme"
-                android:fitsSystemWindows="true">
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="测试"
-                    android:gravity="center" />
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
-    
     <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/main_view_pager"
-            android:layout_below="@id/toolbar_layout"
             android:layout_above="@id/main_nav"/>
     
     <com.google.android.material.bottomnavigation.BottomNavigationView
