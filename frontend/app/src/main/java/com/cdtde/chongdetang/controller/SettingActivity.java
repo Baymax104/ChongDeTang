@@ -3,95 +3,72 @@ package com.cdtde.chongdetang.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends AppCompatActivity {
-    private LinearLayout ziLiao,miMa,phone,zhuXiao,banQuan,banBen;
-    private Button quit_btn;
-    private TextView version_tv;
+    private ActivitySettingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        binding = ActivitySettingBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         initViews();
         setListener();//设置监听事件
     }
 
     private void setListener() {
-        ziLiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "个人资料", Toast.LENGTH_SHORT).show();
-            }
-        });
-        miMa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "修改密码", Toast.LENGTH_SHORT).show();
-            }
-        });
-        ziLiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "个人资料", Toast.LENGTH_SHORT).show();
-            }
-        });
-        phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "更换绑定手机号", Toast.LENGTH_SHORT).show();
-            }
-        });
-        zhuXiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "注销账号", Toast.LENGTH_SHORT).show();
-            }
-        });
-        banQuan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "版权声明", Toast.LENGTH_SHORT).show();
-            }
-        });
-        banBen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "当前已经是最高版本", Toast.LENGTH_SHORT).show();
-            }
-        });
-        quit_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SettingActivity.this, "已退出", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+//        binding.setData.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(SettingActivity.this, "个人资料", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        /*
+        lambda表达式是java8简化匿名内部类的语法，用于函数式接口，函数式接口就是一个接口内只有一个方法
+        setOnClickListener()传入一个View.OnClickListener对象，OnClickListener是一个接口，里面只有OnClick一个方法
+        可以用lambda表达式
+
+        语法：setOnClickListener((参数1,参数2) -> {方法体});
+        一个参数时可以省略括号，没有参数时不能省略括号
+        () -> {方法体}
+        参数1 -> {方法体}
+        当方法体只有一行时，可以省略花括号，省略分号
+        ((参数1,参数2) -> 方法体)
+         */
+
+        binding.setData.setOnClickListener(v -> Toast.makeText(this, "个人资料", Toast.LENGTH_SHORT).show());
+
+        binding.setPassword.setOnClickListener(v -> Toast.makeText(this, "修改密码", Toast.LENGTH_SHORT).show());
+        binding.setPhone.setOnClickListener(v -> Toast.makeText(this, "更换绑定手机号", Toast.LENGTH_SHORT).show());
+        binding.logoff.setOnClickListener(v -> Toast.makeText(this, "注销账号", Toast.LENGTH_SHORT).show());
+        binding.copyright.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
+        binding.version.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
     }
 
     private void initViews() {
-        //findViewById
-        ziLiao=findViewById(R.id.set_ziliao);
-        miMa=findViewById(R.id.set_mima);
-        phone=findViewById(R.id.set_shouji);
-        zhuXiao=findViewById(R.id.set_zhuxiao);
-        banQuan=findViewById(R.id.set_banquan);
-        banBen=findViewById(R.id.set_banben);
-        version_tv=findViewById(R.id.set_version_tv);
 
-        quit_btn=findViewById(R.id.set_quit_btn);
+        setSupportActionBar(binding.settingsToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
+        }
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
     }
 
 
@@ -101,4 +78,12 @@ public class SettingActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -23,263 +23,285 @@
                     android:gravity="center" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <ImageView
-            android:id="@+id/my_userIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/my_user"
-            android:layout_gravity="center"/>
+                android:id="@+id/my_userIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_user"
+                android:layout_gravity="center" />
+
         <TextView
-            android:id="@+id/my_userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="用户名：小明"
-            android:textSize="20dp"/>
+                android:id="@+id/my_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="用户名：小明"
+                android:textSize="20dp" />
+
         <TextView
-            android:id="@+id/my_userId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="13522380331"
-            android:textSize="18dp"/>
+                android:id="@+id/my_userId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="13522380331"
+                android:textSize="18dp" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="欢迎来到崇德堂博物馆～"
-            android:layout_marginBottom="15dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="欢迎来到崇德堂博物馆～"
+                android:layout_marginBottom="15dp" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/my_yuyue"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_yuyue"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="我的预约"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/my_shoucang"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_shoucang"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="我的收藏"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        </LinearLayout>
+        <RelativeLayout
+                android:id="@+id/my_appointment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/my_yuyue"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/my_appointment_icon" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/my_appointment_icon"
+                    android:textSize="20dp"
+                    android:text="我的预约" />
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/arrow_right"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/my_collection"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/my_collection_icon"
+                    android:src="@drawable/my_shoucang"
+                    android:layout_marginStart="10dp" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/my_collection_icon"
+                    android:textSize="20dp"
+                    android:text="我的收藏" />
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/arrow_right"
+                    android:layout_marginEnd="10dp" />
+
+        </RelativeLayout>
+
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="8dp"/>
-        <LinearLayout
-            android:id="@+id/my_gouwuche"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_gouwuche"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="我的购物车"/>
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
+                android:layout_height="8dp" />
+
+        <RelativeLayout
+                android:id="@+id/my_shopping"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/my_shopping_icon"
+                    android:src="@drawable/my_gouwuche"
+                    android:layout_marginStart="10dp" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/my_shopping_icon"
+                    android:textSize="20dp"
+                    android:text="我的购物车" />
+
+            <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/my_dingdan"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_dingdan"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="我的订单"/>
-            <LinearLayout
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/my_order"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/my_order_icon"
+                    android:src="@drawable/my_dingdan"
+                    android:layout_marginStart="10dp" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/my_order_icon"
+                    android:textSize="20dp"
+                    android:text="我的订单" />
+
+            <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/my_dizhi"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_dizhi"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="收货地址"/>
-            <LinearLayout
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/my_address"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/my_dizhi"
+                    android:id="@+id/my_address_icon"
+                    android:layout_marginStart="10dp" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/my_address_icon"
+                    android:textSize="20dp"
+                    android:text="收货地址" />
+
+            <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
-        </LinearLayout>
+        </RelativeLayout>
+
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="8dp"/>
-        <LinearLayout
-            android:id="@+id/my_tongzhi"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_xiaoxi"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="消息通知"/>
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
+                android:layout_height="8dp" />
+
+        <RelativeLayout
+                android:id="@+id/my_notice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/my_notice_icon"
+                    android:src="@drawable/my_xiaoxi"
+                    android:layout_marginStart="10dp" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_toEndOf="@id/my_notice_icon"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20dp"
+                    android:text="消息通知" />
+
+            <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/my_fankui"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/my_fankui"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:text="意见反馈"/>
-            <LinearLayout
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/my_feedback"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right">
-                <ImageView
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/my_feedback_icon"
+                    android:src="@drawable/my_fankui"
+                    android:layout_marginStart="10dp" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/my_feedback_icon"
+                    android:textSize="20dp"
+                    android:text="意见反馈" />
+
+            <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </LinearLayout>
