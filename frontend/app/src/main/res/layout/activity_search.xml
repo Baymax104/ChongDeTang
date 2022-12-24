@@ -3,7 +3,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".controller.SearchActivity"
+        android:orientation="vertical"
         android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -49,9 +51,10 @@
                             android:layout_toEndOf="@id/search_icon"
                             android:inputType="text"
                             android:autofillHints="no"
-                            android:hint="搜索展品/文创"
-                            tools:ignore="HardcodedText,TouchTargetSizeCheck"
-                            android:background="#00ffffff" />
+                            android:hint="@string/search_hint"
+                            android:background="#00ffffff"
+                            android:id="@+id/search_edit"
+                            tools:ignore="TouchTargetSizeCheck" />
 
                     <ImageView
                             android:layout_width="20dp"
@@ -59,7 +62,9 @@
                             android:src="@drawable/clean_button"
                             tools:ignore="ContentDescription"
                             android:layout_marginEnd="10dp"
-                            android:layout_alignParentEnd="true" />
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/search_clean_btn"
+                            android:visibility="invisible"/>
                 </RelativeLayout>
 
                 <TextView
@@ -69,12 +74,78 @@
                         android:textColor="@color/main_color"
                         android:textSize="16sp"
                         android:gravity="center"
-                        android:layout_marginStart="10dp" />
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/search_btn"/>
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/search_history_label"
+            android:visibility="gone">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/search_history"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_alignParentStart="true"
+                tools:ignore="RelativeOverlap" />
+        <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/delete"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/search_delete_btn"
+                tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:max_select="1"
+            android:padding="15dp"
+            android:id="@+id/search_history_flow"
+            android:visibility="gone"/>
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/search_collection"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            tools:ignore="RelativeOverlap" />
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:max_select="1"
+            android:padding="15dp"
+            android:id="@+id/search_collection_flow"/>
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/search_product"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            tools:ignore="RelativeOverlap" />
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:max_select="1"
+            android:padding="15dp"
+            android:id="@+id/search_product_flow"/>
 
 </LinearLayout>

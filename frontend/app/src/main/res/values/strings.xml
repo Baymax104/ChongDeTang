@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">ChongDeTang</string>
-    <string name="app_chinese">崇德堂博物馆</string>
+    <string name="app_chinese">崇德堂</string>
     <string name="nav_menu_index">首页</string>
     <string name="nav_menu_exhibit">展览</string>
     <string name="nav_menu_shop">文创商店</string>
@@ -8,4 +7,8 @@
     <string name="toolbar_search">搜索</string>
     <string name="toolbar_settings">设置</string>
     <string name="button_search">搜索</string>
+    <string name="search_history">最近搜索</string>
+    <string name="search_collection">藏品推荐</string>
+    <string name="search_product">文创推荐</string>
+    <string name="search_hint">搜索展品/文创</string>
 </resources>

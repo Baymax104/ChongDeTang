@@ -30,27 +30,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void setListener() {
-//        binding.setData.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(SettingActivity.this, "个人资料", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-        /*
-        lambda表达式是java8简化匿名内部类的语法，用于函数式接口，函数式接口就是一个接口内只有一个方法
-        setOnClickListener()传入一个View.OnClickListener对象，OnClickListener是一个接口，里面只有OnClick一个方法
-        可以用lambda表达式
-
-        语法：setOnClickListener((参数1,参数2) -> {方法体});
-        一个参数时可以省略括号，没有参数时不能省略括号
-        () -> {方法体}
-        参数1 -> {方法体}
-        当方法体只有一行时，可以省略花括号，省略分号
-        ((参数1,参数2) -> 方法体)
-         */
-
         binding.setData.setOnClickListener(v -> Toast.makeText(this, "个人资料", Toast.LENGTH_SHORT).show());
-
         binding.setPassword.setOnClickListener(v -> Toast.makeText(this, "修改密码", Toast.LENGTH_SHORT).show());
         binding.setPhone.setOnClickListener(v -> Toast.makeText(this, "更换绑定手机号", Toast.LENGTH_SHORT).show());
         binding.logoff.setOnClickListener(v -> Toast.makeText(this, "注销账号", Toast.LENGTH_SHORT).show());
