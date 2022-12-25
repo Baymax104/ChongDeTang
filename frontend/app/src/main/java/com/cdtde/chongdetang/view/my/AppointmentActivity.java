@@ -5,66 +5,60 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.cdtde.chongdetang.model.CustomerAddress;
+import com.cdtde.chongdetang.model.Appointment;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.view.my.adapters.ListInScroll;
-import com.cdtde.chongdetang.view.my.adapters.AddressAdapter;
-import com.cdtde.chongdetang.databinding.ActivityMyAddressBinding;
+import com.cdtde.chongdetang.view.my.adapters.AppointmentAdapter;
+import com.cdtde.chongdetang.databinding.ActivityMyAppointmentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAddressActivity extends AppCompatActivity {
-    private ActivityMyAddressBinding binding;
-//    private RecyclerView addressList;
-    private ListInScroll addressList;
 
-
-
+public class AppointmentActivity extends AppCompatActivity {
+    private ActivityMyAppointmentBinding binding;
+    private List<Appointment> dataList;
+    private AppointmentAdapter adapter;
+//    private EditText input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMyAddressBinding.inflate(getLayoutInflater());
+        binding = ActivityMyAppointmentBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         initViews();
-        initRecylist(view);
+        initList();
         setListener();//设置监听事件
     }
 
-    private void initRecylist(View view) {
-        //地址list 设置适配器
-        addressList=view.findViewById(R.id.myAddress_list);
-        List<CustomerAddress> dataList = null;
+    private void initList() {
+
         dataList=new ArrayList<>();
         //设置假数据
         for (int i=0;i<5;i++){
-            CustomerAddress tmp =new CustomerAddress();
+            Appointment tmp =new Appointment();
             dataList.add(tmp);
         }
-//        MyAdapter adapter=new MyAdapter(dataList);
-        AddressAdapter adapter = new AddressAdapter(dataList,this);
-        addressList.setAdapter(adapter);
+        binding.myAppointmentAppointList.setLayoutManager(new LinearLayoutManager(this));
+        adapter=new AppointmentAdapter(dataList);
+        binding.myAppointmentAppointList.setAdapter(adapter);
     }
 
     private void setListener() {
-        binding.myAddressAddBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "添加新地址", Toast.LENGTH_SHORT).show();
-        });
+
     }
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, MyAddressActivity.class);
+        Intent intent = new Intent(context, AppointmentActivity.class);
         context.startActivity(intent);
     }
 
     private void initViews() {
-        setSupportActionBar(binding.settingsToolbar);
+        setSupportActionBar(binding.myAppointmentToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
@@ -73,10 +67,7 @@ public class MyAddressActivity extends AppCompatActivity {
         }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-
-
-
-
+//        input=findViewById(R.id.feedback_content);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

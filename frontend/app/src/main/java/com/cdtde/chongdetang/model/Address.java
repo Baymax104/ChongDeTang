@@ -1,6 +1,6 @@
 package com.cdtde.chongdetang.model;
 
-public class CustomerAddress {
+public class Address {
     private String name;
     private String phone;
     private String position;
@@ -22,13 +22,13 @@ public class CustomerAddress {
         this.detailAddress = detailAddress;
     }
 
-    public CustomerAddress(String name, String phone, String position, String detailAddress) {
+    public Address(String name, String phone, String position, String detailAddress) {
         this.name = name;
         this.phone = phone;
         this.position = position;
         this.detailAddress = detailAddress;
     }
-    public CustomerAddress() {
+    public Address() {
         this.name = "王小卤";
         this.phone = "13522380331";
         this.position = "北京市朝阳区南磨房地区";

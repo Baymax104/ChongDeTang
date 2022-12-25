@@ -19,10 +19,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.view.SettingActivity;
-import com.cdtde.chongdetang.view.my.FeedbackActivity;
-import com.cdtde.chongdetang.view.my.MyAddressActivity;
-import com.cdtde.chongdetang.view.my.MyAppointmentActivity;
-import com.cdtde.chongdetang.view.my.PersonInfoActivity;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 
 /**
@@ -73,14 +69,14 @@ public class MyFragment extends Fragment {
         });
         binding.myAppointment.setOnClickListener(v -> {
             Toast.makeText(getContext(), "我的预约", Toast.LENGTH_SHORT).show();
-            MyAppointmentActivity.actionStart(getContext());
+            AppointmentActivity.actionStart(getContext());
         });
         binding.myCollection.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
         binding.myShopping.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
         binding.myOrder.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
         binding.myAddress.setOnClickListener(v -> {
             Toast.makeText(getContext(), "收货地址", Toast.LENGTH_SHORT).show();
-            MyAddressActivity.actionStart(getContext());
+            AddressActivity.actionStart(getContext());
         });
         binding.myNotice.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
         binding.myFeedback.setOnClickListener(v -> {

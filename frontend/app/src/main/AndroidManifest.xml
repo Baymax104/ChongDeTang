@@ -30,8 +30,8 @@
         <activity android:name=".view.my.NewNameActivity"/>
         <activity android:name=".view.my.NewPhoneActivity"/>
         <activity android:name=".view.my.NewPasswordActivity"/>
-        <activity android:name=".view.my.MyAddressActivity"/>
-        <activity android:name=".view.my.MyAppointmentActivity"/>
+        <activity android:name=".view.my.AddressActivity"/>
+        <activity android:name=".view.my.AppointmentActivity"/>
         <!-- 图片裁剪   -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

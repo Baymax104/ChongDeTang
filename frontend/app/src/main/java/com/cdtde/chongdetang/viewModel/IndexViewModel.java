@@ -20,9 +20,9 @@ public class IndexViewModel extends ViewModel {
 
     public IndexViewModel() {
         bannerImg = new ArrayList<>();
-        bannerImg.add(new LocalImageInfo(R.drawable.test_banner));
-        bannerImg.add(new LocalImageInfo(R.drawable.test_banner));
-        bannerImg.add(new LocalImageInfo(R.drawable.test_banner));
+        bannerImg.add(new LocalImageInfo(R.drawable.test_picture));
+        bannerImg.add(new LocalImageInfo(R.drawable.test_picture));
+        bannerImg.add(new LocalImageInfo(R.drawable.test_picture));
     }
 
     public List<LocalImageInfo> getBannerImg() {

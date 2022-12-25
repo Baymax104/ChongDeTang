@@ -35,6 +35,6 @@
     <ImageView
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:src="@drawable/test_banner"
+            android:src="@drawable/test_picture"
             tools:ignore="ContentDescription" />
 </LinearLayout>

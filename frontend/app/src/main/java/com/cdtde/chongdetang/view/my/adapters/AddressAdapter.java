@@ -4,66 +4,50 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import com.cdtde.chongdetang.model.CustomerAddress;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cdtde.chongdetang.databinding.ItemAddressBinding;
+import com.cdtde.chongdetang.model.Address;
 import com.cdtde.chongdetang.R;
 
 import java.util.List;
 
-public class AddressAdapter extends BaseAdapter {
-    private View view;
-    private List<CustomerAddress> dataList;
-    private Context context;
+public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
+    private List<Address> data;
 
-    public AddressAdapter(List<CustomerAddress> dataList, Context context) {
-        this.dataList = dataList;
-        this.context = context;
+    public AddressAdapter(List<Address> data) {
+        this.data = data;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return dataList!=null?dataList.size():0;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Address address = data.get(position);
+        holder.binding.addressItemName.setText(address.getName());
+        holder.binding.addressItemPosition.setText(address.getPosition());
+        holder.binding.addressItemPhone.setText(address.getPhone());
+        holder.binding.addressItemDetail.setText(address.getDetailAddress());
     }
 
     @Override
-    public Object getItem(int position) {
-        return dataList.get(position);
+    public int getItemCount() {
+        return data.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ItemAddressBinding binding;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        addressViewHolder addressHolder=null;
-        //判断是否第一次加载
-        if(convertView == null){
-            addressHolder = new addressViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_address, null);
-            addressHolder.name=convertView.findViewById(R.id.myAddressItem_name);
-            addressHolder.phone=convertView.findViewById(R.id.myAddressItem_phone);
-            addressHolder.position=convertView.findViewById(R.id.myAddressItem_position);
-            addressHolder.detail=convertView.findViewById(R.id.myAddressItem_detail);
-            convertView.setTag(addressHolder);
-        }else{
-            addressHolder = (addressViewHolder) convertView.getTag();
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            binding = ItemAddressBinding.bind(itemView);
         }
-        //设置数据
-        CustomerAddress addItem=dataList.get(position);
-        addressHolder.name.setText(addItem.getName());
-        addressHolder.phone.setText(addItem.getPhone());
-        addressHolder.detail.setText(addItem.getDetailAddress());
-        addressHolder.position.setText(addItem.getPosition());
-        return convertView;
-    }
-    public class addressViewHolder{
-        public TextView name;
-        public TextView phone;
-        public TextView position;
-        public TextView detail;
     }
 }
