@@ -1,6 +1,8 @@
 package com.cdtde.chongdetang.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.controller.my.FeedbackActivity;
+import com.cdtde.chongdetang.controller.my.myAddressActivity;
+import com.cdtde.chongdetang.controller.my.myAppointmentActivity;
+import com.cdtde.chongdetang.controller.my.personInfoActivity;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 
 /**
@@ -55,13 +64,27 @@ public class MyFragment extends Fragment {
     }
 
     private void setListener() {
-        binding.myAppointment.setOnClickListener(v -> Toast.makeText(getContext(), "我的预约", Toast.LENGTH_SHORT).show());
+        binding.myUserIcon.setOnClickListener(v -> {
+//            personInfoActivity.actionStart(getContext());
+            Intent intent=new Intent();
+            intent.setClass(getContext(),personInfoActivity.class);
+            startActivityForResult(intent,1);
+        });
+        binding.myAppointment.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "我的预约", Toast.LENGTH_SHORT).show();
+            myAppointmentActivity.actionStart(getContext());
+        });
         binding.myCollection.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
         binding.myShopping.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
         binding.myOrder.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
-        binding.myAddress.setOnClickListener(v -> Toast.makeText(getContext(), "收货地址", Toast.LENGTH_SHORT).show());
+        binding.myAddress.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "收货地址", Toast.LENGTH_SHORT).show();
+            myAddressActivity.actionStart(getContext());
+        });
         binding.myNotice.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
-        binding.myFeedback.setOnClickListener(v -> Toast.makeText(getContext(), "意见反馈", Toast.LENGTH_SHORT).show());
+        binding.myFeedback.setOnClickListener(v -> {
+            FeedbackActivity.actionStart(getContext());
+        });
     }
 
     private void initView() {
@@ -70,8 +93,26 @@ public class MyFragment extends Fragment {
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
         binding.myToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+    }
 
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1){
+            if(resultCode==2){
+                Bundle newbundle=data.getExtras();
+                String iconPath=newbundle.getString("new_userIcon");
+                String userName=newbundle.getString("new_userName");
+                if (!iconPath.equals("none")) {
+                    Glide.with(this).load(iconPath).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.myUserIcon);
+                }
+                if (!userName.equals("none")){
+                    binding.myUserName.setText(userName);
+                }
+            }
+            else{
+                Log.i("new_icon","no datas!!!");
+            }
+        }
     }
 }
