@@ -26,7 +26,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.view.MyFragment;
 import com.cdtde.chongdetang.view.my.utils.BitmapUtils;
 import com.cdtde.chongdetang.view.my.utils.CameraUtils;
 import com.cdtde.chongdetang.view.my.utils.SPUtils;
@@ -40,7 +39,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class personInfoActivity extends AppCompatActivity {
+public class PersonInfoActivity extends AppCompatActivity {
     private ActivityPersonBinding binding;
 
     //权限请求
@@ -109,7 +108,7 @@ public class personInfoActivity extends AppCompatActivity {
         });
         binding.personNameLayout.setOnClickListener(v -> {
             Intent intent=new Intent();
-            intent.setClass(personInfoActivity.this,newNameActivity.class);
+            intent.setClass(PersonInfoActivity.this, NewNameActivity.class);
             startActivityForResult(intent, NEW_NAME);
         });
         binding.personBirthLayout.setOnClickListener(v -> {
@@ -121,7 +120,7 @@ public class personInfoActivity extends AppCompatActivity {
     }
 
     private void chooseDate() {
-        new DatePickerDialog(personInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(PersonInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String theDate = String.format("%d-%d-%d",year,month+1,dayOfMonth);
@@ -311,7 +310,7 @@ public class personInfoActivity extends AppCompatActivity {
     }
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, personInfoActivity.class);
+        Intent intent = new Intent(context, PersonInfoActivity.class);
         context.startActivity(intent);
     }
 
@@ -324,7 +323,7 @@ public class personInfoActivity extends AppCompatActivity {
             bundle.putString("new_userName",new_userName);
             Intent intent=getIntent();
             intent.putExtras(bundle);
-            intent.setClass(personInfoActivity.this, MyFragment.class);
+            intent.setClass(PersonInfoActivity.this, MyFragment.class);
             setResult(2,intent);
             finish();
         }

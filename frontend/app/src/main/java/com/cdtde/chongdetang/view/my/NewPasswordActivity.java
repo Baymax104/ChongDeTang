@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityNewPasswordBinding;
 
-public class newPasswordActivity extends AppCompatActivity {
+public class NewPasswordActivity extends AppCompatActivity {
     private ActivityNewPasswordBinding binding;
 
     @Override
@@ -55,7 +55,7 @@ public class newPasswordActivity extends AppCompatActivity {
         });
     }
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, newPasswordActivity.class);
+        Intent intent = new Intent(context, NewPasswordActivity.class);
         context.startActivity(intent);
     }
 

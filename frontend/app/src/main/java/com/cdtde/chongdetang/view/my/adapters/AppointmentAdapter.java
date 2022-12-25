@@ -14,13 +14,13 @@ import com.cdtde.chongdetang.R;
 
 import java.util.List;
 
-public class appointmentAdapter extends RecyclerView.Adapter<appointmentAdapter.viewHolder> {
+public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.viewHolder> {
     // 数据
     private List<Appointment> appointList;
     // 上下文环境
     private Context context;
     // 构造函数
-    public appointmentAdapter(List<Appointment> appointList, Context context) {
+    public AppointmentAdapter(List<Appointment> appointList, Context context) {
         this.appointList = appointList;
         this.context = context;
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityMainBinding;
 import com.cdtde.chongdetang.util.FragmentAdapter;
+import com.cdtde.chongdetang.view.my.MyFragment;
 
 import java.util.ArrayList;
 import java.util.List;

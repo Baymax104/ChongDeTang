@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view;
+package com.cdtde.chongdetang.view.my;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +18,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.view.SettingActivity;
 import com.cdtde.chongdetang.view.my.FeedbackActivity;
-import com.cdtde.chongdetang.view.my.myAddressActivity;
-import com.cdtde.chongdetang.view.my.myAppointmentActivity;
-import com.cdtde.chongdetang.view.my.personInfoActivity;
+import com.cdtde.chongdetang.view.my.MyAddressActivity;
+import com.cdtde.chongdetang.view.my.MyAppointmentActivity;
+import com.cdtde.chongdetang.view.my.PersonInfoActivity;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 
 /**
@@ -65,21 +66,21 @@ public class MyFragment extends Fragment {
 
     private void setListener() {
         binding.myUserIcon.setOnClickListener(v -> {
-//            personInfoActivity.actionStart(getContext());
+//            PersonInfoActivity.actionStart(getContext());
             Intent intent=new Intent();
-            intent.setClass(getContext(),personInfoActivity.class);
+            intent.setClass(getContext(), PersonInfoActivity.class);
             startActivityForResult(intent,1);
         });
         binding.myAppointment.setOnClickListener(v -> {
             Toast.makeText(getContext(), "我的预约", Toast.LENGTH_SHORT).show();
-            myAppointmentActivity.actionStart(getContext());
+            MyAppointmentActivity.actionStart(getContext());
         });
         binding.myCollection.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
         binding.myShopping.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
         binding.myOrder.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
         binding.myAddress.setOnClickListener(v -> {
             Toast.makeText(getContext(), "收货地址", Toast.LENGTH_SHORT).show();
-            myAddressActivity.actionStart(getContext());
+            MyAddressActivity.actionStart(getContext());
         });
         binding.myNotice.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
         binding.myFeedback.setOnClickListener(v -> {

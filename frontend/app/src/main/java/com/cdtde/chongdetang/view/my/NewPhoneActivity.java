@@ -14,7 +14,7 @@ package com.cdtde.chongdetang.view.my;
         import com.cdtde.chongdetang.R;
         import com.cdtde.chongdetang.databinding.ActivityNewPhoneBinding;
 
-public class newPhoneActivity extends AppCompatActivity {
+public class NewPhoneActivity extends AppCompatActivity {
     private ActivityNewPhoneBinding binding;
 
     @Override
@@ -57,7 +57,7 @@ public class newPhoneActivity extends AppCompatActivity {
         });
     }
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, newPhoneActivity.class);
+        Intent intent = new Intent(context, NewPhoneActivity.class);
         context.startActivity(intent);
     }
 

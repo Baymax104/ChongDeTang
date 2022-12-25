@@ -19,4 +19,7 @@
     <string name="search_product">文创推荐</string>
     <string name="search_hint">搜索展品/文创</string>
     <string name="no_data">暂无地址信息</string>
+    <string name="exhibit_title">藏品</string>
+    <string name="shop_title">文创商店</string>
+    <string name="my_title">我的</string>
 </resources>

@@ -12,12 +12,12 @@ import com.cdtde.chongdetang.R;
 
 import java.util.List;
 
-public class addressAdapters extends BaseAdapter {
+public class AddressAdapter extends BaseAdapter {
     private View view;
     private List<CustomerAddress> dataList;
     private Context context;
 
-    public addressAdapters(List<CustomerAddress> dataList, Context context) {
+    public AddressAdapter(List<CustomerAddress> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
     }
