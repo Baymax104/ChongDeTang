@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller;
+package com.cdtde.chongdetang.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +18,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.controller.my.FeedbackActivity;
-import com.cdtde.chongdetang.controller.my.myAddressActivity;
-import com.cdtde.chongdetang.controller.my.myAppointmentActivity;
-import com.cdtde.chongdetang.controller.my.personInfoActivity;
+import com.cdtde.chongdetang.view.my.FeedbackActivity;
+import com.cdtde.chongdetang.view.my.myAddressActivity;
+import com.cdtde.chongdetang.view.my.myAppointmentActivity;
+import com.cdtde.chongdetang.view.my.personInfoActivity;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 
 /**

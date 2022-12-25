@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller;
+package com.cdtde.chongdetang.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

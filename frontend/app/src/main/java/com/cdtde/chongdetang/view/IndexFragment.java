@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller;
+package com.cdtde.chongdetang.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,23 +12,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.FragmentShopBinding;
+import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
 
 /**
  * @Description
  * @Author John
  * @email
- * @Date 2022/12/21 22:03
+ * @Date 2022/12/21 20:52
  * @Version 1
  */
-public class ShopFragment extends Fragment {
-
-    private FragmentShopBinding binding;
+public class IndexFragment extends Fragment {
+    private FragmentIndexBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentShopBinding.inflate(inflater, container, false);
+        binding = FragmentIndexBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -38,14 +37,27 @@ public class ShopFragment extends Fragment {
         setHasOptionsMenu(true);
 
         initView();
+
+        binding.indexToolbar.setOnMenuItemClickListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.index_search) {
+                SearchActivity.actionStart(getContext());
+            }
+            return true;
+        });
+
     }
 
     private void initView() {
-        binding.shopToolbar.inflateMenu(R.menu.index_toolbar_menu);
+        binding.indexToolbar.inflateMenu(R.menu.index_toolbar_menu);
+
+        // 设置toolbar适应状态栏
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        binding.shopToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        binding.indexToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+
+
     }
 
     @Override

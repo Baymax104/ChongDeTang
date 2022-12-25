@@ -16,7 +16,7 @@
             android:id="@+id/myAddress_noDataTip"
             android:visibility="invisible"/>
 
-        <com.cdtde.chongdetang.controller.my.adapters.ListInScroll
+        <com.cdtde.chongdetang.view.my.adapters.ListInScroll
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/myAddress_list"/>

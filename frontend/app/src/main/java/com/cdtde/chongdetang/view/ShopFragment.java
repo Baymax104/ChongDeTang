@@ -1,39 +1,34 @@
-package com.cdtde.chongdetang.controller;
+package com.cdtde.chongdetang.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
+import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 
 /**
  * @Description
  * @Author John
  * @email
- * @Date 2022/12/21 20:52
+ * @Date 2022/12/21 22:03
  * @Version 1
  */
-public class IndexFragment extends Fragment {
-    private FragmentIndexBinding binding;
+public class ShopFragment extends Fragment {
+
+    private FragmentShopBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentIndexBinding.inflate(inflater, container, false);
+        binding = FragmentShopBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -43,27 +38,14 @@ public class IndexFragment extends Fragment {
         setHasOptionsMenu(true);
 
         initView();
-
-        binding.indexToolbar.setOnMenuItemClickListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.index_search) {
-                SearchActivity.actionStart(getContext());
-            }
-            return true;
-        });
-
     }
 
     private void initView() {
-        binding.indexToolbar.inflateMenu(R.menu.index_toolbar_menu);
-
-        // 设置toolbar适应状态栏
+        binding.shopToolbar.inflateMenu(R.menu.index_toolbar_menu);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        binding.indexToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
-
-
+        binding.shopToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
     }
 
     @Override

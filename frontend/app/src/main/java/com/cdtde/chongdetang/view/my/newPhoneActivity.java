@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller.my;
+package com.cdtde.chongdetang.view.my;
 
         import android.content.Context;
         import android.content.Intent;
@@ -12,8 +12,6 @@ package com.cdtde.chongdetang.controller.my;
         import androidx.appcompat.app.AppCompatActivity;
 
         import com.cdtde.chongdetang.R;
-        import com.cdtde.chongdetang.controller.SettingActivity;
-        import com.cdtde.chongdetang.databinding.ActicityNewnameBinding;
         import com.cdtde.chongdetang.databinding.ActivityNewPhoneBinding;
 
 public class newPhoneActivity extends AppCompatActivity {

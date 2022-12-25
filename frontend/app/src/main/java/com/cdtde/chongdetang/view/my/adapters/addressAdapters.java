@@ -1,25 +1,23 @@
-package com.cdtde.chongdetang.controller.my.adapters;
+package com.cdtde.chongdetang.view.my.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cdtde.chongdetang.ItemClass.customerAddress;
+import com.cdtde.chongdetang.model.CustomerAddress;
 import com.cdtde.chongdetang.R;
 
 import java.util.List;
 
 public class addressAdapters extends BaseAdapter {
     private View view;
-    private List<customerAddress> dataList;
+    private List<CustomerAddress> dataList;
     private Context context;
 
-    public addressAdapters(List<customerAddress> dataList, Context context) {
+    public addressAdapters(List<CustomerAddress> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
     }
@@ -55,7 +53,7 @@ public class addressAdapters extends BaseAdapter {
             addressHolder = (addressViewHolder) convertView.getTag();
         }
         //设置数据
-        customerAddress addItem=dataList.get(position);
+        CustomerAddress addItem=dataList.get(position);
         addressHolder.name.setText(addItem.getName());
         addressHolder.phone.setText(addItem.getPhone());
         addressHolder.detail.setText(addItem.getDetailAddress());

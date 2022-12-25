@@ -1,5 +1,6 @@
-package com.cdtde.chongdetang.controller.my.utils;
+package com.cdtde.chongdetang.view.my.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -103,6 +104,7 @@ public class CameraUtils {
     /**
      * 通过uri和selection来获取真实的图片路径,从相册获取图片时要用
      */
+    @SuppressLint("Range")
     public static String getImagePath(Uri uri, String selection, Context context) {
         String path = null;
         Cursor cursor = context.getContentResolver().query(uri, null, selection, null, null);

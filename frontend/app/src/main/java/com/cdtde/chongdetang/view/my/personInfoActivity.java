@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller.my;
+package com.cdtde.chongdetang.view.my;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -26,10 +26,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.controller.MyFragment;
-import com.cdtde.chongdetang.controller.my.utils.BitmapUtils;
-import com.cdtde.chongdetang.controller.my.utils.CameraUtils;
-import com.cdtde.chongdetang.controller.my.utils.SPUtils;
+import com.cdtde.chongdetang.view.MyFragment;
+import com.cdtde.chongdetang.view.my.utils.BitmapUtils;
+import com.cdtde.chongdetang.view.my.utils.CameraUtils;
+import com.cdtde.chongdetang.view.my.utils.SPUtils;
 import com.cdtde.chongdetang.databinding.ActivityPersonBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;

@@ -1,7 +1,8 @@
-package com.cdtde.chongdetang.controller;
+package com.cdtde.chongdetang.view;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +10,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import com.cdtde.chongdetang.databinding.ActivitySearchBinding;
 import com.cdtde.chongdetang.util.SearchTagAdapter;
+import com.cdtde.chongdetang.viewModel.SearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private ActivitySearchBinding binding;
 
-    private List<String> tags = new ArrayList<>(); // 模拟tag
 
-    private List<String> historyTags = new ArrayList<>(); // 最近搜索tag
+    private SearchViewModel vm;
 
 
     @Override
@@ -34,6 +34,11 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(view);
 
         initView();
+        vm = new ViewModelProvider(this).get(SearchViewModel.class);
+        vm.getHistoryTags().observe(this, strings -> {
+            SearchTagAdapter adapter = new SearchTagAdapter(this, strings);
+            binding.searchHistoryFlow.setAdapter(adapter);
+        });
 
         // 搜索框内容监听
         binding.searchEdit.addTextChangedListener(new TextWatcher() {
@@ -55,7 +60,10 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         binding.searchHistoryFlow.setOnTagClickListener((view1, i, flowLayout) -> {
-            binding.searchEdit.setText(historyTags.get(i));
+            List<String> value = vm.getHistoryTags().getValue();
+            if (value != null) {
+                binding.searchEdit.setText(value.get(i));
+            }
             return true;
         });
 
@@ -63,18 +71,20 @@ public class SearchActivity extends AppCompatActivity {
         binding.searchCleanBtn.setOnClickListener(v -> binding.searchEdit.setText(""));
 
         // 藏品推荐tags
-        SearchTagAdapter collectionAdapter = new SearchTagAdapter(this, tags);
+        List<String> collectionTags = vm.getCollectionTags();
+        SearchTagAdapter collectionAdapter = new SearchTagAdapter(this, collectionTags);
         binding.searchCollectionFlow.setAdapter(collectionAdapter);
         binding.searchCollectionFlow.setOnTagClickListener((view1, i, flowLayout) -> {
-            binding.searchEdit.setText(tags.get(i));
+            binding.searchEdit.setText(collectionTags.get(i));
             return true;
         });
 
         // 商品推荐tags
-        SearchTagAdapter productAdapter = new SearchTagAdapter(this, tags);
+        List<String> productTags = vm.getProductTags();
+        SearchTagAdapter productAdapter = new SearchTagAdapter(this, productTags);
         binding.searchProductFlow.setAdapter(productAdapter);
         binding.searchProductFlow.setOnTagClickListener((view1, i, flowLayout) -> {
-            binding.searchEdit.setText(tags.get(i));
+            binding.searchEdit.setText(productTags.get(i));
             return true;
         });
 
@@ -82,21 +92,19 @@ public class SearchActivity extends AppCompatActivity {
         binding.searchDeleteBtn.setOnClickListener(v -> {
             binding.searchHistoryLabel.setVisibility(View.GONE);
             binding.searchHistoryFlow.setVisibility(View.GONE);
-            historyTags.clear();
+            vm.clearTag();
         });
 
         // 搜索按钮
         binding.searchBtn.setOnClickListener(v -> {
             String content = binding.searchEdit.getText().toString();
             if (!content.equals("")) {
-                if (historyTags.isEmpty()) {
+                if (vm.isHistoryEmpty()) {
                     binding.searchHistoryFlow.setVisibility(View.VISIBLE);
                     binding.searchHistoryLabel.setVisibility(View.VISIBLE);
                 }
-                if (!historyTags.contains(content)) {
-                    historyTags.add(content);
-                    SearchTagAdapter adapter = new SearchTagAdapter(this, historyTags);
-                    binding.searchHistoryFlow.setAdapter(adapter);
+                if (!vm.isHistoryExist(content)) {
+                    vm.addTag(content);
                 }
                 // 搜索
             }
@@ -118,13 +126,6 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-        // 模拟tag
-        tags.add("ZJpkDd");
-        tags.add("hWDDTi");
-        tags.add("XHqfzcU");
-        tags.add("QhXiN");
-        tags.add("LZXWQK");
 
     }
 }

@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller.my.adapters;
+package com.cdtde.chongdetang.view.my.adapters;
 
 import android.content.Context;
 import android.util.AttributeSet;

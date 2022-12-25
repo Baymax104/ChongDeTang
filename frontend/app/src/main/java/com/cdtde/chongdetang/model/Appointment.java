@@ -1,12 +1,12 @@
-package com.cdtde.chongdetang.ItemClass;
+package com.cdtde.chongdetang.model;
 
-public class appointment {
+public class Appointment {
     private String date;
     private String orderID;
     private String orderTime;
     private String orderMoney;
 
-    public appointment() {
+    public Appointment() {
         date="2022-12-31";
         orderID="CHNM221239944";
         orderTime="2022-12-23 14:58:36";

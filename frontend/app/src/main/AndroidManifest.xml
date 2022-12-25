@@ -24,28 +24,28 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
-        <activity android:name=".controller.SettingActivity"/>
-        <activity android:name=".controller.my.FeedbackActivity"/>
-        <activity android:name=".controller.my.personInfoActivity"/>
-        <activity android:name=".controller.my.newNameActivity"/>
-        <activity android:name=".controller.my.newPhoneActivity"/>
-        <activity android:name=".controller.my.newPasswordActivity"/>
-        <activity android:name=".controller.my.myAddressActivity"/>
-        <activity android:name=".controller.my.myAppointmentActivity"/>
+        <activity android:name=".view.SettingActivity"/>
+        <activity android:name=".view.my.FeedbackActivity"/>
+        <activity android:name=".view.my.personInfoActivity"/>
+        <activity android:name=".view.my.newNameActivity"/>
+        <activity android:name=".view.my.newPhoneActivity"/>
+        <activity android:name=".view.my.newPasswordActivity"/>
+        <activity android:name=".view.my.myAddressActivity"/>
+        <activity android:name=".view.my.myAppointmentActivity"/>
         <!-- 图片裁剪   -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-                android:name=".controller.SearchActivity"
+                android:name=".view.SearchActivity"
                 android:exported="false">
             <meta-data
                     android:name="android.app.lib_name"
                     android:value="" />
         </activity>
         <activity
-                android:name=".controller.MainActivity"
+                android:name=".view.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

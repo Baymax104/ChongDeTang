@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller.my;
+package com.cdtde.chongdetang.view.my;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,57 +10,32 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.cdtde.chongdetang.ItemClass.customerAddress;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.controller.my.adapters.ListInScroll;
-import com.cdtde.chongdetang.controller.my.adapters.addressAdapters;
-import com.cdtde.chongdetang.databinding.ActivityMyAddressBinding;
+import com.cdtde.chongdetang.databinding.ActivityFeedbackBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class myAddressActivity extends AppCompatActivity {
-    private ActivityMyAddressBinding binding;
-//    private RecyclerView addressList;
-    private ListInScroll addressList;
-
-
-
+public class FeedbackActivity extends AppCompatActivity {
+    private ActivityFeedbackBinding binding;
+//    private EditText input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMyAddressBinding.inflate(getLayoutInflater());
+        binding = ActivityFeedbackBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         initViews();
-        initRecylist(view);
         setListener();//设置监听事件
     }
 
-    private void initRecylist(View view) {
-        //地址list 设置适配器
-        addressList=view.findViewById(R.id.myAddress_list);
-        List<customerAddress> dataList = null;
-        dataList=new ArrayList<>();
-        //设置假数据
-        for (int i=0;i<5;i++){
-            customerAddress tmp =new customerAddress();
-            dataList.add(tmp);
-        }
-//        MyAdapter adapter=new MyAdapter(dataList);
-        addressAdapters adapter = new addressAdapters(dataList,this);
-        addressList.setAdapter(adapter);
-    }
-
     private void setListener() {
-        binding.myAddressAddBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "添加新地址", Toast.LENGTH_SHORT).show();
+        binding.feedbackCommit.setOnClickListener(v -> {
+            String content=binding.feedbackContent.getText().toString();//用户输入内容
+            Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, myAddressActivity.class);
+        Intent intent = new Intent(context, FeedbackActivity.class);
         context.startActivity(intent);
     }
 
@@ -74,10 +49,7 @@ public class myAddressActivity extends AppCompatActivity {
         }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-
-
-
-
+//        input=findViewById(R.id.feedback_content);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

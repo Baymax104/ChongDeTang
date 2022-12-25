@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller.my;
+package com.cdtde.chongdetang.view.my;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityNewPasswordBinding;
-import com.cdtde.chongdetang.databinding.ActivityNewPhoneBinding;
 
 public class newPasswordActivity extends AppCompatActivity {
     private ActivityNewPasswordBinding binding;
