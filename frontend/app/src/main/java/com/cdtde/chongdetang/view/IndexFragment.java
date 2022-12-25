@@ -5,14 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
+import com.cdtde.chongdetang.viewModel.IndexViewModel;
+import com.stx.xhb.androidx.entity.LocalImageInfo;
 
 /**
  * @Description
@@ -23,6 +28,8 @@ import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
  */
 public class IndexFragment extends Fragment {
     private FragmentIndexBinding binding;
+
+    private IndexViewModel vm;
 
     @Nullable
     @Override
@@ -36,6 +43,7 @@ public class IndexFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
+        vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
         initView();
 
         binding.indexToolbar.setOnMenuItemClickListener(item -> {
@@ -45,6 +53,8 @@ public class IndexFragment extends Fragment {
             }
             return true;
         });
+
+
 
     }
 
@@ -58,6 +68,12 @@ public class IndexFragment extends Fragment {
         binding.indexToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
 
 
+        binding.indexBanner.loadImage((banner, model, view1, position) -> {
+            ImageView imageView = (ImageView) view1;
+            LocalImageInfo info = (LocalImageInfo) model;
+            Glide.with(this).load(info.getXBannerUrl()).into(imageView);
+        });
+        binding.indexBanner.setBannerData(vm.getBannerImg());
     }
 
     @Override

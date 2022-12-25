@@ -30,7 +30,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 //    这个方法返回viewholder，创建一个viewholder
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // 关联相关样式
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_aponintment_item,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_aponintment,parent,false);
         return new viewHolder(v);
     }
 

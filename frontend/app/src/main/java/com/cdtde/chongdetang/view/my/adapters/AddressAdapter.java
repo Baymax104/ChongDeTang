@@ -43,7 +43,7 @@ public class AddressAdapter extends BaseAdapter {
         //判断是否第一次加载
         if(convertView == null){
             addressHolder = new addressViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.layout_address_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_address, null);
             addressHolder.name=convertView.findViewById(R.id.myAddressItem_name);
             addressHolder.phone=convertView.findViewById(R.id.myAddressItem_phone);
             addressHolder.position=convertView.findViewById(R.id.myAddressItem_position);

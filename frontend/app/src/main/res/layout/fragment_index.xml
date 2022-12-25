@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -21,5 +24,230 @@
                     android:gravity="center" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <com.stx.xhb.androidx.XBanner
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:id="@+id/index_banner"
+                    app:isClipChildrenMode="true"
+                    app:pointsPosition="CENTER"
+                    android:layout_marginBottom="5dp"/>
+            <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:rowCount="2"
+                    android:columnCount="3"
+                    android:orientation="horizontal">
+                <LinearLayout
+                        android:layout_height="80dp"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables"
+                        android:id="@+id/index_entry1">
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/circle"
+                            tools:ignore="ContentDescription" />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/index_function1"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:gravity="center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_height="80dp"
+                        android:orientation="vertical"
+                        android:layout_columnWeight="1"
+                        tools:ignore="UseCompoundDrawables"
+                        android:id="@+id/index_entry2">
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/circle"
+                            tools:ignore="ContentDescription" />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/index_function2"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:gravity="center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_height="80dp"
+                        android:orientation="vertical"
+                        android:layout_columnWeight="1"
+                        tools:ignore="UseCompoundDrawables"
+                        android:id="@+id/index_entry3">
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/circle"
+                            tools:ignore="ContentDescription" />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/index_function3"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:gravity="center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_height="80dp"
+                        android:orientation="vertical"
+                        android:layout_columnWeight="1"
+                        tools:ignore="UseCompoundDrawables"
+                        android:id="@+id/index_entry4">
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/circle"
+                            tools:ignore="ContentDescription" />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/index_function4"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:gravity="center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_height="80dp"
+                        android:orientation="vertical"
+                        android:layout_columnWeight="1"
+                        tools:ignore="UseCompoundDrawables"
+                        android:id="@+id/index_entry5">
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/circle"
+                            tools:ignore="ContentDescription" />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/index_function5"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:gravity="center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_height="80dp"
+                        android:orientation="vertical"
+                        android:layout_columnWeight="1"
+                        tools:ignore="UseCompoundDrawables"
+                        android:id="@+id/index_entry6">
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/circle"
+                            tools:ignore="ContentDescription" />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/index_function6"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:gravity="center_horizontal"/>
+                </LinearLayout>
+            </GridLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/search_collection"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentStart="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/all"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/index_collection_entry"/>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:id="@+id/index_collection_list"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/index_moment"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentStart="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/all"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/index_moment_entry"/>
+            </RelativeLayout>
+
+            <include
+                layout="@layout/item_moment"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/index_info"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentStart="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/all"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/index_info_entry"/>
+            </RelativeLayout>
+
+            <include
+                layout="@layout/item_info"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
