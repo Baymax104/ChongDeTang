@@ -57,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="8"
-                android:background="@drawable/btn_big_shape"
+                android:background="@drawable/button_bg"
                 android:text="新建收货地址"
                 android:textSize="20sp" />
 

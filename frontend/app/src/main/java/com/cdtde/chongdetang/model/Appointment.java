@@ -11,7 +11,6 @@ public class Appointment {
         orderID="CHNM221239944";
         orderTime="2022-12-23 14:58:36";
         orderMoney="0";
-
     }
     public void setDate(String date) {
         this.date = date;

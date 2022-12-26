@@ -31,13 +31,15 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/my_userIcon"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/my_user"
             android:layout_gravity="center"
             app:shapeAppearanceOverlay="@style/circleImageStyle"/>
@@ -47,23 +49,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="用户名：小明"
-                android:textSize="20dp" />
+                android:text="小明"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
 
-        <TextView
-                android:id="@+id/my_userId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="13522380331"
-                android:textSize="18dp" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="欢迎来到崇德堂博物馆～"
-                android:layout_marginBottom="15dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,8 +68,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/my_yuyue"
                     android:layout_marginStart="10dp"
@@ -91,7 +81,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_appointment_icon"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="我的预约" />
 
             <ImageView
@@ -110,8 +100,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/my_collection_icon"
                     android:src="@drawable/my_shoucang"
@@ -123,7 +113,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_collection_icon"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="我的收藏" />
 
             <ImageView
@@ -147,8 +137,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/my_shopping_icon"
                     android:src="@drawable/my_gouwuche"
@@ -160,7 +150,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_shopping_icon"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="我的购物车" />
 
             <ImageView
@@ -180,8 +170,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/my_order_icon"
                     android:src="@drawable/my_dingdan"
@@ -193,7 +183,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_order_icon"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="我的订单" />
 
             <ImageView
@@ -213,8 +203,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:src="@drawable/my_dizhi"
                     android:id="@+id/my_address_icon"
@@ -226,7 +216,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_address_icon"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="收货地址" />
 
             <ImageView
@@ -250,8 +240,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/my_notice_icon"
                     android:src="@drawable/my_xiaoxi"
@@ -263,7 +253,7 @@
                     android:layout_gravity="center"
                     android:layout_toEndOf="@id/my_notice_icon"
                     android:layout_marginStart="10dp"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="消息通知" />
 
             <ImageView
@@ -283,8 +273,8 @@
                 android:gravity="center_vertical">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/my_feedback_icon"
                     android:src="@drawable/my_fankui"
@@ -296,7 +286,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_feedback_icon"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:text="意见反馈" />
 
             <ImageView

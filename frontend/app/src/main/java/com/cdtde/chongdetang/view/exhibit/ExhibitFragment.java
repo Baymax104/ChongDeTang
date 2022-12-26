@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view;
+package com.cdtde.chongdetang.view.exhibit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

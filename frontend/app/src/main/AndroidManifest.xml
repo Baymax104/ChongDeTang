@@ -24,7 +24,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
-        <activity android:name=".view.SettingActivity"/>
+        <activity android:name=".view.my.SettingActivity"/>
         <activity android:name=".view.my.FeedbackActivity"/>
         <activity android:name=".view.my.PersonInfoActivity"/>
         <activity android:name=".view.my.NewNameActivity"/>

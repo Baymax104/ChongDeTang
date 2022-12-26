@@ -267,7 +267,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_big_shape"
+                android:background="@drawable/button_bg"
                 android:text="退出登录"
                 android:textSize="30sp" />
 

@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my.utils;
+package com.cdtde.chongdetang.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view;
+package com.cdtde.chongdetang.view.my;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,9 +14,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.view.my.NewPasswordActivity;
-import com.cdtde.chongdetang.view.my.NewPhoneActivity;
-import com.cdtde.chongdetang.view.my.PersonInfoActivity;
 import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view;
+package com.cdtde.chongdetang.view.index;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
+import com.cdtde.chongdetang.util.IndexCollectionAdapter;
+import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.IndexViewModel;
 import com.stx.xhb.androidx.entity.LocalImageInfo;
 
@@ -54,7 +57,10 @@ public class IndexFragment extends Fragment {
             return true;
         });
 
-
+        IndexCollectionAdapter adapter = new IndexCollectionAdapter(vm.getCollections());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        binding.indexCollectionList.setLayoutManager(manager);
+        binding.indexCollectionList.setAdapter(adapter);
 
     }
 

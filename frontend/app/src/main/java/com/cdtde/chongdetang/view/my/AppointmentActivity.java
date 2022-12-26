@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cdtde.chongdetang.model.Appointment;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.view.my.adapters.AppointmentAdapter;
+import com.cdtde.chongdetang.util.AppointmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMyAppointmentBinding;
 
 import java.util.ArrayList;

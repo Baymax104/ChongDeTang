@@ -62,7 +62,7 @@
             android:id="@+id/feedback_commit"
             android:layout_width="250dp"
             android:layout_height="60dp"
-            android:background="@drawable/btn_big_shape"
+            android:background="@drawable/button_bg"
             android:text="提交"
             android:textSize="30sp" />
 

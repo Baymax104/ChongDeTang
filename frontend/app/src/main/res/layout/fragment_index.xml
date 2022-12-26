@@ -187,13 +187,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:id="@+id/index_collection_list"/>
-
+                    android:layout_height="190dp"
+                    android:id="@+id/index_collection_list"
+                    android:padding="5dp"/>
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_height="35dp">
 
                 <TextView
                         android:layout_width="wrap_content"

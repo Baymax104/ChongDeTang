@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cdtde.chongdetang.model.Address;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.view.my.adapters.AddressAdapter;
+import com.cdtde.chongdetang.util.AddressAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMyAddressBinding;
 
 import java.util.ArrayList;
