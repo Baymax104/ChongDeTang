@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="title"
+                type="String" />
+        <variable
+                name="img"
+                type="android.graphics.drawable.Drawable" />
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@{img}"
+                tools:ignore="ContentDescription" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{title}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:gravity="center_horizontal" />
+    </LinearLayout>
+</layout>

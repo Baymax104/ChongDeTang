@@ -16,46 +16,35 @@ import java.util.Objects;
  */
 public class SearchViewModel extends ViewModel {
     private MutableLiveData<List<String>> historyTags;
-    private List<String> collectionTags;
-    private List<String> productTags;
+    private MutableLiveData<List<String>> collectionTags;
+    private MutableLiveData<List<String>> productTags;
 
     public SearchViewModel() {
         historyTags = new MutableLiveData<>(new ArrayList<>());
-        collectionTags = new ArrayList<>();
-        productTags = new ArrayList<>();
-
-        collectionTags.add("ZJpkDd");
-        collectionTags.add("hWDDTi");
-        collectionTags.add("XHqfzcU");
-        collectionTags.add("QhXiN");
-        collectionTags.add("LZXWQK");
-
-
-        productTags.add("ZJpkDd");
-        productTags.add("hWDDTi");
-        productTags.add("XHqfzcU");
-        productTags.add("QhXiN");
-        productTags.add("LZXWQK");
+        collectionTags = new MutableLiveData<>(new ArrayList<>());
+        productTags = new MutableLiveData<>(new ArrayList<>());
+        generateTest();
     }
 
     public MutableLiveData<List<String>> getHistoryTags() {
         return historyTags;
     }
 
-    public List<String> getCollectionTags() {
+    public MutableLiveData<List<String>> getCollectionTags() {
         return collectionTags;
     }
 
-    public List<String> getProductTags() {
+    public MutableLiveData<List<String>> getProductTags() {
         return productTags;
     }
 
-    public void addTag(String tag) {
+    public void search(String content) {
         List<String> value = historyTags.getValue();
-        if (value != null) {
-            value.add(tag);
+        if (value != null && !content.equals("") && !value.contains(content)) {
+            value.add(content);
+            historyTags.setValue(value);
         }
-        historyTags.setValue(value);
+        // 搜索
     }
 
     public void clearTag() {
@@ -63,13 +52,28 @@ public class SearchViewModel extends ViewModel {
         if (value != null) {
             value.clear();
         }
-    }
-
-    public boolean isHistoryEmpty() {
-        return Objects.requireNonNull(historyTags.getValue()).isEmpty();
+        historyTags.setValue(value);
     }
 
     public boolean isHistoryExist(String s) {
         return Objects.requireNonNull(historyTags.getValue()).contains(s);
+    }
+
+    private void generateTest() {
+        List<String> data1 = new ArrayList<>();
+        data1.add("ZJpkDd");
+        data1.add("hWDDTi");
+        data1.add("XHqfzcU");
+        data1.add("QhXiN");
+        data1.add("LZXWQK");
+        collectionTags.setValue(data1);
+
+        List<String> data2 = new ArrayList<>();
+        data2.add("ZJpkDd");
+        data2.add("hWDDTi");
+        data2.add("XHqfzcU");
+        data2.add("QhXiN");
+        data2.add("LZXWQK");
+        productTags.setValue(data2);
     }
 }

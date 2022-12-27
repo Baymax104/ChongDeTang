@@ -3,8 +3,11 @@ package com.cdtde.chongdetang.util;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdtde.chongdetang.R;
@@ -23,7 +26,7 @@ import java.util.List;
 public class IndexCollectionAdapter extends RecyclerView.Adapter<IndexCollectionAdapter.ViewHolder> {
     private List<Collection> data;
 
-    public IndexCollectionAdapter(List<Collection> data) {
+    public void setData(List<Collection> data) {
         this.data = data;
     }
 
@@ -36,7 +39,9 @@ public class IndexCollectionAdapter extends RecyclerView.Adapter<IndexCollection
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ItemIndexCollectionBinding binding = ItemIndexCollectionBinding.bind(holder.itemView);
         Collection collection = data.get(position);
+        binding.setCollection(collection);
     }
 
     @Override
@@ -46,11 +51,8 @@ public class IndexCollectionAdapter extends RecyclerView.Adapter<IndexCollection
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ItemIndexCollectionBinding binding;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = ItemIndexCollectionBinding.bind(itemView);
         }
     }
 }

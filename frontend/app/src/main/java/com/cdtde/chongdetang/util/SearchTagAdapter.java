@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ItemSearchTagBinding;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 
@@ -19,18 +22,17 @@ import java.util.List;
  * @Version 1
  */
 public class SearchTagAdapter extends TagAdapter<String> {
-    private Context context;
 
-    public SearchTagAdapter(Context context, List<String> datas) {
+    public SearchTagAdapter(List<String> datas) {
         super(datas);
-        this.context = context;
     }
 
     @Override
     public View getView(FlowLayout flowLayout, int i, String s) {
-        TextView text = (TextView) LayoutInflater.from(context).inflate(R.layout.item_search_tag, flowLayout, false);
-        text.setText(s);
-        return text;
+        View view = LayoutInflater.from(flowLayout.getContext()).inflate(R.layout.item_search_tag, flowLayout, false);
+        ItemSearchTagBinding binding = ItemSearchTagBinding.bind(view);
+        binding.setContent(s);
+        return view;
     }
 
 }

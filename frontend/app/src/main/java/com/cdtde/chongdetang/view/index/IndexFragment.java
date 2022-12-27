@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
@@ -46,10 +45,9 @@ public class IndexFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
-        initView();
+        init();
 
-        binding.indexToolbar.setOnMenuItemClickListener(item -> {
+        binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
                 SearchActivity.actionStart(getContext());
@@ -57,30 +55,28 @@ public class IndexFragment extends Fragment {
             return true;
         });
 
-        binding.indexBanner.setBannerData(vm.getBannerImg());
+        binding.banner.loadImage((banner, model, view1, position) -> {
+            ImageView imageView = (ImageView) view1;
+            LocalImageInfo info = (LocalImageInfo) model;
+            Glide.with(this).load(info.getXBannerUrl()).into(imageView);
+        });
 
-        IndexCollectionAdapter adapter = new IndexCollectionAdapter(vm.getCollections());
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        binding.indexCollectionList.setLayoutManager(manager);
-        binding.indexCollectionList.setAdapter(adapter);
+        binding.setCollectionAdapter(new IndexCollectionAdapter());
+        binding.setViewModel(vm);
 
     }
 
-    private void initView() {
-        binding.indexToolbar.inflateMenu(R.menu.index_toolbar_menu);
+    private void init() {
+        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
 
         // 设置toolbar适应状态栏
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        binding.indexToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
 
-
-        binding.indexBanner.loadImage((banner, model, view1, position) -> {
-            ImageView imageView = (ImageView) view1;
-            LocalImageInfo info = (LocalImageInfo) model;
-            Glide.with(this).load(info.getXBannerUrl()).into(imageView);
-        });
+        vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
+        binding.setLifecycleOwner(this);
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.cdtde.chongdetang.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
+import com.cdtde.chongdetang.R;
+
 /**
  * @Description
  * @Author John
@@ -12,15 +14,17 @@ import android.net.Uri;
  */
 public class Collection {
     private String name;
-    private Uri imgUri;
+    private int localImg;
     private String description;
 
     public Collection() {
+        name = "测试";
+        localImg = R.drawable.test_picture;
     }
 
-    public Collection(String name, Uri imgUri, String description) {
+    public Collection(String name, int localImg, String description) {
         this.name = name;
-        this.imgUri = imgUri;
+        this.localImg = localImg;
         this.description = description;
     }
 
@@ -32,12 +36,12 @@ public class Collection {
         this.name = name;
     }
 
-    public Uri getImgUri() {
-        return imgUri;
+    public int getLocalImg() {
+        return localImg;
     }
 
-    public void setImgUri(Uri imgUri) {
-        this.imgUri = imgUri;
+    public void setLocalImg(int localImg) {
+        this.localImg = localImg;
     }
 
     public String getDescription() {
