@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 binding.mainNav.getMenu().getItem(position).setChecked(true);
             }
         });
+
+        binding.viewPager.setUserInputEnabled(false);
     }
 
     private void initView() {

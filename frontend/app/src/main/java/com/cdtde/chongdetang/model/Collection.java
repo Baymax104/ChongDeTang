@@ -16,7 +16,6 @@ public class Collection {
     private String description;
 
     public Collection() {
-        name = "测试测试测试测试";
     }
 
     public Collection(String name, Uri imgUri, String description) {

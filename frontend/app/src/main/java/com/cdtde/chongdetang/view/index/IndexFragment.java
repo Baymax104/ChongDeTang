@@ -57,6 +57,8 @@ public class IndexFragment extends Fragment {
             return true;
         });
 
+        binding.indexBanner.setBannerData(vm.getBannerImg());
+
         IndexCollectionAdapter adapter = new IndexCollectionAdapter(vm.getCollections());
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.indexCollectionList.setLayoutManager(manager);
@@ -79,7 +81,6 @@ public class IndexFragment extends Fragment {
             LocalImageInfo info = (LocalImageInfo) model;
             Glide.with(this).load(info.getXBannerUrl()).into(imageView);
         });
-        binding.indexBanner.setBannerData(vm.getBannerImg());
     }
 
     @Override

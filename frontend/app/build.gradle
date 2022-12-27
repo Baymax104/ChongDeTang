@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation 'com.github.xiaohaibin:XBanner:androidx_v1.2.6'
     implementation 'com.github.li-xiaojun:XPopup:2.9.17'
+    implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
 }
