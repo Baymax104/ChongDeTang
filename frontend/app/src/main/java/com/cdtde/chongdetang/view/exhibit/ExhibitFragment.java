@@ -48,35 +48,32 @@ public class ExhibitFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-
-        initView();
         vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
+        binding.setLifecycleOwner(this);
+        initView();
+
+        binding.setViewModel(vm);
+        binding.setTabAdapter(new FragmentAdapter(requireActivity()));
 
 
-        binding.exhibitTabs.setTabData(vm.getTabs());
-
-        FragmentAdapter adapter = new FragmentAdapter(requireActivity(), vm.getTabFragments());
-        binding.exhibitViewPager.setAdapter(adapter);
-
-        binding.exhibitViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                binding.exhibitTabs.setCurrentTab(position);
+                binding.tabs.setCurrentTab(position);
             }
         });
 
-        binding.exhibitTabs.setOnTabSelectListener(new OnTabSelectListener() {
+        binding.tabs.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                binding.exhibitViewPager.setCurrentItem(position);
+                binding.viewPager.setCurrentItem(position);
             }
-
             @Override
             public void onTabReselect(int position) {
             }
         });
 
-        binding.exhibitToolbar.setOnMenuItemClickListener(item -> {
+        binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
                 SearchActivity.actionStart(getContext());
@@ -87,11 +84,11 @@ public class ExhibitFragment extends Fragment {
     }
 
     private void initView() {
-        binding.exhibitToolbar.inflateMenu(R.menu.index_toolbar_menu);
+        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        binding.exhibitToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
     }
 
     @Override

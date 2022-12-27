@@ -6,10 +6,13 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdtde.chongdetang.model.Collection;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
 import com.stx.xhb.androidx.XBanner;
 import com.stx.xhb.androidx.entity.LocalImageInfo;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,20 +35,7 @@ public class BindingAdapterUtils {
         // 网络请求图片
     }
 
-    @BindingAdapter("bannerData")
-    public static void setBannerData(XBanner banner, List<LocalImageInfo> data) {
-        banner.setBannerData(data);
-    }
 
-    @BindingAdapter({"recyclerAdapter", "recyclerData"})
-    public static void setIndexRecyclerView(RecyclerView view, IndexCollectionAdapter adapter, List<Collection> data) {
-        adapter.setData(data);
-        view.setAdapter(adapter);
-    }
 
-    @BindingAdapter({"tagData"})
-    public static void setSearchTag(TagFlowLayout tagFlowLayout, List<String> data) {
-        SearchTagAdapter adapter = new SearchTagAdapter(data);
-        tagFlowLayout.setAdapter(adapter);
-    }
+
 }

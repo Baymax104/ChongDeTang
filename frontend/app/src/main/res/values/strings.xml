@@ -12,8 +12,8 @@
     <string name="newPhone_enter">请输入新手机号</string>
     <string name="newPhoneCode_enter">请输入验证码</string>
     <string name="oldPassword1_enter">输入旧密码</string>
-    <string name="newPassword1_enter">设置新密码\n8-16位特殊字符、大小写字母和数字的组合</string>
-    <string name="newPassword2_enter">再次输入新密码\n8-16位特殊字符、大小写字母和数字的组合</string>
+    <string name="newPassword1_enter">设置新密码\n8–16位特殊字符、大小写字母和数字的组合</string>
+    <string name="newPassword2_enter">再次输入新密码\n8–16位特殊字符、大小写字母和数字的组合</string>
     <string name="search_history">最近搜索</string>
     <string name="search_collection">藏品推荐</string>
     <string name="search_product">文创推荐</string>

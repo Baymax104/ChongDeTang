@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        android:layout_marginVertical="5dp"
-        android:layout_marginHorizontal="6dp">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@drawable/test_picture"
-                android:id="@+id/collection_img"
-                tools:ignore="ContentDescription" />
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:id="@+id/collection_name"
-                android:text="测试"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-    </LinearLayout>
+    <data>
+        <variable
+                name="collection"
+                type="com.cdtde.chongdetang.model.Collection" />
+    </data>
 
-</com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="6dp">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:src="@{collection.localImg}"
+                    android:id="@+id/collection_img"
+                    tools:ignore="ContentDescription" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:id="@+id/collection_name"
+                    android:text="@{collection.name}"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

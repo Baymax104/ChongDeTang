@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.MainActivity">
-    
-    <androidx.viewpager2.widget.ViewPager2
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="fragmentAdapter"
+                type="com.cdtde.chongdetang.util.FragmentAdapter" />
+        <variable
+                name="fragments"
+                type="java.util.List&lt;androidx.fragment.app.Fragment>" />
+    </data>
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/view_pager"
-            android:layout_above="@id/main_nav"/>
-    
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:id="@+id/main_nav"
-            app:menu="@menu/main_nav_menu"
-            android:layout_alignParentBottom="true"
-            android:background="@color/bar_color"/>
+            tools:context=".view.MainActivity">
 
-</RelativeLayout>
+        <androidx.viewpager2.widget.ViewPager2
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/view_pager"
+                android:layout_above="@id/main_nav"
+                fragmentAdapter="@{fragmentAdapter}"
+                fragments="@{fragments}"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:id="@+id/main_nav"
+                app:menu="@menu/main_nav_menu"
+                android:layout_alignParentBottom="true"
+                android:background="@color/bar_color" />
+
+    </RelativeLayout>
+</layout>

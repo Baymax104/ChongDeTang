@@ -14,6 +14,7 @@ import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.model.Collection;
 import com.cdtde.chongdetang.util.ExhibitCollectionAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,9 +44,7 @@ public class TabFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter(data);
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        binding.exhibitTabList.setLayoutManager(manager);
-        binding.exhibitTabList.setAdapter(adapter);
+        binding.tabList.setAdapter(adapter);
     }
 
     @Override

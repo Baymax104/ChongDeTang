@@ -44,8 +44,12 @@ public class IndexFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-
+        vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
+        binding.setLifecycleOwner(this);
         init();
+
+        binding.setCollectionAdapter(new IndexCollectionAdapter());
+        binding.setViewModel(vm);
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
@@ -60,10 +64,6 @@ public class IndexFragment extends Fragment {
             LocalImageInfo info = (LocalImageInfo) model;
             Glide.with(this).load(info.getXBannerUrl()).into(imageView);
         });
-
-        binding.setCollectionAdapter(new IndexCollectionAdapter());
-        binding.setViewModel(vm);
-
     }
 
     private void init() {
@@ -74,9 +74,6 @@ public class IndexFragment extends Fragment {
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
         binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
-
-        vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
-        binding.setLifecycleOwner(this);
     }
 
     @Override

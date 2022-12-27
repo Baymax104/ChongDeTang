@@ -20,8 +20,11 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
     private List<Fragment> fragments;
 
-    public FragmentAdapter(@NonNull FragmentActivity fragmentActivity, List<Fragment> fragments) {
+    public FragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+    }
+
+    public void setFragments(List<Fragment> fragments) {
         this.fragments = fragments;
     }
 

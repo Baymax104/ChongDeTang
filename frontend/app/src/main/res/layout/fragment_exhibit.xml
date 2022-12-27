@@ -1,67 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.ExhibitViewModel" />
+        <variable
+                name="tabAdapter"
+                type="com.cdtde.chongdetang.util.FragmentAdapter" />
+    </data>
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/exhibit_toolbar_layout"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:id="@+id/exhibit_toolbar"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
-            <TextView
+                android:id="@+id/toolbar_layout"
+                android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/exhibit_title"
-                    android:textSize="30sp"
-                    android:textColor="@color/black"
-                    android:gravity="start|center_vertical" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:id="@+id/toolbar"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-        </androidx.appcompat.widget.Toolbar>
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:src="@drawable/test_picture"
-                android:padding="10dp"
-                android:background="@color/white"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                tools:ignore="ContentDescription" />
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/exhibit_title"
+                        android:textSize="30sp"
+                        android:textColor="@color/black"
+                        android:gravity="start|center_vertical" />
 
-        <com.flyco.tablayout.CommonTabLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/exhibit_tabs"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:background="@color/white"
-                app:tl_iconVisible="false"
-                app:tl_indicator_margin_left="5dp"
-                app:tl_indicator_margin_right="5dp"
-                app:tl_indicator_style="BLOCK"
-                app:tl_textsize="14sp"
-                app:tl_textSelectColor="@color/white"
-                app:tl_textUnselectColor="@color/black"
-                app:tl_indicator_color="@color/main_color" />
-    </com.google.android.material.appbar.AppBarLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:src="@drawable/test_picture"
+                    android:padding="10dp"
+                    android:background="@color/white"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                    tools:ignore="ContentDescription" />
+
+            <com.flyco.tablayout.CommonTabLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/tabs"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@color/white"
+                    app:tl_iconVisible="false"
+                    app:tl_indicator_margin_left="5dp"
+                    app:tl_indicator_margin_right="5dp"
+                    app:tl_indicator_style="BLOCK"
+                    app:tl_textsize="14sp"
+                    app:tl_textSelectColor="@color/white"
+                    app:tl_textUnselectColor="@color/black"
+                    app:tl_indicator_color="@color/main_color"
+                    app:tabData="@{viewModel.tabs}"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/exhibit_tab_layout"
+                android:id="@+id/tab_layout"
                 android:background="@color/gray_5"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.viewpager2.widget.ViewPager2
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/exhibit_view_pager" />
+                    android:id="@+id/view_pager"
+                    fragmentAdapter="@{tabAdapter}"
+                    fragments="@{viewModel.tabFragments}" />
         </FrameLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

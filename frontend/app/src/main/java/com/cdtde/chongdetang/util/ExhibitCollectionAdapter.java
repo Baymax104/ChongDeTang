@@ -39,6 +39,7 @@ public class ExhibitCollectionAdapter extends RecyclerView.Adapter<ExhibitCollec
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Collection collection = data.get(position);
+        holder.binding.setCollection(collection);
     }
 
     @Override

@@ -1,7 +1,11 @@
 package com.cdtde.chongdetang.viewModel;
 
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.cdtde.chongdetang.util.SearchTagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +59,10 @@ public class SearchViewModel extends ViewModel {
         historyTags.setValue(value);
     }
 
-    public boolean isHistoryExist(String s) {
-        return Objects.requireNonNull(historyTags.getValue()).contains(s);
+    @BindingAdapter({"tagData"})
+    public static void setSearchTag(TagFlowLayout tagFlowLayout, List<String> data) {
+        SearchTagAdapter adapter = new SearchTagAdapter(data);
+        tagFlowLayout.setAdapter(adapter);
     }
 
     private void generateTest() {

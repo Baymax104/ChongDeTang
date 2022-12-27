@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -25,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(binding.getRoot());
+        binding.setLifecycleOwner(this);
         initView();
 
         binding.mainNav.setOnItemSelectedListener(item -> {
@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new ExhibitFragment());
         fragments.add(new ShopFragment());
         fragments.add(new MyFragment());
-        FragmentAdapter adapter = new FragmentAdapter(this, fragments);
-        binding.viewPager.setAdapter(adapter);
+        FragmentAdapter adapter = new FragmentAdapter(this);
+        binding.setFragmentAdapter(adapter);
+        binding.setFragments(fragments);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
