@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.controller.user.account;
+package com.cdtde.chongdetang.controller.account;
 
 import com.cdtde.chongdetang.service.user.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
