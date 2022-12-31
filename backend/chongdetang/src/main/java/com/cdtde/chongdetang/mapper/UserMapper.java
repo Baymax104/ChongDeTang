@@ -1,6 +1,6 @@
-package com.cdtde.chongdetang.dao;
+package com.cdtde.chongdetang.mapper;
 
-import com.cdtde.chongdetang.bean.User;
+import com.cdtde.chongdetang.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Select;
  * @Version 1
  */
 @Mapper
-public interface UserDao {
+public interface UserMapper {
     @Select("select * from user where id=#{id};")
     User getById(Integer id);
 }

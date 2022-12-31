@@ -1,6 +1,22 @@
 spring:
+  config:
+    import: application-info.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/chongdetang?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-    username: cdt
-    password: 123456
+    url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 20000
+      pool-prepared-statements: true
+      test-while-idle: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall
+      use-global-data-source-stat: true
+
+
+

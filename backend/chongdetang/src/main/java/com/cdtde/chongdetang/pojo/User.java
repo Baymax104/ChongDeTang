@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.bean;
+package com.cdtde.chongdetang.pojo;
 
 import lombok.Data;
 
@@ -11,6 +11,6 @@ import lombok.Data;
  */
 @Data
 public class User {
-    private int id;
+    private Integer id;
     private String name;
 }
