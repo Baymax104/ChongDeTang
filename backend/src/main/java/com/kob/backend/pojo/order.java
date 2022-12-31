@@ -9,13 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    @TableId(type = IdType.AUTO)
+public class order {
     private Integer id;
-    private String username;
-    private String password;
-    private String photo;
-//    private Integer rating;
-//    private String openid;
+    private Integer user_id;
+    private Integer product_id;
+    private Integer count;
 }
-

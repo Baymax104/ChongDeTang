@@ -2,7 +2,7 @@
 package com.kob.backend.config.filter;
 
 import com.kob.backend.mapper.UserMapper;
-import com.kob.backend.pojo.User;
+import com.kob.backend.pojo.user;
 import com.kob.backend.service.impl.utils.UserDetailsImpl;
 import com.kob.backend.utils.JwtUtil;
 //import com.sun.istack.internal.NotNull;
@@ -45,7 +45,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException(e);
         }
 
-        User user = userMapper.selectById(Integer.parseInt(userid));
+        user user = userMapper.selectById(Integer.parseInt(userid));
 
         if (user == null) {
             throw new RuntimeException("用户名未登录");

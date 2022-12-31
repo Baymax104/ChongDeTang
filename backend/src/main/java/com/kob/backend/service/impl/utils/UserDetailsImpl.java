@@ -1,6 +1,5 @@
 package com.kob.backend.service.impl.utils;
 
-import com.kob.backend.pojo.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private User user;
+    private com.kob.backend.pojo.user user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

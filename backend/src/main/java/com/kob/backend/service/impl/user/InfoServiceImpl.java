@@ -1,8 +1,7 @@
-package com.kob.backend.service.impl.user.account;
-
-import com.kob.backend.pojo.User;
+package com.kob.backend.service.impl.user;
+import com.kob.backend.pojo.user;
 import com.kob.backend.service.impl.utils.UserDetailsImpl;
-import com.kob.backend.service.user.account.InfoSerevice;
+import com.kob.backend.service.user.InfoSerevice;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,16 @@ public class InfoServiceImpl implements InfoSerevice {
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
-        User user = loginUser.getUser();
+        user user = loginUser.getUser();
 
         Map<String,String> map = new HashMap<>();
         map.put("error_message","success");
         map.put("id",user.getId().toString());
         map.put("username",user.getUsername());
         map.put("photo",user.getPhoto());
+        map.put("mail",user.getMail());
+        map.put("phone",user.getPhone());
+
         return map;
     }
 }

@@ -1,10 +1,11 @@
 package com.kob.backend.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kob.backend.pojo.order;
+
 import org.apache.ibatis.annotations.Mapper;
-import com.kob.backend.pojo.user;
 
 @Mapper
-public interface UserMapper extends BaseMapper<user> {
+public interface OrderMapper extends BaseMapper<order> {
 
 }
