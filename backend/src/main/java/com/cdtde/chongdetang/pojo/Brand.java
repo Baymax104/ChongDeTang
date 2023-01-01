@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class order {
+public class Brand {
     private Integer id;
-    private Integer user_id;
-    private Integer product_id;
-    private Integer count;
+    private String brand_name;
 }

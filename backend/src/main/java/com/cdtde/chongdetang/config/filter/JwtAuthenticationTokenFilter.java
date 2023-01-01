@@ -2,7 +2,7 @@
 package com.cdtde.chongdetang.config.filter;
 
 import com.cdtde.chongdetang.mapper.UserMapper;
-import com.cdtde.chongdetang.pojo.user;
+import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.impl.utils.UserDetailsImpl;
 import com.cdtde.chongdetang.utils.JwtUtil;
 //import com.sun.istack.internal.NotNull;
@@ -45,7 +45,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException(e);
         }
 
-        user user = userMapper.selectById(Integer.parseInt(userid));
+        User user = userMapper.selectById(Integer.parseInt(userid));
 
         if (user == null) {
             throw new RuntimeException("用户名未登录");

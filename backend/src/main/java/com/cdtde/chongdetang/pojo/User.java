@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class brand {
+public class User {
     private Integer id;
-    private String brand_name;
+    private String username;
+    private String password;
+    private String photo;
+    private String mail;
+    private String phone;
 }

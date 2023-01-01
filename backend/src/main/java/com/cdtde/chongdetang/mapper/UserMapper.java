@@ -2,9 +2,9 @@ package com.cdtde.chongdetang.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import com.cdtde.chongdetang.pojo.user;
+import com.cdtde.chongdetang.pojo.User;
 
 @Mapper
-public interface UserMapper extends BaseMapper<user> {
+public interface UserMapper extends BaseMapper<User> {
 
 }

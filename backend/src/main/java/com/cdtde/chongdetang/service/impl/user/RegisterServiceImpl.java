@@ -2,7 +2,7 @@ package com.cdtde.chongdetang.service.impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
-import com.cdtde.chongdetang.pojo.user;
+import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.user.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,9 +38,9 @@ public class RegisterServiceImpl implements RegisterService {
             return map;
         }
 
-        QueryWrapper<user> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username",username);
-        List<user> accounts = userMapper.selectList(queryWrapper);
+        List<User> accounts = userMapper.selectList(queryWrapper);
         if(!accounts.isEmpty()){
             map.put("error_message","用户名已存在");
             return map;
@@ -77,7 +77,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         String encodedPassword = passwordEncoder.encode(password);
         String photo = "https://cdn.acwing.com/media/user/profile/photo/167993_sm_58204cd6ee.jpg";
-        user user = new user(null,username,encodedPassword,photo,mail,phone);
+        User user = new User(null,username,encodedPassword,photo,mail,phone);
         userMapper.insert(user);
         map.put("error_message","success");
         return map;

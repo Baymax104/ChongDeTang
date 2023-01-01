@@ -1,11 +1,10 @@
 package com.cdtde.chongdetang.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cdtde.chongdetang.pojo.product;
-
+import com.cdtde.chongdetang.pojo.Product;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ProductMapper extends BaseMapper<product> {
+public interface ProductMapper extends BaseMapper<Product> {
 
 }

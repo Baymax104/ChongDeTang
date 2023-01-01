@@ -1,5 +1,5 @@
 package com.cdtde.chongdetang.service.impl.user;
-import com.cdtde.chongdetang.pojo.user;
+import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.impl.utils.UserDetailsImpl;
 import com.cdtde.chongdetang.service.user.InfoSerevice;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +16,7 @@ public class InfoServiceImpl implements InfoSerevice {
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
-        user user = loginUser.getUser();
+        User user = loginUser.getUser();
 
         Map<String,String> map = new HashMap<>();
         map.put("error_message","success");

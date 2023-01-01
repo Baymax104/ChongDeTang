@@ -1,5 +1,5 @@
 package com.cdtde.chongdetang.service.impl.user;
-import com.cdtde.chongdetang.pojo.user;
+import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.impl.utils.UserDetailsImpl;
 import com.cdtde.chongdetang.service.user.LoginService;
 import com.cdtde.chongdetang.utils.JwtUtil;
@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
         Authentication authenticate = authenticationManager.authenticate(auauthenticationToken);    //登陆失败会自动处理
 
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
-        user user = loginUser.getUser();
+        User user = loginUser.getUser();
         String jwt = JwtUtil.createJWT(user.getId().toString());
         Map<String,String> map = new HashMap<>();
         map.put("error_message","success");

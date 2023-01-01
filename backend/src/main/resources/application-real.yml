@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    username: cdt
+    password: 123456
+    url: jdbc:mysql://localhost:3306/chongdetang?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
