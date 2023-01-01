@@ -5,7 +5,6 @@ import com.cdtde.chongdetang.mapper.UserMapper;
 import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.impl.utils.UserDetailsImpl;
 import com.cdtde.chongdetang.utils.JwtUtil;
-//import com.sun.istack.internal.NotNull;
 import org.springframework.lang.Nullable;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;

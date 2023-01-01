@@ -20,9 +20,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Map<String, String> getToken(String username, String password) {
-        UsernamePasswordAuthenticationToken auauthenticationToken
+        UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(username,password);
-        Authentication authenticate = authenticationManager.authenticate(auauthenticationToken);    //登陆失败会自动处理
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);    //登陆失败会自动处理
 
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
         User user = loginUser.getUser();

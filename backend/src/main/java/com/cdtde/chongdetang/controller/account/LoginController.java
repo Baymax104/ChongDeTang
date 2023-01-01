@@ -13,7 +13,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/api/user/account/token/")   // 要记得在 config/filter/SecurityConfig.java里放开该网页
+    @PostMapping("/api/user/account/token/")
     public Map<String,String> getToken(@RequestParam Map<String,String> map){
         String username = map.get("username");
         String password = map.get("password");
