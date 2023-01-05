@@ -14,8 +14,8 @@ def register_test():
 
 def login_test():
     url = "http://localhost:3000/api/user/account/token/"
-    d = {"username": "clb",
-         "password": "clb030108"}
+    d = {"username": "baymax",
+         "password": "123456"}
 
     res = requests.post(url, d)
     print(res.reason)
@@ -35,4 +35,5 @@ def getinfo_test(token):
 
 
 if __name__ == '__main__':
-    getinfo_test(login_test())
+#     getinfo_test(login_test())
+    register_test()

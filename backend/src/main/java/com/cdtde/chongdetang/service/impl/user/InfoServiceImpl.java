@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class InfoServiceImpl implements InfoSerevice {
     @Override
-    public Map<String, String> getinfo() {
+    public Map<String, String> getInfo() {
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
