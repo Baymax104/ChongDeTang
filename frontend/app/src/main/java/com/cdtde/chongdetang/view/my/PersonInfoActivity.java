@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -30,6 +31,9 @@ import com.cdtde.chongdetang.util.BitmapUtils;
 import com.cdtde.chongdetang.util.CameraUtils;
 import com.cdtde.chongdetang.util.SPUtils;
 import com.cdtde.chongdetang.databinding.ActivityPersonBinding;
+import com.cdtde.chongdetang.view.MainActivity;
+import com.cdtde.chongdetang.viewModel.AddressViewModel;
+import com.cdtde.chongdetang.viewModel.PersonInfoViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -41,6 +45,7 @@ import java.util.Date;
 
 public class PersonInfoActivity extends AppCompatActivity {
     private ActivityPersonBinding binding;
+    private PersonInfoViewModel vm;
 
     //权限请求
     private RxPermissions rxPermissions;
@@ -76,12 +81,13 @@ public class PersonInfoActivity extends AppCompatActivity {
             .skipMemoryCache(true);//不做内存缓存
 
     //activity 结束后返回的信息
-    private String new_userIcon="none";
-    private String new_userName="none";
+//    private String new_userIcon="none";
+//    private String new_userName="none";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPersonBinding.inflate(getLayoutInflater());
+        vm = new ViewModelProvider(this).get(PersonInfoViewModel.class);
         View view = binding.getRoot();
         setContentView(view);
 
@@ -250,8 +256,8 @@ public class PersonInfoActivity extends AppCompatActivity {
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     //显示图片
-                    new_userIcon=outputImagePath.getAbsolutePath();
-                    displayImage(new_userIcon);
+                    vm.setNew_userIcon(outputImagePath.getAbsolutePath());
+                    displayImage(vm.getNew_userIcon());
                 }
 
                 break;
@@ -263,14 +269,14 @@ public class PersonInfoActivity extends AppCompatActivity {
                 break;
             case UCrop.REQUEST_CROP:
                 // 加载圆形图片
-                new_userIcon=UCrop.getOutput(data).toString();
-                Glide.with(this).load(new_userIcon).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(person_icon);
+                vm.setNew_userIcon(UCrop.getOutput(data).toString());
+                Glide.with(this).load(vm.getNew_userIcon()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(person_icon);
                 break;
             case NEW_NAME:
                 if (resultCode==1){
                     Bundle newbundle=data.getExtras();
-                    new_userName=newbundle.getString("new_name");
-                    binding.personNameTv.setText(new_userName);
+                    vm.setNew_userName(newbundle.getString("new_name"));
+                    binding.personNameTv.setText(vm.getNew_userName());
                 }
             default:
                 break;
@@ -319,8 +325,8 @@ public class PersonInfoActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             Bundle bundle=new Bundle();
-            bundle.putString("new_userIcon",new_userIcon);
-            bundle.putString("new_userName",new_userName);
+            bundle.putString("new_userIcon", vm.getNew_userIcon());
+            bundle.putString("new_userName",vm.getNew_userName());
             Intent intent=getIntent();
             intent.putExtras(bundle);
             intent.setClass(PersonInfoActivity.this, MyFragment.class);

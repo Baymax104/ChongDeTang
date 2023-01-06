@@ -9,26 +9,27 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.cdtde.chongdetang.model.Appointment;
+
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.util.AppointmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMyAppointmentBinding;
+import com.cdtde.chongdetang.viewModel.AppointmentViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AppointmentActivity extends AppCompatActivity {
     private ActivityMyAppointmentBinding binding;
-    private List<Appointment> dataList;
+    private AppointmentViewModel vm;
     private AppointmentAdapter adapter;
-//    private EditText input;
+    //    private EditText input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMyAppointmentBinding.inflate(getLayoutInflater());
+        vm = new ViewModelProvider(this).get(AppointmentViewModel.class);
         View view = binding.getRoot();
         setContentView(view);
         initViews();
@@ -38,14 +39,8 @@ public class AppointmentActivity extends AppCompatActivity {
 
     private void initList() {
 
-        dataList=new ArrayList<>();
-        //设置假数据
-        for (int i=0;i<5;i++){
-            Appointment tmp =new Appointment();
-            dataList.add(tmp);
-        }
         binding.myAppointmentAppointList.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new AppointmentAdapter(dataList);
+        adapter=new AppointmentAdapter(vm.getDataList());
         binding.myAppointmentAppointList.setAdapter(adapter);
     }
 

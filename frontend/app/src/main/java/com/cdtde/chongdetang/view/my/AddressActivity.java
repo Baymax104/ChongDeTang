@@ -10,18 +10,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cdtde.chongdetang.model.Address;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.util.AddressAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMyAddressBinding;
+import com.cdtde.chongdetang.viewModel.AddressViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressActivity extends AppCompatActivity {
     private ActivityMyAddressBinding binding;
+    private AddressViewModel vm;
 //    private RecyclerView addressList;
 
 
@@ -30,6 +33,7 @@ public class AddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMyAddressBinding.inflate(getLayoutInflater());
+        vm = new ViewModelProvider(this).get(AddressViewModel.class);
         View view = binding.getRoot();
         setContentView(view);
         initViews();
@@ -38,15 +42,9 @@ public class AddressActivity extends AppCompatActivity {
     }
 
     private void initRecylist() {
-        //地址list 设置适配器
-        List<Address> dataList = new ArrayList<>();
-        //设置假数据
-        for (int i=0;i<5;i++){
-            Address tmp =new Address();
-            dataList.add(tmp);
-        }
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
-        AddressAdapter adapter = new AddressAdapter(dataList);
+        AddressAdapter adapter = new AddressAdapter(vm.getDataList());
         binding.myAddressList.setAdapter(adapter);
         binding.myAddressList.setLayoutManager(manager);
     }

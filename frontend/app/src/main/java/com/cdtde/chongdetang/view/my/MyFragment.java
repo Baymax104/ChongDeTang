@@ -13,12 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
+import com.cdtde.chongdetang.viewModel.PersonInfoViewModel;
 
 /**
  * @Description
@@ -30,11 +32,13 @@ import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 public class MyFragment extends Fragment {
 
     private FragmentMyBinding binding;
+    private PersonInfoViewModel newVm;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMyBinding.inflate(inflater, container, false);
+        newVm = new ViewModelProvider(getActivity()).get(PersonInfoViewModel.class);
         return binding.getRoot();
     }
 
