@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scenes_nav_graph"
+    app:startDestination="@id/sceneFragment0_1">
+
+    <fragment
+        android:id="@+id/sceneFragment0_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment0_1"
+        android:label="fragment_scene0_1"
+        tools:layout="@layout/fragment_scene0_1" >
+        <action
+            android:id="@+id/action_sceneFragment0_1_to_sceneFragment0_2"
+            app:destination="@id/sceneFragment0_2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment0_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment0_2"
+        android:label="SceneFragment0_2"
+        tools:layout="@layout/fragment_scene0_2" >
+        <action
+            android:id="@+id/action_sceneFragment0_2_to_sceneFragment0_1"
+            app:destination="@id/sceneFragment0_1"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+        <action
+            android:id="@+id/action_sceneFragment0_2_to_sceneFragment0_3"
+            app:destination="@id/sceneFragment0_3"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment0_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment0_3"
+        android:label="SceneFragment0_3"
+        tools:layout="@layout/fragment_scene0_3" >
+        <action
+            android:id="@+id/action_sceneFragment0_3_to_sceneFragment0_2"
+            app:destination="@id/sceneFragment0_2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_sceneFragment0_3_to_sceneFragment1_1"
+            app:destination="@id/sceneFragment1_1" />
+        <action
+            android:id="@+id/action_sceneFragment0_3_to_sceneFragment2_1"
+            app:destination="@id/sceneFragment2_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment1_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment1_1"
+        android:label="fragment_scene1_1"
+        tools:layout="@layout/fragment_scene1_1" >
+        <action
+            android:id="@+id/action_sceneFragment1_1_to_sceneFragment0_3"
+            app:destination="@id/sceneFragment0_3" />
+        <action
+            android:id="@+id/action_sceneFragment1_1_to_sceneFragment1_2"
+            app:destination="@id/sceneFragment1_2" />
+        <action
+            android:id="@+id/action_sceneFragment1_1_to_sceneFragment1_3"
+            app:destination="@id/sceneFragment1_3" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment1_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment1_2"
+        android:label="fragment_scene1_2"
+        tools:layout="@layout/fragment_scene1_2" >
+        <action
+            android:id="@+id/action_sceneFragment1_2_to_sceneFragment1_3"
+            app:destination="@id/sceneFragment1_3" />
+        <action
+            android:id="@+id/action_sceneFragment1_2_to_sceneFragment1_1"
+            app:destination="@id/sceneFragment1_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment1_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment1_3"
+        android:label="fragment_scene1_3"
+        tools:layout="@layout/fragment_scene1_3" >
+        <action
+            android:id="@+id/action_sceneFragment1_3_to_sceneFragment1_2"
+            app:destination="@id/sceneFragment1_2" />
+        <action
+            android:id="@+id/action_sceneFragment1_3_to_sceneFragment1_1"
+            app:destination="@id/sceneFragment1_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_1"
+        android:label="fragment_scene2_1"
+        tools:layout="@layout/fragment_scene2_1" >
+        <action
+            android:id="@+id/action_sceneFragment2_1_to_sceneFragment0_3"
+            app:destination="@id/sceneFragment0_3" />
+        <action
+            android:id="@+id/action_sceneFragment2_1_to_sceneFragment1_1"
+            app:destination="@id/sceneFragment1_1" />
+        <action
+            android:id="@+id/action_sceneFragment2_1_to_sceneFragment2_2"
+            app:destination="@id/sceneFragment2_2" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_2"
+        android:label="fragment_scene2_2"
+        tools:layout="@layout/fragment_scene2_2" >
+        <action
+            android:id="@+id/action_sceneFragment2_2_to_sceneFragment2_1"
+            app:destination="@id/sceneFragment2_1" />
+        <action
+            android:id="@+id/action_sceneFragment2_2_to_sceneFragment2_8"
+            app:destination="@id/sceneFragment2_8" />
+        <action
+            android:id="@+id/action_sceneFragment2_2_to_sceneFragment2_3"
+            app:destination="@id/sceneFragment2_3" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_3"
+        android:label="fragment_scene2_3"
+        tools:layout="@layout/fragment_scene2_3" >
+        <action
+            android:id="@+id/action_sceneFragment2_3_to_sceneFragment2_2"
+            app:destination="@id/sceneFragment2_2" />
+        <action
+            android:id="@+id/action_sceneFragment2_3_to_sceneFragment2_4"
+            app:destination="@id/sceneFragment2_4" />
+        <action
+            android:id="@+id/action_sceneFragment2_3_to_sceneFragment2_5"
+            app:destination="@id/sceneFragment2_5" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_4"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_4"
+        android:label="fragment_scene2_4"
+        tools:layout="@layout/fragment_scene2_4" >
+        <action
+            android:id="@+id/action_sceneFragment2_4_to_sceneFragment2_3"
+            app:destination="@id/sceneFragment2_3" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_5"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_5"
+        android:label="fragment_scene2_5"
+        tools:layout="@layout/fragment_scene2_5" >
+        <action
+            android:id="@+id/action_sceneFragment2_5_to_sceneFragment2_6"
+            app:destination="@id/sceneFragment2_6" />
+        <action
+            android:id="@+id/action_sceneFragment2_5_to_sceneFragment2_3"
+            app:destination="@id/sceneFragment2_3" />
+        <action
+            android:id="@+id/action_sceneFragment2_5_to_sceneFragment3_1"
+            app:destination="@id/sceneFragment3_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_6"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_6"
+        android:label="fragment_scene2_6"
+        tools:layout="@layout/fragment_scene2_6" >
+        <action
+            android:id="@+id/action_sceneFragment2_6_to_sceneFragment2_5"
+            app:destination="@id/sceneFragment2_5" />
+        <action
+            android:id="@+id/action_sceneFragment2_6_to_sceneFragment2_7"
+            app:destination="@id/sceneFragment2_7" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_7"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_7"
+        android:label="fragment_scene2_7"
+        tools:layout="@layout/fragment_scene2_7" >
+        <action
+            android:id="@+id/action_sceneFragment2_7_to_sceneFragment2_6"
+            app:destination="@id/sceneFragment2_6" />
+        <action
+            android:id="@+id/action_sceneFragment2_7_to_sceneFragment2_8"
+            app:destination="@id/sceneFragment2_8" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment2_8"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_8"
+        android:label="fragment_scene2_8"
+        tools:layout="@layout/fragment_scene2_8" >
+        <action
+            android:id="@+id/action_sceneFragment2_8_to_sceneFragment2_2"
+            app:destination="@id/sceneFragment2_2" />
+        <action
+            android:id="@+id/action_sceneFragment2_8_to_sceneFragment2_7"
+            app:destination="@id/sceneFragment2_7" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_1"
+        android:label="fragment_scene3_1"
+        tools:layout="@layout/fragment_scene3_1" >
+        <action
+            android:id="@+id/action_sceneFragment3_1_to_sceneFragment2_5"
+            app:destination="@id/sceneFragment2_5" />
+        <action
+            android:id="@+id/action_sceneFragment3_1_to_sceneFragment3_2"
+            app:destination="@id/sceneFragment3_2" />
+        <action
+            android:id="@+id/action_sceneFragment3_1_to_sceneFragment3_8"
+            app:destination="@id/sceneFragment3_8" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_2"
+        android:label="fragment_scene3_2"
+        tools:layout="@layout/fragment_scene3_2" >
+        <action
+            android:id="@+id/action_sceneFragment3_2_to_sceneFragment3_1"
+            app:destination="@id/sceneFragment3_1" />
+        <action
+            android:id="@+id/action_sceneFragment3_2_to_sceneFragment3_3"
+            app:destination="@id/sceneFragment3_3" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_3"
+        android:label="fragment_scene3_3"
+        tools:layout="@layout/fragment_scene3_3" >
+        <action
+            android:id="@+id/action_sceneFragment3_3_to_sceneFragment3_2"
+            app:destination="@id/sceneFragment3_2" />
+        <action
+            android:id="@+id/action_sceneFragment3_3_to_sceneFragment3_4"
+            app:destination="@id/sceneFragment3_4" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_4"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_4"
+        android:label="fragment_scene3_4"
+        tools:layout="@layout/fragment_scene3_4" >
+        <action
+            android:id="@+id/action_sceneFragment3_4_to_sceneFragment3_3"
+            app:destination="@id/sceneFragment3_3" />
+        <action
+            android:id="@+id/action_sceneFragment3_4_to_sceneFragment3_5"
+            app:destination="@id/sceneFragment3_5" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_5"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_5"
+        android:label="fragment_scene3_5"
+        tools:layout="@layout/fragment_scene3_5" >
+        <action
+            android:id="@+id/action_sceneFragment3_5_to_sceneFragment3_6"
+            app:destination="@id/sceneFragment3_6" />
+        <action
+            android:id="@+id/action_sceneFragment3_5_to_sceneFragment3_4"
+            app:destination="@id/sceneFragment3_4" />
+        <action
+            android:id="@+id/action_sceneFragment3_5_to_sceneFragment4_1"
+            app:destination="@id/sceneFragment4_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_6"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_6"
+        android:label="fragment_scene3_6"
+        tools:layout="@layout/fragment_scene3_6" >
+        <action
+            android:id="@+id/action_sceneFragment3_6_to_sceneFragment3_5"
+            app:destination="@id/sceneFragment3_5" />
+        <action
+            android:id="@+id/action_sceneFragment3_6_to_sceneFragment3_7"
+            app:destination="@id/sceneFragment3_7" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_7"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_7"
+        android:label="fragment_scene3_7"
+        tools:layout="@layout/fragment_scene3_7" >
+        <action
+            android:id="@+id/action_sceneFragment3_7_to_sceneFragment3_6"
+            app:destination="@id/sceneFragment3_6" />
+        <action
+            android:id="@+id/action_sceneFragment3_7_to_sceneFragment3_8"
+            app:destination="@id/sceneFragment3_8" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment3_8"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_8"
+        android:label="fragment_scene3_8"
+        tools:layout="@layout/fragment_scene3_8" >
+        <action
+            android:id="@+id/action_sceneFragment3_8_to_sceneFragment3_7"
+            app:destination="@id/sceneFragment3_7" />
+        <action
+            android:id="@+id/action_sceneFragment3_8_to_sceneFragment3_1"
+            app:destination="@id/sceneFragment3_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_1"
+        android:label="fragment_scene4_1"
+        tools:layout="@layout/fragment_scene4_1" >
+        <action
+            android:id="@+id/action_sceneFragment4_1_to_sceneFragment4_2"
+            app:destination="@id/sceneFragment4_2" />
+        <action
+            android:id="@+id/action_sceneFragment4_1_to_sceneFragment3_5"
+            app:destination="@id/sceneFragment3_5" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_2"
+        android:label="fragment_scene4_2"
+        tools:layout="@layout/fragment_scene4_2" >
+        <action
+            android:id="@+id/action_sceneFragment4_2_to_sceneFragment4_1"
+            app:destination="@id/sceneFragment4_1" />
+        <action
+            android:id="@+id/action_sceneFragment4_2_to_sceneFragment4_3"
+            app:destination="@id/sceneFragment4_3" />
+        <action
+            android:id="@+id/action_sceneFragment4_2_to_sceneFragment4_7"
+            app:destination="@id/sceneFragment4_7" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_3"
+        android:label="fragment_scene4_3"
+        tools:layout="@layout/fragment_scene4_3" >
+        <action
+            android:id="@+id/action_sceneFragment4_3_to_sceneFragment4_2"
+            app:destination="@id/sceneFragment4_2" />
+        <action
+            android:id="@+id/action_sceneFragment4_3_to_sceneFragment4_4"
+            app:destination="@id/sceneFragment4_4" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_4"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_4"
+        android:label="fragment_scene4_4"
+        tools:layout="@layout/fragment_scene4_4" >
+        <action
+            android:id="@+id/action_sceneFragment4_4_to_sceneFragment4_3"
+            app:destination="@id/sceneFragment4_3" />
+        <action
+            android:id="@+id/action_sceneFragment4_4_to_sceneFragment4_5"
+            app:destination="@id/sceneFragment4_5" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_5"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_5"
+        android:label="fragment_scene4_5"
+        tools:layout="@layout/fragment_scene4_5" >
+        <action
+            android:id="@+id/action_sceneFragment4_5_to_sceneFragment4_4"
+            app:destination="@id/sceneFragment4_4" />
+        <action
+            android:id="@+id/action_sceneFragment4_5_to_sceneFragment4_6"
+            app:destination="@id/sceneFragment4_6" />
+        <action
+            android:id="@+id/action_sceneFragment4_5_to_sceneFragment5_1"
+            app:destination="@id/sceneFragment5_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_6"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_6"
+        android:label="fragment_scene4_6"
+        tools:layout="@layout/fragment_scene4_6" >
+        <action
+            android:id="@+id/action_sceneFragment4_6_to_sceneFragment4_5"
+            app:destination="@id/sceneFragment4_5" />
+        <action
+            android:id="@+id/action_sceneFragment4_6_to_sceneFragment4_7"
+            app:destination="@id/sceneFragment4_7" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment4_7"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_7"
+        android:label="fragment_scene4_7"
+        tools:layout="@layout/fragment_scene4_7" >
+        <action
+            android:id="@+id/action_sceneFragment4_7_to_sceneFragment4_6"
+            app:destination="@id/sceneFragment4_6" />
+        <action
+            android:id="@+id/action_sceneFragment4_7_to_sceneFragment4_2"
+            app:destination="@id/sceneFragment4_2" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment5_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_1"
+        android:label="fragment_scene5_1"
+        tools:layout="@layout/fragment_scene5_1" >
+        <action
+            android:id="@+id/action_sceneFragment5_1_to_sceneFragment4_5"
+            app:destination="@id/sceneFragment4_5" />
+        <action
+            android:id="@+id/action_sceneFragment5_1_to_sceneFragment5_2"
+            app:destination="@id/sceneFragment5_2" />
+        <action
+            android:id="@+id/action_sceneFragment5_1_to_sceneFragment5_6"
+            app:destination="@id/sceneFragment5_6" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment5_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_2"
+        android:label="fragment_scene5_2"
+        tools:layout="@layout/fragment_scene5_2" >
+        <action
+            android:id="@+id/action_sceneFragment5_2_to_sceneFragment5_1"
+            app:destination="@id/sceneFragment5_1" />
+        <action
+            android:id="@+id/action_sceneFragment5_2_to_sceneFragment5_3"
+            app:destination="@id/sceneFragment5_3" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment5_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_3"
+        android:label="fragment_scene5_3"
+        tools:layout="@layout/fragment_scene5_3" >
+        <action
+            android:id="@+id/action_sceneFragment5_3_to_sceneFragment5_2"
+            app:destination="@id/sceneFragment5_2" />
+        <action
+            android:id="@+id/action_sceneFragment5_3_to_sceneFragment5_4"
+            app:destination="@id/sceneFragment5_4" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment5_4"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_4"
+        android:label="fragment_scene5_4"
+        tools:layout="@layout/fragment_scene5_4" >
+        <action
+            android:id="@+id/action_sceneFragment5_4_to_sceneFragment5_3"
+            app:destination="@id/sceneFragment5_3" />
+        <action
+            android:id="@+id/action_sceneFragment5_4_to_sceneFragment5_5"
+            app:destination="@id/sceneFragment5_5" />
+        <action
+            android:id="@+id/action_sceneFragment5_4_to_sceneFragment6_1"
+            app:destination="@id/sceneFragment6_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment5_5"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_5"
+        android:label="fragment_scene5_5"
+        tools:layout="@layout/fragment_scene5_5" >
+        <action
+            android:id="@+id/action_sceneFragment5_5_to_sceneFragment5_4"
+            app:destination="@id/sceneFragment5_4" />
+        <action
+            android:id="@+id/action_sceneFragment5_5_to_sceneFragment5_6"
+            app:destination="@id/sceneFragment5_6" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment5_6"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_6"
+        android:label="fragment_scene5_6"
+        tools:layout="@layout/fragment_scene5_6" >
+        <action
+            android:id="@+id/action_sceneFragment5_6_to_sceneFragment5_5"
+            app:destination="@id/sceneFragment5_5" />
+        <action
+            android:id="@+id/action_sceneFragment5_6_to_sceneFragment5_1"
+            app:destination="@id/sceneFragment5_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_1"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_1"
+        android:label="fragment_scene6_1"
+        tools:layout="@layout/fragment_scene6_1" >
+        <action
+            android:id="@+id/action_sceneFragment6_1_to_sceneFragment6_2"
+            app:destination="@id/sceneFragment6_2" />
+        <action
+            android:id="@+id/action_sceneFragment6_1_to_sceneFragment6_6"
+            app:destination="@id/sceneFragment6_6" />
+        <action
+            android:id="@+id/action_sceneFragment6_1_to_sceneFragment6_9"
+            app:destination="@id/sceneFragment6_9" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_2"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_2"
+        android:label="fragment_scene6_2"
+        tools:layout="@layout/fragment_scene6_2" >
+        <action
+            android:id="@+id/action_sceneFragment6_2_to_sceneFragment6_1"
+            app:destination="@id/sceneFragment6_1" />
+        <action
+            android:id="@+id/action_sceneFragment6_2_to_sceneFragment6_3"
+            app:destination="@id/sceneFragment6_3" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_3"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_3"
+        android:label="fragment_scene6_3"
+        tools:layout="@layout/fragment_scene6_3" >
+        <action
+            android:id="@+id/action_sceneFragment6_3_to_sceneFragment6_4"
+            app:destination="@id/sceneFragment6_4" />
+        <action
+            android:id="@+id/action_sceneFragment6_3_to_sceneFragment6_2"
+            app:destination="@id/sceneFragment6_2" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_4"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_4"
+        android:label="fragment_scene6_4"
+        tools:layout="@layout/fragment_scene6_4" >
+        <action
+            android:id="@+id/action_sceneFragment6_4_to_sceneFragment6_3"
+            app:destination="@id/sceneFragment6_3" />
+        <action
+            android:id="@+id/action_sceneFragment6_4_to_sceneFragment6_5"
+            app:destination="@id/sceneFragment6_5" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_5"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_5"
+        android:label="fragment_scene6_5"
+        tools:layout="@layout/fragment_scene6_5" >
+        <action
+            android:id="@+id/action_sceneFragment6_5_to_sceneFragment6_6"
+            app:destination="@id/sceneFragment6_6" />
+        <action
+            android:id="@+id/action_sceneFragment6_5_to_sceneFragment6_4"
+            app:destination="@id/sceneFragment6_4" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_6"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_6"
+        android:label="fragment_scene6_6"
+        tools:layout="@layout/fragment_scene6_6" >
+        <action
+            android:id="@+id/action_sceneFragment6_6_to_sceneFragment6_5"
+            app:destination="@id/sceneFragment6_5" />
+        <action
+            android:id="@+id/action_sceneFragment6_6_to_sceneFragment6_7"
+            app:destination="@id/sceneFragment6_7" />
+        <action
+            android:id="@+id/action_sceneFragment6_6_to_sceneFragment6_1"
+            app:destination="@id/sceneFragment6_1" />
+        <action
+            android:id="@+id/action_sceneFragment6_6_to_sceneFragment5_4"
+            app:destination="@id/sceneFragment5_4" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_7"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_7"
+        android:label="fragment_scene6_7"
+        tools:layout="@layout/fragment_scene6_7" >
+        <action
+            android:id="@+id/action_sceneFragment6_7_to_sceneFragment6_6"
+            app:destination="@id/sceneFragment6_6" />
+        <action
+            android:id="@+id/action_sceneFragment6_7_to_sceneFragment6_8"
+            app:destination="@id/sceneFragment6_8" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_8"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_8"
+        android:label="fragment_scene6_8"
+        tools:layout="@layout/fragment_scene6_8" >
+        <action
+            android:id="@+id/action_sceneFragment6_8_to_sceneFragment6_7"
+            app:destination="@id/sceneFragment6_7" />
+        <action
+            android:id="@+id/action_sceneFragment6_8_to_sceneFragment6_9"
+            app:destination="@id/sceneFragment6_9" />
+    </fragment>
+    <fragment
+        android:id="@+id/sceneFragment6_9"
+        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_9"
+        android:label="fragment_scene6_9"
+        tools:layout="@layout/fragment_scene6_9" >
+        <action
+            android:id="@+id/action_sceneFragment6_9_to_sceneFragment6_8"
+            app:destination="@id/sceneFragment6_8" />
+        <action
+            android:id="@+id/action_sceneFragment6_9_to_sceneFragment6_1"
+            app:destination="@id/sceneFragment6_1" />
+    </fragment>
+
+
+</navigation>

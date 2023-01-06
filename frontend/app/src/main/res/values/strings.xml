@@ -31,4 +31,6 @@
     <string name="all">全部</string>
     <string name="index_moment">展馆动态</string>
     <string name="index_info">行业资讯</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

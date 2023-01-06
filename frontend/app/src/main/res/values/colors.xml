@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="main_color">#bd1b21</color>
     <color name="main_variant_color">#FF3333</color>
     <color name="second_color">#CC6633</color>
@@ -12,4 +12,6 @@
     <color name="gray_3">#e0e0e0</color>
     <color name="gray_4">#e9e9e9</color>
     <color name="gray_5">#ebebeb</color>
+    <color name="fab_back" tools:ignore="MissingDefaultResource">#B4D1CA94</color>
+
 </resources>

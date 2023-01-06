@@ -64,6 +64,10 @@ public class IndexFragment extends Fragment {
             LocalImageInfo info = (LocalImageInfo) model;
             Glide.with(this).load(info.getXBannerUrl()).into(imageView);
         });
+
+        binding.entry1.getRoot().setOnClickListener(v -> {
+            ScenesActivity.actionStart(getContext());
+        });
     }
 
     private void init() {
@@ -75,6 +79,7 @@ public class IndexFragment extends Fragment {
         WindowInsets insets = decorView.getRootWindowInsets();
         binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
     }
+
 
     @Override
     public void onDestroyView() {
