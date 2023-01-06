@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.util.AppointmentAdapter;
+import com.cdtde.chongdetang.util.adapter.AppointmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMyAppointmentBinding;
 import com.cdtde.chongdetang.viewModel.AppointmentViewModel;
 

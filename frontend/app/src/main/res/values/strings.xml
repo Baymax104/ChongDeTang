@@ -31,4 +31,13 @@
     <string name="all">全部</string>
     <string name="index_moment">展馆动态</string>
     <string name="index_info">行业资讯</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_shopping">购物车</string>
+    <string name="address">收货地址</string>
+    <string name="notice">消息通知</string>
+    <string name="appointment">我的预约</string>
+    <string name="collection">我的收藏</string>
+    <string name="feedback">意见反馈</string>
+    <string name="settings">设置</string>
+    <string name="person_data">个人资料</string>
 </resources>

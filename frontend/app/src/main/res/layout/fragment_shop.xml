@@ -20,9 +20,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/shop_title"
-                    android:textSize="25sp"
-                    android:textColor="@color/black"
-                    android:gravity="start" />
+                    style="@style/ToolbarTitleStyle" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 </LinearLayout>

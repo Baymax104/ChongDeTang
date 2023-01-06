@@ -14,6 +14,7 @@
             android:text="@{content}"
             android:padding="5dp"
             android:background="@drawable/search_tag_bg"
+            android:fontFamily="@font/text_regular"
             android:layout_margin="5dp">
 
     </TextView>

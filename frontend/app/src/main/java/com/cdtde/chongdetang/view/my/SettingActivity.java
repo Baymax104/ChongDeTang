@@ -31,24 +31,24 @@ public class SettingActivity extends AppCompatActivity {
 
     private void setListener() {
 
-        binding.setData.setOnClickListener(v -> {
+        binding.dataEntry.setOnClickListener(v -> {
             Toast.makeText(this, "个人资料", Toast.LENGTH_SHORT).show();
             PersonInfoActivity.actionStart(this);
         });
-        binding.setPassword.setOnClickListener(v -> {
+        binding.passwordEntry.setOnClickListener(v -> {
             Toast.makeText(this, "修改密码", Toast.LENGTH_SHORT).show();
             NewPasswordActivity.actionStart(this);
         });
-        binding.setPhone.setOnClickListener(v -> {
+        binding.phoneEntry.setOnClickListener(v -> {
             Toast.makeText(this, "更换绑定手机号", Toast.LENGTH_SHORT).show();
             NewPhoneActivity.actionStart(this);
         });
-        binding.logoff.setOnClickListener(v -> {
+        binding.logoffEntry.setOnClickListener(v -> {
             Toast.makeText(this, "注销账号", Toast.LENGTH_SHORT).show();
             reconfirm();
         });
-        binding.copyright.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
-        binding.version.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
+        binding.copyrightEntry.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
+        binding.versionEntry.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
         binding.setQuitBtn.setOnClickListener(v -> {
             Toast.makeText(this, "退出登录", Toast.LENGTH_SHORT).show();
             finish();

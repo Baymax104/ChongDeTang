@@ -4,12 +4,11 @@ import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cdtde.chongdetang.util.SearchTagAdapter;
+import com.cdtde.chongdetang.util.adapter.SearchTagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Description

@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="fragmentAdapter"
-                type="com.cdtde.chongdetang.util.FragmentAdapter" />
+                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
         <variable
                 name="fragments"
                 type="java.util.List&lt;androidx.fragment.app.Fragment>" />

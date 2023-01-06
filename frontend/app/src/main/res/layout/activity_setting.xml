@@ -21,246 +21,216 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="设置"
-                    android:gravity="center" />
+                    style="@style/CommonToolbarTitleStyle"
+                    android:text="@string/settings" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            tools:ignore="ContentDescription,RelativeOverlap">
 
-        <LinearLayout
-                android:id="@+id/set_data"
+        <RelativeLayout
+                android:id="@+id/data_entry"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:layout_alignParentTop="true">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/set_ziliao"
-                    android:layout_marginLeft="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="个人资料" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginRight="10dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/set_password"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
-
-            <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/set_mima"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/person_data"
+                    android:id="@+id/data_icon"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/data_icon"
                     android:layout_marginStart="10dp"
-                    android:textSize="20dp"
-                    android:text="修改密码" />
+                    android:text="@string/person_data"
+                    style="@style/EntryTextStyle"/>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/set_phone"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/set_shouji"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/password_entry"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/data_entry">
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/password"
+                    android:id="@+id/password_icon"
+                    android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="更换手机号" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/logoff"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/password_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="修改密码"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/set_zhuxiao"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/arrow_right"
+                    android:layout_marginEnd="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/phone_entry"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/password_entry">
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/phone"
+                    android:id="@+id/phone_icon"
+                    android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="注销账号" />
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/phone_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="更换手机号"
+                    style="@style/EntryTextStyle"/>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/copyright"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/set_banquan"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/arrow_right"
+                    android:layout_marginEnd="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/logoff_entry"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/phone_entry">
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/logoff"
+                    android:id="@+id/logoff_icon"
+                    android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="版权声明" />
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/logoff_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="注销账号"
+                    style="@style/EntryTextStyle"/>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/version"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
 
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/set_banben"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/arrow_right"
+                    android:layout_marginEnd="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/copyright_entry"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/logoff_entry">
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/copyright"
+                    android:id="@+id/copyright_icon"
+                    android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="当前版本" />
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/copyright_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="版权声明"
+                    style="@style/EntryTextStyle"/>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
 
-                <TextView
-                        android:id="@+id/set_version_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="当前版本v1.0.0"
-                        android:layout_gravity="center" />
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/arrow_right"
+                    android:layout_marginEnd="10dp" />
 
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginRight="10dp" />
+        </RelativeLayout>
 
-            </LinearLayout>
+        <RelativeLayout
+                android:id="@+id/version_entry"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/copyright_entry">
 
-        </LinearLayout>
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/version_icon"
+                    android:src="@drawable/version"
+                    android:layout_marginStart="10dp" />
 
-    </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/version_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="当前版本"
+                    style="@style/EntryTextStyle"/>
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:layout_gravity="center">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:text="当前版本v1.0.0" />
+
+        </RelativeLayout>
 
         <Button
                 android:id="@+id/set_quit_btn"
@@ -269,9 +239,10 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_bg"
                 android:text="退出登录"
-                android:textSize="30sp" />
-
-    </LinearLayout>
-
+                android:textSize="25sp"
+                android:fontFamily="@font/regular"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
 </LinearLayout>

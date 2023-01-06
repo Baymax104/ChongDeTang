@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="RelativeOverlap,ContentDescription">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -22,9 +23,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/my_title"
-                    android:textSize="25sp"
-                    android:textColor="@color/black"
-                    android:gravity="start" />
+                    style="@style/ToolbarTitleStyle"/>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -70,24 +69,24 @@
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/my_yuyue"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/appointment"
                     android:layout_marginStart="10dp"
                     android:id="@+id/my_appointment_icon" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_appointment_icon"
-                    android:textSize="17sp"
-                    android:text="我的预约" />
+                    android:text="@string/appointment"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp" />
@@ -96,67 +95,66 @@
         <RelativeLayout
                 android:id="@+id/my_collection"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
+                android:layout_height="40dp">
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:id="@+id/my_collection_icon"
-                    android:src="@drawable/my_shoucang"
+                    android:src="@drawable/collection"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_collection_icon"
-                    android:textSize="17sp"
-                    android:text="我的收藏" />
+                    android:text="@string/collection"
+                    android:layout_centerVertical="true"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/arrow_right"
                     android:layout_marginEnd="10dp" />
 
         </RelativeLayout>
 
-        <Space
+        <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp" />
+                android:layout_height="8dp"
+                android:background="@color/gray_4"/>
 
         <RelativeLayout
                 android:id="@+id/my_shopping"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
+                android:layout_height="40dp">
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:id="@+id/my_shopping_icon"
-                    android:src="@drawable/my_gouwuche"
+                    android:src="@drawable/shopping"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_shopping_icon"
-                    android:textSize="17sp"
-                    android:text="我的购物车" />
+                    android:text="@string/my_shopping"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp" />
@@ -166,30 +164,29 @@
         <RelativeLayout
                 android:id="@+id/my_order"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
+                android:layout_height="40dp">
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:id="@+id/my_order_icon"
-                    android:src="@drawable/my_dingdan"
+                    android:src="@drawable/order"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_order_icon"
-                    android:textSize="17sp"
-                    android:text="我的订单" />
+                    android:text="@string/my_order"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp" />
@@ -199,67 +196,66 @@
         <RelativeLayout
                 android:id="@+id/my_address"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
+                android:layout_height="40dp">
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/my_dizhi"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/address"
                     android:id="@+id/my_address_icon"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_address_icon"
-                    android:textSize="17sp"
-                    android:text="收货地址" />
+                    android:text="@string/address"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 
-        <Space
+        <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp" />
+                android:layout_height="8dp"
+                android:background="@color/gray_4"/>
 
         <RelativeLayout
                 android:id="@+id/my_notice"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
+                android:layout_height="40dp">
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:id="@+id/my_notice_icon"
-                    android:src="@drawable/my_xiaoxi"
+                    android:src="@drawable/notice"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/my_notice_icon"
                     android:layout_marginStart="10dp"
-                    android:textSize="17sp"
-                    android:text="消息通知" />
+                    android:text="@string/notice"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp" />
@@ -269,38 +265,34 @@
         <RelativeLayout
                 android:id="@+id/my_feedback"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
+                android:layout_height="40dp">
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:id="@+id/my_feedback_icon"
-                    android:src="@drawable/my_fankui"
+                    android:src="@drawable/feedback"
                     android:layout_marginStart="10dp" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/my_feedback_icon"
-                    android:textSize="17sp"
-                    android:text="意见反馈" />
+                    android:text="@string/feedback"
+                    style="@style/EntryTextStyle"/>
 
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/arrow_right"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
-
-
     </LinearLayout>
-
 
 </LinearLayout>

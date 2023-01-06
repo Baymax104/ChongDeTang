@@ -29,6 +29,7 @@
                 android:text="@{title}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:gravity="center_horizontal" />
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/regular"/>
     </LinearLayout>
 </layout>

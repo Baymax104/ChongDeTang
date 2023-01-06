@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
-import com.cdtde.chongdetang.util.IndexCollectionAdapter;
+import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.IndexViewModel;
 import com.stx.xhb.androidx.entity.LocalImageInfo;

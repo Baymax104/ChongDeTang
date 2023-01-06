@@ -15,7 +15,8 @@
             android:layout_height="match_parent"
             tools:context=".view.SearchActivity"
             android:orientation="vertical"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            tools:ignore="ContentDescription,RelativeOverlap">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -51,7 +52,6 @@
                                 android:src="@drawable/search"
                                 android:layout_marginStart="8dp"
                                 android:id="@+id/search_icon"
-                                tools:ignore="ContentDescription"
                                 android:layout_alignParentStart="true" />
 
                         <EditText
@@ -61,15 +61,14 @@
                                 android:inputType="text"
                                 android:autofillHints="no"
                                 android:hint="@string/search_hint"
+                                android:fontFamily="@font/text_regular"
                                 android:background="#00ffffff"
-                                android:id="@+id/search_edit"
-                                tools:ignore="TouchTargetSizeCheck" />
+                                android:id="@+id/search_edit" />
 
                         <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/clean_button"
-                                tools:ignore="ContentDescription"
                                 android:layout_marginEnd="10dp"
                                 android:layout_alignParentEnd="true"
                                 android:id="@+id/clean_btn"
@@ -84,6 +83,7 @@
                             android:textColor="@color/main_color"
                             android:textSize="16sp"
                             android:gravity="center"
+                            android:fontFamily="@font/text_regular"
                             android:layout_marginStart="10dp"
                             android:id="@+id/search_btn" />
                 </LinearLayout>
@@ -96,15 +96,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/history_label"
+                android:paddingHorizontal="15dp"
                 android:visibility="@{viewModel.historyTags.size()==0 ? View.GONE : View.VISIBLE}">
 
             <TextView
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
+                    style="@style/SearchLabelStyle"
                     android:text="@string/search_history"
-                    android:textColor="@color/black"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="15dp"
                     android:layout_alignParentStart="true" />
 
             <ImageView
@@ -112,9 +109,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/delete"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15dp"
                     android:id="@+id/delete_btn"
-                    tools:ignore="ContentDescription"
                     android:onClick="@{()->viewModel.clearTag()}"/>
         </RelativeLayout>
 
@@ -129,11 +124,8 @@
 
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                style="@style/SearchLabelStyle"
                 android:text="@string/search_collection"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
                 android:layout_marginStart="15dp" />
 
         <com.zhy.view.flowlayout.TagFlowLayout
@@ -146,11 +138,8 @@
 
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                style="@style/SearchLabelStyle"
                 android:text="@string/search_product"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
                 android:layout_marginStart="15dp" />
 
         <com.zhy.view.flowlayout.TagFlowLayout

@@ -13,14 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.cdtde.chongdetang.model.Address;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.util.AddressAdapter;
+import com.cdtde.chongdetang.util.adapter.AddressAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMyAddressBinding;
 import com.cdtde.chongdetang.viewModel.AddressViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddressActivity extends AppCompatActivity {
     private ActivityMyAddressBinding binding;

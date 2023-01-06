@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.cdtde.chongdetang.model.Collection;
 import com.cdtde.chongdetang.model.ExhibitTab;
-import com.cdtde.chongdetang.util.FragmentAdapter;
+import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.view.exhibit.TabFragment;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;

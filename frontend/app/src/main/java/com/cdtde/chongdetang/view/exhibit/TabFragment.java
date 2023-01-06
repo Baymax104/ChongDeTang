@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.model.Collection;
-import com.cdtde.chongdetang.util.ExhibitCollectionAdapter;
+import com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

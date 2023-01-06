@@ -7,7 +7,7 @@
     <data>
         <variable
                 name="collectionAdapter"
-                type="com.cdtde.chongdetang.util.IndexCollectionAdapter" />
+                type="com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter" />
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.IndexViewModel" />
@@ -16,7 +16,8 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ContentDescription">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -29,11 +30,12 @@
                     android:background="@color/bar_color"
                     android:id="@+id/toolbar">
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="首页logo"
-                        android:gravity="center" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:src="@drawable/logo_title"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -125,12 +127,8 @@
                         android:layout_marginTop="15dp">
 
                     <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
+                            style="@style/IndexLabelStyle"
                             android:text="@string/search_collection"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
                             android:layout_marginStart="10dp"
                             android:layout_alignParentStart="true" />
 
@@ -139,6 +137,7 @@
                             android:layout_height="match_parent"
                             android:text="@string/all"
                             android:textSize="16sp"
+                            android:fontFamily="@font/text_regular"
                             android:gravity="center_vertical|end"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="10dp"
@@ -166,12 +165,8 @@
                         android:layout_height="35dp">
 
                     <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
+                            style="@style/IndexLabelStyle"
                             android:text="@string/index_moment"
-                            android:gravity="center_vertical|start"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
                             android:layout_marginStart="10dp"
                             android:layout_alignParentStart="true" />
 
@@ -180,6 +175,7 @@
                             android:layout_height="match_parent"
                             android:text="@string/all"
                             android:textSize="16sp"
+                            android:fontFamily="@font/text_regular"
                             android:gravity="center_vertical|end"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="10dp"
@@ -194,12 +190,8 @@
                         android:layout_marginTop="10dp">
 
                     <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
+                            style="@style/IndexLabelStyle"
                             android:text="@string/index_info"
-                            android:gravity="center_vertical|start"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
                             android:layout_marginStart="10dp"
                             android:layout_alignParentStart="true" />
 
@@ -208,6 +200,7 @@
                             android:layout_height="match_parent"
                             android:text="@string/all"
                             android:textSize="16sp"
+                            android:fontFamily="@font/text_regular"
                             android:gravity="center_vertical|end"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="10dp"

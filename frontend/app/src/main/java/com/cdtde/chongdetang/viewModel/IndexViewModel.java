@@ -7,13 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.model.Collection;
-import com.cdtde.chongdetang.util.IndexCollectionAdapter;
+import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.stx.xhb.androidx.XBanner;
 import com.stx.xhb.androidx.entity.LocalImageInfo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
