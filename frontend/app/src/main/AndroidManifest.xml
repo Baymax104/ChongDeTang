@@ -24,6 +24,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
+        <activity android:name="com.cdtde.chongdetang.view.index.ScenesActivity" />
         <activity android:name=".view.my.SettingActivity"/>
         <activity android:name=".view.my.FeedbackActivity"/>
         <activity android:name=".view.my.PersonInfoActivity"/>
