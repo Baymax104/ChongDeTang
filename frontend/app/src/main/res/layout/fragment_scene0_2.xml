@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/fab_back"
-    tools:context=".view.index.Scenes.SceneFragment0_2">
+    tools:context=".view.index.Scenes.SceneFragment0_2"
+        tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/scene_img0_2"
@@ -28,14 +29,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.978"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+            android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/scene_fab0_2_locate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="@drawable/my_dizhi"
+        android:src="@drawable/address"
         app:backgroundTint="@color/fab_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +45,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.681"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+            android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
