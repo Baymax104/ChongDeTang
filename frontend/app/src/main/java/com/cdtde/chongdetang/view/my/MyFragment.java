@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -38,7 +40,11 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMyBinding.inflate(inflater, container, false);
-        newVm = new ViewModelProvider(getActivity()).get(PersonInfoViewModel.class);
+        binding.myToolbar.inflateMenu(R.menu.my_toolbar_menu);
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        View decorView = activity.getWindow().getDecorView();
+        WindowInsets insets = decorView.getRootWindowInsets();
+        binding.myToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
         return binding.getRoot();
     }
 
@@ -46,8 +52,8 @@ public class MyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+        newVm = new ViewModelProvider(requireActivity()).get(PersonInfoViewModel.class);
 
-        initView();
 
         binding.myToolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
@@ -85,14 +91,6 @@ public class MyFragment extends Fragment {
         binding.myFeedback.setOnClickListener(v -> {
             FeedbackActivity.actionStart(getContext());
         });
-    }
-
-    private void initView() {
-        binding.myToolbar.inflateMenu(R.menu.my_toolbar_menu);
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        View decorView = activity.getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        binding.myToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
     }
 
     @Override

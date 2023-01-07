@@ -14,14 +14,14 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="ContentDescription">
 
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/toolbar_layout"
-                android:fitsSystemWindows="true">
+                android:id="@+id/toolbar_layout">
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -32,7 +32,7 @@
 
                 <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="35dp"
                         android:text="@string/exhibit_title"
                         style="@style/ToolbarTitleStyle" />
 
@@ -44,8 +44,7 @@
                     android:src="@drawable/test_picture"
                     android:padding="10dp"
                     android:background="@color/white"
-                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                    tools:ignore="ContentDescription" />
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
 
             <com.flyco.tablayout.CommonTabLayout
                     android:layout_width="match_parent"

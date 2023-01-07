@@ -2,6 +2,8 @@ package com.cdtde.chongdetang.view.shop;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -29,6 +31,11 @@ public class ShopFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentShopBinding.inflate(inflater, container, false);
+        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        View decorView = activity.getWindow().getDecorView();
+        WindowInsets insets = decorView.getRootWindowInsets();
+        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
         return binding.getRoot();
     }
 
@@ -37,15 +44,6 @@ public class ShopFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        initView();
-    }
-
-    private void initView() {
-        binding.shopToolbar.inflateMenu(R.menu.index_toolbar_menu);
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        View decorView = activity.getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        binding.shopToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
     }
 
     @Override

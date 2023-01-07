@@ -2,6 +2,8 @@ package com.cdtde.chongdetang.view.index;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -37,6 +40,12 @@ public class IndexFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentIndexBinding.inflate(inflater, container, false);
+        // 初始化ToolBar
+        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        View decorView = activity.getWindow().getDecorView();
+        WindowInsets insets = decorView.getRootWindowInsets();
+        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
         return binding.getRoot();
     }
 
@@ -46,7 +55,6 @@ public class IndexFragment extends Fragment {
         setHasOptionsMenu(true);
         vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
         binding.setLifecycleOwner(this);
-        init();
 
         binding.setCollectionAdapter(new IndexCollectionAdapter());
         binding.setViewModel(vm);
@@ -69,17 +77,6 @@ public class IndexFragment extends Fragment {
             ScenesActivity.actionStart(getContext());
         });
     }
-
-    private void init() {
-        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
-
-        // 设置toolbar适应状态栏
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        View decorView = activity.getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
-    }
-
 
     @Override
     public void onDestroyView() {

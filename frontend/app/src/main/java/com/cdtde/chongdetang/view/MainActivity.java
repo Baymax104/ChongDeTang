@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.viewPager.setUserInputEnabled(false);
+        binding.viewPager.setOffscreenPageLimit(4);
     }
 
     private void initView() {
