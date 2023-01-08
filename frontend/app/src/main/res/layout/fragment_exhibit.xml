@@ -43,6 +43,7 @@
                     android:layout_height="160dp"
                     android:src="@drawable/test_picture"
                     android:padding="10dp"
+                    android:scaleType="centerCrop"
                     android:background="@color/white"
                     app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
 

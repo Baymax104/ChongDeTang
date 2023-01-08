@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
+import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.ShopViewModel;
 import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.transformer.AlphaPageTransformer;
 
 /**
  * @Description
@@ -51,6 +53,7 @@ public class ShopFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         binding.setViewModel(vm);
+        binding.setProductAdapter(new ShopProductAdapter());
 
         binding.banner.setIndicator(new CircleIndicator(getContext()));
 

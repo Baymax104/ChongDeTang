@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="text"
+                type="String" />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            tools:ignore="RelativeOverlap">
+
+        <TextView
+                style="@style/LabelStyle"
+                android:text="@{text}"
+                android:layout_marginStart="15dp"
+                android:layout_alignParentStart="true" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/all"
+                android:textSize="16sp"
+                android:fontFamily="@font/text_regular"
+                android:gravity="center_vertical|end"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/all_entry" />
+
+    </RelativeLayout>
+</layout>

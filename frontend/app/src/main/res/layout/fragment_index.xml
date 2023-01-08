@@ -63,7 +63,8 @@
                         android:layout_height="160dp"
                         android:rowCount="2"
                         android:columnCount="3"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="15dp">
 
                     <include
                             layout="@layout/item_index_entry"
@@ -122,28 +123,10 @@
 
                 </GridLayout>
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="15dp">
-
-                    <TextView
-                            style="@style/IndexLabelStyle"
-                            android:text="@string/search_collection"
-                            android:layout_marginStart="10dp"
-                            android:layout_alignParentStart="true" />
-
-                    <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:text="@string/all"
-                            android:textSize="16sp"
-                            android:fontFamily="@font/text_regular"
-                            android:gravity="center_vertical|end"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/index_collection_entry" />
-                </RelativeLayout>
+                <include
+                    layout="@layout/item_block_label"
+                    android:id="@+id/collection_label"
+                    bind:text="@{@string/search_collection}"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -161,52 +144,18 @@
                         android:layout_height="10dp"
                         android:background="@color/gray_4" />
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp">
+                <include
+                    layout="@layout/item_block_label"
+                    android:id="@+id/moment_label"
+                    bind:text="@{@string/index_moment}"/>
 
-                    <TextView
-                            style="@style/IndexLabelStyle"
-                            android:text="@string/index_moment"
-                            android:layout_marginStart="10dp"
-                            android:layout_alignParentStart="true" />
-
-                    <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:text="@string/all"
-                            android:textSize="16sp"
-                            android:fontFamily="@font/text_regular"
-                            android:gravity="center_vertical|end"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/index_moment_entry" />
-                </RelativeLayout>
 
                 <include layout="@layout/item_moment" />
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="10dp">
-
-                    <TextView
-                            style="@style/IndexLabelStyle"
-                            android:text="@string/index_info"
-                            android:layout_marginStart="10dp"
-                            android:layout_alignParentStart="true" />
-
-                    <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="match_parent"
-                            android:text="@string/all"
-                            android:textSize="16sp"
-                            android:fontFamily="@font/text_regular"
-                            android:gravity="center_vertical|end"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/index_info_entry" />
-                </RelativeLayout>
+                <include
+                    layout="@layout/item_block_label"
+                    android:id="@+id/info_label"
+                    bind:text="@{@string/index_info}"/>
 
                 <include layout="@layout/item_info" />
 

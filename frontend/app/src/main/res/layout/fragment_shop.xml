@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.ShopViewModel" />
+        <variable
+                name="productAdapter"
+                type="com.cdtde.chongdetang.util.adapter.ShopProductAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -53,8 +57,81 @@
                         app:banner_radius="10dp"
                         app:banner_indicator_normal_color="@color/white"
                         app:banner_indicator_selected_color="@color/main_color"
-                        banner_data="@{viewModel.bannerImg}"/>
+                        banner_data="@{viewModel.bannerImg}" />
 
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_4"
+                        android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="190dp"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp">
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingTop="5dp">
+
+                            <include
+                                    layout="@layout/item_block_label"
+                                    android:id="@+id/hot_label"
+                                    bind:text="@{@string/hot_label}" />
+                            <GridLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:rowCount="1"
+                                    android:columnCount="3"
+                                    android:orientation="horizontal"
+                                    android:paddingHorizontal="5dp">
+                                <include
+                                        layout="@layout/item_hot_product"
+                                        android:layout_columnWeight="1"
+                                        android:layout_rowWeight="1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:id="@+id/hot_product1"
+                                        android:layout_marginHorizontal="5dp"
+                                        bind:product="@{viewModel.products[0]}"/>
+                                <include
+                                        layout="@layout/item_hot_product"
+                                        android:layout_columnWeight="1"
+                                        android:layout_rowWeight="1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:id="@+id/hot_product2"
+                                        android:layout_marginHorizontal="5dp"
+                                        bind:product="@{viewModel.products[1]}"/>
+                                <include
+                                        layout="@layout/item_hot_product"
+                                        android:layout_columnWeight="1"
+                                        android:layout_rowWeight="1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:id="@+id/hot_product3"
+                                        android:layout_marginHorizontal="5dp"
+                                        bind:product="@{viewModel.products[2]}"/>
+                            </GridLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/product_list"
+                            tools:listitem="@layout/item_shop_product"
+                            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                            app:spanCount="2"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="5dp"
+                            recycler_adapter="@{productAdapter}"
+                            recycler_data="@{viewModel.products}"/>
+                </LinearLayout>
 
             </LinearLayout>
 

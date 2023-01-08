@@ -182,6 +182,8 @@ APP使用两种字体：江西拙楷(regular.ttf)和方正楷体(text_regular.tt
 
 在TextView的android:fontFamily属性设置字体
 
+在themes.xml中定义了一些常用的字体样式，可以直接使用style属性设置
+
 ## BaseAdapter使用
 
 为了便于DataBinding使用，封装了RecyclerViewAdapter并已经绑定了相关属性
