@@ -11,12 +11,9 @@ import com.cdtde.chongdetang.util.adapter.BannerAdapter;
 import com.cdtde.chongdetang.util.adapter.BaseAdapter;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.util.adapter.SearchTagAdapter;
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
 import com.youth.banner.Banner;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,11 +38,6 @@ public class BindingUtil {
     public static void setSearchTag(TagFlowLayout tagFlowLayout, List<String> data) {
         SearchTagAdapter adapter = new SearchTagAdapter(data);
         tagFlowLayout.setAdapter(adapter);
-    }
-
-    @BindingAdapter("tab_data")
-    public static void setTabData(CommonTabLayout layout, ArrayList<CustomTabEntity> data) {
-        layout.setTabData(data);
     }
 
     @BindingAdapter({"fragment_adapter", "fragments"})

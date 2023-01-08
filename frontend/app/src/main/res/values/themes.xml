@@ -96,4 +96,12 @@
         <item name="android:fontFamily">@font/text_regular</item>
     </style>
 
+    <!--Tab文字样式-->
+    <style name="TabTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+
 </resources>

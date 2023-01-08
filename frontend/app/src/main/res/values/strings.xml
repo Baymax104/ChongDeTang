@@ -41,4 +41,7 @@
     <string name="settings">设置</string>
     <string name="person_data">个人资料</string>
     <string name="hot_label">热搜榜</string>
+    <string name="exhibit_tab_title1">书法·系列</string>
+    <string name="exhibit_tab_title2">篆刻·系列</string>
+    <string name="exhibit_tab_title3">牌匾·系列</string>
 </resources>

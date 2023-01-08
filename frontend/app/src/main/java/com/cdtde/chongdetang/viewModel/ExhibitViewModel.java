@@ -1,17 +1,11 @@
 package com.cdtde.chongdetang.viewModel;
 
-import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.cdtde.chongdetang.model.Collection;
-import com.cdtde.chongdetang.model.ExhibitTab;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.view.exhibit.TabFragment;
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,27 +18,16 @@ import java.util.List;
  * @Version 1
  */
 public class ExhibitViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<CustomTabEntity>> tabs;
 
     private MutableLiveData<List<Fragment>> tabFragments;
 
     public ExhibitViewModel() {
-        tabs = new MutableLiveData<>();
         tabFragments = new MutableLiveData<>(new ArrayList<>());
-
-        ArrayList<CustomTabEntity> tabTitle = new ArrayList<>();
-        tabTitle.add(new ExhibitTab("书法·系列"));
-        tabTitle.add(new ExhibitTab("篆刻·系列"));
-        tabTitle.add(new ExhibitTab("牌匾·系列"));
-        tabs.setValue(tabTitle);
 
         // 测试数据
         generateTest();
     }
 
-    public MutableLiveData<ArrayList<CustomTabEntity>> getTabs() {
-        return tabs;
-    }
 
     public MutableLiveData<List<Fragment>> getTabFragments() {
         return tabFragments;

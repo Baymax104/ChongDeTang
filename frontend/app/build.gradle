@@ -58,9 +58,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation 'com.github.li-xiaojun:XPopup:2.9.17'
-    implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'io.github.youth5201314:banner:2.2.2'
-    implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'org.raphets:roundimageview:1.2.0'
+    implementation 'com.github.angcyo.DslTablayout:TabLayout:3.5.3'
+    implementation 'com.github.angcyo.DslTablayout:ViewPager2Delegate:3.5.3'
 }

@@ -9,10 +9,11 @@
 
     <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/search_tag_text"
             android:text="@{content}"
             android:padding="5dp"
+            android:gravity="center"
             android:background="@drawable/search_tag_bg"
             android:fontFamily="@font/text_regular"
             android:layout_margin="5dp">
