@@ -44,4 +44,5 @@
     <string name="exhibit_tab_title1">书法·系列</string>
     <string name="exhibit_tab_title2">篆刻·系列</string>
     <string name="exhibit_tab_title3">牌匾·系列</string>
+    <string name="logout">退出登录</string>
 </resources>

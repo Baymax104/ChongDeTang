@@ -6,6 +6,4 @@
     <!--    3.设置边框大粗细和颜色-->
     <corners android:radius="50dp"/>
     <solid android:color="@color/main_variant_color"/>
-    <stroke android:width="2dp"
-        android:color="@color/white"/>
 </shape>

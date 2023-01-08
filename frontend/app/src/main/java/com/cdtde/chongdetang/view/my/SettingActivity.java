@@ -49,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
         });
         binding.copyrightEntry.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
         binding.versionEntry.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
-        binding.setQuitBtn.setOnClickListener(v -> {
+        binding.logout.setOnClickListener(v -> {
             Toast.makeText(this, "退出登录", Toast.LENGTH_SHORT).show();
             finish();
         });
