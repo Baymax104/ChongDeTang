@@ -2,27 +2,22 @@ package com.cdtde.chongdetang.view.index;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
 import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.IndexViewModel;
-import com.stx.xhb.androidx.entity.LocalImageInfo;
+import com.youth.banner.indicator.CircleIndicator;
 
 /**
  * @Description
@@ -59,6 +54,8 @@ public class IndexFragment extends Fragment {
         binding.setCollectionAdapter(new IndexCollectionAdapter());
         binding.setViewModel(vm);
 
+        binding.banner.setIndicator(new CircleIndicator(getContext()));
+
         binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
@@ -67,11 +64,6 @@ public class IndexFragment extends Fragment {
             return true;
         });
 
-        binding.banner.loadImage((banner, model, view1, position) -> {
-            ImageView imageView = (ImageView) view1;
-            LocalImageInfo info = (LocalImageInfo) model;
-            Glide.with(this).load(info.getXBannerUrl()).into(imageView);
-        });
 
         binding.entry1.getRoot().setOnClickListener(v -> {
             ScenesActivity.actionStart(getContext());

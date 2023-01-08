@@ -2,8 +2,6 @@ package com.cdtde.chongdetang.view.shop;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -12,9 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
+import com.cdtde.chongdetang.view.SearchActivity;
+import com.cdtde.chongdetang.viewModel.ShopViewModel;
+import com.youth.banner.indicator.CircleIndicator;
 
 /**
  * @Description
@@ -26,6 +28,7 @@ import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 public class ShopFragment extends Fragment {
 
     private FragmentShopBinding binding;
+    private ShopViewModel vm;
 
     @Nullable
     @Override
@@ -43,6 +46,21 @@ public class ShopFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+
+        vm = new ViewModelProvider(this).get(ShopViewModel.class);
+        binding.setLifecycleOwner(this);
+
+        binding.setViewModel(vm);
+
+        binding.banner.setIndicator(new CircleIndicator(getContext()));
+
+        binding.toolbar.setOnMenuItemClickListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.index_search) {
+                SearchActivity.actionStart(getContext());
+            }
+            return true;
+        });
 
     }
 

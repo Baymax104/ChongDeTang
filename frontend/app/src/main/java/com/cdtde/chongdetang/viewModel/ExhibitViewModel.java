@@ -58,16 +58,6 @@ public class ExhibitViewModel extends ViewModel {
         }
     }
 
-    @BindingAdapter("tabData")
-    public static void setTabData(CommonTabLayout layout, ArrayList<CustomTabEntity> data) {
-        layout.setTabData(data);
-    }
-
-    @BindingAdapter({"fragmentAdapter", "fragments"})
-    public static void setFragments(ViewPager2 viewPager, FragmentAdapter adapter, List<Fragment> data) {
-        adapter.setFragments(data);
-        viewPager.setAdapter(adapter);
-    }
 
     private void generateTest() {
         List<Collection> data1 = new ArrayList<>();

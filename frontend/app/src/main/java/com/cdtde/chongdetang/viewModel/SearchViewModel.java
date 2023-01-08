@@ -58,11 +58,6 @@ public class SearchViewModel extends ViewModel {
         historyTags.setValue(value);
     }
 
-    @BindingAdapter({"tagData"})
-    public static void setSearchTag(TagFlowLayout tagFlowLayout, List<String> data) {
-        SearchTagAdapter adapter = new SearchTagAdapter(data);
-        tagFlowLayout.setAdapter(adapter);
-    }
 
     private void generateTest() {
         List<String> data1 = new ArrayList<>();

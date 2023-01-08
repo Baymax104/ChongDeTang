@@ -3,7 +3,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+                name="adapter"
+                type="com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter" />
+        <import type="java.util.List"/>
+        <import type="com.cdtde.chongdetang.model.Collection"/>
+        <variable
+                name="data"
+                type="List&lt;Collection&gt;" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -12,5 +19,7 @@
             android:id="@+id/tab_list"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            recycler_adapter="@{adapter}"
+            recycler_data="@{data}"/>
 </layout>

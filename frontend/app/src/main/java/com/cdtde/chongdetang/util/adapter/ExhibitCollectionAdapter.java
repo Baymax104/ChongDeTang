@@ -20,36 +20,30 @@ import java.util.List;
  * @Date 2022/12/26 23:13
  * @Version 1
  */
-public class ExhibitCollectionAdapter extends RecyclerView.Adapter<ExhibitCollectionAdapter.ViewHolder> {
+public class ExhibitCollectionAdapter extends BaseAdapter<Collection> {
 
-    private List<Collection> data;
-
-    public ExhibitCollectionAdapter(List<Collection> data) {
-        this.data = data;
-    }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exhibit_collection, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Collection collection = data.get(position);
-        holder.binding.setCollection(collection);
+        ((ViewHolder) holder).binding.setCollection(collection);
     }
+
 
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ViewHolder extends BaseViewHolder {
         ItemExhibitCollectionBinding binding;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = ItemExhibitCollectionBinding.bind(itemView);

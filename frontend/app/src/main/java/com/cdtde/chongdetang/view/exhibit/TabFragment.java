@@ -41,8 +41,9 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter(data);
-        binding.tabList.setAdapter(adapter);
+        binding.setLifecycleOwner(this);
+        binding.setAdapter(new ExhibitCollectionAdapter());
+        binding.setData(data);
     }
 
     @Override

@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/view_pager"
                 android:layout_above="@id/main_nav"
-                fragmentAdapter="@{fragmentAdapter}"
+                fragment_adapter="@{fragmentAdapter}"
                 fragments="@{fragments}"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

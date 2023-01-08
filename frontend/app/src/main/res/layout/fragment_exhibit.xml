@@ -61,7 +61,7 @@
                     app:tl_textSelectColor="@color/white"
                     app:tl_textUnselectColor="@color/black"
                     app:tl_indicator_color="@color/main_color"
-                    app:tabData="@{viewModel.tabs}"/>
+                    tab_data="@{viewModel.tabs}"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/view_pager"
-                    fragmentAdapter="@{tabAdapter}"
+                    fragment_adapter="@{tabAdapter}"
                     fragments="@{viewModel.tabFragments}" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

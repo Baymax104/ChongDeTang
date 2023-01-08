@@ -1,15 +1,10 @@
 package com.cdtde.chongdetang.viewModel;
 
-import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.model.Collection;
-import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
-import com.stx.xhb.androidx.XBanner;
-import com.stx.xhb.androidx.entity.LocalImageInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +17,25 @@ import java.util.List;
  * @Version 1
  */
 public class IndexViewModel extends ViewModel {
-    private MutableLiveData<List<LocalImageInfo>> bannerImg;
+    private MutableLiveData<List<Integer>> bannerImg;
 
     private MutableLiveData<List<Collection>> collections;
 
 
     public IndexViewModel() {
-        bannerImg = new MutableLiveData<>(new ArrayList<>());
-        collections = new MutableLiveData<>(new ArrayList<>());
+        bannerImg = new MutableLiveData<>();
+        collections = new MutableLiveData<>();
+
+        List<Integer> imgs = new ArrayList<>();
+        imgs.add(R.drawable.index_banner1);
+        imgs.add(R.drawable.index_banner2);
+        imgs.add(R.drawable.index_banner3);
+        bannerImg.setValue(imgs);
 
         generateTest();
     }
 
-    public MutableLiveData<List<LocalImageInfo>> getBannerImg() {
+    public MutableLiveData<List<Integer>> getBannerImg() {
         return bannerImg;
     }
 
@@ -43,30 +44,11 @@ public class IndexViewModel extends ViewModel {
     }
 
 
-    @BindingAdapter("bannerData")
-    public static void setBannerData(XBanner banner, List<LocalImageInfo> data) {
-        banner.setBannerData(data);
-    }
-
-    @BindingAdapter({"recyclerAdapter", "recyclerData"})
-    public static void setIndexRecyclerView(RecyclerView view, IndexCollectionAdapter adapter, List<Collection> data) {
-        adapter.setData(data);
-        view.setAdapter(adapter);
-    }
 
     private void generateTest() {
-        List<LocalImageInfo> value1 = bannerImg.getValue();
-        for (int i = 0; i < 3; i++) {
-            if (value1 != null) {
-                value1.add(new LocalImageInfo(R.drawable.test_picture));
-            }
-        }
-        bannerImg.setValue(value1);
-        List<Collection> value2 = collections.getValue();
+        List<Collection> value2 = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            if (value2 != null) {
-                value2.add(new Collection());
-            }
+            value2.add(new Collection());
         }
         collections.setValue(value2);
     }

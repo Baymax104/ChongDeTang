@@ -120,7 +120,7 @@
                 android:padding="15dp"
                 android:id="@+id/history_flow"
                 android:visibility="@{viewModel.historyTags.size()==0 ? View.GONE : View.VISIBLE}"
-                tagData="@{viewModel.historyTags}"/>
+                tag_data="@{viewModel.historyTags}"/>
 
 
         <TextView
@@ -134,7 +134,7 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/collection_flow"
-                tagData="@{viewModel.collectionTags}"/>
+                tag_data="@{viewModel.collectionTags}"/>
 
 
         <TextView
@@ -148,7 +148,7 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/product_flow"
-                tagData="@{viewModel.productTags}"/>
+                tag_data="@{viewModel.productTags}"/>
 
     </LinearLayout>
 </layout>

@@ -48,14 +48,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <com.stx.xhb.androidx.XBanner
+                <com.youth.banner.Banner
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:id="@+id/banner"
-                        app:isClipChildrenMode="true"
-                        app:pointsPosition="CENTER"
-                        android:layout_marginBottom="5dp"
-                        bannerData="@{viewModel.bannerImg}" />
+                        android:layout_margin="10dp"
+                        app:banner_radius="10dp"
+                        app:banner_indicator_normal_color="@color/white"
+                        app:banner_indicator_selected_color="@color/main_color"
+                        banner_data="@{viewModel.bannerImg}"/>
 
                 <GridLayout
                         android:layout_width="match_parent"
@@ -152,8 +153,8 @@
                         tools:listitem="@layout/item_index_collection"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="horizontal"
-                        recyclerAdapter="@{collectionAdapter}"
-                        recyclerData="@{viewModel.collections}"/>
+                        recycler_adapter="@{collectionAdapter}"
+                        recycler_data="@{viewModel.collections}"/>
 
                 <View
                         android:layout_width="match_parent"

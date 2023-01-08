@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.R;
-import com.stx.xhb.androidx.entity.LocalImageInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +16,23 @@ import java.util.List;
  * @Version 1
  */
 public class ShopViewModel extends ViewModel {
-    private MutableLiveData<List<LocalImageInfo>> bannerImg;
+
+    private MutableLiveData<List<Integer>> bannerImg;
 
     public ShopViewModel() {
-        bannerImg = new MutableLiveData<>(new ArrayList<>());
 
-        generateTest();
+        bannerImg = new MutableLiveData<>();
+        List<Integer> imgs = new ArrayList<>();
+        imgs.add(R.drawable.shop_banner1);
+        imgs.add(R.drawable.shop_banner2);
+        imgs.add(R.drawable.shop_banner3);
+        bannerImg.setValue(imgs);
+    }
+
+    public MutableLiveData<List<Integer>> getBannerImg() {
+        return bannerImg;
     }
 
     private void generateTest() {
-        List<LocalImageInfo> value1 = bannerImg.getValue();
-        for (int i = 0; i < 3; i++) {
-            if (value1 != null) {
-                value1.add(new LocalImageInfo(R.drawable.test_picture));
-            }
-        }
-        bannerImg.setValue(value1);
-
     }
 }

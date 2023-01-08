@@ -172,3 +172,117 @@ icon图标svg创建方法
 1.   在阿里巴巴图标库下载svg图片，==注意选择颜色==
 2.   右键drawable文件夹，选择new->Vector Asset，选择local file，选择下载的svg文件，重新命名后点击next->finish
 
+## 字体使用
+
+APP使用两种字体：江西拙楷(regular.ttf)和方正楷体(text_regular.ttf)
+
+在ToolBar标题、页面模块的小标题、点击入口的标签使用regular.ttf
+
+一般文本、提示文字、文章使用text_regular.ttf
+
+在TextView的android:fontFamily属性设置字体
+
+## BaseAdapter使用
+
+为了便于DataBinding使用，封装了RecyclerViewAdapter并已经绑定了相关属性
+
+创建RecyclerView的Adapter类时，只需要继承BaseAdapter，泛型指定展示的数据类型
+
+例：IndexCollectionAdapter，Index页面藏品推荐部分的adapter
+
+``` java
+public class IndexCollectionAdapter extends BaseAdapter<Collection> {
+
+    // BaseAdapter内含有data的List集合和set方法，不需要声明
+    @NonNull
+    @Override
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // 创建布局并创建ViewHolder
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_index_collection, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+        // 使用binding对象获取控件，效果同holder.控件字段
+        ItemIndexCollectionBinding binding = ItemIndexCollectionBinding.bind(holder.itemView);
+        // 通过binding对象可以设置item布局data标签内的实体类，在xml中使用实体类字段
+        Collection collection = data.get(position);
+        binding.setCollection(collection);
+        // 也可以通过binding对象binding.id获取控件，手动设置
+    }
+
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+
+    // ViewHolder继承BaseViewHolder，不需要写控件字段
+    public static class ViewHolder extends BaseViewHolder {
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+}
+```
+
+### 使用Adapter
+
+将data集合放在ViewModel中，xml布局的data标签中声明viewModel和adapter
+
+``` xml
+<data>
+    <variable
+            name="collectionAdapter"
+            type="com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter" />
+    <variable
+            name="viewModel"
+            type="com.cdtde.chongdetang.viewModel.IndexViewModel" />
+</data>
+```
+
+在RecyclerView控件中通过recycler_adapter和recycler_data属性绑定
+
+``` xml
+<androidx.recyclerview.widget.RecyclerView
+    ...
+    tools:listitem="@layout/item_index_collection"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    android:orientation="horizontal"
+    recycler_adapter="@{collectionAdapter}"
+    recycler_data="@{viewModel.collections}"/>
+<!--
+	listitem属性传入item布局可以看到预览的效果
+	layoutManager传入LayoutManager，省去代码设置
+	orientation设置LayoutManager的排列属性
+	recycler_adapter传入声明的adapter
+	recycler_data传入viewModel中的数据集合
+-->
+```
+
+最后在Fragment或Activity中设置data标签中的数据
+
+``` java
+binding.setCollectionAdapter(new IndexCollectionAdapter());
+binding.setViewModel(vm);
+```
+
+## 项目依赖的UI组件
+
+-   FlowLayout：流式布局，可以实现搜索页面的内容标签效果
+
+    [hongyangAndroid/FlowLayout: [不再维护\]Android流式布局，支持单选、多选等，适合用于产品标签等。 (github.com)](https://github.com/hongyangAndroid/FlowLayout)
+
+-   Xpopup：对话框，可以实现各种效果的对话框
+
+    [li-xiaojun/XPopup: 🔥XPopup2.0版本重磅来袭，2倍以上性能提升，带来可观的动画性能优化和交互细节的提升！！！功能强大，交互优雅，动画丝滑的通用弹窗！可以替代Dialog，PopupWindow，PopupMenu，BottomSheet，DrawerLayout，Spinner等组件，自带十几种效果良好的动画， 支持完全的UI和动画自定义！(Powerful and Beautiful Popup for Android，can absolutely replace Dialog，PopupWindow，PopupMenu，BottomSheet，DrawerLayout，Spinner. With built-in animators , very easy to custom popup view.) (github.com)](https://github.com/li-xiaojun/XPopup)
+
+-   FloatingActionButton：浮动按钮，高度自定义样式
+
+    [Clans/FloatingActionButton: Android Floating Action Button based on Material Design specification (github.com)](https://github.com/Clans/FloatingActionButton)
+
+-   banner：轮播控件，可以实现各种轮播效果，使用友好
+
+    [youth5201314/banner: 🔥🔥🔥Banner 2.0 来了！Android广告图片轮播控件，内部基于ViewPager2实现，Indicator和UI都可以自定义。 (github.com)](https://github.com/youth5201314/banner)
+
