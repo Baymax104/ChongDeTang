@@ -14,16 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.FragmentScene54Binding;
-import com.cdtde.chongdetang.databinding.FragmentScene61Binding;
+import com.cdtde.chongdetang.databinding.FragmentScene84Binding;
+import com.cdtde.chongdetang.databinding.FragmentScene85Binding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SceneFragment6_1#newInstance} factory method to
+ * Use the {@link SceneFragment8_5#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SceneFragment6_1 extends Fragment {
-    private FragmentScene61Binding binding;
+public class SceneFragment8_5 extends Fragment {
+    private FragmentScene85Binding binding;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +33,7 @@ public class SceneFragment6_1 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SceneFragment6_1() {
+    public SceneFragment8_5() {
         // Required empty public constructor
     }
 
@@ -43,11 +43,11 @@ public class SceneFragment6_1 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SceneFragment6_1.
+     * @return A new instance of fragment SceneFragment8_5.
      */
     // TODO: Rename and change types and number of parameters
-    public static SceneFragment6_1 newInstance(String param1, String param2) {
-        SceneFragment6_1 fragment = new SceneFragment6_1();
+    public static SceneFragment8_5 newInstance(String param1, String param2) {
+        SceneFragment8_5 fragment = new SceneFragment8_5();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,31 +63,26 @@ public class SceneFragment6_1 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene61Binding.inflate(inflater, container, false);
+        binding= FragmentScene85Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.sceneFab61Down.setOnClickListener(v -> {
+        binding.sceneFab85Right.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment6_6);
+            controller.navigate(R.id.action_sceneFragment8_5_to_sceneFragment8_6);
         });
-        binding.sceneFab61Locate.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "前往堂号匾3号展厅", Toast.LENGTH_SHORT).show();
+        binding.sceneFab85Left.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment7_1);
+            controller.navigate(R.id.action_sceneFragment8_5_to_sceneFragment8_4);
         });
-        binding.sceneFab61Right.setOnClickListener(v -> {
+        binding.sceneFab85Locate.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "前往寿德匾展厅", Toast.LENGTH_SHORT).show();
             NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment6_2);
-        });
-        binding.sceneFab61Left.setOnClickListener(v -> {
-            NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment6_9);
+            controller.navigate(R.id.action_sceneFragment8_5_to_sceneFragment9_1);
         });
     }
 }

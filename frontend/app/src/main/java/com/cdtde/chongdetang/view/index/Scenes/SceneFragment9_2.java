@@ -14,16 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.FragmentScene54Binding;
-import com.cdtde.chongdetang.databinding.FragmentScene61Binding;
+import com.cdtde.chongdetang.databinding.FragmentScene91Binding;
+import com.cdtde.chongdetang.databinding.FragmentScene92Binding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SceneFragment6_1#newInstance} factory method to
+ * Use the {@link SceneFragment9_2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SceneFragment6_1 extends Fragment {
-    private FragmentScene61Binding binding;
+public class SceneFragment9_2 extends Fragment {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,8 +32,9 @@ public class SceneFragment6_1 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FragmentScene92Binding binding;
 
-    public SceneFragment6_1() {
+    public SceneFragment9_2() {
         // Required empty public constructor
     }
 
@@ -43,11 +44,11 @@ public class SceneFragment6_1 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SceneFragment6_1.
+     * @return A new instance of fragment SceneFragment9_2.
      */
     // TODO: Rename and change types and number of parameters
-    public static SceneFragment6_1 newInstance(String param1, String param2) {
-        SceneFragment6_1 fragment = new SceneFragment6_1();
+    public static SceneFragment9_2 newInstance(String param1, String param2) {
+        SceneFragment9_2 fragment = new SceneFragment9_2();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,27 +68,18 @@ public class SceneFragment6_1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene61Binding.inflate(inflater, container, false);
+        binding= FragmentScene92Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.sceneFab61Down.setOnClickListener(v -> {
+        binding.sceneFab92Right.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment6_6);
+            controller.navigate(R.id.action_sceneFragment9_2_to_sceneFragment9_3);
         });
-        binding.sceneFab61Locate.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "前往堂号匾3号展厅", Toast.LENGTH_SHORT).show();
+        binding.sceneFab92Left.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment7_1);
-        });
-        binding.sceneFab61Right.setOnClickListener(v -> {
-            NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment6_2);
-        });
-        binding.sceneFab61Left.setOnClickListener(v -> {
-            NavController controller = Navigation.findNavController(v);
-            controller.navigate(R.id.action_sceneFragment6_1_to_sceneFragment6_9);
+            controller.navigate(R.id.action_sceneFragment9_2_to_sceneFragment9_1);
         });
     }
 }

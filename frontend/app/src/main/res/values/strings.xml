@@ -45,4 +45,6 @@
     <string name="exhibit_tab_title2">篆刻·系列</string>
     <string name="exhibit_tab_title3">牌匾·系列</string>
     <string name="logout">退出登录</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

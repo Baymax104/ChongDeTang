@@ -86,7 +86,9 @@ public class SceneFragment5_2 extends Fragment {
             }
         });
         binding.sceneFab52Locate.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "next", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "前往功德匾展厅", Toast.LENGTH_SHORT).show();
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_sceneFragment5_2_to_sceneFragment8_1);
         });
     }
 }
