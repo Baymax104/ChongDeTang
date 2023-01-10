@@ -37,24 +37,24 @@ APP使用MVVM架构
 
     ```java
     public class MyViewModel extends ViewModel {
-
+    
     	// 集合类型
         private MutableLiveData<List<Collection>> collections;
-
+    
     	// 单个变量
     	private MutableLiveData<String> label;
-
+    
         public MyViewModel() {
             collections = new MutableLiveData<>();
     		List<Collection> list = new ArrayList<>();
-
+    
             // 向list中填充数据...
-
+    
             collections.setValue(list);  // 设置初值
-
+    
             label = new MutableLiveData();
             label.setValue("初值");
-
+    
         }
     	// getter
         public MutableLiveData<List<Collection>> getCollections() {
@@ -82,7 +82,7 @@ APP使用MVVM架构
 
     - 视图绑定数据
 
-      在==转换为DataBinding布局后==，会自动生成对应的Binding类，在Activity或Fragment中声明Binding对象，通过`binding.id`即可通过控件id调用对应的控件
+      在转换为DataBinding布局后，会自动生成对应的Binding类，在Activity或Fragment中声明Binding对象，通过`binding.id`即可通过控件id调用对应的控件
     - 数据绑定视图
 
       在DataBinding的data标签中使用`<variable>`声明需要使用的变量和变量类型，`<import>`标签可以引入类，便于声明变量和使用类的静态字段，比如引入View后，可以使用View.VISIBLE等常量
@@ -122,7 +122,7 @@ APP使用MVVM架构
       binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
       binding.setLifecycleOwner(this);
       setContentView(binding.getRoot());
-
+      
       // Fragment在onCreateView中创建binding
       public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
           binding = FragmentIndexBinding.inflate(inflater, container, false);
@@ -152,8 +152,11 @@ xml文件使用下划线+小写字符命名
 - fragment：使用fragment前缀，fragment_...
 - activity：使用activity前缀，activity_...
 - 列表项或重复的标签项：使用item前缀，item_...
+- dialog：使用dialog前缀，dialog_...
 
 drawable资源命名：一到两个主要单词即可，下划线连接，不需要表示从属的页面
+
+xml布局id命名：范围在当前布局内唯一即可，binding对象自带范围，不需要表示从属的页面，跳转入口尽量使用entry结尾，尽量不要使用控件的名称来命名，如btn,tv等
 
 ## 关于drawable资源格式
 
@@ -163,7 +166,7 @@ icon图标使用矢量图，可以使用Android自带图标库或阿里图标库
 
 icon图标svg创建方法
 
-1. 在阿里巴巴图标库下载svg图片，==注意选择颜色==
+1. 在阿里巴巴图标库下载svg图片，注意选择颜色==
 2. 右键drawable文件夹，选择new->Vector Asset，选择local file，选择下载的svg文件，重新命名后点击next->finish
 
 ## 字体使用
@@ -184,7 +187,7 @@ APP使用两种字体：江西拙楷(regular.ttf)和方正楷体(text_regular.tt
 
 创建RecyclerView的Adapter类时，只需要继承BaseAdapter，泛型指定展示的数据类型
 
-例：IndexCollectionAdapter，Index页面藏品推荐部分的adapter
+例：IndexCollectionAdapter，Index页面藏品推荐部分的adapter，可作为模板
 
 ```java
 public class IndexCollectionAdapter extends BaseAdapter<Collection> {
@@ -215,9 +218,13 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 
     // ViewHolder继承BaseViewHolder，不需要写控件字段
     public static class ViewHolder extends BaseViewHolder {
+        // 当列表数据量大时，可能会出现View must have a tag错误信息
+        // 此时将binding对象放在ViewHolder内创建即可，onBindViewHolder方法中通过holder.binding获取binding对象
+        // XXBinding binding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            // binding = XXBinding.bind(itemView);
         }
     }
 }
@@ -284,3 +291,6 @@ binding.setViewModel(vm);
 - RoundImageView：圆形圆角ImageView，设置简单
 
   [vinc3m1/RoundedImageView: A fast ImageView that supports rounded corners, ovals, and circles. (github.com)](https://github.com/vinc3m1/RoundedImageView)
+- LiveDataBus：消息总线，可以替代Intent、BroadCast
+  
+  [JeremyLiao/LiveEventBus: EventBus for Android，消息总线，基于LiveData，具有生命周期感知能力，支持Sticky，支持AndroidX，支持跨进程，支持跨APP (github.com)](https://github.com/JeremyLiao/LiveEventBus)
