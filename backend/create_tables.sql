@@ -15,7 +15,7 @@ create table product
     product_name  varchar(50)  not null,
     price         float        not null,
     launch_time   date         null,
-    product_photo varchar(100) null comment '商品图片',
+    product_photo varchar(100) null comment '鍟嗗搧鍥剧墖',
     constraint product_id_uindex
         unique (id),
     constraint product_brand_id_fk
@@ -42,14 +42,17 @@ create table user
 (
     id       int auto_increment
         primary key,
-    username varchar(40)  null comment '用户昵称',
-    password varchar(100) null comment '密文存储',
-    photo    varchar(100) null comment '存储用户头像url',
+    username varchar(40)  null comment '鐢ㄦ埛鏄电О',
+    password varchar(100) null comment '瀵嗘枃瀛樺偍',
+    photo    varchar(100) null comment '瀛樺偍鐢ㄦ埛澶村儚url',
     mail     varchar(40)  null,
     phone    varchar(20)  null,
+    sex      varchar(10)  null comment '性别',
+    age      int          null,
     constraint account_id_uindex
         unique (id)
 );
+
 
 
 

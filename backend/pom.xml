@@ -8,7 +8,7 @@
         <version>2.7.8-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-<!--    <packaging>jar</packaging>-->
+    <packaging>jar</packaging>
     <groupId>com.kob</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
