@@ -26,6 +26,7 @@ import com.cdtde.chongdetang.databinding.ActivityUserInfoBinding;
 import com.cdtde.chongdetang.util.CameraUtil;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.PermissionUtil;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.UserInfoViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.yalantis.ucrop.UCrop;
@@ -64,7 +65,7 @@ public class UserInfoActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(UserInfoViewModel.class);
         binding.setLifecycleOwner(this);
 
-        initWindow();
+        WindowUtil.initActivityWindow(binding.toolbar, this);
         binding.setUser(vm.getUser());
 
         LiveEventBus.get("user_gender", String.class)
@@ -100,16 +101,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
     }
 
-    private void initWindow() {
-        setSupportActionBar(binding.toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
-        }
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
 
     private void takePhoto() {
         PermissionUtil.requestPermission(Manifest.permission.CAMERA);

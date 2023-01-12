@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.ExhibitViewModel;
@@ -37,10 +38,7 @@ public class ExhibitFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentExhibitBinding.inflate(inflater, container, false);
         binding.toolbar.inflateMenu(R.menu.index_toolbar);
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        View decorView = activity.getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        binding.toolbarLayout.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        WindowUtil.initFragmentWindow(binding.toolbarLayout, this);
         return binding.getRoot();
     }
 

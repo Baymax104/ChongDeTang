@@ -20,6 +20,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.MyViewModel;
 
 /**
@@ -39,10 +40,7 @@ public class MyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMyBinding.inflate(inflater, container, false);
         binding.toolbar.inflateMenu(R.menu.my_toolbar);
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        View decorView = activity.getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        WindowUtil.initFragmentWindow(binding.toolbarLayout, this);
         return binding.getRoot();
     }
 
@@ -63,55 +61,21 @@ public class MyFragment extends Fragment {
             return true;
         });
 
-        setListener();//选项监听事件
+        binding.userIcon.setOnClickListener(v -> UserInfoActivity.actionStart(getContext()));
 
+        binding.appointmentEntry.setOnClickListener(v -> AppointmentActivity.actionStart(getContext()));
 
-
-    }
-
-    private void setListener() {
-        binding.userIcon.setOnClickListener(v -> {
-//            UserInfoActivity.actionStart(getContext());
-            Intent intent=new Intent();
-            intent.setClass(getContext(), UserInfoActivity.class);
-            startActivityForResult(intent,1);
-        });
-        binding.appointmentEntry.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "我的预约", Toast.LENGTH_SHORT).show();
-            AppointmentActivity.actionStart(getContext());
-        });
         binding.collectionEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
-        binding.shoppingEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
-        binding.orderEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
-        binding.addressEntry.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "收货地址", Toast.LENGTH_SHORT).show();
-            AddressActivity.actionStart(getContext());
-        });
-        binding.noticeEntry.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
-        binding.feedbackEntry.setOnClickListener(v -> {
-            FeedbackActivity.actionStart(getContext());
-        });
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode==1){
-//            if(resultCode==2){
-//                Bundle newbundle=data.getExtras();
-//                String iconPath=newbundle.getString("new_userIcon");
-//                String userName=newbundle.getString("new_userName");
-//                if (!iconPath.equals("none")) {
-//                    Glide.with(this).load(iconPath).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.userIcon);
-//                }
-//                if (!userName.equals("none")){
-//                    binding.myUserName.setText(userName);
-//                }
-//            }
-//            else{
-//                Log.i("new_icon","no datas!!!");
-//            }
-//        }
+        binding.shoppingEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
+
+        binding.orderEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
+
+        binding.addressEntry.setOnClickListener(v -> AddressActivity.actionStart(getContext()));
+
+        binding.noticeEntry.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
+
+        binding.feedbackEntry.setOnClickListener(v -> FeedbackActivity.actionStart(getContext()));
     }
 
     @Override

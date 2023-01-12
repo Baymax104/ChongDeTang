@@ -10,61 +10,37 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityAddressBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.AddressAdapter;
 import com.cdtde.chongdetang.viewModel.my.AddressViewModel;
 
 public class AddressActivity extends AppCompatActivity {
     private ActivityAddressBinding binding;
     private AddressViewModel vm;
-//    private RecyclerView addressList;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddressBinding.inflate(getLayoutInflater());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_address);
         vm = new ViewModelProvider(this).get(AddressViewModel.class);
-        View view = binding.getRoot();
-        setContentView(view);
-        initViews();
-        initRecylist();
-        setListener();//设置监听事件
+        WindowUtil.initActivityWindow(binding.toolbar, this);
+
+        binding.setLifecycleOwner(this);
+        binding.setAdapter(new AddressAdapter());
+        binding.setViewModel(vm);
     }
 
-    private void initRecylist() {
 
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        AddressAdapter adapter = new AddressAdapter(vm.getDataList());
-        binding.myAddressList.setAdapter(adapter);
-        binding.myAddressList.setLayoutManager(manager);
-    }
-
-    private void setListener() {
-        binding.myAddressAddBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "添加新地址", Toast.LENGTH_SHORT).show();
-        });
-    }
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, AddressActivity.class);
         context.startActivity(intent);
-    }
-
-    private void initViews() {
-        setSupportActionBar(binding.settingsToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
-        }
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
     }
 
     @Override

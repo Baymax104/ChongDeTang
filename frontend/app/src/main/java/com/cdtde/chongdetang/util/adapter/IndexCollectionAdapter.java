@@ -28,9 +28,8 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        ItemIndexCollectionBinding binding = ItemIndexCollectionBinding.bind(holder.itemView);
         Collection collection = data.get(position);
-        binding.setCollection(collection);
+        ((ViewHolder) holder).binding.setCollection(collection);
     }
 
     @Override
@@ -38,10 +37,12 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
         return data.size();
     }
 
-    public static class ViewHolder extends BaseViewHolder {
+    private static class ViewHolder extends BaseViewHolder {
 
+        ItemIndexCollectionBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            binding = ItemIndexCollectionBinding.bind(itemView);
         }
     }
 }

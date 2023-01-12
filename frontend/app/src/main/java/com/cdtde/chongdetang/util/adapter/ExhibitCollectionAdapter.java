@@ -39,7 +39,7 @@ public class ExhibitCollectionAdapter extends BaseAdapter<Collection> {
         return data.size();
     }
 
-    public static class ViewHolder extends BaseViewHolder {
+    private static class ViewHolder extends BaseViewHolder {
         ItemExhibitCollectionBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

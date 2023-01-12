@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.view.exhibit;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter;
+import com.cdtde.chongdetang.viewModel.ExhibitViewModel;
 
 import java.util.List;
 
@@ -26,11 +30,8 @@ public class TabFragment extends Fragment {
 
     private FragmentExhibitListBinding binding;
 
-    private List<Collection> data;
-
-    public TabFragment(List<Collection> data) {
-        this.data = data;
-    }
+    // TabFragment与ExhibitFragment的ViewModel是共享的，都属于MainActivity
+    private ExhibitViewModel vm;
 
     @Nullable
     @Override
@@ -41,9 +42,26 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        int page = -1;
+        if (getArguments() != null) {
+            page = getArguments().getInt("page");
+        }
+        vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
+
         binding.setLifecycleOwner(this);
-        binding.setAdapter(new ExhibitCollectionAdapter());
-        binding.setData(data);
+        if (page != -1) {
+            binding.setAdapter(new ExhibitCollectionAdapter());
+            binding.setViewModel(vm);
+            binding.setPage(page);
+        }
+    }
+
+    public static TabFragment newInstance(int page) {
+        TabFragment fragment = new TabFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", page);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override

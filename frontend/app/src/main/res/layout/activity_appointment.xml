@@ -12,12 +12,9 @@
                 type="com.cdtde.chongdetang.util.adapter.AppointmentAdapter" />
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -28,14 +25,15 @@
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/bar_color"
                     android:id="@+id/toolbar"
-                    android:fitsSystemWindows="true">
+                    android:fitsSystemWindows="true"
+                    app:layout_scrollFlags="scroll|enterAlways">
 
                 <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/appointment"
                         style="@style/CommonToolbarTitleStyle" />
             </androidx.appcompat.widget.Toolbar>
@@ -50,7 +48,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 recycler_adapter="@{adapter}"
-                recycler_data="@{viewModel.appointments}"/>
+                recycler_data="@{viewModel.appointments}"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

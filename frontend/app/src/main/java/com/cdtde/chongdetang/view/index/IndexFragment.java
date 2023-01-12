@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.IndexViewModel;
@@ -37,10 +38,7 @@ public class IndexFragment extends Fragment {
         binding = FragmentIndexBinding.inflate(inflater, container, false);
         // 初始化ToolBar
         binding.toolbar.inflateMenu(R.menu.index_toolbar);
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        View decorView = activity.getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        WindowUtil.initFragmentWindow(binding.toolbarLayout, this);
         return binding.getRoot();
     }
 
@@ -65,9 +63,7 @@ public class IndexFragment extends Fragment {
         });
 
 
-        binding.entry1.getRoot().setOnClickListener(v -> {
-            ScenesActivity.actionStart(getContext());
-        });
+        binding.entry1.getRoot().setOnClickListener(v -> ScenesActivity.actionStart(getContext()));
     }
 
     @Override

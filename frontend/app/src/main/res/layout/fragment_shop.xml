@@ -33,7 +33,7 @@
 
                 <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/shop_title"
                         style="@style/ToolbarTitleStyle" />
             </androidx.appcompat.widget.Toolbar>

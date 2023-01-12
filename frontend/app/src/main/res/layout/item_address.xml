@@ -1,80 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:id="@+id/card_view"
-        app:cardCornerRadius="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:cardElevation="15dp">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+        <variable
+                name="address"
+                type="com.cdtde.chongdetang.entity.Address" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:layout_height="110dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:cardElevation="2dp"
+            tools:ignore="ContentDescription">
 
-        <LinearLayout
-                android:layout_width="0dp"
+        <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:orientation="vertical">
-
-            <TextView
-                    android:id="@+id/address_item_position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/gray_1" />
-
-            <TextView
-                    android:id="@+id/address_item_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp">
 
             <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_toStartOf="@id/modify_entry"
+                    android:layout_centerVertical="true">
 
                 <TextView
-                        android:id="@+id/address_item_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/gray_1"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/text_regular"
+                        android:text="@{address.area}"
+                        android:maxLines="1"/>
 
                 <TextView
-                        android:id="@+id/address_item_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:textColor="@color/gray_1" />
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/text_regular"
+                        android:text="@{address.detail}"
+                        android:maxLines="2"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/text_regular"
+                            android:maxLength="4"
+                            android:text="@{address.name}"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray_1"
+                            android:fontFamily="@font/text_regular"
+                            android:text="@{address.phone}"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
             <ImageView
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/alter" />
-        </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/modify"
+                    android:id="@+id/modify_entry"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentEnd="true"/>
 
-    </LinearLayout>
+        </RelativeLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

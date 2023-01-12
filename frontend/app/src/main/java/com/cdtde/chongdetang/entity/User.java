@@ -38,6 +38,7 @@ public class User extends BaseObservable {
         phone = "123123123";
         mail = "未填写";
         photo = UriUtils.res2Uri(String.valueOf(R.drawable.user_icon));
+        token = "123123123";
     }
 
     public static User getInstance() {

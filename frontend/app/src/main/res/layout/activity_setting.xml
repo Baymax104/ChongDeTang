@@ -19,14 +19,14 @@
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/bar_color"
                     android:id="@+id/settings_toolbar"
                     android:fitsSystemWindows="true">
 
                 <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/CommonToolbarTitleStyle"
                         android:text="@string/settings" />
             </androidx.appcompat.widget.Toolbar>

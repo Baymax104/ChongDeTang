@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        setContentView(binding.getRoot());
         binding.setLifecycleOwner(this);
         initView();
 
@@ -36,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
         binding.mainNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_index) {
-                binding.viewPager.setCurrentItem(0);
+                binding.viewPager.setCurrentItem(0, false);
             } else if (id == R.id.nav_exhibit) {
-                binding.viewPager.setCurrentItem(1);
+                binding.viewPager.setCurrentItem(1, false);
             } else if (id == R.id.nav_shop) {
-                binding.viewPager.setCurrentItem(2);
+                binding.viewPager.setCurrentItem(2, false);
             } else if (id == R.id.nav_my) {
-                binding.viewPager.setCurrentItem(3);
+                binding.viewPager.setCurrentItem(3, false);
             }
             return true;
         });

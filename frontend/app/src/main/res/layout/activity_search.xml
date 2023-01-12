@@ -55,7 +55,7 @@
                                 android:layout_alignParentStart="true" />
 
                         <EditText
-                                android:layout_width="200dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_toEndOf="@id/search_icon"
                                 android:inputType="text"
@@ -63,7 +63,9 @@
                                 android:hint="@string/search_hint"
                                 android:fontFamily="@font/text_regular"
                                 android:background="#00ffffff"
-                                android:id="@+id/search_edit" />
+                                android:id="@+id/search_edit"
+                                android:layout_toStartOf="@id/clean_btn"
+                                android:maxLength="20" />
 
                         <ImageView
                                 android:layout_width="20dp"
@@ -84,7 +86,7 @@
                             android:textSize="16sp"
                             android:gravity="center"
                             android:fontFamily="@font/text_regular"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginHorizontal="10dp"
                             android:id="@+id/search_btn" />
                 </LinearLayout>
 

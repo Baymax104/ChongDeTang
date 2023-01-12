@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.Collection;
+import com.cdtde.chongdetang.repository.ExhibitRepository;
 import com.cdtde.chongdetang.view.exhibit.TabFragment;
 
 import java.util.ArrayList;
@@ -19,46 +20,39 @@ import java.util.List;
  */
 public class ExhibitViewModel extends ViewModel {
 
+    private ExhibitRepository repository;
     private MutableLiveData<List<Fragment>> tabFragments;
+    private MutableLiveData<List<Collection>> collectionPage1;
+    private MutableLiveData<List<Collection>> collectionPage2;
+    private MutableLiveData<List<Collection>> collectionPage3;
 
     public ExhibitViewModel() {
-        tabFragments = new MutableLiveData<>(new ArrayList<>());
+        repository = ExhibitRepository.getInstance();
+        tabFragments = new MutableLiveData<>();
+        collectionPage1 = new MutableLiveData<>(repository.getCollectionPage1());
+        collectionPage2 = new MutableLiveData<>(repository.getCollectionPage2());
+        collectionPage3 = new MutableLiveData<>(repository.getCollectionPage3());
 
-        // 测试数据
-        generateTest();
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(TabFragment.newInstance(1));
+        fragments.add(TabFragment.newInstance(2));
+        fragments.add(TabFragment.newInstance(3));
+        tabFragments.setValue(fragments);
     }
 
+    public MutableLiveData<List<Collection>> getCollectionPage(int page) {
+        if (page == 1) {
+            return collectionPage1;
+        } else if (page == 2) {
+            return collectionPage2;
+        } else if (page == 3) {
+            return collectionPage3;
+        }
+        return null;
+    }
 
     public MutableLiveData<List<Fragment>> getTabFragments() {
         return tabFragments;
     }
 
-    public void addData(List<Collection> data) {
-        List<Fragment> value = tabFragments.getValue();
-        if (value != null) {
-            value.add(new TabFragment(data));
-            tabFragments.setValue(value);
-        }
-    }
-
-
-    private void generateTest() {
-        List<Collection> data1 = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data1.add(new Collection());
-        }
-        addData(data1);
-
-        List<Collection> data2 = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            data2.add(new Collection());
-        }
-        addData(data2);
-
-        List<Collection> data3 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data3.add(new Collection());
-        }
-        addData(data3);
-    }
 }

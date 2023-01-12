@@ -6,11 +6,12 @@
         <variable
                 name="adapter"
                 type="com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter" />
-        <import type="java.util.List"/>
-        <import type="com.cdtde.chongdetang.entity.Collection"/>
         <variable
-                name="data"
-                type="List&lt;Collection>" />
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.ExhibitViewModel" />
+        <variable
+                name="page"
+                type="Integer" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -22,5 +23,5 @@
             app:spanCount="2"
             android:orientation="vertical"
             recycler_adapter="@{adapter}"
-            recycler_data="@{data}"/>
+            recycler_data="@{viewModel.getCollectionPage(page)}"/>
 </layout>

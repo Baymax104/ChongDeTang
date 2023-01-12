@@ -69,4 +69,6 @@
     <string name="title_activity_camera">CameraActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="address_title">地址管理</string>
+    <string name="add_address">新建收货地址</string>
 </resources>

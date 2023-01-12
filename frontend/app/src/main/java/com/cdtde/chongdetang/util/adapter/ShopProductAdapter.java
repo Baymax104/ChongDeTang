@@ -28,9 +28,8 @@ public class ShopProductAdapter extends BaseAdapter<Product> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        ItemShopProductBinding binding = ItemShopProductBinding.bind(holder.itemView);
         Product product = data.get(position);
-        binding.setProduct(product);
+        ((ViewHolder) holder).binding.setProduct(product);
     }
 
     @Override
@@ -38,10 +37,12 @@ public class ShopProductAdapter extends BaseAdapter<Product> {
         return data.size();
     }
 
-    public static class ViewHolder extends BaseViewHolder {
+    private static class ViewHolder extends BaseViewHolder {
 
+        ItemShopProductBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            binding = ItemShopProductBinding.bind(itemView);
         }
     }
 }

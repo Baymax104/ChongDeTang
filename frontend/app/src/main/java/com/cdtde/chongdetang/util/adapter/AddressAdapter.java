@@ -13,27 +13,19 @@ import com.cdtde.chongdetang.entity.Address;
 
 import java.util.List;
 
-public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
-    private List<Address> data;
-
-    public AddressAdapter(List<Address> data) {
-        this.data = data;
-    }
+public class AddressAdapter extends BaseAdapter<Address> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Address address = data.get(position);
-        holder.binding.addressItemName.setText(address.getName());
-        holder.binding.addressItemPosition.setText(address.getPosition());
-        holder.binding.addressItemPhone.setText(address.getPhone());
-        holder.binding.addressItemDetail.setText(address.getDetailAddress());
+        ((ViewHolder) holder).binding.setAddress(address);
     }
 
     @Override
@@ -41,9 +33,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         return data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ItemAddressBinding binding;
+    private static class ViewHolder extends BaseViewHolder {
 
+        ItemAddressBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = ItemAddressBinding.bind(itemView);

@@ -1,6 +1,8 @@
 package com.cdtde.chongdetang.entity;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.R;

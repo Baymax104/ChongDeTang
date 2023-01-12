@@ -22,8 +22,7 @@ public class AppointmentAdapter extends BaseAdapter<Appointment> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        ItemAppointmentBinding binding = ItemAppointmentBinding.bind(holder.itemView);
-        binding.setAppointment(data.get(position));
+        ((ViewHolder) holder).binding.setAppointment(data.get(position));
     }
 
     @Override
@@ -31,10 +30,12 @@ public class AppointmentAdapter extends BaseAdapter<Appointment> {
         return data.size();
     }
 
-    public static class ViewHolder extends BaseViewHolder {
+    private static class ViewHolder extends BaseViewHolder {
 
+        ItemAppointmentBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            binding = ItemAppointmentBinding.bind(itemView);
         }
     }
 }

@@ -3,51 +3,52 @@ package com.cdtde.chongdetang.entity;
 public class Address {
     private String name;
     private String phone;
-    private String position;
-    private String detailAddress;
+    private String area; // TODO 后续需要接入省市api或者本地存储省市信息
+    private String detail;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public void setDetailAddress(String detailAddress) {
-        this.detailAddress = detailAddress;
-    }
-
-    public Address(String name, String phone, String position, String detailAddress) {
+    public Address(String name, String phone, String area, String detail) {
         this.name = name;
         this.phone = phone;
-        this.position = position;
-        this.detailAddress = detailAddress;
+        this.area = area;
+        this.detail = detail;
     }
+
     public Address() {
         this.name = "王小卤";
         this.phone = "13522380331";
-        this.position = "北京市朝阳区南磨房地区";
-        this.detailAddress = "平乐园100号北京工业大学";
+        this.area = "北京市朝阳区南磨房地区";
+        this.detail = "平乐园100号北京工业大学平乐园100号北京工业大学平乐园100号北京工业大学";
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPhone() {
         return phone;
     }
 
-    public String getPosition() {
-        return position;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getDetailAddress() {
-        return detailAddress;
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityAppointmentBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.AppointmentAdapter;
 import com.cdtde.chongdetang.viewModel.my.AppointmentViewModel;
 
@@ -21,6 +22,7 @@ import com.cdtde.chongdetang.viewModel.my.AppointmentViewModel;
 
 public class AppointmentActivity extends AppCompatActivity {
     private ActivityAppointmentBinding binding;
+
     private AppointmentViewModel vm;
 
     @Override
@@ -30,7 +32,7 @@ public class AppointmentActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(AppointmentViewModel.class);
         binding.setLifecycleOwner(this);
 
-        initWindow();
+        WindowUtil.initActivityWindow(binding.toolbar, this);
 
         binding.setAdapter(new AppointmentAdapter());
         binding.setViewModel(vm);
@@ -43,16 +45,6 @@ public class AppointmentActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    private void initWindow() {
-        setSupportActionBar(binding.toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
-        }
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

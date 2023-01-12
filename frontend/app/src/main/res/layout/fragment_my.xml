@@ -18,17 +18,18 @@
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/toolbar_layout"
                 app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:id="@+id/toolbar">
 
                 <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/my_title"
                         style="@style/ToolbarTitleStyle" />
             </androidx.appcompat.widget.Toolbar>

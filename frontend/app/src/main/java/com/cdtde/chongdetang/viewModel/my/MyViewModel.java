@@ -20,8 +20,6 @@ public class MyViewModel extends ViewModel {
     private MyRepository repository;
     private User user;
 
-    private MutableLiveData<List<Appointment>> appointments;
-
     public MyViewModel() {
         repository = MyRepository.getInstance();
         user = repository.getUser();
@@ -30,4 +28,5 @@ public class MyViewModel extends ViewModel {
     public User getUser() {
         return user;
     }
+
 }

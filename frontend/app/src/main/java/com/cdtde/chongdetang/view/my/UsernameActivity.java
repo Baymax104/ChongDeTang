@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActicityUsernameBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.regex.Pattern;
@@ -26,7 +27,7 @@ public class UsernameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.acticity_username);
         binding.setLifecycleOwner(this);
-        initWindow();
+        WindowUtil.initActivityWindow(binding.toolbar, this);
 
         binding.setValidity(true);
 
@@ -57,16 +58,6 @@ public class UsernameActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    private void initWindow() {
-        setSupportActionBar(binding.toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
-        }
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

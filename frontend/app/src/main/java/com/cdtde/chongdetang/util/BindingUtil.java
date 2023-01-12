@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @Description
+ * @Description DataBinding自定义绑定的工具类，由DataBinding自动调用
  * @Author John
  * @email
  * @Date 2023/1/7 23:31
@@ -94,8 +94,4 @@ public class BindingUtil {
         return "";
     }
 
-    @BindingConversion
-    public static String convertIntToString(int integer) {
-        return String.valueOf(integer);
-    }
 }

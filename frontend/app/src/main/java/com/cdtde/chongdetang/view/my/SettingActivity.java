@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 
 public class SettingActivity extends AppCompatActivity {
     private ActivitySettingBinding binding;
@@ -25,30 +26,24 @@ public class SettingActivity extends AppCompatActivity {
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        initViews();
+        WindowUtil.initActivityWindow(binding.settingsToolbar, this);
         setListener();//设置监听事件
     }
 
     private void setListener() {
 
-        binding.dataEntry.setOnClickListener(v -> {
-            Toast.makeText(this, "个人资料", Toast.LENGTH_SHORT).show();
-            UserInfoActivity.actionStart(this);
-        });
-        binding.passwordEntry.setOnClickListener(v -> {
-            Toast.makeText(this, "修改密码", Toast.LENGTH_SHORT).show();
-            NewPasswordActivity.actionStart(this);
-        });
-        binding.phoneEntry.setOnClickListener(v -> {
-            Toast.makeText(this, "更换绑定手机号", Toast.LENGTH_SHORT).show();
-            NewPhoneActivity.actionStart(this);
-        });
-        binding.logoffEntry.setOnClickListener(v -> {
-            Toast.makeText(this, "注销账号", Toast.LENGTH_SHORT).show();
-            reconfirm();
-        });
+        binding.dataEntry.setOnClickListener(v -> UserInfoActivity.actionStart(this));
+
+        binding.passwordEntry.setOnClickListener(v -> NewPasswordActivity.actionStart(this));
+
+        binding.phoneEntry.setOnClickListener(v -> NewPhoneActivity.actionStart(this));
+
+        binding.logoffEntry.setOnClickListener(v -> reconfirm());
+
         binding.copyrightEntry.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
+
         binding.versionEntry.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
+
         binding.logout.setOnClickListener(v -> {
             Toast.makeText(this, "退出登录", Toast.LENGTH_SHORT).show();
             finish();
@@ -59,33 +54,12 @@ public class SettingActivity extends AppCompatActivity {
         builder.setTitle("注销提示");
         builder.setMessage("确定注销账号吗？此操作不可逆！！！");
         builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener(){
-            //点击确定执行
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(SettingActivity.this, "注销成功", Toast.LENGTH_SHORT).show();
-            }});
-        builder.setNegativeButton("返回", new DialogInterface.OnClickListener(){
-            //点击取消执行
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(SettingActivity.this, "取消注销", Toast.LENGTH_SHORT).show();
-            }});
+        //点击确定执行
+        builder.setPositiveButton("确定", (arg0, arg1) -> Toast.makeText(SettingActivity.this, "注销成功", Toast.LENGTH_SHORT).show());
+        //点击取消执行
+        builder.setNegativeButton("返回", (arg0, arg1) -> Toast.makeText(SettingActivity.this, "取消注销", Toast.LENGTH_SHORT).show());
         AlertDialog b = builder.create();
         b.show();//显示对话框
-    }
-
-    private void initViews() {
-
-        setSupportActionBar(binding.settingsToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
-        }
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
     }
 
 
