@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="product"
-                type="com.cdtde.chongdetang.model.Product" />
+                type="com.cdtde.chongdetang.entity.Product" />
     </data>
 
 
@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                src="@{product.localImg}"
+                src_uri="@{product.image}"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="10dp"/>
 

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -22,7 +20,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
-import com.cdtde.chongdetang.viewModel.PersonInfoViewModel;
+import com.cdtde.chongdetang.viewModel.my.MyViewModel;
 
 /**
  * @Description
@@ -34,17 +32,17 @@ import com.cdtde.chongdetang.viewModel.PersonInfoViewModel;
 public class MyFragment extends Fragment {
 
     private FragmentMyBinding binding;
-    private PersonInfoViewModel newVm;
+    private MyViewModel vm;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMyBinding.inflate(inflater, container, false);
-        binding.myToolbar.inflateMenu(R.menu.my_toolbar_menu);
+        binding.toolbar.inflateMenu(R.menu.my_toolbar);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();
-        binding.myToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+        binding.toolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
         return binding.getRoot();
     }
 
@@ -52,10 +50,12 @@ public class MyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        newVm = new ViewModelProvider(requireActivity()).get(PersonInfoViewModel.class);
+        binding.setLifecycleOwner(this);
+        vm = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
+        binding.setUser(vm.getUser());
 
-        binding.myToolbar.setOnMenuItemClickListener(item -> {
+        binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.my_settings) {
                 SettingActivity.actionStart(getContext());
@@ -70,25 +70,25 @@ public class MyFragment extends Fragment {
     }
 
     private void setListener() {
-        binding.myUserIcon.setOnClickListener(v -> {
-//            PersonInfoActivity.actionStart(getContext());
+        binding.userIcon.setOnClickListener(v -> {
+//            UserInfoActivity.actionStart(getContext());
             Intent intent=new Intent();
-            intent.setClass(getContext(), PersonInfoActivity.class);
+            intent.setClass(getContext(), UserInfoActivity.class);
             startActivityForResult(intent,1);
         });
-        binding.myAppointment.setOnClickListener(v -> {
+        binding.appointmentEntry.setOnClickListener(v -> {
             Toast.makeText(getContext(), "我的预约", Toast.LENGTH_SHORT).show();
             AppointmentActivity.actionStart(getContext());
         });
-        binding.myCollection.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
-        binding.myShopping.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
-        binding.myOrder.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
-        binding.myAddress.setOnClickListener(v -> {
+        binding.collectionEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
+        binding.shoppingEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
+        binding.orderEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
+        binding.addressEntry.setOnClickListener(v -> {
             Toast.makeText(getContext(), "收货地址", Toast.LENGTH_SHORT).show();
             AddressActivity.actionStart(getContext());
         });
-        binding.myNotice.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
-        binding.myFeedback.setOnClickListener(v -> {
+        binding.noticeEntry.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
+        binding.feedbackEntry.setOnClickListener(v -> {
             FeedbackActivity.actionStart(getContext());
         });
     }
@@ -96,22 +96,22 @@ public class MyFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1){
-            if(resultCode==2){
-                Bundle newbundle=data.getExtras();
-                String iconPath=newbundle.getString("new_userIcon");
-                String userName=newbundle.getString("new_userName");
-                if (!iconPath.equals("none")) {
-                    Glide.with(this).load(iconPath).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.myUserIcon);
-                }
-                if (!userName.equals("none")){
-                    binding.myUserName.setText(userName);
-                }
-            }
-            else{
-                Log.i("new_icon","no datas!!!");
-            }
-        }
+//        if (requestCode==1){
+//            if(resultCode==2){
+//                Bundle newbundle=data.getExtras();
+//                String iconPath=newbundle.getString("new_userIcon");
+//                String userName=newbundle.getString("new_userName");
+//                if (!iconPath.equals("none")) {
+//                    Glide.with(this).load(iconPath).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.userIcon);
+//                }
+//                if (!userName.equals("none")){
+//                    binding.myUserName.setText(userName);
+//                }
+//            }
+//            else{
+//                Log.i("new_icon","no datas!!!");
+//            }
+//        }
     }
 
     @Override

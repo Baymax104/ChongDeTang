@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/fab_back"
-    tools:context=".view.index.Scenes.SceneFragment0_2"
+    tools:context=".view.index.scenes.SceneFragment0_2"
         tools:ignore="ContentDescription">
 
     <ImageView

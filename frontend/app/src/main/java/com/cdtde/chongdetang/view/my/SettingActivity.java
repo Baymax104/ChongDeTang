@@ -33,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
 
         binding.dataEntry.setOnClickListener(v -> {
             Toast.makeText(this, "个人资料", Toast.LENGTH_SHORT).show();
-            PersonInfoActivity.actionStart(this);
+            UserInfoActivity.actionStart(this);
         });
         binding.passwordEntry.setOnClickListener(v -> {
             Toast.makeText(this, "修改密码", Toast.LENGTH_SHORT).show();

@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="collection"
-                type="com.cdtde.chongdetang.model.Collection" />
+                type="com.cdtde.chongdetang.entity.Collection" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    src="@{collection.localImg}" />
+                    src_uri="@{collection.image}" />
 
             <TextView
                     style="@style/ItemTitleStyle"

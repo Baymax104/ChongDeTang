@@ -9,51 +9,42 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ActivityAppointmentBinding;
 import com.cdtde.chongdetang.util.adapter.AppointmentAdapter;
-import com.cdtde.chongdetang.databinding.ActivityMyAppointmentBinding;
-import com.cdtde.chongdetang.viewModel.AppointmentViewModel;
+import com.cdtde.chongdetang.viewModel.my.AppointmentViewModel;
 
 
 
 public class AppointmentActivity extends AppCompatActivity {
-    private ActivityMyAppointmentBinding binding;
+    private ActivityAppointmentBinding binding;
     private AppointmentViewModel vm;
-    private AppointmentAdapter adapter;
-    //    private EditText input;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMyAppointmentBinding.inflate(getLayoutInflater());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_appointment);
         vm = new ViewModelProvider(this).get(AppointmentViewModel.class);
-        View view = binding.getRoot();
-        setContentView(view);
-        initViews();
-        initList();
-        setListener();//设置监听事件
-    }
+        binding.setLifecycleOwner(this);
 
-    private void initList() {
+        initWindow();
 
-        binding.myAppointmentAppointList.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new AppointmentAdapter(vm.getDataList());
-        binding.myAppointmentAppointList.setAdapter(adapter);
-    }
-
-    private void setListener() {
+        binding.setAdapter(new AppointmentAdapter());
+        binding.setViewModel(vm);
 
     }
+
+
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, AppointmentActivity.class);
         context.startActivity(intent);
     }
 
-    private void initViews() {
-        setSupportActionBar(binding.myAppointmentToolbar);
+    private void initWindow() {
+        setSupportActionBar(binding.toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
@@ -61,8 +52,6 @@ public class AppointmentActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
         }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-//        input=findViewById(R.id.feedback_content);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

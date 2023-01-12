@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ItemShopProductBinding;
-import com.cdtde.chongdetang.model.Product;
+import com.cdtde.chongdetang.entity.Product;
 
 /**
  * @Description

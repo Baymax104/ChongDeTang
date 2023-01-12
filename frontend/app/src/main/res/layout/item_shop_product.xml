@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="product"
-                type="com.cdtde.chongdetang.model.Product" />
+                type="com.cdtde.chongdetang.entity.Product" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    src="@{product.localImg}" />
+                    src_uri="@{product.image}" />
 
             <TextView
                     style="@style/ItemTitleStyle"

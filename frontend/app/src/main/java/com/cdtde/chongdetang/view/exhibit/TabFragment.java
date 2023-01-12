@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
-import com.cdtde.chongdetang.model.Collection;
+import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter;
 
 import java.util.List;

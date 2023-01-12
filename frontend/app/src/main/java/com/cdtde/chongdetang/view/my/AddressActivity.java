@@ -14,12 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ActivityAddressBinding;
 import com.cdtde.chongdetang.util.adapter.AddressAdapter;
-import com.cdtde.chongdetang.databinding.ActivityMyAddressBinding;
-import com.cdtde.chongdetang.viewModel.AddressViewModel;
+import com.cdtde.chongdetang.viewModel.my.AddressViewModel;
 
 public class AddressActivity extends AppCompatActivity {
-    private ActivityMyAddressBinding binding;
+    private ActivityAddressBinding binding;
     private AddressViewModel vm;
 //    private RecyclerView addressList;
 
@@ -28,7 +28,7 @@ public class AddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMyAddressBinding.inflate(getLayoutInflater());
+        binding = ActivityAddressBinding.inflate(getLayoutInflater());
         vm = new ViewModelProvider(this).get(AddressViewModel.class);
         View view = binding.getRoot();
         setContentView(view);

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.model.Product;
+import com.cdtde.chongdetang.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;

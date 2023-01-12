@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/sceneFragment0_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment0_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment0_1"
         android:label="fragment_scene0_1"
         tools:layout="@layout/fragment_scene0_1" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment0_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment0_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment0_2"
         android:label="SceneFragment0_2"
         tools:layout="@layout/fragment_scene0_2" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment0_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment0_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment0_3"
         android:label="SceneFragment0_3"
         tools:layout="@layout/fragment_scene0_3" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment1_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment1_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment1_1"
         android:label="fragment_scene1_1"
         tools:layout="@layout/fragment_scene1_1" >
         <action
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment1_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment1_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment1_2"
         android:label="fragment_scene1_2"
         tools:layout="@layout/fragment_scene1_2" >
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment1_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment1_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment1_3"
         android:label="fragment_scene1_3"
         tools:layout="@layout/fragment_scene1_3" >
         <action
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_1"
         android:label="fragment_scene2_1"
         tools:layout="@layout/fragment_scene2_1" >
         <action
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_2"
         android:label="fragment_scene2_2"
         tools:layout="@layout/fragment_scene2_2" >
         <action
@@ -120,7 +120,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_3"
         android:label="fragment_scene2_3"
         tools:layout="@layout/fragment_scene2_3" >
         <action
@@ -135,7 +135,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_4"
         android:label="fragment_scene2_4"
         tools:layout="@layout/fragment_scene2_4" >
         <action
@@ -144,7 +144,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_5"
         android:label="fragment_scene2_5"
         tools:layout="@layout/fragment_scene2_5" >
         <action
@@ -159,7 +159,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_6"
         android:label="fragment_scene2_6"
         tools:layout="@layout/fragment_scene2_6" >
         <action
@@ -171,7 +171,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_7"
         android:label="fragment_scene2_7"
         tools:layout="@layout/fragment_scene2_7" >
         <action
@@ -183,7 +183,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment2_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment2_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment2_8"
         android:label="fragment_scene2_8"
         tools:layout="@layout/fragment_scene2_8" >
         <action
@@ -195,7 +195,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_1"
         android:label="fragment_scene3_1"
         tools:layout="@layout/fragment_scene3_1" >
         <action
@@ -210,7 +210,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_2"
         android:label="fragment_scene3_2"
         tools:layout="@layout/fragment_scene3_2" >
         <action
@@ -222,7 +222,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_3"
         android:label="fragment_scene3_3"
         tools:layout="@layout/fragment_scene3_3" >
         <action
@@ -234,7 +234,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_4"
         android:label="fragment_scene3_4"
         tools:layout="@layout/fragment_scene3_4" >
         <action
@@ -246,7 +246,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_5"
         android:label="fragment_scene3_5"
         tools:layout="@layout/fragment_scene3_5" >
         <action
@@ -261,7 +261,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_6"
         android:label="fragment_scene3_6"
         tools:layout="@layout/fragment_scene3_6" >
         <action
@@ -273,7 +273,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_7"
         android:label="fragment_scene3_7"
         tools:layout="@layout/fragment_scene3_7" >
         <action
@@ -285,7 +285,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment3_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment3_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment3_8"
         android:label="fragment_scene3_8"
         tools:layout="@layout/fragment_scene3_8" >
         <action
@@ -297,7 +297,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_1"
         android:label="fragment_scene4_1"
         tools:layout="@layout/fragment_scene4_1" >
         <action
@@ -309,7 +309,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_2"
         android:label="fragment_scene4_2"
         tools:layout="@layout/fragment_scene4_2" >
         <action
@@ -324,7 +324,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_3"
         android:label="fragment_scene4_3"
         tools:layout="@layout/fragment_scene4_3" >
         <action
@@ -336,7 +336,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_4"
         android:label="fragment_scene4_4"
         tools:layout="@layout/fragment_scene4_4" >
         <action
@@ -348,7 +348,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_5"
         android:label="fragment_scene4_5"
         tools:layout="@layout/fragment_scene4_5" >
         <action
@@ -363,7 +363,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_6"
         android:label="fragment_scene4_6"
         tools:layout="@layout/fragment_scene4_6" >
         <action
@@ -375,7 +375,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment4_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment4_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment4_7"
         android:label="fragment_scene4_7"
         tools:layout="@layout/fragment_scene4_7" >
         <action
@@ -387,7 +387,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment5_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment5_1"
         android:label="fragment_scene5_1"
         tools:layout="@layout/fragment_scene5_1" >
         <action
@@ -402,7 +402,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment5_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment5_2"
         android:label="fragment_scene5_2"
         tools:layout="@layout/fragment_scene5_2" >
         <action
@@ -417,7 +417,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment5_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment5_3"
         android:label="fragment_scene5_3"
         tools:layout="@layout/fragment_scene5_3" >
         <action
@@ -429,7 +429,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment5_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment5_4"
         android:label="fragment_scene5_4"
         tools:layout="@layout/fragment_scene5_4" >
         <action
@@ -444,7 +444,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment5_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment5_5"
         android:label="fragment_scene5_5"
         tools:layout="@layout/fragment_scene5_5" >
         <action
@@ -456,7 +456,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment5_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment5_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment5_6"
         android:label="fragment_scene5_6"
         tools:layout="@layout/fragment_scene5_6" >
         <action
@@ -468,7 +468,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_1"
         android:label="fragment_scene6_1"
         tools:layout="@layout/fragment_scene6_1" >
         <action
@@ -486,7 +486,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_2"
         android:label="fragment_scene6_2"
         tools:layout="@layout/fragment_scene6_2" >
         <action
@@ -498,7 +498,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_3"
         android:label="fragment_scene6_3"
         tools:layout="@layout/fragment_scene6_3" >
         <action
@@ -510,7 +510,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_4"
         android:label="fragment_scene6_4"
         tools:layout="@layout/fragment_scene6_4" >
         <action
@@ -523,7 +523,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_5"
         android:label="fragment_scene6_5"
         tools:layout="@layout/fragment_scene6_5" >
         <action
@@ -535,7 +535,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_6"
         android:label="fragment_scene6_6"
         tools:layout="@layout/fragment_scene6_6" >
         <action
@@ -554,7 +554,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_7"
         android:label="fragment_scene6_7"
         tools:layout="@layout/fragment_scene6_7" >
         <action
@@ -566,7 +566,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_8"
         android:label="fragment_scene6_8"
         tools:layout="@layout/fragment_scene6_8" >
         <action
@@ -578,7 +578,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment6_9"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment6_9"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment6_9"
         android:label="fragment_scene6_9"
         tools:layout="@layout/fragment_scene6_9" >
         <action
@@ -590,7 +590,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_1"
         android:label="fragment_scene7_1"
         tools:layout="@layout/fragment_scene7_1" >
         <action
@@ -605,7 +605,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_2"
         android:label="fragment_scene7_2"
         tools:layout="@layout/fragment_scene7_2" >
         <action
@@ -617,7 +617,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_3"
         android:label="fragment_scene7_3"
         tools:layout="@layout/fragment_scene7_3" >
         <action
@@ -629,7 +629,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_4"
         android:label="fragment_scene7_4"
         tools:layout="@layout/fragment_scene7_4" >
         <action
@@ -641,7 +641,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_5"
         android:label="fragment_scene7_5"
         tools:layout="@layout/fragment_scene7_5" >
         <action
@@ -659,7 +659,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_6"
         android:label="fragment_scene7_6"
         tools:layout="@layout/fragment_scene7_6" >
         <action
@@ -671,7 +671,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_7"
         android:label="fragment_scene7_7"
         tools:layout="@layout/fragment_scene7_7" >
         <action
@@ -683,7 +683,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment7_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment7_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment7_8"
         android:label="fragment_scene7_8"
         tools:layout="@layout/fragment_scene7_8" >
         <action
@@ -695,7 +695,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_1"
         android:label="fragment_scene8_1"
         tools:layout="@layout/fragment_scene8_1" >
         <action
@@ -710,7 +710,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_2"
         android:label="fragment_scene8_2"
         tools:layout="@layout/fragment_scene8_2" >
         <action
@@ -723,7 +723,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_3"
         android:label="fragment_scene8_3"
         tools:layout="@layout/fragment_scene8_3" >
         <action
@@ -735,7 +735,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_4"
         android:label="fragment_scene8_4"
         tools:layout="@layout/fragment_scene8_4" >
         <action
@@ -747,7 +747,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_5"
         android:label="fragment_scene8_5"
         tools:layout="@layout/fragment_scene8_5" >
         <action
@@ -762,7 +762,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_6"
         android:label="fragment_scene8_6"
         tools:layout="@layout/fragment_scene8_6" >
         <action
@@ -774,7 +774,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment8_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment8_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment8_7"
         android:label="fragment_scene8_7"
         tools:layout="@layout/fragment_scene8_7" >
         <action
@@ -786,7 +786,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_1"
         android:label="fragment_scene9_1"
         tools:layout="@layout/fragment_scene9_1" >
         <action
@@ -804,7 +804,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_2"
         android:label="fragment_scene9_2"
         tools:layout="@layout/fragment_scene9_2" >
         <action
@@ -816,7 +816,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_3"
         android:label="fragment_scene9_3"
         tools:layout="@layout/fragment_scene9_3" >
         <action
@@ -828,7 +828,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_4"
         android:label="fragment_scene9_4"
         tools:layout="@layout/fragment_scene9_4" >
         <action
@@ -840,7 +840,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_5"
         android:label="fragment_scene9_5"
         tools:layout="@layout/fragment_scene9_5" >
         <action
@@ -852,7 +852,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_6"
         android:label="fragment_scene9_6"
         tools:layout="@layout/fragment_scene9_6" >
         <action
@@ -867,7 +867,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_7"
         android:label="fragment_scene9_7"
         tools:layout="@layout/fragment_scene9_7" >
         <action
@@ -879,7 +879,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_8"
         android:label="fragment_scene9_8"
         tools:layout="@layout/fragment_scene9_8" >
         <action
@@ -891,7 +891,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment9_9"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment9_9"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment9_9"
         android:label="fragment_scene9_9"
         tools:layout="@layout/fragment_scene9_9" >
         <action
@@ -903,7 +903,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_1"
         android:label="fragment_scene10_1"
         tools:layout="@layout/fragment_scene10_1">
         <action
@@ -919,7 +919,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_2"
         android:label="fragment_scene10_2"
         tools:layout="@layout/fragment_scene10_2">
         <action
@@ -933,7 +933,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_3"
         android:label="fragment_scene10_3"
         tools:layout="@layout/fragment_scene10_3">
         <action
@@ -946,7 +946,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_4"
         android:label="fragment_scene10_4"
         tools:layout="@layout/fragment_scene10_4">
         <action
@@ -960,7 +960,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_5"
         android:label="fragment_scene10_5"
         tools:layout="@layout/fragment_scene10_5">
         <action
@@ -976,7 +976,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_6"
         android:label="fragment_scene10_6"
         tools:layout="@layout/fragment_scene10_6">
         <action
@@ -989,7 +989,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_7"
         android:label="fragment_scene10_7"
         tools:layout="@layout/fragment_scene10_7">
         <action
@@ -1002,7 +1002,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_8"
         android:label="fragment_scene10_8"
         tools:layout="@layout/fragment_scene10_8">
         <action
@@ -1018,7 +1018,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment10_9"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment10_9"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment10_9"
         android:label="fragment_scene10_9"
         tools:layout="@layout/fragment_scene10_9">
         <action
@@ -1031,7 +1031,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_1"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_1"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_1"
         android:label="fragment_scene11_1"
         tools:layout="@layout/fragment_scene11_1">
         <action
@@ -1047,7 +1047,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_2"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_2"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_2"
         android:label="fragment_scene11_2"
         tools:layout="@layout/fragment_scene11_2">
         <action
@@ -1060,7 +1060,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_3"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_3"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_3"
         android:label="fragment_scene11_3"
         tools:layout="@layout/fragment_scene11_3">
         <action
@@ -1076,7 +1076,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_4"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_4"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_4"
         android:label="fragment_scene11_4"
         tools:layout="@layout/fragment_scene11_4">
         <action
@@ -1090,7 +1090,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_5"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_5"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_5"
         android:label="fragment_scene11_5"
         tools:layout="@layout/fragment_scene11_5">
         <action
@@ -1103,7 +1103,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_6"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_6"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_6"
         android:label="fragment_scene11_6"
         tools:layout="@layout/fragment_scene11_6">
         <action
@@ -1119,7 +1119,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_7"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_7"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_7"
         android:label="fragment_scene11_7"
         tools:layout="@layout/fragment_scene11_7">
         <action
@@ -1132,7 +1132,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_8"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_8"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_8"
         android:label="fragment_scene11_8"
         tools:layout="@layout/fragment_scene11_8">
         <action
@@ -1145,7 +1145,7 @@
     </fragment>
     <fragment
         android:id="@+id/sceneFragment11_9"
-        android:name="com.cdtde.chongdetang.view.index.Scenes.SceneFragment11_9"
+        android:name="com.cdtde.chongdetang.view.index.scenes.SceneFragment11_9"
         android:label="fragment_scene11_9"
         tools:layout="@layout/fragment_scene11_9">
         <action

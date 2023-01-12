@@ -5,50 +5,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.cdtde.chongdetang.databinding.ItemAponintmentBinding;
-import com.cdtde.chongdetang.model.Appointment;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ItemAppointmentBinding;
+import com.cdtde.chongdetang.entity.Appointment;
 
-import java.util.List;
 
-public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.viewHolder> {
-    // 数据
-    private List<Appointment> appointList;
-    // 构造函数
-    public AppointmentAdapter(List<Appointment> appointList) {
-        this.appointList = appointList;
-    }
+public class AppointmentAdapter extends BaseAdapter<Appointment> {
 
     @NonNull
     @Override
-//    这个方法返回viewholder，创建一个viewholder
-    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // 关联相关样式
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_aponintment,parent,false);
-        return new viewHolder(v);
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_appointment, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Appointment tmp=appointList.get(position);
-        holder.binding.appointmentDate.setText(tmp.getDate());
-        holder.binding.appointmentId.setText(tmp.getOrderID());
-        holder.binding.appointmentTime.setText(tmp.getOrderTime());
-        holder.binding.appointmentMoney.setText(tmp.getOrderMoney());
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+        ItemAppointmentBinding binding = ItemAppointmentBinding.bind(holder.itemView);
+        binding.setAppointment(data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return appointList.size();
+        return data.size();
     }
 
-    public static class viewHolder extends RecyclerView.ViewHolder {
-        ItemAponintmentBinding binding;
-        public viewHolder(@NonNull View itemView) {
+    public static class ViewHolder extends BaseViewHolder {
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = ItemAponintmentBinding.bind(itemView);
         }
     }
 }

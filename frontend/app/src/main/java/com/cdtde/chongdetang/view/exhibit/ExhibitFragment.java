@@ -36,7 +36,7 @@ public class ExhibitFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentExhibitBinding.inflate(inflater, container, false);
-        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
+        binding.toolbar.inflateMenu(R.menu.index_toolbar);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();

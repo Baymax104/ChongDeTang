@@ -1,12 +1,15 @@
 package com.cdtde.chongdetang.util;
 
+import android.net.Uri;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.BindingConversion;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.adapter.BannerAdapter;
 import com.cdtde.chongdetang.util.adapter.BaseAdapter;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
@@ -14,7 +17,10 @@ import com.cdtde.chongdetang.util.adapter.SearchTagAdapter;
 import com.youth.banner.Banner;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @Description
@@ -29,8 +35,13 @@ public class BindingUtil {
         view.setImageResource(resId);
     }
 
+    @BindingAdapter("src_uri")
+    public static void setImgUri(ImageView view, Uri uri) {
+        view.setImageURI(uri);
+    }
+
     @BindingAdapter("img_url")
-    public static void serImgUrl(ImageView view, String url) {
+    public static void setImgUrl(ImageView view, String url) {
         // 网络请求图片
     }
 
@@ -57,4 +68,34 @@ public class BindingUtil {
         banner.setAdapter(new BannerAdapter(data));
     }
 
+    @BindingConversion
+    public static String convertDouble(double value) {
+        return String.valueOf(value);
+    }
+
+    @BindingConversion
+    public static String convertDate(Date date) {
+        if (date == null) {
+            return "未填写";
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        return format.format(date);
+    }
+
+    @BindingConversion
+    public static String convertAppointStateToString(Appointment.State state) {
+        if (state == Appointment.State.SUCCESS) {
+            return "预约成功";
+        } else if (state == Appointment.State.PROCESSING) {
+            return "预约中";
+        } else if (state == Appointment.State.FAIL) {
+            return "预约失败";
+        }
+        return "";
+    }
+
+    @BindingConversion
+    public static String convertIntToString(int integer) {
+        return String.valueOf(integer);
+    }
 }

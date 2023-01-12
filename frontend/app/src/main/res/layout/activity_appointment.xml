@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.my.AppointmentViewModel" />
+        <variable
+                name="adapter"
+                type="com.cdtde.chongdetang.util.adapter.AppointmentAdapter" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_layout"
+                android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/bar_color"
+                    android:id="@+id/toolbar"
+                    android:fitsSystemWindows="true">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/appointment"
+                        style="@style/CommonToolbarTitleStyle" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appointment_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_5"
+                tools:listitem="@layout/item_appointment"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                recycler_adapter="@{adapter}"
+                recycler_data="@{viewModel.appointments}"/>
+
+    </LinearLayout>
+</layout>

@@ -1,12 +1,12 @@
 package com.cdtde.chongdetang.view;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
-import android.os.Bundle;
-import android.view.View;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityMainBinding;
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         binding.setLifecycleOwner(this);
         initView();
+
+
 
         binding.mainNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();

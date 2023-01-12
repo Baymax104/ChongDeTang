@@ -1,302 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:ignore="RelativeOverlap,ContentDescription">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+        <variable
+                name="user"
+                type="com.cdtde.chongdetang.entity.User" />
+    </data>
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_toolbar_layout"
-            app:elevation="0dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="RelativeOverlap,ContentDescription">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:id="@+id/my_toolbar">
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
 
-            <TextView
+            <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/my_title"
-                    style="@style/ToolbarTitleStyle"/>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+                    android:background="@color/white"
+                    android:id="@+id/toolbar">
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/my_title"
+                        style="@style/ToolbarTitleStyle" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/my_userIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/my_user"
-            android:layout_gravity="center"
-            app:shapeAppearanceOverlay="@style/circleImageStyle"/>
-
-        <TextView
-                android:id="@+id/my_userName"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="小明"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"/>
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/user_icon"
+                    android:src="@{user.photo}"
+                    android:layout_gravity="center"
+                    app:riv_corner_radius="50dp"
+                    android:scaleType="centerCrop"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{user.name}"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:id="@+id/appointment_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/appointment"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/appointment_icon" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/appointment_icon"
+                        android:text="@string/appointment"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/collection_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/collection_icon"
+                        android:src="@drawable/collection"
+                        android:layout_marginStart="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/collection_icon"
+                        android:text="@string/collection"
+                        android:layout_centerVertical="true"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_marginEnd="10dp" />
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/gray_4" />
+
+            <RelativeLayout
+                    android:id="@+id/shopping_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/shopping_icon"
+                        android:src="@drawable/shopping"
+                        android:layout_marginStart="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/shopping_icon"
+                        android:text="@string/my_shopping"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/order_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/order_icon"
+                        android:src="@drawable/order"
+                        android:layout_marginStart="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/order_icon"
+                        android:text="@string/my_order"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/address_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/address"
+                        android:id="@+id/address_icon"
+                        android:layout_marginStart="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/address_icon"
+                        android:text="@string/address"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/gray_4" />
+
+            <RelativeLayout
+                    android:id="@+id/notice_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/notice_icon"
+                        android:src="@drawable/notice"
+                        android:layout_marginStart="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/notice_icon"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/notice"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/feedback_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp">
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/feedback_icon"
+                        android:src="@drawable/feedback"
+                        android:layout_marginStart="10dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/feedback_icon"
+                        android:text="@string/feedback"
+                        style="@style/EntryTextStyle" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_right"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <RelativeLayout
-                android:id="@+id/my_appointment"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/appointment"
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/my_appointment_icon" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/my_appointment_icon"
-                    android:text="@string/appointment"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/my_collection"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/my_collection_icon"
-                    android:src="@drawable/collection"
-                    android:layout_marginStart="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/my_collection_icon"
-                    android:text="@string/collection"
-                    android:layout_centerVertical="true"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_marginEnd="10dp" />
-
-        </RelativeLayout>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/gray_4"/>
-
-        <RelativeLayout
-                android:id="@+id/my_shopping"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/my_shopping_icon"
-                    android:src="@drawable/shopping"
-                    android:layout_marginStart="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/my_shopping_icon"
-                    android:text="@string/my_shopping"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/my_order"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/my_order_icon"
-                    android:src="@drawable/order"
-                    android:layout_marginStart="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/my_order_icon"
-                    android:text="@string/my_order"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/my_address"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/address"
-                    android:id="@+id/my_address_icon"
-                    android:layout_marginStart="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/my_address_icon"
-                    android:text="@string/address"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
-
-        </RelativeLayout>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/gray_4"/>
-
-        <RelativeLayout
-                android:id="@+id/my_notice"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/my_notice_icon"
-                    android:src="@drawable/notice"
-                    android:layout_marginStart="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/my_notice_icon"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/notice"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/my_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp">
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/my_feedback_icon"
-                    android:src="@drawable/feedback"
-                    android:layout_marginStart="10dp" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/my_feedback_icon"
-                    android:text="@string/feedback"
-                    style="@style/EntryTextStyle"/>
-
-            <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_right"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-</LinearLayout>
+</layout>

@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ItemIndexCollectionBinding;
-import com.cdtde.chongdetang.model.Collection;
-
-import java.util.List;
+import com.cdtde.chongdetang.entity.Collection;
 
 /**
  * @Description

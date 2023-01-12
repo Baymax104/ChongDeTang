@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.util.adapter;
 
-import android.widget.GridLayout;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;

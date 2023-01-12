@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cdtde.chongdetang.databinding.ItemAddressBinding;
-import com.cdtde.chongdetang.model.Address;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ItemAddressBinding;
+import com.cdtde.chongdetang.entity.Address;
 
 import java.util.List;
 

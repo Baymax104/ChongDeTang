@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.index.Scenes.SceneFragment11_9">
+    tools:context=".view.index.scenes.SceneFragment11_9">
 
     <ImageView
         android:id="@+id/scene_img11_9"

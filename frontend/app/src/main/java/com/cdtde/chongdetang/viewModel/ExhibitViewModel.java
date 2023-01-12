@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cdtde.chongdetang.model.Collection;
+import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.view.exhibit.TabFragment;
 
 import java.util.ArrayList;

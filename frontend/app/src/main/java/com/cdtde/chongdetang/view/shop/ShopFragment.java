@@ -18,7 +18,6 @@ import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.viewModel.ShopViewModel;
 import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.transformer.AlphaPageTransformer;
 
 /**
  * @Description
@@ -36,7 +35,7 @@ public class ShopFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentShopBinding.inflate(inflater, container, false);
-        binding.toolbar.inflateMenu(R.menu.index_toolbar_menu);
+        binding.toolbar.inflateMenu(R.menu.index_toolbar);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         View decorView = activity.getWindow().getDecorView();
         WindowInsets insets = decorView.getRootWindowInsets();

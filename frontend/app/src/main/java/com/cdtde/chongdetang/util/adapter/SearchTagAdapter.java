@@ -1,11 +1,7 @@
 package com.cdtde.chongdetang.util.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
-
-import androidx.databinding.DataBindingUtil;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ItemSearchTagBinding;

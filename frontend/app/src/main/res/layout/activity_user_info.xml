@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="user"
+                type="com.cdtde.chongdetang.entity.User" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            tools:ignore="ContentDescription,RelativeOverlap">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/bar_color"
+                    android:id="@+id/toolbar"
+                    android:fitsSystemWindows="true">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/user_info"
+                        style="@style/CommonToolbarTitleStyle" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:id="@+id/icon_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:paddingHorizontal="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_icon"
+                        style="@style/UserInfoTextStyle"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"/>
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/user_icon"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        src_uri="@{user.photo}"
+                        android:scaleType="centerCrop"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/icon_arrow"
+                        app:riv_corner_radius="18dp"/>
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/icon_arrow"
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_3" />
+
+            <RelativeLayout
+                    android:id="@+id/name_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:paddingHorizontal="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/username"
+                        style="@style/UserInfoTextStyle"
+                        android:layout_centerVertical="true"/>
+
+
+                <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@{user.name}"
+                        style="@style/UserInfoTextStyle"
+                        android:layout_toStartOf="@id/name_arrow"/>
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/name_arrow"
+                        android:src="@drawable/arrow_right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_3" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_phone"
+                        android:layout_centerVertical="true"
+                        style="@style/UserInfoTextStyle"/>
+
+                <TextView
+                        android:id="@+id/user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{user.phone}"
+                        android:layout_centerVertical="true"
+                        style="@style/UserInfoTextStyle"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="end"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_3" />
+
+            <RelativeLayout
+                    android:id="@+id/gender_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_gender"
+                        android:layout_centerVertical="true"
+                        style="@style/UserInfoTextStyle"/>
+
+
+                <TextView
+                        android:id="@+id/user_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@{user.gender}"
+                        style="@style/UserInfoTextStyle"
+                        android:layout_toStartOf="@id/gender_arrow"/>
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/gender_arrow"
+                        android:src="@drawable/arrow_right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_3" />
+
+            <RelativeLayout
+                    android:id="@+id/birth_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_birthday"
+                        android:layout_centerVertical="true"
+                        style="@style/UserInfoTextStyle"/>
+
+                <TextView
+                        android:id="@+id/user_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{user.birthday}"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/birth_arrow"
+                        style="@style/UserInfoTextStyle"/>
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/birth_arrow"
+                        android:src="@drawable/arrow_right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_3" />
+
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_mail"
+                        android:layout_centerVertical="true"
+                        style="@style/UserInfoTextStyle"/>
+
+                <TextView
+                        android:id="@+id/user_mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{user.mail}"
+                        android:layout_centerVertical="true"
+                        style="@style/UserInfoTextStyle"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="end"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_3" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

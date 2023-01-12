@@ -33,9 +33,6 @@ android {
     dataBinding {
         enabled = true
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
@@ -53,14 +50,28 @@ dependencies {
 
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation "io.reactivex.rxjava2:rxjava:2.0.0"
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
     implementation 'com.github.yalantis:ucrop:2.2.6'
+
     implementation 'com.github.li-xiaojun:XPopup:2.9.17'
+
     implementation 'com.github.clans:fab:1.6.4'
+
     implementation 'io.github.youth5201314:banner:2.2.2'
+
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
     implementation 'com.github.angcyo.DslTablayout:TabLayout:3.5.3'
     implementation 'com.github.angcyo.DslTablayout:ViewPager2Delegate:3.5.3'
+
+    implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+
+    implementation 'com.blankj:utilcodex:1.31.1'
+
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
 }

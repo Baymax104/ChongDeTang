@@ -14,35 +14,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- 圆形图片 -->
-    <style name="circleImageStyle">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-    <!-- dialog样式 -->
-    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
-        <!-- 边框 -->
-        <item name="android:windowFrame">@null</item>
-        <!-- 是否浮现在activity之上 -->
-        <item name="android:windowIsFloating">true</item>
-        <!-- 半透明 -->
-        <item name="android:windowIsTranslucent">true</item>
-        <!-- 无标题 -->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@android:color/transparent</item>
-        <!-- 背景透明 -->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 模糊 -->
-        <item name="android:backgroundDimEnabled">true</item>
-        <!-- 遮罩层 -->
-        <item name="android:backgroundDimAmount">0.5</item>
-    </style>
-    <!-- dialog的动画 -->
-    <style name="animStyle">
-        <item name="android:windowEnterAnimation">@anim/dialog_in_anim</item>
-        <item name="android:windowExitAnimation">@anim/dialog_out_anim</item>
-    </style>
-
     <!--字体样式-->
     <!--横条页面跳转入口文字样式-->
     <style name="EntryTextStyle">
@@ -61,7 +32,7 @@
 
     <!--带返回键的ToolBar标题样式-->
     <style name="CommonToolbarTitleStyle" parent="ToolbarTitleStyle">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!--块标签样式-->
@@ -102,6 +73,22 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/regular</item>
+    </style>
+
+
+    <!--个人资料页面文字样式-->
+    <style name="UserInfoTextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--对话框按钮文字样式-->
+    <style name="DialogButtonTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

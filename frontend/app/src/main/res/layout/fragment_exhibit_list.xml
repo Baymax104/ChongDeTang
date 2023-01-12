@@ -7,7 +7,7 @@
                 name="adapter"
                 type="com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter" />
         <import type="java.util.List"/>
-        <import type="com.cdtde.chongdetang.model.Collection"/>
+        <import type="com.cdtde.chongdetang.entity.Collection"/>
         <variable
                 name="data"
                 type="List&lt;Collection>" />

@@ -1,18 +1,18 @@
 package com.cdtde.chongdetang.view.my;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Toast;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.ActionBar;
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import com.cdtde.chongdetang.R;
-        import com.cdtde.chongdetang.databinding.ActivityNewPhoneBinding;
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.databinding.ActivityNewPhoneBinding;
 
 public class NewPhoneActivity extends AppCompatActivity {
     private ActivityNewPhoneBinding binding;

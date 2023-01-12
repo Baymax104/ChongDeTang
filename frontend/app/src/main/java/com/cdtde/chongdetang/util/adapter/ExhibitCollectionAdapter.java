@@ -5,13 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ItemExhibitCollectionBinding;
-import com.cdtde.chongdetang.model.Collection;
-
-import java.util.List;
+import com.cdtde.chongdetang.entity.Collection;
 
 /**
  * @Description

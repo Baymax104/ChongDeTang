@@ -16,7 +16,7 @@ import com.cdtde.chongdetang.databinding.ActivityFeedbackBinding;
 
 public class FeedbackActivity extends AppCompatActivity {
     private ActivityFeedbackBinding binding;
-//    private EditText input;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +48,6 @@ public class FeedbackActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
         }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-//        input=findViewById(R.id.feedback_content);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/male"
+                android:id="@+id/male"
+                style="@style/DialogButtonTextStyle"
+                android:background="?attr/selectableItemBackground" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_6"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/female"
+                android:id="@+id/female"
+                style="@style/DialogButtonTextStyle"
+                android:background="?attr/selectableItemBackground" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_6"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:id="@+id/cancel"
+                style="@style/DialogButtonTextStyle"
+                android:background="?attr/selectableItemBackground" />
+    </LinearLayout>
+</layout>
