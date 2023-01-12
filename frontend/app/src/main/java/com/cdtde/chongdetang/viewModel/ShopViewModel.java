@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.repository.ShopRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,35 +19,23 @@ import java.util.List;
  */
 public class ShopViewModel extends ViewModel {
 
-    private MutableLiveData<List<Integer>> bannerImg;
+    private ShopRepository repository;
+    private MutableLiveData<List<Integer>> bannerResource;
 
     private MutableLiveData<List<Product>> products;
 
     public ShopViewModel() {
-        bannerImg = new MutableLiveData<>();
-        List<Integer> imgs = new ArrayList<>();
-        imgs.add(R.drawable.shop_banner1);
-        imgs.add(R.drawable.shop_banner2);
-        imgs.add(R.drawable.shop_banner3);
-        bannerImg.setValue(imgs);
-
-        products = new MutableLiveData<>();
-        generateTest();
+        repository = ShopRepository.getInstance();
+        bannerResource = new MutableLiveData<>(repository.getBannerResource());
+        products = new MutableLiveData<>(repository.getProducts());
     }
 
-    public MutableLiveData<List<Integer>> getBannerImg() {
-        return bannerImg;
+    public MutableLiveData<List<Integer>> getBannerResource() {
+        return bannerResource;
     }
 
     public MutableLiveData<List<Product>> getProducts() {
         return products;
     }
 
-    private void generateTest() {
-        List<Product> value = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            value.add(new Product());
-        }
-        products.setValue(value);
-    }
 }

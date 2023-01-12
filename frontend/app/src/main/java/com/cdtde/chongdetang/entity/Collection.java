@@ -1,11 +1,15 @@
 package com.cdtde.chongdetang.entity;
 
 import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 import com.blankj.utilcode.util.UriUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+
+import java.io.Serializable;
 
 /**
  * @Description
@@ -14,7 +18,7 @@ import com.cdtde.chongdetang.R;
  * @Date 2022/12/26 16:03
  * @Version 1
  */
-public class Collection {
+public class Collection extends BaseObservable implements Serializable {
     private int id;
     private String name;
     private Uri image;
@@ -38,27 +42,33 @@ public class Collection {
         this.description = description;
     }
 
+    @Bindable
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+        notifyPropertyChanged(BR.name);
     }
 
+    @Bindable
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+        notifyPropertyChanged(BR.description);
     }
 
+    @Bindable
     public Uri getImage() {
         return image;
     }
 
     public void setImage(Uri image) {
         this.image = image;
+        notifyPropertyChanged(BR.image);
     }
 }

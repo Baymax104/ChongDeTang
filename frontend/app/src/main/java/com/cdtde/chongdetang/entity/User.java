@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Date;
  * @Version 1
  */
 
-public class User extends BaseObservable {
+public class User extends BaseObservable implements Serializable {
     private static User user;
     private String name;
     private Uri photo;

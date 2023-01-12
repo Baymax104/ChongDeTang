@@ -57,7 +57,7 @@
                         app:banner_radius="10dp"
                         app:banner_indicator_normal_color="@color/white"
                         app:banner_indicator_selected_color="@color/main_color"
-                        banner_data="@{viewModel.bannerImg}" />
+                        banner_data="@{viewModel.bannerResource}" />
 
                 <LinearLayout
                         android:layout_width="match_parent"

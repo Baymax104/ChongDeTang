@@ -42,18 +42,16 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        int page = -1;
+        int page = 1;
         if (getArguments() != null) {
             page = getArguments().getInt("page");
         }
         vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
 
         binding.setLifecycleOwner(this);
-        if (page != -1) {
-            binding.setAdapter(new ExhibitCollectionAdapter());
-            binding.setViewModel(vm);
-            binding.setPage(page);
-        }
+        binding.setAdapter(new ExhibitCollectionAdapter());
+        binding.setViewModel(vm);
+        binding.setPage(page);
     }
 
     public static TabFragment newInstance(int page) {
