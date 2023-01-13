@@ -20,11 +20,12 @@ public class InfoServiceImpl implements InfoSerevice {
 
         Map<String,String> map = new HashMap<>();
         map.put("error_message","success");
-        map.put("id",user.getId().toString());
         map.put("username",user.getUsername());
         map.put("photo",user.getPhoto());
         map.put("mail",user.getMail());
         map.put("phone",user.getPhone());
+        map.put("sex",user.getSex());
+        map.put("age",user.getAge());
 
         return map;
     }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -20,64 +21,47 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
-    public Map<String, String> register(String username, String password, String confirmPassword,String mail,String phone) {
+    public Map<String, String> register(String phone, String password, String confirmedPassword) {
         Map<String,String> map = new HashMap<>();
-        if(username == null){
-            map.put("error_message","用户名不能为空");
+        if(phone == null){
+            map.put("error_message","手机号不能为空");
             return map;
         }
-
-        username = username.trim();
-        if(username.length()==0){
-            map.put("error_message","用户名不能为空");
-            return map;
-        }
-
-        if(username.length()>40){
-            map.put("error_message","用户名长度不能大于40");
+        Pattern pattern = Pattern.compile("[0-9]*");
+        if(phone.length()!=11 || !pattern.matcher(phone).matches()){
+            map.put("error_message","手机号格式错误");
             return map;
         }
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username",username);
+        queryWrapper.eq("phone",phone);
         List<User> accounts = userMapper.selectList(queryWrapper);
         if(!accounts.isEmpty()){
-            map.put("error_message","用户名已存在");
+            map.put("error_message","手机号已被注册");
             return map;
         }
-
-        if(password == null || confirmPassword == null){
+        if(password == null || confirmedPassword == null){
             map.put("error_message","密码不能为空");
             return map;
         }
 
-        if(password.length() == 0 || confirmPassword.length() == 0){
+        if(password.length() == 0 || confirmedPassword.length() == 0){
             map.put("error_message","密码不能为空");
             return map;
         }
 
-        if(password.length() > 100 || confirmPassword.length() > 100){
+        if(password.length() > 100 || confirmedPassword.length() > 100){
             map.put("error_message","密码长度不能大于100");
             return map;
         }
 
-        if(!password.equals(confirmPassword)){
+        if(!password.equals(confirmedPassword)){
             map.put("error_message","两次输入的密码不一致");
             return map;
         }
 
-        if(phone == null){
-            map.put("error_message","电话号不能为空");
-            return map;
-        }
-
-        if(mail == null){
-            map.put("error_message","邮箱不能为空");
-        }
-
         String encodedPassword = passwordEncoder.encode(password);
-        String photo = "https://cdn.acwing.com/media/user/profile/photo/167993_sm_58204cd6ee.jpg";
-        User user = new User(null,username,encodedPassword,photo,mail,phone);
+        User user = new User(null,null,encodedPassword,null,null,phone,null,null);
         userMapper.insert(user);
         map.put("error_message","success");
         return map;

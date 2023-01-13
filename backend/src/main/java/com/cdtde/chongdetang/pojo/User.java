@@ -17,4 +17,6 @@ public class User {
     private String photo;
     private String mail;
     private String phone;
+    private String sex;
+    private String age;
 }
