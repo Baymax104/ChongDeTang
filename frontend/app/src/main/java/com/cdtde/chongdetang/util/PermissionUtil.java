@@ -16,7 +16,10 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
  */
 public class PermissionUtil {
 
-    // RxPermissions申请权限失败后会自动return，不需要手动处理
+    /**
+     * 申请权限，申请权限失败后会自动return，不需要手动处理
+     * @param permission 权限名称
+     */
     @SuppressLint("CheckResult")
     public static void requestPermission(String permission) {
         Activity activity = ActivityUtils.getTopActivity();

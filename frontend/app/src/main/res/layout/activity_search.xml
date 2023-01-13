@@ -70,7 +70,6 @@
                         <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/clean_button"
                                 android:layout_marginEnd="10dp"
                                 android:layout_alignParentEnd="true"
                                 android:id="@+id/clean_btn"
@@ -81,13 +80,14 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="@string/button_search"
+                            android:text="@string/toolbar_search"
                             android:textColor="@color/main_color"
                             android:textSize="16sp"
                             android:gravity="center"
                             android:fontFamily="@font/text_regular"
                             android:layout_marginHorizontal="10dp"
-                            android:id="@+id/search_btn" />
+                            android:id="@+id/search_btn"
+                            android:onClick="@{() -> viewModel.search(searchEdit.getText().toString())}"/>
                 </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
@@ -122,7 +122,8 @@
                 android:padding="15dp"
                 android:id="@+id/history_flow"
                 android:visibility="@{viewModel.historyTags.size()==0 ? View.GONE : View.VISIBLE}"
-                tag_data="@{viewModel.historyTags}"/>
+                tag_data="@{viewModel.historyTags}"
+                relate="@{searchEdit}"/>
 
 
         <TextView
@@ -136,7 +137,8 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/collection_flow"
-                tag_data="@{viewModel.collectionTags}"/>
+                tag_data="@{viewModel.collectionTags}"
+                relate="@{searchEdit}"/>
 
 
         <TextView
@@ -150,7 +152,8 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/product_flow"
-                tag_data="@{viewModel.productTags}"/>
+                tag_data="@{viewModel.productTags}"
+                relate="@{searchEdit}"/>
 
     </LinearLayout>
 </layout>

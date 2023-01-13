@@ -32,7 +32,7 @@ public class AppointmentActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(AppointmentViewModel.class);
         binding.setLifecycleOwner(this);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
         binding.setAdapter(new AppointmentAdapter());
         binding.setViewModel(vm);

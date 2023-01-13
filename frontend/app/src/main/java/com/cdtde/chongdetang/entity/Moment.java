@@ -1,0 +1,73 @@
+package com.cdtde.chongdetang.entity;
+
+import android.net.Uri;
+
+import java.io.Serializable;
+import java.net.URL;
+import java.util.Date;
+
+/**
+ * @Description
+ * @Author John
+ * @email
+ * @Date 2023/1/14 0:06
+ * @Version 1
+ */
+public class Moment implements Serializable {
+    private String title;
+    private Date publishDate;
+    private String preview;
+    private Uri image;
+    private String webUrl;
+
+    public Moment() {
+    }
+
+    public Moment(String title, Date publishDate, String preview, Uri image, String webUrl) {
+        this.title = title;
+        this.publishDate = publishDate;
+        this.preview = preview;
+        this.image = image;
+        this.webUrl = webUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
+    }
+
+    public Uri getImage() {
+        return image;
+    }
+
+    public void setImage(Uri image) {
+        this.image = image;
+    }
+
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
+    }
+}

@@ -6,7 +6,6 @@
     <string name="nav_menu_my">我的</string>
     <string name="toolbar_search">搜索</string>
     <string name="toolbar_settings">设置</string>
-    <string name="button_search">搜索</string>
     <string name="feedback_enter">请描述您在APP使用过程中的问题，以使我们更好的为您服务</string>
     <string name="name_hint">请输入新昵称……</string>
     <string name="phone_hint">请输入新手机号</string>

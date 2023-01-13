@@ -18,6 +18,11 @@ import java.util.Locale;
  */
 public class CameraUtil {
 
+    /**
+     * 启动相机
+     * @param file 照片文件File对象
+     * @return intent
+     */
     public static Intent startCamera(File file) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (file != null) {
@@ -28,6 +33,10 @@ public class CameraUtil {
         return null;
     }
 
+    /**
+     * 在/storage/emulated/0/Android/data/package/files目录下新建文件
+     * @return file
+     */
     public static File createNewFile() {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
         String filename = format.format(new Date());
@@ -44,6 +53,10 @@ public class CameraUtil {
         return file;
     }
 
+    /**
+     * 启动相册
+     * @return intent
+     */
     public static Intent startPhotoPicker() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");

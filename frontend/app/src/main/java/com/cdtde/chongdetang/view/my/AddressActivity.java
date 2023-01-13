@@ -30,7 +30,7 @@ public class AddressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_address);
         vm = new ViewModelProvider(this).get(AddressViewModel.class);
-        WindowUtil.initActivityWindow(binding.toolbar, this);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
         binding.setLifecycleOwner(this);
         binding.setAdapter(new AddressAdapter());

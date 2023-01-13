@@ -27,7 +27,7 @@ public class UsernameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.acticity_username);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
         binding.setValidity(true);
 
@@ -43,7 +43,7 @@ public class UsernameActivity extends AppCompatActivity {
     }
 
     private boolean validate(String content) {
-        String pattern = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$";
+        String pattern = "^[a-zA-Z\\d\\u4e00-\\u9fa5]+$";
         boolean isMatch = Pattern.matches(pattern, content);
 
         int length = content.length();

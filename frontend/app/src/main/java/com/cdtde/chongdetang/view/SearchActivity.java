@@ -12,12 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySearchBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.SearchViewModel;
 
 public class SearchActivity extends AppCompatActivity {
 
     private ActivitySearchBinding binding;
-
 
     private SearchViewModel vm;
 
@@ -27,36 +27,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.setLifecycleOwner(this);
-        setContentView(binding.getRoot());
         vm = new ViewModelProvider(this).get(SearchViewModel.class);
         binding.setViewModel(vm);
-        init();
+        WindowUtil.initActivityWindow(binding.toolbar, this, false);
 
-
-        // 最近搜索tags
-        binding.historyFlow.setOnTagClickListener((view1, i, flowLayout) -> {
-            binding.searchEdit.setText(vm.getHistoryTags().getValue().get(i));
-            return true;
-        });
-
-
-        // 藏品推荐tags
-        binding.collectionFlow.setOnTagClickListener((view1, i, flowLayout) -> {
-            binding.searchEdit.setText(vm.getCollectionTags().getValue().get(i));
-            return true;
-        });
-
-        // 商品推荐tags
-        binding.productFlow.setOnTagClickListener((view1, i, flowLayout) -> {
-            binding.searchEdit.setText(vm.getProductTags().getValue().get(i));
-            return true;
-        });
-
-        // 搜索按钮
-        binding.searchBtn.setOnClickListener(v -> {
-            String content = binding.searchEdit.getText().toString();
-            vm.search(content);
-        });
     }
 
     public static void actionStart(Context context) {
@@ -64,16 +38,4 @@ public class SearchActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    private void init() {
-        setSupportActionBar(binding.toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-    }
 }

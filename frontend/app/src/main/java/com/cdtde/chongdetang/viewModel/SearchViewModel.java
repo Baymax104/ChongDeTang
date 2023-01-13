@@ -3,7 +3,9 @@ package com.cdtde.chongdetang.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
+import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.repository.SearchRepository;
+
 import java.util.List;
 
 /**
@@ -14,15 +16,17 @@ import java.util.List;
  * @Version 1
  */
 public class SearchViewModel extends ViewModel {
+
+    private SearchRepository repository;
     private MutableLiveData<List<String>> historyTags;
     private MutableLiveData<List<String>> collectionTags;
     private MutableLiveData<List<String>> productTags;
 
     public SearchViewModel() {
-        historyTags = new MutableLiveData<>(new ArrayList<>());
-        collectionTags = new MutableLiveData<>(new ArrayList<>());
-        productTags = new MutableLiveData<>(new ArrayList<>());
-        generateTest();
+        repository = SearchRepository.getInstance();
+        historyTags = new MutableLiveData<>(repository.getHistories());
+        collectionTags = new MutableLiveData<>(repository.getCollections());
+        productTags = new MutableLiveData<>(repository.getProducts());
     }
 
     public MutableLiveData<List<String>> getHistoryTags() {
@@ -43,7 +47,7 @@ public class SearchViewModel extends ViewModel {
             value.add(content);
             historyTags.setValue(value);
         }
-        // 搜索
+        ToastUtils.showShort("搜索");
     }
 
     public void clearTag() {
@@ -52,24 +56,8 @@ public class SearchViewModel extends ViewModel {
             value.clear();
         }
         historyTags.setValue(value);
+        // 清除历史缓存
     }
 
 
-    private void generateTest() {
-        List<String> data1 = new ArrayList<>();
-        data1.add("ZJpkDd");
-        data1.add("hWDDTi");
-        data1.add("XHqfzcU");
-        data1.add("QhXiN");
-        data1.add("LZXWQK");
-        collectionTags.setValue(data1);
-
-        List<String> data2 = new ArrayList<>();
-        data2.add("ZJpkDd");
-        data2.add("hWDDTi");
-        data2.add("XHqfzcU");
-        data2.add("QhXiN");
-        data2.add("LZXWQK");
-        productTags.setValue(data2);
-    }
 }

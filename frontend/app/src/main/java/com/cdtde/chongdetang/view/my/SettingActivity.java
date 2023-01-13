@@ -26,7 +26,7 @@ public class SettingActivity extends AppCompatActivity {
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        WindowUtil.initActivityWindow(binding.settingsToolbar, this);
+        WindowUtil.initActivityWindow(binding.settingsToolbar, this, true);
         setListener();//设置监听事件
     }
 

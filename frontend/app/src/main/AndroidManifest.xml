@@ -16,12 +16,14 @@
     <application
             android:name=".repository.AppApplication"
             android:icon="@drawable/logo"
-            android:roundIcon="@drawable/logo"
             android:label="@string/app_chinese"
             android:networkSecurityConfig="@xml/network_security_config"
             android:requestLegacyExternalStorage="true"
+            android:roundIcon="@drawable/logo"
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
+        <activity android:name=".view.index.MomentListActivity"/>
+        <activity android:name=".view.index.MomentActivity" />
         <activity android:name=".view.index.ScenesActivity" />
         <activity android:name=".view.my.SettingActivity" />
         <activity android:name=".view.my.FeedbackActivity" />
@@ -57,7 +59,6 @@
                 android:authorities="com.cdtde.chongdetang.fileprovider"
                 android:exported="false"
                 android:grantUriPermissions="true">
-
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths" />

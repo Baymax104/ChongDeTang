@@ -4,9 +4,9 @@
 
 APP使用MVVM架构
 
-- model文件夹：存放实体类
+- entity文件夹：存放实体类
 - view文件夹：存放Activity和Fragment，主页面包含多个子页面时，创建子文件夹存放
-- viewModel文件夹：存放viewModel类，尽量一个主页面使用一个viewModel，当子页面的数据过于复杂时，可以创建子页面的viewModel
+- viewModel文件夹：存放viewModel类，Fragment之间共享Activity的ViewModel，Activity之间不共享ViewModel，每个包含数据的Activity都需要创建一个ViewModel，各个ViewModel在Repository层共享数据
 - Repository文件夹：存放XXXRepository类，用于从远程或者SQLite获取数据，viewModel从Repository类中取数据
 
 ![img](https://typora-images-1309988842.cos.ap-beijing.myqcloud.com/img/10465727-847b38ef891ad908.png)
@@ -271,6 +271,46 @@ binding.setCollectionAdapter(new IndexCollectionAdapter());
 binding.setViewModel(vm);
 ```
 
+## WebView修改HTML实现
+
+webView修改HTML通过注入javascript代码实现
+
+``` java
+public static void configure(WebView view, boolean isListPage) {
+    view.getSettings().setJavaScriptEnabled(true);
+    view.setWebChromeClient(new WebChromeClient() {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            if (newProgress >= 40) {
+                view.loadUrl("javascript:(function() {" +
+                        "document.getElementsByClassName('nav')[0].remove();" +
+                        "document.getElementsByClassName('logo')[0].remove();" +
+                        "document.getElementById('bottom').remove();" +
+                        (isListPage ? "document.getElementsByClassName('flc')[0].remove();" : "") +
+                        "})()");
+            }
+            super.onProgressChanged(view, newProgress);
+        }
+    });
+}
+```
+
+-   `setJavaScriptEnabled`：使WebView支持javascript
+-   `setWebChromeClient`：处理HTML页面，简单需求上`setWebViewClient`可以实现一样的效果
+
+一般使用WebViewClient，重写onPageFinished，为了效果更好，在页面加载的过程中处理页面
+
+重写onProgressChanged方法，在页面加载时调用loadUrl注入javascript代码
+
+``` javascript
+(function() {
+    document.getElementsByClassName('nav')[0].remove(); // 删除页面中class=nav的第一个元素
+    document.getElementsByClassName('logo')[0].remove(); // 删除class=logo的第一个元素
+    document.getElementById('bottom').remove(); // 删除bottom
+    document.getElementsByClassName('flc')[0].remove(); // 在列表页面删除分类列表元素
+})()
+```
+
 ## 项目依赖的UI组件
 
 - FlowLayout：流式布局，可以实现搜索页面的内容标签效果
@@ -294,3 +334,15 @@ binding.setViewModel(vm);
 - LiveDataBus：消息总线，可以替代Intent、BroadCast
   
   [JeremyLiao/LiveEventBus: EventBus for Android，消息总线，基于LiveData，具有生命周期感知能力，支持Sticky，支持AndroidX，支持跨进程，支持跨APP (github.com)](https://github.com/JeremyLiao/LiveEventBus)
+  
+- AndroidUtilCode：Android工具类
+
+  [Blankj/AndroidUtilCode: Android developers should collect the following utils(updating). (github.com)](https://github.com/Blankj/AndroidUtilCode)
+
+- Android-PickerView：选择器控件
+
+  [Bigkoo/Android-PickerView: This is a picker view for android , support linkage effect, timepicker and optionspicker.（时间选择器、省市区三级联动） (github.com)](https://github.com/Bigkoo/Android-PickerView)
+
+- UCrop：裁剪功能库
+
+  [Yalantis/uCrop: Image Cropping Library for Android (github.com)](https://github.com/Yalantis/uCrop)

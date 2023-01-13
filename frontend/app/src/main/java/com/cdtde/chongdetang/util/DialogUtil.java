@@ -20,6 +20,13 @@ public class DialogUtil {
     private DialogUtil() {
     }
 
+    /**
+     * 反射调用构造器Constructor(Context context)创建XPopup对话框
+     * @param context context
+     * @param dialogType 对话框Class对象
+     * @return 对话框对象
+     * @param <T> 对话框类型
+     */
     public static <T extends BasePopupView> BasePopupView create(Context context, Class<T> dialogType) {
         Constructor<T> constructor;
         BasePopupView dialog = null;

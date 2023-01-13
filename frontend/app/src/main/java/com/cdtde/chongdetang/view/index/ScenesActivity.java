@@ -24,7 +24,7 @@ public class ScenesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scene);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

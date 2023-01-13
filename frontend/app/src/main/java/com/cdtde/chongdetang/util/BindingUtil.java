@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.util;
 
 import android.net.Uri;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -45,10 +46,14 @@ public class BindingUtil {
         // 网络请求图片
     }
 
-    @BindingAdapter({"tag_data"})
-    public static void setSearchTag(TagFlowLayout tagFlowLayout, List<String> data) {
+    @BindingAdapter({"tag_data", "relate"})
+    public static void setSearchTag(TagFlowLayout tagFlowLayout, List<String> data, EditText editText) {
         SearchTagAdapter adapter = new SearchTagAdapter(data);
         tagFlowLayout.setAdapter(adapter);
+        tagFlowLayout.setOnTagClickListener((view, position, parent) -> {
+            editText.setText(data.get(position));
+            return true;
+        });
     }
 
     @BindingAdapter({"fragment_adapter", "fragments"})

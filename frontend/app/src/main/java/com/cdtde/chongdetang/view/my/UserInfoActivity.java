@@ -65,7 +65,7 @@ public class UserInfoActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(UserInfoViewModel.class);
         binding.setLifecycleOwner(this);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true);
         binding.setUser(vm.getUser());
 
         LiveEventBus.get("user_gender", String.class)
