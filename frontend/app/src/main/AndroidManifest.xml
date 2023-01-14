@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -14,15 +14,20 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
-            android:name=".repository.AppApplication"
-            android:icon="@drawable/logo"
-            android:label="@string/app_chinese"
-            android:networkSecurityConfig="@xml/network_security_config"
-            android:requestLegacyExternalStorage="true"
-            android:roundIcon="@drawable/logo"
-            android:theme="@style/Theme.ChongDeTang"
-            tools:targetApi="31">
-        <activity android:name=".view.index.MomentListActivity"/>
+        android:name=".repository.AppApplication"
+        android:icon="@drawable/logo"
+        android:label="@string/app_chinese"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/logo"
+        android:theme="@style/Theme.ChongDeTang"
+        tools:targetApi="31">
+        <activity
+            android:name="com.cdtde.chongdetang.view.index.OriginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_origin"
+            android:theme="@style/Theme.ChongDeTang.NoActionBar" />
+        <activity android:name=".view.index.MomentListActivity" />
         <activity android:name=".view.index.MomentActivity" />
         <activity android:name=".view.index.ScenesActivity" />
         <activity android:name=".view.my.SettingActivity" />
@@ -34,20 +39,20 @@
         <activity android:name=".view.my.AddressActivity" />
         <activity android:name=".view.my.AppointmentActivity" />
         <activity
-                android:name="com.yalantis.ucrop.UCropActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-                tools:ignore="LockedOrientationActivity" />
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
-                android:name=".view.SearchActivity"
-                android:exported="false">
+            android:name=".view.SearchActivity"
+            android:exported="false">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".view.MainActivity"
-                android:exported="true">
+            android:name=".view.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,13 +60,13 @@
             </intent-filter>
         </activity> <!-- Android7.0以后读取文件需要配置Provider -->
         <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="com.cdtde.chongdetang.fileprovider"
-                android:exported="false"
-                android:grantUriPermissions="true">
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.cdtde.chongdetang.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

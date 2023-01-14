@@ -70,4 +70,9 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="address_title">地址管理</string>
     <string name="add_address">新建收货地址</string>
+    <string name="title_activity_origin">OriginActivity</string>
+    <string name="Origin_tab_text_1">走进崇德堂</string>
+    <string name="Origin_tab_text_2">崇德缘起</string>
+    <string name="Origin_tab_text_3">馆长介绍</string>
+    <string name="origin_title">崇德缘起</string>
 </resources>
