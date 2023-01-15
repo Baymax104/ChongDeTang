@@ -82,4 +82,5 @@
     <string name="validate_hint">请输入验证码</string>
     <string name="get_validate">获取验证码</string>
     <string name="next_step">下一步</string>
+    <string name="current_bind_phone">当前绑定手机号</string>
 </resources>

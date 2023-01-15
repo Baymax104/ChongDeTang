@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
 import com.cdtde.chongdetang.view.my.UserPasswordFragment;
+import com.cdtde.chongdetang.view.my.UserPhoneFragment;
 import com.cdtde.chongdetang.view.my.ValidateFragment;
 
 import java.util.ArrayList;
@@ -23,20 +24,17 @@ import java.util.List;
  * @Date 2023/1/14 23:55
  * @Version 1
  */
-public class UserPasswordViewModel extends ViewModel {
+public class UserPasswordViewModel extends ValidateViewModel {
     private MyRepository repository;
 
     private User user;
 
     private MutableLiveData<Integer> page;
 
-    private MutableLiveData<List<Fragment>> flowFragments;
-
-    private String validateCode;
+    private List<Fragment> flowFragments;
 
     private String oldPassword;
     private String newPassword;
-
     private String repeatPassword;
 
 
@@ -45,11 +43,9 @@ public class UserPasswordViewModel extends ViewModel {
         user = repository.getUser();
         page = new MutableLiveData<>(1);
 
-        flowFragments = new MutableLiveData<>();
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ValidateFragment());
-        fragments.add(new UserPasswordFragment());
-        flowFragments.setValue(fragments);
+        flowFragments = new ArrayList<>();
+        flowFragments.add(ValidateFragment.newInstance(getClass().getName()));
+        flowFragments.add(UserPasswordFragment.newInstance());
     }
 
     public User getUser() {
@@ -60,16 +56,12 @@ public class UserPasswordViewModel extends ViewModel {
         return page;
     }
 
-    public MutableLiveData<List<Fragment>> getFlowFragments() {
+    public List<Fragment> getFlowFragments() {
         return flowFragments;
     }
 
     public void setPage(int page) {
         this.page.setValue(page);
-    }
-
-    public void setValidateCode(String validateCode) {
-        this.validateCode = validateCode;
     }
 
     public void setOldPassword(String oldPassword) {
@@ -84,12 +76,6 @@ public class UserPasswordViewModel extends ViewModel {
         this.repeatPassword = repeatPassword;
     }
 
-    public boolean validate() {
-        if (StringUtils.isEmpty(validateCode)) {
-            return false;
-        }
-        return validateCode.equals("123");
-    }
 
     public String validatePwd() {
         if (StringUtils.isEmpty(newPassword) ||

@@ -8,7 +8,7 @@
                 type="com.cdtde.chongdetang.entity.User" />
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel" />
+                type="com.cdtde.chongdetang.viewModel.my.ValidateViewModel" />
     </data>
 
     <LinearLayout
@@ -67,7 +67,7 @@
                     android:inputType="number"
                     android:fontFamily="@font/text_regular"
                     android:layout_marginHorizontal="10dp"
-                    android:afterTextChanged="@{()->viewModel.setValidateCode(validateEdit.getText().toString())}"/>
+                    android:afterTextChanged="@{()->viewModel.setCode(validateEdit.getText().toString())}"/>
 
             <Button
                     android:layout_width="wrap_content"

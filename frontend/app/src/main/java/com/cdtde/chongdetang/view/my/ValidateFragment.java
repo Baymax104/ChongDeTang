@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cdtde.chongdetang.databinding.FragmentValidateBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
+import com.cdtde.chongdetang.viewModel.my.ValidateViewModel;
 
 /**
  * @Description
@@ -27,7 +28,7 @@ public class ValidateFragment extends Fragment {
 
     private FragmentValidateBinding binding;
 
-    private UserPasswordViewModel vm;
+    private ValidateViewModel vm;
 
     @Nullable
     @Override
@@ -36,13 +37,33 @@ public class ValidateFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String vmType = "";
+        if (getArguments() != null) {
+            vmType = getArguments().getString("class");
+        }
         binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(requireActivity()).get(UserPasswordViewModel.class);
-        binding.setUser(vm.getUser());
-        binding.setViewModel(vm);
+
+        Class<? extends ValidateViewModel> cl;
+        try {
+            cl = (Class<? extends ValidateViewModel>) Class.forName(vmType);
+            vm = new ViewModelProvider(requireActivity()).get(cl);
+            binding.setUser(vm.getUser());
+            binding.setViewModel(vm);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ValidateFragment newInstance(String vmType) {
+        ValidateFragment fragment = new ValidateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("class", vmType);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
