@@ -3,7 +3,6 @@ package com.cdtde.chongdetang.entity;
 import android.net.Uri;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.Date;
 
 /**
@@ -18,17 +17,17 @@ public class Moment implements Serializable {
     private Date publishDate;
     private String preview;
     private Uri image;
-    private String webUrl;
+    private String url;
 
     public Moment() {
     }
 
-    public Moment(String title, Date publishDate, String preview, Uri image, String webUrl) {
+    public Moment(String title, Date publishDate, String preview, Uri image, String url) {
         this.title = title;
         this.publishDate = publishDate;
         this.preview = preview;
         this.image = image;
-        this.webUrl = webUrl;
+        this.url = url;
     }
 
     public String getTitle() {
@@ -63,11 +62,11 @@ public class Moment implements Serializable {
         this.image = image;
     }
 
-    public String getWebUrl() {
-        return webUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

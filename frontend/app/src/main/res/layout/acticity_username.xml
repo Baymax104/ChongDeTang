@@ -45,11 +45,7 @@
                             android:id="@+id/confirm"
                             android:text="@string/confirm"
                             android:layout_alignParentEnd="true"
-                            android:gravity="center_vertical"
-                            android:layout_marginEnd="15dp"
-                            android:textSize="15sp"
-                            android:textColor="@color/main_variant_color"
-                            android:fontFamily="@font/regular"/>
+                            style="@style/ToolbarConfirmTextStyle"/>
                 </RelativeLayout>
 
             </androidx.appcompat.widget.Toolbar>

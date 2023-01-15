@@ -10,20 +10,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ActivityNewPhoneBinding;
+import com.cdtde.chongdetang.databinding.ActivityUserPhoneBinding;
+import com.cdtde.chongdetang.util.WindowUtil;
 
-public class NewPhoneActivity extends AppCompatActivity {
-    private ActivityNewPhoneBinding binding;
+public class UserPhoneActivity extends AppCompatActivity {
+    private ActivityUserPhoneBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityNewPhoneBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-        initViews();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_phone);
+        binding.setLifecycleOwner(this);
+
+        WindowUtil.initActivityWindow(binding.toolbar, this, true);
         setListener();//设置监听事件
     }
 
@@ -57,22 +59,10 @@ public class NewPhoneActivity extends AppCompatActivity {
         });
     }
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, NewPhoneActivity.class);
+        Intent intent = new Intent(context, UserPhoneActivity.class);
         context.startActivity(intent);
     }
 
-    private void initViews() {
-        setSupportActionBar(binding.settingsToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
-        }
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-//        input=findViewById(R.id.feedback_content);
-    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

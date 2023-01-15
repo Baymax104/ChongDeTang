@@ -91,4 +91,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <!--ToolBar确定按钮文字样式-->
+    <style name="ToolbarConfirmTextStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/main_variant_color</item>
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+
 </resources>

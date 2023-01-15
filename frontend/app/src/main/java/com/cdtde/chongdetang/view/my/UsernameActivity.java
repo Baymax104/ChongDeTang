@@ -49,7 +49,6 @@ public class UsernameActivity extends AppCompatActivity {
         int length = content.length();
         boolean lengthValidity = length >= 2 && length <= 12;
 
-        Log.d("UsernameActivity-validate", String.valueOf(isMatch && lengthValidity));
         return isMatch && lengthValidity;
     }
 

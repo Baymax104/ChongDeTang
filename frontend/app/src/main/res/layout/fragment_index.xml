@@ -157,7 +157,7 @@
                     android:id="@+id/info_label"
                     bind:text="@{@string/index_info}"/>
 
-                <include layout="@layout/item_info" />
+                <include layout="@layout/item_news" />
 
             </LinearLayout>
 

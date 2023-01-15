@@ -2,7 +2,6 @@ package com.cdtde.chongdetang.view.my;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,10 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 
@@ -34,9 +31,9 @@ public class SettingActivity extends AppCompatActivity {
 
         binding.dataEntry.setOnClickListener(v -> UserInfoActivity.actionStart(this));
 
-        binding.passwordEntry.setOnClickListener(v -> NewPasswordActivity.actionStart(this));
+        binding.passwordEntry.setOnClickListener(v -> UserPasswordActivity.actionStart(this));
 
-        binding.phoneEntry.setOnClickListener(v -> NewPhoneActivity.actionStart(this));
+        binding.phoneEntry.setOnClickListener(v -> UserPhoneActivity.actionStart(this));
 
         binding.logoffEntry.setOnClickListener(v -> reconfirm());
 

@@ -60,7 +60,7 @@
                         android:id="@+id/user_icon"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        src_uri="@{user.photo}"
+                        android:src="@{user.photo}"
                         android:scaleType="centerCrop"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/icon_arrow"

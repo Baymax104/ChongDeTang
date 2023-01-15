@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:gravity="center_vertical">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="测试测试测试测试测试测试"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="测试测试测试测试"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/test_picture"
+                tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>

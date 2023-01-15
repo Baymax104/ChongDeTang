@@ -27,7 +27,7 @@ public class User extends BaseObservable implements Serializable {
     private String gender;
     private Date birthday;
     private String phone;
-    private String password;
+    private String password; // md5值
     private String mail;
     private String token;
 

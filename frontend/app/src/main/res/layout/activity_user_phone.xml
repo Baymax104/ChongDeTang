@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bar_color"
+                    android:id="@+id/toolbar"
+                    android:fitsSystemWindows="true">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/update_phone"
+                        style="@style/CommonToolbarTitleStyle" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/newPhone_phone_tv"
+                        android:text="13522380331"
+                        android:textColor="@color/main_color"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前绑定手机号"
+                        android:textColor="@color/gray_1"
+                        android:textStyle="italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                <EditText
+                        android:id="@+id/newPhone_enterPhone_ev"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phone_hint"
+                        android:singleLine="true"
+                        android:textSize="18sp" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <EditText
+                            android:id="@+id/newPhone_enterCode_ev"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:textSize="18sp" />
+
+                    <View
+                            android:layout_width="2dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/black" />
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:id="@+id/newPhone_getCode_tv"
+                                android:text="@string/get_validate"
+                                android:textColor="@color/main_color"
+                                android:textSize="20sp"
+                                android:textStyle="italic" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+
+            <Button
+                    android:id="@+id/newPhone_commit"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/button_bg"
+                    android:text="提交"
+                    android:textSize="30sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="user"
+                type="com.cdtde.chongdetang.entity.User" />
+        <variable
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            tools:ignore="ContentDescription">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/safety"
+                android:layout_marginBottom="10dp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_validate_tip"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:fontFamily="@font/regular"
+                android:layout_marginBottom="5dp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{user.phone}"
+                android:gravity="center"
+                android:textColor="@color/main_variant_color"
+                android:textSize="17sp"
+                android:fontFamily="@font/regular"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@color/gray_4"
+                android:paddingHorizontal="10dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/validate"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/text_regular" />
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/validate_edit"
+                    android:hint="@string/validate_hint"
+                    android:background="#00ffffff"
+                    android:singleLine="true"
+                    android:autofillHints="no"
+                    android:inputType="number"
+                    android:fontFamily="@font/text_regular"
+                    android:layout_marginHorizontal="10dp"
+                    android:afterTextChanged="@{()->viewModel.setValidateCode(validateEdit.getText().toString())}"/>
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/small_button_bg"
+                    android:layout_marginVertical="5dp"
+                    android:text="@string/get_validate"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/regular"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

@@ -29,8 +29,8 @@
         <activity android:name=".view.my.FeedbackActivity" />
         <activity android:name=".view.my.UserInfoActivity" />
         <activity android:name=".view.my.UsernameActivity" />
-        <activity android:name=".view.my.NewPhoneActivity" />
-        <activity android:name=".view.my.NewPasswordActivity" />
+        <activity android:name=".view.my.UserPhoneActivity" />
+        <activity android:name=".view.my.UserPasswordActivity" />
         <activity android:name=".view.my.AddressActivity" />
         <activity android:name=".view.my.AppointmentActivity" />
         <activity

@@ -36,11 +36,6 @@ public class BindingUtil {
         view.setImageResource(resId);
     }
 
-    @BindingAdapter("src_uri")
-    public static void setImgUri(ImageView view, Uri uri) {
-        view.setImageURI(uri);
-    }
-
     @BindingAdapter("img_url")
     public static void setImgUrl(ImageView view, String url) {
         // 网络请求图片
@@ -56,10 +51,13 @@ public class BindingUtil {
         });
     }
 
-    @BindingAdapter({"fragment_adapter", "fragments"})
-    public static void setFragments(ViewPager2 viewPager, FragmentAdapter adapter, List<Fragment> data) {
+    @BindingAdapter(value = {"fragment_adapter", "fragments", "fragment_page"}, requireAll = false)
+    public static void setFragments(ViewPager2 viewPager, FragmentAdapter adapter, List<Fragment> data, int page) {
         adapter.setFragments(data);
         viewPager.setAdapter(adapter);
+        if (page == 1 || page == 2) {
+            viewPager.setCurrentItem(page - 1, false);
+        }
     }
 
     @BindingAdapter({"recycler_adapter", "recycler_data"})
