@@ -17,7 +17,7 @@ APP使用MVVM架构
 
   - 创建
 
-    创建ViewModel类需要继承ViewModel抽象类，其中使用MutableLiveData存储数据，使用泛型指定存储的类型，在无参构造中使用new创建MutableLiveData
+    创建ViewModel类需要继承ViewModel抽象类，其中使用MutableLiveData存储数据，使用泛型指定存储的类型，在无参构造中使用new创建MutableLiveData，ViewModel必须存在无参构造
 
     在Activity或Fragment中声明ViewModel变量
 
@@ -35,14 +35,14 @@ APP使用MVVM架构
 
     viewModel中可以添加操作数据的接口方法
 
-    ```java
+    ``` java
     public class MyViewModel extends ViewModel {
     
     	// 集合类型
         private MutableLiveData<List<Collection>> collections;
     
     	// 单个变量
-    	private MutableLiveData<String> label;
+        private MutableLiveData<String> label;
     
         public MyViewModel() {
             collections = new MutableLiveData<>();
@@ -61,8 +61,8 @@ APP使用MVVM架构
             // 必须返回MutableLiveData类型才能在DataBinding视图中同步数据更新
             return collections;
         }
-    	// update data
-    	public void addCollection(Collection collection) {
+        // update data
+        public void addCollection(Collection collection) {
             List<Collection> value = collections.getValue(); // 获取LiveData中的值
             if (value != null && 其他的条件) {
                 value.add(collection);
@@ -136,10 +136,51 @@ APP使用MVVM架构
 
       ``` java
       binding.setViewModel(vm);
-      ```
-  - @BindingAdapter注解
-
-    之后再更新
+      ``
+- LiveData与DataBinding联动
+  - LiveData和DataBinding联动可以让视图同步更新
+  - 原理：LiveData使用了观察者模式来实现同步更新，即设置了一个观察者对象来观察某个变量，当变量的值改变时，观察者就做出反应
+    - 在ViewModel中声明LiveData变量时使用的是MutableLiveData类型，MutableLiveData就是观察者对象，其中包含了我们需要的变量，当我们需要修改变量值时，调用setValue或者postValue，就可以修改变量值，同时我们是通过MutableLiveData对象来调用setValue方法的，那么MutableLiveData这个观察者对象也就知道了变量值已经改变，需要作出反应
+    - 我们可以设置MutableLiveData作出什么反应，调用MutableLiveData对象的observe方法，传入一个LifecycleOwner和一个Observer接口的实现类，LifecycleOwner就是一个具有生命周期的对象，比如Activity和Fragment，假如传入一个Activity对象，那么就是将MutableLiveData观察者的生命周期设置成与Activity一致。此处Observer接口的实现类可以简化为Lambda表达式，可以理解成一段方法体，方法体的内容就是这个MutableLiveData对象在变量值改变后要作出的反应。在变量值改变后，观察者就执行这一段方法体。
+    ``` java
+    // 通常在activity中设置，因此传this
+    mutableLiveData.observe(this, value -> {
+	// 变量改变后我们需要更新视图，可以在此处通过binding对象调用控件来设置属性
+	binding.xxx.setXXX(value);
+    });
+    ```
+   - LiveData和DataBinding联动
+     DataBinding提供了一种更加便捷的方式将观察者的行为与对应的控件绑定起来，从而代替observe方法
+     我们可以将MutableLiveData对象传入DataBinding布局中，直接设置到对应控件属性上
+     ``` xml
+     <variable
+		name="liveData"
+		type="MutableLiveData"/>
+     <XXXView
+		attribute="@{liveData}"/>
+     ```
+     比如给TextView设置text属性，text属性需要一个String类型的值，可以直接将`MutableLiveData<String>`类型的对象通过布局表达式赋值到text属性上
+     此时DataBinding会在内部自动调用MutableLiveData的getValue方法取出String类型的变量值给text属性赋值，同时将该MutableLiveData对象与text属性绑定起来，当调用setValue修改变量值时，DataBinding也能知道变量值被修改，从而同步修改控件属性
+     最后需要调用binding.setLifecycleOwner设置一个LifecycleOwner，可以传入Activity或fragment，该方法本质上与observe方法中传入的LifecycleOwner是一样的，同样是为观察者设置一个依赖的生命周期
+- 与ViewModel的配合
+  在上述情境下可以加入ViewModel，ViewModel的特点就是可以感知Activity的生命周期，在同一个Activity反复销毁创建时，ViewModel能够一直存在，适用于保存数据
+  因此可以将上述情境中的MutableLiveData放在ViewModel中并提供get方法，返回MutableLiveData类型。由于ViewModel可能会存放非常多的数据，如果手动调用get方法获取MutableLiveData，然后传入binding.set方法中会非常麻烦，通常在DataBinding布局中声明对应的ViewModel，直接将ViewModel传入DataBinding布局，在DataBinding布局中调用ViewModel的get方法
+  ``` java
+  class XXXViewModel extends ViewModel {
+      private MutableLiveData<XXX> value;
+	public MutableLiveData<XXX> getValue() {
+		return value;
+	}
+  }
+  ```
+  ``` xml
+  <variable
+	    name="viewModel"
+	    type="XXXViewModel"/>
+  <XXXView
+	   attribute="@{viewModel.value}"/>
+  <!--在DataBinding中调用的get方法会自动解析成属性，以属性形式调用-->
+  ```
 
 ## 关于命名
 
@@ -203,9 +244,8 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        // 使用binding对象获取控件，效果同holder.控件字段
-        ItemIndexCollectionBinding binding = ItemIndexCollectionBinding.bind(holder.itemView);
         // 通过binding对象可以设置item布局data标签内的实体类，在xml中使用实体类字段
+	XXXBinding binding = ((ViewHolder) holder).binding;
         Collection collection = data.get(position);
         binding.setCollection(collection);
         // 也可以通过binding对象binding.id获取控件，手动设置
@@ -218,13 +258,13 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 
     // ViewHolder继承BaseViewHolder，不需要写控件字段
     public static class ViewHolder extends BaseViewHolder {
-        // 当列表数据量大时，可能会出现View must have a tag错误信息
-        // 此时将binding对象放在ViewHolder内创建即可，onBindViewHolder方法中通过holder.binding获取binding对象
-        // XXBinding binding;
+        // 当列表数据量大时，会出现View must have a tag错误信息
+        // 因此将binding对象放在ViewHolder内创建，onBindViewHolder方法中通过holder.binding获取binding对象，holder注意转型
+        XXBinding binding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            // binding = XXBinding.bind(itemView);
+            binding = XXBinding.bind(itemView);
         }
     }
 }
