@@ -91,6 +91,12 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="DialogContentTextStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/text_regular</item>
+    </style>
+
     <style name="Theme.ChongDeTang.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

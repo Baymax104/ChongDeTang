@@ -22,17 +22,7 @@ import java.util.Map;
 public abstract class ValidateViewModel extends ViewModel {
     private String code;
 
-    private User user;
-
-    public ValidateViewModel() {
-        AppApplication app = (AppApplication) Utils.getApp();
-        Map<String, Object> map = app.getGlobalMap();
-        user = (User) map.get("user");
-    }
-
-    public User getUser() {
-        return user;
-    }
+    public abstract User getUser();
 
     public void setCode(String code) {
         this.code = code;
@@ -48,6 +38,5 @@ public abstract class ValidateViewModel extends ViewModel {
         }
         return code.equals("123");
     }
-
 
 }

@@ -9,16 +9,11 @@ public class UserInfoViewModel extends ViewModel {
 
     private MyRepository repository;
 
-    private User user;
-
     public UserInfoViewModel() {
         repository = MyRepository.getInstance();
-        user = repository.getUser();
     }
 
     public User getUser() {
-        return user;
+        return repository.getUser();
     }
-
-
 }

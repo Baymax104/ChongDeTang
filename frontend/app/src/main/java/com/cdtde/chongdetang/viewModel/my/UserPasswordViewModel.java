@@ -1,18 +1,14 @@
 package com.cdtde.chongdetang.viewModel.my;
 
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
-import com.cdtde.chongdetang.view.my.UserPasswordFragment;
-import com.cdtde.chongdetang.view.my.UserPhoneFragment;
-import com.cdtde.chongdetang.view.my.ValidateFragment;
+import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordFragment;
+import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +23,6 @@ import java.util.List;
 public class UserPasswordViewModel extends ValidateViewModel {
     private MyRepository repository;
 
-    private User user;
-
     private MutableLiveData<Integer> page;
 
     private List<Fragment> flowFragments;
@@ -40,7 +34,6 @@ public class UserPasswordViewModel extends ValidateViewModel {
 
     public UserPasswordViewModel() {
         repository = MyRepository.getInstance();
-        user = repository.getUser();
         page = new MutableLiveData<>(1);
 
         flowFragments = new ArrayList<>();
@@ -49,7 +42,7 @@ public class UserPasswordViewModel extends ValidateViewModel {
     }
 
     public User getUser() {
-        return user;
+        return repository.getUser();
     }
 
     public MutableLiveData<Integer> getPage() {
@@ -78,6 +71,7 @@ public class UserPasswordViewModel extends ValidateViewModel {
 
 
     public String validatePwd() {
+        User user = repository.getUser();
         if (StringUtils.isEmpty(newPassword) ||
             StringUtils.isEmpty(repeatPassword)) {
             return "输入不能为空！";

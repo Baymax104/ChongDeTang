@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my;
+package com.cdtde.chongdetang.view.my.setting.userPhone;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

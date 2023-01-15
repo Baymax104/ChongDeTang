@@ -14,11 +14,14 @@ import java.util.List;
  * @Version 1
  */
 public class IndexRepository {
+
+    private UserRepository userRepository;
     private static IndexRepository repository;
 
     private List<Moment> moments;
     private List<News> news;
     private IndexRepository() {
+        userRepository = UserRepository.getInstance();
         moments = new ArrayList<>();
         news = new ArrayList<>();
     }

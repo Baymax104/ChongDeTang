@@ -18,15 +18,16 @@ import java.util.List;
  */
 public class MyViewModel extends ViewModel {
     private MyRepository repository;
-    private User user;
 
     public MyViewModel() {
         repository = MyRepository.getInstance();
-        user = repository.getUser();
     }
 
     public User getUser() {
-        return user;
+        return repository.getUser();
     }
 
+    public void logout() {
+        repository.initUser();
+    }
 }

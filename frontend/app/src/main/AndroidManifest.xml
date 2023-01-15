@@ -30,12 +30,12 @@
         <activity android:name=".view.index.MomentListActivity" />
         <activity android:name=".view.index.MomentActivity" />
         <activity android:name=".view.index.ScenesActivity" />
-        <activity android:name=".view.my.SettingActivity" />
+        <activity android:name=".view.my.setting.SettingActivity" />
         <activity android:name=".view.my.FeedbackActivity" />
-        <activity android:name=".view.my.UserInfoActivity" />
-        <activity android:name=".view.my.UsernameActivity" />
-        <activity android:name=".view.my.UserPhoneActivity" />
-        <activity android:name=".view.my.UserPasswordActivity" />
+        <activity android:name=".view.my.setting.userInfo.UserInfoActivity" />
+        <activity android:name=".view.my.setting.userInfo.UsernameActivity" />
+        <activity android:name=".view.my.setting.userPhone.UserPhoneActivity" />
+        <activity android:name=".view.my.setting.userPassword.UserPasswordActivity" />
         <activity android:name=".view.my.AddressActivity" />
         <activity android:name=".view.my.AppointmentActivity" />
         <activity

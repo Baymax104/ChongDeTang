@@ -11,6 +11,8 @@ import java.util.List;
  * @Version 1
  */
 public class SearchRepository {
+
+    private UserRepository userRepository;
     private static SearchRepository repository;
 
     private List<String> histories;
@@ -20,6 +22,8 @@ public class SearchRepository {
     private List<String> products;
 
     private SearchRepository() {
+        userRepository = UserRepository.getInstance();
+
         histories = new ArrayList<>();
         collections = new ArrayList<>();
         products = new ArrayList<>();

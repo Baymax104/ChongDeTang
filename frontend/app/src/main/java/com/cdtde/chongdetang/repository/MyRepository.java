@@ -17,7 +17,8 @@ import java.util.Map;
  * @Version 1
  */
 public class MyRepository {
-    private User user;
+
+    private UserRepository userRepository;
 
     private List<Appointment> appointments;
 
@@ -26,11 +27,7 @@ public class MyRepository {
     private static MyRepository repository;
 
     private MyRepository() {
-        // 从全局map中取出用户引用
-        AppApplication app = (AppApplication) Utils.getApp();
-        Map<String, Object> globalMap = app.getGlobalMap();
-        user = (User) globalMap.get("user");
-
+        userRepository = UserRepository.getInstance();
         generateTest();
     }
 
@@ -42,7 +39,7 @@ public class MyRepository {
     }
 
     public User getUser() {
-        return user;
+        return userRepository.getUser();
     }
 
     public List<Appointment> getAppointments() {
@@ -51,6 +48,10 @@ public class MyRepository {
 
     public List<Address> getAddresses() {
         return addresses;
+    }
+
+    public void initUser() {
+        userRepository.initUser();
     }
 
     private void generateTest() {

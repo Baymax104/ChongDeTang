@@ -1,8 +1,11 @@
 package com.cdtde.chongdetang.repository;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.entity.User;
+import com.tencent.mmkv.MMKV;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,15 +19,21 @@ import java.util.Map;
  * @Version 1
  */
 public class AppApplication extends Application {
-    private Map<String, Object> globalMap = new HashMap<>();
+    private User user;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        globalMap.put("user", User.getInstance());
+        MMKV.initialize(this);
+        MMKV mmkv = MMKV.defaultMMKV();
+        if (!mmkv.contains("user")) {
+            user = User.getInitialInstance();
+        } else {
+            user = mmkv.decodeParcelable("user", User.class);
+        }
     }
 
-    public Map<String, Object> getGlobalMap() {
-        return globalMap;
+    public User getUser() {
+        return user;
     }
 }

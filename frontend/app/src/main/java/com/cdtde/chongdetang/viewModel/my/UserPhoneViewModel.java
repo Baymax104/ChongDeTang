@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
-import com.cdtde.chongdetang.view.my.UserPhoneFragment;
-import com.cdtde.chongdetang.view.my.ValidateFragment;
+import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment;
+import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,6 @@ import java.util.List;
 public class UserPhoneViewModel extends ValidateViewModel {
     private MyRepository repository;
 
-    private User user;
-
     private MutableLiveData<Integer> page;
 
     private List<Fragment> flowFragments;
@@ -32,7 +30,6 @@ public class UserPhoneViewModel extends ValidateViewModel {
 
     public UserPhoneViewModel() {
         repository = MyRepository.getInstance();
-        user = repository.getUser();
 
         page = new MutableLiveData<>(1);
 
@@ -43,7 +40,7 @@ public class UserPhoneViewModel extends ValidateViewModel {
 
     @Override
     public User getUser() {
-        return user;
+        return repository.getUser();
     }
 
     public void setPage(int page) {

@@ -14,6 +14,8 @@ import java.util.List;
  * @Version 1
  */
 public class ShopRepository {
+
+    private UserRepository userRepository;
     private static ShopRepository repository;
 
     private List<Integer> bannerResource;
@@ -21,6 +23,8 @@ public class ShopRepository {
     private List<Product> products;
 
     private ShopRepository() {
+        userRepository = UserRepository.getInstance();
+
         bannerResource = new ArrayList<>();
         bannerResource.add(R.drawable.shop_banner1);
         bannerResource.add(R.drawable.shop_banner2);

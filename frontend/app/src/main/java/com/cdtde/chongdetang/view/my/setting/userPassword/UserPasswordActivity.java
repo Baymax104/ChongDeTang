@@ -1,43 +1,40 @@
-package com.cdtde.chongdetang.view.my;
+package com.cdtde.chongdetang.view.my.setting.userPassword;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ActivityUserPhoneBinding;
+import com.cdtde.chongdetang.databinding.ActivityUserPasswordBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
-import com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel;
+import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
 
-public class UserPhoneActivity extends AppCompatActivity {
-    private ActivityUserPhoneBinding binding;
+public class UserPasswordActivity extends AppCompatActivity {
+    private ActivityUserPasswordBinding binding;
 
-    private UserPhoneViewModel vm;
+    private UserPasswordViewModel vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_phone);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_password);
         binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(UserPhoneViewModel.class);
+        vm = new ViewModelProvider(this).get(UserPasswordViewModel.class);
 
         WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
         binding.setViewModel(vm);
         binding.setFragmentAdapter(new FragmentAdapter(this));
-
         binding.viewPager.setUserInputEnabled(false);
+
         binding.confirm.setOnClickListener(v -> {
             Integer page;
             if ((page = vm.getPage().getValue()) != null) {
@@ -48,14 +45,19 @@ public class UserPhoneActivity extends AppCompatActivity {
                         ToastUtils.showShort("验证码错误！");
                     }
                 } else if (page == 2) {
-                    ToastUtils.showShort(vm.newPhone);
+                    String msg = vm.validatePwd();
+                    if (msg == null) {
+                        finish();
+                    } else {
+                        ToastUtils.showShort(msg);
+                    }
                 }
             }
         });
     }
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, UserPhoneActivity.class);
+        Intent intent = new Intent(context, UserPasswordActivity.class);
         context.startActivity(intent);
     }
 

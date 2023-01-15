@@ -13,6 +13,8 @@ import java.util.List;
  * @Version 1
  */
 public class ExhibitRepository {
+
+    private UserRepository userRepository;
     private static ExhibitRepository repository;
 
     private List<Collection> collectionPage1;
@@ -22,6 +24,8 @@ public class ExhibitRepository {
     private List<Collection> collectionPage3;
 
     public ExhibitRepository() {
+        userRepository = UserRepository.getInstance();
+
         collectionPage1 = new ArrayList<>();
         collectionPage2 = new ArrayList<>();
         collectionPage3 = new ArrayList<>();

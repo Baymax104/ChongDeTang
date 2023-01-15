@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my;
+package com.cdtde.chongdetang.view.my.setting.userInfo;
 
 import android.Manifest;
 import android.content.Context;
@@ -8,12 +8,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,7 +43,9 @@ public class UserInfoActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
-                    vm.getUser().setPhoto(photoUri);
+                    File file = UriUtils.uri2File(photoUri);
+                    Uri uri = Uri.fromFile(file);
+                    vm.getUser().setPhoto(uri);
                 }
             });
 
@@ -126,7 +126,9 @@ public class UserInfoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             Uri output = UCrop.getOutput(data);
-            vm.getUser().setPhoto(output);
+            if (output != null) {
+                vm.getUser().setPhoto(output);
+            }
         }
     }
 

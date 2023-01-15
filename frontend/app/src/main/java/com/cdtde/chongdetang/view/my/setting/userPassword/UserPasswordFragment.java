@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my;
+package com.cdtde.chongdetang.view.my.setting.userPassword;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentUserPasswordBinding;
+import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment;
 import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
 
 /**

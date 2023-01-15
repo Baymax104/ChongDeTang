@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{user.gender}"
+                        android:text="@{user.gender != null ? user.gender : `未填写`}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/gender_arrow"/>
 
@@ -248,11 +248,20 @@
                         android:id="@+id/user_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{user.mail}"
+                        android:text="@{user.mail != null ? user.mail : `未填写`}"
                         android:layout_centerVertical="true"
                         style="@style/UserInfoTextStyle"
-                        android:layout_alignParentEnd="true"
+                        android:layout_toStartOf="@id/mail_arrow"
                         android:gravity="end"/>
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/mail_arrow"
+                        android:src="@drawable/arrow_right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
 
