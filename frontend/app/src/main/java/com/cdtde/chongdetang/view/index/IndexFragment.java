@@ -66,6 +66,8 @@ public class IndexFragment extends Fragment {
 
         // 临时跳转，测试web页面
         binding.entry2.getRoot().setOnClickListener(v -> MomentActivity.actionStart(getContext()));
+
+        binding.entry5.getRoot().setOnClickListener(v -> OriginActivity.actionStart(getContext()));
     }
 
     @Override
