@@ -35,12 +35,13 @@ public class CameraUtil {
 
     /**
      * 在/storage/emulated/0/Android/data/package/files目录下新建文件
+     * @param fileDir 是否在files目录下，默认在cache目录下
      * @return file
      */
-    public static File createNewFile() {
+    public static File createNewFile(boolean fileDir) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
         String filename = format.format(new Date());
-        String parent = PathUtils.getExternalAppFilesPath();
+        String parent = fileDir ? PathUtils.getExternalAppFilesPath() : PathUtils.getExternalAppCachePath();
         if (parent.equals("")) {
             return null;
         }

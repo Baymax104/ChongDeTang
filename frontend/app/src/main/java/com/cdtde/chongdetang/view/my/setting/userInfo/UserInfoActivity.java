@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +19,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.PathUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityUserInfoBinding;
@@ -30,6 +33,9 @@ import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class UserInfoActivity extends AppCompatActivity {
     private ActivityUserInfoBinding binding;
@@ -44,8 +50,7 @@ public class UserInfoActivity extends AppCompatActivity {
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     File file = UriUtils.uri2File(photoUri);
-                    Uri uri = Uri.fromFile(file);
-                    vm.getUser().setPhoto(uri);
+                    doCompression(file);
                 }
             });
 
@@ -106,7 +111,7 @@ public class UserInfoActivity extends AppCompatActivity {
         PermissionUtil.requestPermission(Manifest.permission.CAMERA);
 
         // 启动相机
-        File file = CameraUtil.createNewFile();
+        File file = CameraUtil.createNewFile(false);
         photoUri = UriUtils.file2Uri(file);
         Intent intent = CameraUtil.startCamera(file);
         if (intent != null) {
@@ -134,17 +139,43 @@ public class UserInfoActivity extends AppCompatActivity {
 
     private void doCrop(Uri data) {
         // UCrop不能读取FileProvider封装的路径，必须获取真实的路径
-        Uri destUri = Uri.fromFile(CameraUtil.createNewFile());
+        Uri destUri = Uri.fromFile(CameraUtil.createNewFile(true));
 
         UCrop.Options options = new UCrop.Options();
         options.setActiveControlsWidgetColor(Color.parseColor("#bd1b21"));
         options.setCircleDimmedLayer(true);
         options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
-        options.setCompressionQuality(60);
+        options.setCompressionQuality(80);
         options.setFreeStyleCropEnabled(true);
         UCrop.of(data, destUri)
                 .withOptions(options)
                 .start(this);
+    }
+
+    private void doCompression(File data) {
+        String dir = PathUtils.getExternalAppFilesPath();
+
+        Luban.with(this)
+                .load(data)
+                .ignoreBy(80)
+                .setTargetDir(dir)
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        Uri uri = Uri.fromFile(file);
+                        vm.getUser().setPhoto(uri);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        ToastUtils.showShort("图片压缩失败：" + throwable.getMessage());
+                    }
+                })
+                .launch();
     }
 
     public static void actionStart(Context context) {

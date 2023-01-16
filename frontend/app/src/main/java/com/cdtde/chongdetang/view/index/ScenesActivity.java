@@ -16,6 +16,8 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySceneBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 
+import java.io.File;
+
 public class ScenesActivity extends AppCompatActivity {
     private ActivitySceneBinding binding;
 
