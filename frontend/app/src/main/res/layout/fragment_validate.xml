@@ -4,11 +4,9 @@
 
     <data>
         <variable
-                name="user"
-                type="com.cdtde.chongdetang.entity.User" />
-        <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.my.ValidateViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -16,7 +14,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="20dp"
-            tools:ignore="ContentDescription">
+            tools:ignore="ContentDescription,autofill">
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,52 +32,111 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{user.phone}"
+                android:text="@{viewModel.user.phone}"
                 android:gravity="center"
                 android:textColor="@color/main_variant_color"
                 android:textSize="17sp"
-                android:fontFamily="@font/regular"/>
+                android:fontFamily="@font/regular"
+                android:layout_marginBottom="25dp"
+                android:visibility="@{viewModel.user.token != null ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_hint"
+                android:gravity="center_vertical|start"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:fontFamily="@font/regular"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="@{viewModel.user.token != null ? View.GONE : View.VISIBLE}"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@color/gray_4"
-                android:paddingHorizontal="10dp">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/validate"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/text_regular" />
-            <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/validate_edit"
-                    android:hint="@string/validate_hint"
-                    android:background="#00ffffff"
-                    android:singleLine="true"
-                    android:autofillHints="no"
-                    android:inputType="number"
-                    android:fontFamily="@font/text_regular"
-                    android:layout_marginHorizontal="10dp"
-                    android:afterTextChanged="@{()->viewModel.setCode(validateEdit.getText().toString())}"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/gray_4">
 
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/small_button_bg"
-                    android:layout_marginVertical="5dp"
-                    android:text="@string/get_validate"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/regular"
-                    tools:ignore="TouchTargetSizeCheck" />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@color/gray_4"
+                    android:paddingHorizontal="15dp"
+                    android:visibility="@{viewModel.user.token != null ? View.GONE : View.VISIBLE}">
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/phone_edit"
+                        android:hint="@string/phone_hint"
+                        android:background="#00ffffff"
+                        android:singleLine="true"
+                        android:inputType="phone"
+                        android:fontFamily="@font/text_regular"
+                        android:afterTextChanged="@{()->viewModel.setPhone(phoneEdit.getText().toString())}"/>
 
+                <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/clean_button"
+                        android:visibility="@{phoneEdit.text.toString().equals(``) ? View.INVISIBLE : View.VISIBLE}"
+                        android:onClick="@{() -> phoneEdit.setText(``)}"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@color/gray_2"
+                    android:visibility="@{viewModel.user.token != null ? View.GONE : View.VISIBLE}"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@color/gray_4"
+                    android:paddingHorizontal="10dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/validate"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/text_regular" />
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/validate_edit"
+                        android:hint="@string/validate_hint"
+                        android:background="#00ffffff"
+                        android:singleLine="true"
+                        android:autofillHints="no"
+                        android:inputType="number"
+                        android:fontFamily="@font/text_regular"
+                        android:layout_marginHorizontal="10dp"
+                        android:afterTextChanged="@{()->viewModel.setCode(validateEdit.getText().toString())}"/>
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/small_button_bg"
+                        android:layout_marginVertical="5dp"
+                        android:text="@{viewModel.tip}"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/regular"
+                        tools:ignore="TouchTargetSizeCheck"
+                        android:enabled="@{viewModel.enabled}"
+                        android:onClick="@{()->viewModel.sendSms()}"/>
+
+            </LinearLayout>
         </LinearLayout>
 
 

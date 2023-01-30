@@ -17,6 +17,7 @@ import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.SettingActivity;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.viewModel.my.MyViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 /**
  * @Description
@@ -46,7 +47,7 @@ public class MyFragment extends Fragment {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
-        binding.setUser(vm.getUser());
+        binding.setViewModel(vm);
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
@@ -55,6 +56,13 @@ public class MyFragment extends Fragment {
             }
             return true;
         });
+
+        LiveEventBus.get("logout", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                vm.logout();
+                            }
+                        });
 
         binding.userIcon.setOnClickListener(v -> UserInfoActivity.actionStart(getContext()));
 

@@ -31,7 +31,7 @@
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray_2"/>
+                    android:background="@color/gray_3"/>
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -42,11 +42,12 @@
                         android:layout_weight="1"
                         android:text="@string/cancel"
                         android:id="@+id/cancel"
+                        android:background="?attr/selectableItemBackground"
                         style="@style/DialogButtonTextStyle"/>
                 <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/gray_2"/>
+                        android:background="@color/gray_3"/>
 
                 <TextView
                         android:layout_width="0dp"
@@ -54,6 +55,7 @@
                         android:layout_weight="1"
                         android:text="@string/confirm"
                         android:id="@+id/confirm"
+                        android:background="?attr/selectableItemBackground"
                         style="@style/DialogButtonTextStyle"/>
             </LinearLayout>
 

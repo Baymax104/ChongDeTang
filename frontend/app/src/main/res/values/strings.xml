@@ -8,7 +8,8 @@
     <string name="toolbar_settings">设置</string>
     <string name="feedback_enter">请描述您在APP使用过程中的问题，以使我们更好的为您服务</string>
     <string name="name_hint">请输入新昵称……</string>
-    <string name="phone_hint">请输入新手机号</string>
+    <string name="new_phone_hint">请输入新手机号</string>
+    <string name="phone_hint">请输入手机号</string>
     <string name="input_old_pwd">输入原密码（没有密码可不填写）</string>
     <string name="input_new_pwd">输入新密码</string>
     <string name="input_new_pwd_hint">密码为6–15位大小写字母和数字的组合</string>
@@ -73,12 +74,15 @@
     <string name="Origin_tab_text_3">馆长介绍</string>
     <string name="origin_title">崇德缘起</string>
     <string name="update_phone">更换手机号</string>
-    <string name="update_pwd">设置新密码</string>
-    <string name="phone_validate_tip">该操作需要验证手机号</string>
+    <string name="update_pwd">修改密码</string>
+    <string name="phone_validate_tip">为了您的安全，该操作需要验证手机号</string>
     <string name="validate">验证码</string>
     <string name="validate_hint">请输入验证码</string>
     <string name="get_validate">获取验证码</string>
     <string name="next_step">下一步</string>
     <string name="current_bind_phone">当前绑定手机号</string>
     <string name="logout_content">确定退出当前账号</string>
+    <string name="copyright">版权声明</string>
+    <string name="version">当前版本</string>
+    <string name="current_version">当前版本v1.0.0</string>
 </resources>

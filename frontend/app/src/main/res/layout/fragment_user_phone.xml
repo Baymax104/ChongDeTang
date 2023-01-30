@@ -39,7 +39,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/phone_hint"
+                android:text="@string/new_phone_hint"
                 android:gravity="center_vertical|start"
                 android:textColor="@color/black"
                 android:textSize="17sp"
@@ -64,12 +64,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:id="@+id/new_edit"
-                        android:hint="@string/phone_hint"
+                        android:hint="@string/new_phone_hint"
                         android:background="#00ffffff"
                         android:singleLine="true"
-                        android:inputType="number"
+                        android:inputType="phone"
                         android:fontFamily="@font/text_regular"
-                        android:afterTextChanged="@{()->viewModel.setNewPhone(newEdit.getText().toString())}"/>
+                        android:afterTextChanged="@{()->viewModel.setPhone(newEdit.getText().toString())}"/>
 
                 <ImageView
                         android:layout_width="22dp"
@@ -120,11 +120,13 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/small_button_bg"
                         android:layout_marginVertical="5dp"
-                        android:text="@string/get_validate"
+                        android:text="@{viewModel.tip}"
+                        android:enabled="@{viewModel.enabled}"
                         android:textSize="14sp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/regular"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        tools:ignore="TouchTargetSizeCheck"
+                        android:onClick="@{()->viewModel.sendSms()}"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -45,7 +45,13 @@ public class UserPhoneActivity extends AppCompatActivity {
                         ToastUtils.showShort("验证码错误！");
                     }
                 } else if (page == 2) {
-                    ToastUtils.showShort(vm.newPhone);
+                    if (vm.validate()) {
+                        vm.setUserPhone();
+                        // 上传服务器
+                        finish();
+                    } else {
+                        ToastUtils.showShort("验证码错误！");
+                    }
                 }
             }
         });

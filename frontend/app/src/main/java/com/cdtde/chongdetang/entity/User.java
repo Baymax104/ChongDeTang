@@ -29,7 +29,7 @@ public class User extends BaseObservable implements Parcelable {
     private Uri photo = UriUtils.res2Uri(String.valueOf(R.drawable.user_icon));
     private String gender;
     private Date birthday;
-    private String phone;
+    private String phone = "13649423971";
     private String password; // md5值
     private String mail;
     private String token;
@@ -55,7 +55,7 @@ public class User extends BaseObservable implements Parcelable {
     }
 
     public static User getInitialInstance() {
-        return new User("未登录", null);
+        return new User("未登录", "123123");
     }
 
     @Bindable

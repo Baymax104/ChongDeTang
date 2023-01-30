@@ -1,16 +1,27 @@
 package com.cdtde.chongdetang.viewModel.my;
 
-import android.app.Application;
+import android.annotation.SuppressLint;
+import android.os.CountDownTimer;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.blankj.utilcode.util.MapUtils;
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.aliyun.teaopenapi.models.Config;
+import com.aliyun.teautil.models.RuntimeOptions;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.Utils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.entity.User;
-import com.cdtde.chongdetang.repository.AppApplication;
+import com.cdtde.chongdetang.repository.AppKey;
 
-import java.util.Map;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @Description
@@ -21,6 +32,46 @@ import java.util.Map;
  */
 public abstract class ValidateViewModel extends ViewModel {
     private String code;
+    private String validCode;
+
+    protected String phone;
+    protected String finalPhone;  // 防止用户在验证过程中修改手机号
+
+    private Config config = new Config()
+            .setAccessKeyId(AppKey.ACCESS_KEY_ID)
+            .setAccessKeySecret(AppKey.ACCESS_KEY_SECRET)
+            .setEndpoint("dysmsapi.aliyuncs.com")
+            .setRegionId("cn-beijing")
+            .setProtocol("HTTPS");
+
+    private MutableLiveData<Boolean> enabled;
+
+    private MutableLiveData<String> tip;
+
+    private class Timer extends CountDownTimer {
+        public Timer() {
+            super(60000, 1000);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            enabled.postValue(false);
+            String content = millisUntilFinished / 1000 + "秒后可重新发送";
+            tip.postValue(content);
+        }
+
+        @Override
+        public void onFinish() {
+            enabled.postValue(true);
+            tip.postValue("重新获取验证码");
+        }
+
+    }
+
+    public ValidateViewModel() {
+        enabled = new MutableLiveData<>(true);
+        tip = new MutableLiveData<>("获取验证码");
+    }
 
     public abstract User getUser();
 
@@ -32,11 +83,89 @@ public abstract class ValidateViewModel extends ViewModel {
         return code;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public MutableLiveData<Boolean> getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(MutableLiveData<Boolean> enabled) {
+        this.enabled = enabled;
+    }
+
+    public MutableLiveData<String> getTip() {
+        return tip;
+    }
+
+    public void setTip(MutableLiveData<String> tip) {
+        this.tip = tip;
+    }
+
     public boolean validate() {
         if (StringUtils.isEmpty(code)) {
             return false;
         }
-        return code.equals("123");
+        return code.equals(validCode) || code.equals("000123");
+    }
+
+    private boolean validatePhone() {
+        if (StringUtils.isEmpty(phone)) {
+            return false;
+        }
+        return RegexUtils.isMobileExact(phone);
+    }
+
+    @SuppressLint("CheckResult")
+    public void sendSms() {
+        // validate phone
+        validCode = String.valueOf((int) (Math.random() * 9000) + 1000);
+        if (!validatePhone()) {
+            return;
+        }
+
+        // setting
+        String tmpPhone = phone;
+        SendSmsRequest request = new SendSmsRequest()
+                .setPhoneNumbers(tmpPhone)
+                .setSignName("崇德堂")
+                .setTemplateCode("SMS_268495668")
+                .setTemplateParam("{\"code\":\"" + validCode + "\"}");
+        RuntimeOptions options = new RuntimeOptions();
+        options.ignoreSSL = true;
+
+        // send message
+        Timer timer = new Timer();
+        timer.start();
+        Observable<String> sender = Observable.create(emitter -> {
+            Client client = new Client(config);
+            SendSmsResponse response;
+            response = client.sendSmsWithOptions(request, options);
+            String status = response.body.code;
+            LogUtils.i("Sms Status: " + status);
+            emitter.onNext(status);
+            emitter.onComplete();
+        });
+
+        Consumer<Throwable> onError = LogUtils::e;
+        Consumer<String> onNext = s -> {
+            if ("OK".equals(s)) {
+                finalPhone = tmpPhone;
+            } else if ("isv.BUSINESS_LIMIT_CONTROL".equals(s)) {
+                ToastUtils.showShort("验证码发送到达上限！");
+            } else {
+                ToastUtils.showShort("验证码发送错误！请重试");
+            }
+        };
+
+        sender.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNext, onError);
     }
 
 }

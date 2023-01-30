@@ -60,7 +60,7 @@
 
                 <GridLayout
                         android:layout_width="match_parent"
-                        android:layout_height="160dp"
+                        android:layout_height="180dp"
                         android:rowCount="2"
                         android:columnCount="3"
                         android:orientation="horizontal"
@@ -74,7 +74,7 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry1"
                             bind:title="@{@string/index_entry1}"
-                            bind:img="@{@drawable/test_circle}" />
+                            bind:img="@{@drawable/index_entry1}" />
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -83,7 +83,7 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry2"
                             bind:title="@{@string/index_entry2}"
-                            bind:img="@{@drawable/test_circle}" />
+                            bind:img="@{@drawable/index_entry2}" />
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -92,7 +92,7 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry3"
                             bind:title="@{@string/index_entry3}"
-                            bind:img="@{@drawable/test_circle}" />
+                            bind:img="@{@drawable/index_entry3}" />
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -101,7 +101,7 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry4"
                             bind:title="@{@string/index_entry4}"
-                            bind:img="@{@drawable/test_circle}" />
+                            bind:img="@{@drawable/index_entry4}" />
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -110,7 +110,7 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry5"
                             bind:title="@{@string/index_entry5}"
-                            bind:img="@{@drawable/test_circle}" />
+                            bind:img="@{@drawable/index_entry5}" />
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -119,7 +119,7 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry6"
                             bind:title="@{@string/index_entry6}"
-                            bind:img="@{@drawable/test_circle}" />
+                            bind:img="@{@drawable/index_entry6}" />
 
                 </GridLayout>
 

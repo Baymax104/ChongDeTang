@@ -42,8 +42,8 @@ public class UserPasswordFragment extends Fragment {
         binding.setViewModel(vm);
     }
 
-    public static UserPhoneFragment newInstance() {
-        return new UserPhoneFragment();
+    public static UserPasswordFragment newInstance() {
+        return new UserPasswordFragment();
     }
 
     @Override

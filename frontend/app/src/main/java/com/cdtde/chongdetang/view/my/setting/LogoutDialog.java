@@ -36,7 +36,7 @@ public class LogoutDialog extends CenterPopupView {
         binding.cancel.setOnClickListener(v -> dismiss());
 
         binding.confirm.setOnClickListener(v -> {
-            LiveEventBus.get("initUser", Boolean.class).post(true);
+            LiveEventBus.get("logout", Boolean.class).post(true);
             dismiss();
         });
     }

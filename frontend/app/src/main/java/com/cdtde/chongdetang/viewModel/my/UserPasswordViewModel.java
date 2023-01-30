@@ -39,6 +39,8 @@ public class UserPasswordViewModel extends ValidateViewModel {
         flowFragments = new ArrayList<>();
         flowFragments.add(ValidateFragment.newInstance(getClass().getName()));
         flowFragments.add(UserPasswordFragment.newInstance());
+
+        phone = repository.getUser().getPhone();
     }
 
     public User getUser() {
@@ -69,8 +71,16 @@ public class UserPasswordViewModel extends ValidateViewModel {
         this.repeatPassword = repeatPassword;
     }
 
+    public String setUserPassword() {
+        String msg = validatePassword();
+        if ("OK".equals(msg)) {
+            repository.getUser().setPassword(EncryptUtils.encryptMD5ToString(newPassword));
+        }
+        return msg;
+    }
 
-    public String validatePwd() {
+
+    public String validatePassword() {
         User user = repository.getUser();
         if (StringUtils.isEmpty(newPassword) ||
             StringUtils.isEmpty(repeatPassword)) {
@@ -94,8 +104,7 @@ public class UserPasswordViewModel extends ValidateViewModel {
         }
 
         // 验证通过
-        user.setPassword(EncryptUtils.encryptMD5ToString(newPassword));
-        return null;
+        return "OK";
     }
 
 }

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-                name="user"
-                type="com.cdtde.chongdetang.entity.User" />
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.my.UserInfoViewModel" />
     </data>
 
     <LinearLayout
@@ -60,7 +60,7 @@
                         android:id="@+id/user_icon"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@{user.photo}"
+                        android:src="@{viewModel.user.photo}"
                         android:scaleType="centerCrop"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/icon_arrow"
@@ -101,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{user.name}"
+                        android:text="@{viewModel.user.name}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/name_arrow"/>
 
@@ -138,7 +138,7 @@
                         android:id="@+id/user_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{user.phone}"
+                        android:text="@{viewModel.user.phone}"
                         android:layout_centerVertical="true"
                         style="@style/UserInfoTextStyle"
                         android:layout_alignParentEnd="true"
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{user.gender != null ? user.gender : `未填写`}"
+                        android:text="@{viewModel.user.gender != null ? viewModel.user.gender : `未填写`}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/gender_arrow"/>
 
@@ -209,7 +209,7 @@
                         android:id="@+id/user_birthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{user.birthday}"
+                        android:text="@{viewModel.user.birthday}"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/birth_arrow"
                         style="@style/UserInfoTextStyle"/>
@@ -248,7 +248,7 @@
                         android:id="@+id/user_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{user.mail != null ? user.mail : `未填写`}"
+                        android:text="@{viewModel.user.mail != null ? viewModel.user.mail : `未填写`}"
                         android:layout_centerVertical="true"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/mail_arrow"

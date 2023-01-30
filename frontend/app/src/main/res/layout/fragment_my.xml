@@ -5,8 +5,8 @@
 
     <data>
         <variable
-                name="user"
-                type="com.cdtde.chongdetang.entity.User" />
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.my.MyViewModel" />
     </data>
 
     <LinearLayout
@@ -37,40 +37,41 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:orientation="vertical"
-                android:paddingTop="20dp"
+                android:paddingTop="50dp"
                 android:paddingBottom="20dp"
-                android:background="@color/main_color">
+                android:background="@drawable/user_bg">
 
 
             <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:id="@+id/user_icon"
-                    android:src="@{user.photo}"
+                    android:src="@{viewModel.user.photo}"
                     android:layout_gravity="center"
                     app:riv_corner_radius="50dp"
                     app:riv_border_width="0.2dp"
                     app:riv_border_color="@color/white"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="10dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@{user.name}"
+                    android:text="@{viewModel.user.name}"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/regular"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
 
 
         </LinearLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
             <RelativeLayout

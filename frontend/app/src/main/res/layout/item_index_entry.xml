@@ -19,17 +19,19 @@
 
         <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:src="@{img}"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                android:padding="5dp" />
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{title}"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:gravity="center_horizontal"
-                android:fontFamily="@font/regular"/>
+                android:fontFamily="@font/regular"
+                android:layout_marginVertical="5dp"/>
     </LinearLayout>
 </layout>

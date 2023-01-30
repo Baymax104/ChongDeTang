@@ -27,7 +27,6 @@ local.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -130,3 +129,4 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
+/app/src/main/java/com/cdtde/chongdetang/repository/AppKey.java

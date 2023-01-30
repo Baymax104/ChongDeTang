@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="main_color">#bd1b21</color>
     <color name="main_variant_color">#FF3333</color>
+    <color name="main_variant_color2">#8c0c0c</color>
     <color name="second_color">#CC6633</color>
     <color name="second_variant_color">#CC9933</color>
     <color name="black">#FF000000</color>
@@ -15,5 +16,4 @@
     <color name="gray_6">#eeeeee</color>
     <color name="fab_back" tools:ignore="MissingDefaultResource">#B4D1CA94</color>
     <color name="transparent">#0000</color>
-
 </resources>

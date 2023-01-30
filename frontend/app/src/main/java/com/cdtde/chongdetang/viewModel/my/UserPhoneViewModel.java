@@ -25,7 +25,6 @@ public class UserPhoneViewModel extends ValidateViewModel {
 
     private List<Fragment> flowFragments;
 
-    public String newPhone;
 
 
     public UserPhoneViewModel() {
@@ -36,6 +35,8 @@ public class UserPhoneViewModel extends ValidateViewModel {
         flowFragments = new ArrayList<>();
         flowFragments.add(ValidateFragment.newInstance(getClass().getName()));
         flowFragments.add(UserPhoneFragment.newInstance());
+
+        phone = repository.getUser().getPhone();
     }
 
     @Override
@@ -55,7 +56,8 @@ public class UserPhoneViewModel extends ValidateViewModel {
         return flowFragments;
     }
 
-    public void setNewPhone(String newPhone) {
-        this.newPhone = newPhone;
+    public void setUserPhone() {
+        repository.getUser().setPhone(finalPhone);
     }
+
 }
