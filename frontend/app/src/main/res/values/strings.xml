@@ -85,4 +85,7 @@
     <string name="copyright">版权声明</string>
     <string name="version">当前版本</string>
     <string name="current_version">当前版本v1.0.0</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="input_password">请输入密码</string>
+    <string name="login">登录</string>
 </resources>

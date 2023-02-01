@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.util;
 
 import android.net.Uri;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.adapter.BannerAdapter;
 import com.cdtde.chongdetang.util.adapter.BaseAdapter;
@@ -69,6 +72,18 @@ public class BindingUtil {
     @BindingAdapter("banner_data")
     public static void setBannerData(Banner<Integer, BannerAdapter> banner, List<Integer> data) {
         banner.setAdapter(new BannerAdapter(data));
+    }
+
+    public static void bindPasswordEdit(View view, EditText edit) {
+        ImageView img = (ImageView) view;
+        if (edit.getInputType() == 128) {
+            edit.setInputType(129);
+            img.setImageResource(R.drawable.visible);
+        } else {
+            edit.setInputType(128);
+            img.setImageResource(R.drawable.invisible);
+        }
+        edit.setSelection(edit.getText().length());
     }
 
     @BindingConversion

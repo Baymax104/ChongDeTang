@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
+import com.cdtde.chongdetang.util.ValidateUtil;
 import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordFragment;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
 
@@ -96,10 +97,8 @@ public class UserPasswordViewModel extends ValidateViewModel {
             return "重复输入不一致！";
         }
 
-        String pattern = "^[a-zA-Z\\d]+$";
-        boolean match = newPassword.matches(pattern);
-        boolean length = newPassword.length() >= 6 && newPassword.length() <= 15;
-        if (!match || !length) {
+        boolean isValid = ValidateUtil.validatePassword(newPassword);
+        if (!isValid) {
             return "密码格式错误！";
         }
 

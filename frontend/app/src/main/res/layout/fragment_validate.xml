@@ -126,12 +126,10 @@
                 <Button
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/small_button_bg"
+                        android:background="@drawable/button_bg"
                         android:layout_marginVertical="5dp"
                         android:text="@{viewModel.tip}"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/regular"
+                        style="@style/SmallButtonTextStyle"
                         tools:ignore="TouchTargetSizeCheck"
                         android:enabled="@{viewModel.enabled}"
                         android:onClick="@{()->viewModel.sendSms()}"/>

@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.AppKey;
+import com.cdtde.chongdetang.util.ValidateUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -95,37 +96,23 @@ public abstract class ValidateViewModel extends ViewModel {
         return enabled;
     }
 
-    public void setEnabled(MutableLiveData<Boolean> enabled) {
-        this.enabled = enabled;
-    }
-
     public MutableLiveData<String> getTip() {
         return tip;
-    }
-
-    public void setTip(MutableLiveData<String> tip) {
-        this.tip = tip;
     }
 
     public boolean validate() {
         if (StringUtils.isEmpty(code)) {
             return false;
         }
-        return code.equals(validCode) || code.equals("000123");
-    }
-
-    private boolean validatePhone() {
-        if (StringUtils.isEmpty(phone)) {
-            return false;
-        }
-        return RegexUtils.isMobileExact(phone);
+        // 0000为测试码
+        return code.equals(validCode) || code.equals("0000");
     }
 
     @SuppressLint("CheckResult")
     public void sendSms() {
         // validate phone
         validCode = String.valueOf((int) (Math.random() * 9000) + 1000);
-        if (!validatePhone()) {
+        if (!ValidateUtil.validatePhone(phone)) {
             return;
         }
 

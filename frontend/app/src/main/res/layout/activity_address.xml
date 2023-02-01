@@ -73,8 +73,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:background="@drawable/button_bg"
                     android:text="@string/add_address"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/regular"
+                    style="@style/BigButtonTextStyle"
                     tools:ignore="TouchTargetSizeCheck" />
 
         </FrameLayout>

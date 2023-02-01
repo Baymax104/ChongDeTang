@@ -31,8 +31,7 @@
         <activity
                 android:name="com.cdtde.chongdetang.view.index.OriginActivity"
                 android:exported="false"
-                android:label="@string/title_activity_origin"
-                android:theme="@style/Theme.ChongDeTang.NoActionBar" />
+                android:label="@string/title_activity_origin" />
         <activity android:name=".view.index.MomentListActivity" />
         <activity android:name=".view.index.MomentActivity" />
         <activity android:name=".view.index.ScenesActivity" />

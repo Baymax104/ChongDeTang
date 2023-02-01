@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActicityUsernameBinding;
+import com.cdtde.chongdetang.util.ValidateUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -30,23 +31,13 @@ public class UsernameActivity extends AppCompatActivity {
 
         binding.confirm.setOnClickListener(v -> {
             String content = binding.nameEdit.getText().toString();
-            if (validate(content)) {
+            if (ValidateUtil.validateUsername(content)) {
                 LiveEventBus.get("username", String.class).post(content);
                 finish();
             } else {
                 binding.setValidity(false);
             }
         });
-    }
-
-    private boolean validate(String content) {
-        String pattern = "^[a-zA-Z\\d\\u4e00-\\u9fa5]+$";
-        boolean isMatch = Pattern.matches(pattern, content);
-
-        int length = content.length();
-        boolean lengthValidity = length >= 2 && length <= 12;
-
-        return isMatch && lengthValidity;
     }
 
     public static void actionStart(Context context) {

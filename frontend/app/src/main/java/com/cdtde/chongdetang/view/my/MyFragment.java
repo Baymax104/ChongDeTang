@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.view.my.setting.LoginActivity;
 import com.cdtde.chongdetang.view.my.setting.SettingActivity;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.viewModel.my.MyViewModel;
@@ -64,21 +66,69 @@ public class MyFragment extends Fragment {
                             }
                         });
 
-        binding.userIcon.setOnClickListener(v -> UserInfoActivity.actionStart(getContext()));
+        binding.userIcon.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                UserInfoActivity.actionStart(getContext());
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.appointmentEntry.setOnClickListener(v -> AppointmentActivity.actionStart(getContext()));
+        binding.appointmentEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                AppointmentActivity.actionStart(getContext());
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.collectionEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的收藏", Toast.LENGTH_SHORT).show());
+        binding.collectionEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                ToastUtils.showShort("进入收藏");
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.shoppingEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的购物车", Toast.LENGTH_SHORT).show());
+        binding.shoppingEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                ToastUtils.showShort("进入购物车");
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.orderEntry.setOnClickListener(v -> Toast.makeText(getContext(), "我的订单", Toast.LENGTH_SHORT).show());
+        binding.orderEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                ToastUtils.showShort("进入订单");
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.addressEntry.setOnClickListener(v -> AddressActivity.actionStart(getContext()));
+        binding.addressEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                AddressActivity.actionStart(getContext());
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.noticeEntry.setOnClickListener(v -> Toast.makeText(getContext(), "消息通知", Toast.LENGTH_SHORT).show());
+        binding.noticeEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                ToastUtils.showShort("进入通知");
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
 
-        binding.feedbackEntry.setOnClickListener(v -> FeedbackActivity.actionStart(getContext()));
+        binding.feedbackEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                FeedbackActivity.actionStart(getContext());
+            } else {
+                LoginActivity.actionStart(getContext());
+            }
+        });
     }
 
     @Override

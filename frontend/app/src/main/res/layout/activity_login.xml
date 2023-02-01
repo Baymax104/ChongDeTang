@@ -4,14 +4,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.my.LoginViewModel" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".view.my.setting.LoginActivity">
+            tools:context=".view.my.setting.LoginActivity"
+            tools:ignore="ContentDescription">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -28,10 +31,66 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
+        <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/view_pager"/>
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_white"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="50dp"/>
 
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/input_phone"
+                style="@style/LoginEditStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/text_regular"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:drawableStart="@drawable/user_icon"
+                    android:drawablePadding="10dp"
+                    android:afterTextChanged="@{s->viewModel.setPhone(s.toString())}"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/input_password"
+                app:passwordToggleEnabled="true"
+                style="@style/LoginEditStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/text_regular"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:drawableStart="@drawable/password2"
+                    android:drawablePadding="10dp"
+                    android:afterTextChanged="@{s->viewModel.setPassword(s.toString())}"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/button_bg"
+                android:text="@string/login"
+                style="@style/BigButtonTextStyle"
+                android:id="@+id/login"/>
     </LinearLayout>
 </layout>

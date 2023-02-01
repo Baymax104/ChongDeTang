@@ -1,5 +1,7 @@
 package com.cdtde.chongdetang.viewModel.my;
 
+import android.net.Uri;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,19 +21,24 @@ import java.util.List;
 public class MyViewModel extends ViewModel {
     private MyRepository repository;
 
-    private MutableLiveData<User> user;
 
     public MyViewModel() {
         repository = MyRepository.getInstance();
-        user = new MutableLiveData<>(repository.getUser());
     }
 
-    public MutableLiveData<User> getUser() {
-        return user;
+    public String getUsername() {
+        return repository.getUser().getName();
+    }
+
+    public Uri getUserPhoto() {
+        return repository.getUser().getPhoto();
     }
 
     public void logout() {
         repository.initUser();
-        user.setValue(repository.getUser());
+    }
+
+    public boolean isLogin() {
+        return repository.getUser().getToken() != null;
     }
 }

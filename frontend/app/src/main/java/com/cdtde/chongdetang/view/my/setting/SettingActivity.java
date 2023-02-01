@@ -48,11 +48,29 @@ public class SettingActivity extends AppCompatActivity {
                         });
 
 
-        binding.dataEntry.setOnClickListener(v -> UserInfoActivity.actionStart(this));
+        binding.dataEntry.setOnClickListener(v -> {
+            if (vm.getUser().getToken() != null) {
+                UserInfoActivity.actionStart(this);
+            } else {
+                LoginActivity.actionStart(this);
+            }
+        });
 
-        binding.passwordEntry.setOnClickListener(v -> UserPasswordActivity.actionStart(this));
+        binding.passwordEntry.setOnClickListener(v -> {
+            if (vm.getUser().getToken() != null) {
+                UserPasswordActivity.actionStart(this);
+            } else {
+                LoginActivity.actionStart(this);
+            }
+        });
 
-        binding.phoneEntry.setOnClickListener(v -> UserPhoneActivity.actionStart(this));
+        binding.phoneEntry.setOnClickListener(v -> {
+            if (vm.getUser().getToken() != null) {
+                UserPhoneActivity.actionStart(this);
+            } else {
+                LoginActivity.actionStart(this);
+            }
+        });
 
         binding.copyrightEntry.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
 

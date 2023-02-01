@@ -29,18 +29,13 @@ public class User extends BaseObservable implements Parcelable {
     private Uri photo = UriUtils.res2Uri(String.valueOf(R.drawable.user_icon));
     private String gender;
     private Date birthday;
-    private String phone = "13649423971";
+    private String phone;
     private String password; // md5值
     private String mail;
     private String token;
 
 
     public User() {
-    }
-
-    public User(String name, String token) {
-        this.name = name;
-        this.token = token;
     }
 
     public User(String name, Uri photo, String gender, Date birthday, String phone, String password, String mail, String token) {
@@ -54,8 +49,8 @@ public class User extends BaseObservable implements Parcelable {
         this.token = token;
     }
 
-    public static User getInitialInstance() {
-        return new User("未登录", "123123");
+    public static User newInstance() {
+        return new User();
     }
 
     @Bindable
@@ -63,9 +58,10 @@ public class User extends BaseObservable implements Parcelable {
         return token;
     }
 
-    public void setToken(String token) {
+    public User setToken(String token) {
         this.token = token;
         notifyPropertyChanged(BR.token);
+        return this;
     }
 
     @Bindable
@@ -73,9 +69,10 @@ public class User extends BaseObservable implements Parcelable {
         return name;
     }
 
-    public void setName(String name) {
+    public User setName(String name) {
         this.name = name;
         notifyPropertyChanged(BR.name);
+        return this;
     }
 
     @Bindable
@@ -83,9 +80,10 @@ public class User extends BaseObservable implements Parcelable {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public User setGender(String gender) {
         this.gender = gender;
         notifyPropertyChanged(BR.gender);
+        return this;
     }
 
     @Bindable
@@ -93,9 +91,10 @@ public class User extends BaseObservable implements Parcelable {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public User setBirthday(Date birthday) {
         this.birthday = birthday;
         notifyPropertyChanged(BR.birthday);
+        return this;
     }
 
     @Bindable
@@ -103,9 +102,10 @@ public class User extends BaseObservable implements Parcelable {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public User setPhone(String phone) {
         this.phone = phone;
         notifyPropertyChanged(BR.phone);
+        return this;
     }
 
     @Bindable
@@ -113,9 +113,10 @@ public class User extends BaseObservable implements Parcelable {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public User setMail(String mail) {
         this.mail = mail;
         notifyPropertyChanged(BR.mail);
+        return this;
     }
 
     @Bindable
@@ -123,9 +124,10 @@ public class User extends BaseObservable implements Parcelable {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
         notifyPropertyChanged(BR.password);
+        return this;
     }
 
     @Bindable
@@ -133,9 +135,10 @@ public class User extends BaseObservable implements Parcelable {
         return photo;
     }
 
-    public void setPhoto(Uri photo) {
+    public User setPhoto(Uri photo) {
         this.photo = photo;
         notifyPropertyChanged(BR.photo);
+        return this;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

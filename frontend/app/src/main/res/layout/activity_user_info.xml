@@ -101,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{viewModel.user.name}"
+                        android:text="@{viewModel.user.name ?? `未登录`}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/name_arrow"/>
 
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{viewModel.user.gender != null ? viewModel.user.gender : `未填写`}"
+                        android:text="@{viewModel.user.gender ?? `未填写`}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/gender_arrow"/>
 
@@ -248,7 +248,7 @@
                         android:id="@+id/user_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.user.mail != null ? viewModel.user.mail : `未填写`}"
+                        android:text="@{viewModel.user.mail ?? `未填写`}"
                         android:layout_centerVertical="true"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/mail_arrow"

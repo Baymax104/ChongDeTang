@@ -1,14 +1,9 @@
 package com.cdtde.chongdetang.repository;
 
 import android.app.Application;
-import android.util.Log;
 
-import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.tencent.mmkv.MMKV;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Description 使用Application存储全局数据，在应用的整个生命周期有效
@@ -27,7 +22,7 @@ public class AppApplication extends Application {
         MMKV.initialize(this);
         MMKV mmkv = MMKV.defaultMMKV();
         if (!mmkv.contains("user")) {
-            user = User.getInitialInstance();
+            user = User.newInstance();
         } else {
             user = mmkv.decodeParcelable("user", User.class);
         }
@@ -35,6 +30,8 @@ public class AppApplication extends Application {
 
     public void setUser(User user) {
         this.user = user;
+        MMKV mmkv = MMKV.defaultMMKV();
+        mmkv.clearAll();
     }
 
     public User getUser() {

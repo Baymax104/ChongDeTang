@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.text.InputType"/>
+        <import type="com.cdtde.chongdetang.util.BindingUtil"/>
+        <variable
+                name="text"
+                type="String" />
+        <variable
+                name="hint"
+                type="String" />
+        <variable
+                name="editHandler"
+                type="androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged" />
+        <variable
+                name="isPassword"
+                type="Boolean" />
+        <variable
+                name="inputType"
+                type="Integer" />
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="autofill,ContentDescription">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{text}"
+                android:gravity="center_vertical|start"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:fontFamily="@font/regular"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:background="@color/gray_4"
+                android:paddingHorizontal="15dp">
+
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/edit"
+                    android:hint="@{hint}"
+                    android:inputType="@{inputType}"
+                    android:background="#00ffffff"
+                    android:singleLine="true"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/text_regular"
+                    android:afterTextChanged="@{editHandler}"
+                    tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+            <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/clean_button"
+                    android:visibility="@{edit.text.toString().equals(``) ? View.INVISIBLE : View.VISIBLE}"
+                    android:onClick="@{() -> edit.setText(``)}"
+                    tools:ignore="ImageContrastCheck" />
+            <ImageView
+                    android:layout_width="33dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/visible"
+                    android:visibility="@{isPassword ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{v -> BindingUtil.bindPasswordEdit(v, edit)}"
+                    tools:ignore="ImageContrastCheck" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

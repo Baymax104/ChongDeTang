@@ -220,8 +220,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/button_bg"
                     android:text="@string/logout"
-                    android:textSize="23sp"
-                    android:fontFamily="@font/regular"
+                    style="@style/BigButtonTextStyle"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:visibility="@{viewModel.user.token != null ? View.VISIBLE : View.INVISIBLE}"/>
