@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.adapter.BannerAdapter;
@@ -42,6 +43,12 @@ public class BindingUtil {
     @BindingAdapter("img_url")
     public static void setImgUrl(ImageView view, String url) {
         // 网络请求图片
+    }
+
+    @BindingAdapter("src")
+    public static void setImg(ImageView view, String uriString) {
+        Uri uri = Uri.parse(uriString);
+        view.setImageURI(uri);
     }
 
     @BindingAdapter({"tag_data", "relate"})

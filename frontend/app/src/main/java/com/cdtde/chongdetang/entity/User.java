@@ -4,12 +4,14 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,8 +27,9 @@ import java.util.Locale;
  */
 
 public class User extends BaseObservable implements Parcelable {
+    @SerializedName("username")
     private String name;
-    private Uri photo = UriUtils.res2Uri(String.valueOf(R.drawable.user_icon));
+    private String photo = UriUtils.res2Uri(String.valueOf(R.drawable.user_icon)).toString();
     private String gender;
     private Date birthday;
     private String phone;
@@ -38,7 +41,7 @@ public class User extends BaseObservable implements Parcelable {
     public User() {
     }
 
-    public User(String name, Uri photo, String gender, Date birthday, String phone, String password, String mail, String token) {
+    public User(String name, String photo, String gender, Date birthday, String phone, String password, String mail, String token) {
         this.name = name;
         this.photo = photo;
         this.gender = gender;
@@ -131,11 +134,11 @@ public class User extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public Uri getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public User setPhoto(Uri photo) {
+    public User setPhoto(String photo) {
         this.photo = photo;
         notifyPropertyChanged(BR.photo);
         return this;
@@ -152,7 +155,7 @@ public class User extends BaseObservable implements Parcelable {
             String password = source.readString();
             String mail = source.readString();
             String token = source.readString();
-            Uri photo = uri != null ? Uri.parse(uri) : UriUtils.res2Uri(String.valueOf(R.drawable.user_icon));
+            String photo = uri != null ? uri : UriUtils.res2Uri(String.valueOf(R.drawable.user_icon)).toString();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
             Date birthday;
             try {
@@ -177,8 +180,7 @@ public class User extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        String uri = photo != null ? photo.toString() : null;
-        dest.writeString(uri);
+        dest.writeString(photo);
         dest.writeString(gender);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         String date = birthday != null ? format.format(birthday) : null;
@@ -187,5 +189,20 @@ public class User extends BaseObservable implements Parcelable {
         dest.writeString(password);
         dest.writeString(mail);
         dest.writeString(token);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", photo=" + photo +
+                ", gender='" + gender + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

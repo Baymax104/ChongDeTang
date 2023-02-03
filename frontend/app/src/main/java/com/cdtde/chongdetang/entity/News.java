@@ -16,6 +16,6 @@ public class News implements Serializable {
     private String title;
     private Date publishDate;
     private String preview;
-    private Uri image;
+    private String image;
     private String url;
 }

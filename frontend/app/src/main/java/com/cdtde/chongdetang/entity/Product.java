@@ -22,21 +22,21 @@ public class Product extends BaseObservable implements Serializable {
 
     private Integer id;
     private String name;
-    private Uri image;
+    private String image;
 
     private double price;
 
     public Product() {
         name = "测试";
-        image = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture));
+        image = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture)).toString();
     }
 
-    public Product(String name, Uri image) {
+    public Product(String name, String image) {
         this.name = name;
         this.image = image;
     }
 
-    public Product(Integer id, String name, Uri image) {
+    public Product(Integer id, String name, String image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -53,11 +53,11 @@ public class Product extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
         notifyPropertyChanged(BR.image);
     }

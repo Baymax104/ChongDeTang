@@ -132,7 +132,7 @@ public class UserInfoActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             Uri output = UCrop.getOutput(data);
             if (output != null) {
-                vm.getUser().setPhoto(output);
+                vm.getUser().setPhoto(output.toString());
             }
         }
     }
@@ -167,7 +167,7 @@ public class UserInfoActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(File file) {
                         Uri uri = Uri.fromFile(file);
-                        vm.getUser().setPhoto(uri);
+                        vm.getUser().setPhoto(uri.toString());
                     }
 
                     @Override

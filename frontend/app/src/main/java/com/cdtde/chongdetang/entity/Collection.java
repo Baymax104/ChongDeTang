@@ -21,21 +21,21 @@ import java.io.Serializable;
 public class Collection extends BaseObservable implements Serializable {
     private int id;
     private String name;
-    private Uri image;
+    private String image;
     private String description;
 
     public Collection() {
         name = "测试";
-        image = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture));
+        image = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture)).toString();
     }
 
-    public Collection(String name, Uri image, String description) {
+    public Collection(String name, String image, String description) {
         this.name = name;
         this.image = image;
         this.description = description;
     }
 
-    public Collection(int id, String name, Uri image, String description) {
+    public Collection(int id, String name, String image, String description) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -63,11 +63,11 @@ public class Collection extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
         notifyPropertyChanged(BR.image);
     }

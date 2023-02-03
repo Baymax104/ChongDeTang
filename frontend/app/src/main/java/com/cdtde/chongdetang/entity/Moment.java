@@ -16,13 +16,13 @@ public class Moment implements Serializable {
     private String title;
     private Date publishDate;
     private String preview;
-    private Uri image;
+    private String image;
     private String url;
 
     public Moment() {
     }
 
-    public Moment(String title, Date publishDate, String preview, Uri image, String url) {
+    public Moment(String title, Date publishDate, String preview, String image, String url) {
         this.title = title;
         this.publishDate = publishDate;
         this.preview = preview;
@@ -54,11 +54,11 @@ public class Moment implements Serializable {
         this.preview = preview;
     }
 
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

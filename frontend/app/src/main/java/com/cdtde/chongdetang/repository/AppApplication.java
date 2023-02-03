@@ -31,6 +31,12 @@ public class AppApplication extends Application {
     public void setUser(User user) {
         this.user = user;
         MMKV mmkv = MMKV.defaultMMKV();
+        mmkv.encode("user", user);
+    }
+
+    public void initUser() {
+        user = User.newInstance();
+        MMKV mmkv = MMKV.defaultMMKV();
         mmkv.clearAll();
     }
 

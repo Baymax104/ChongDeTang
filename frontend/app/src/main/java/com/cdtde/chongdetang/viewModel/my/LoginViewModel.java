@@ -2,7 +2,6 @@ package com.cdtde.chongdetang.viewModel.my;
 
 import androidx.lifecycle.ViewModel;
 
-import com.blankj.utilcode.util.EncryptUtils;
 import com.cdtde.chongdetang.repository.MyRepository;
 import com.cdtde.chongdetang.util.ValidateUtil;
 
@@ -35,14 +34,7 @@ public class LoginViewModel extends ViewModel {
         return ValidateUtil.validatePhone(phone) && ValidateUtil.validatePassword(password);
     }
 
-    public boolean login() {
-        String encrypt = EncryptUtils.encryptMD5ToString(password);
-        if (encrypt.equals(EncryptUtils.encryptMD5ToString("000000")) && phone.equals("13649423971")) {
-            repo.getUser().setPhone(phone)
-                    .setPassword(encrypt)
-                    .setToken("123");
-            return true;
-        }
-        return false;
+    public void login() {
+        repo.login(phone, password);
     }
 }

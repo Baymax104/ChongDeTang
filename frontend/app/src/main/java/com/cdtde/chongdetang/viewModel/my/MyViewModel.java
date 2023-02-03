@@ -30,7 +30,7 @@ public class MyViewModel extends ViewModel {
         return repository.getUser().getName();
     }
 
-    public Uri getUserPhoto() {
+    public String getUserPhoto() {
         return repository.getUser().getPhoto();
     }
 

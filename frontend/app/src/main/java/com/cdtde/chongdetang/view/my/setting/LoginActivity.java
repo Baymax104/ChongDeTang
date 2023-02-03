@@ -34,15 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.login.setOnClickListener(v -> {
             boolean isValid = vm.validate();
             if (!isValid) {
-                ToastUtils.showShort("用户名或密码错误！");
+                ToastUtils.showShort("手机号或密码错误！");
                 return;
             }
-            boolean isLogin = vm.login();
-            if (!isLogin) {
-                ToastUtils.showShort("用户名或密码错误");
-                return;
-            }
-            finish();
+            vm.login();
         });
     }
 

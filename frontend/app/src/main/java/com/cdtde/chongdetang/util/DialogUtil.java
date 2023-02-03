@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.impl.LoadingPopupView;
 
 import java.lang.reflect.Constructor;
 
@@ -30,6 +31,11 @@ public class DialogUtil {
     public static <T extends BasePopupView> BasePopupView create(Context context, Class<T> dialogType) {
         Constructor<T> constructor;
         BasePopupView dialog = null;
+
+        if (dialogType == LoadingPopupView.class) {
+            return new XPopup.Builder(context).asLoading();
+        }
+
         try {
             constructor =  dialogType.getConstructor(Context.class);
             dialog = constructor.newInstance(context);

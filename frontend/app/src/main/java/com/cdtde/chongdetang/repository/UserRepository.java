@@ -1,5 +1,7 @@
 package com.cdtde.chongdetang.repository;
 
+import android.app.Application;
+
 import com.blankj.utilcode.util.Utils;
 import com.cdtde.chongdetang.entity.User;
 
@@ -11,13 +13,10 @@ import com.cdtde.chongdetang.entity.User;
  * @Version 1
  */
 public class UserRepository {
-    private User user;
 
     private static UserRepository userRepository;
 
     private UserRepository() {
-        AppApplication app = (AppApplication) Utils.getApp();
-        user = app.getUser();
     }
 
     public static UserRepository getInstance() {
@@ -28,11 +27,16 @@ public class UserRepository {
     }
 
     public User getUser() {
-        return user;
+        AppApplication app = (AppApplication) Utils.getApp();
+        return app.getUser();
     }
 
     public void initUser() {
-        user = User.newInstance();
+        AppApplication app = (AppApplication) Utils.getApp();
+        app.initUser();
+    }
+
+    public void setUser(User user) {
         AppApplication app = (AppApplication) Utils.getApp();
         app.setUser(user);
     }
