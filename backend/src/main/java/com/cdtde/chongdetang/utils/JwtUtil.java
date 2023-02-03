@@ -23,21 +23,17 @@ public class JwtUtil {
     }
 
     public static String createJWT(String subject) {
-        JwtBuilder builder = getJwtBuilder(subject, null, getUUID());
+        JwtBuilder builder = getJwtBuilder(subject, getUUID());
         return builder.compact();
     }
 
-    private static JwtBuilder getJwtBuilder(String subject, Long ttlMillis, String uuid) {
+    private static JwtBuilder getJwtBuilder(String subject, String uuid) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         SecretKey secretKey = generalKey();
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        if (ttlMillis == null) {
-            ttlMillis = JwtUtil.JWT_TTL;
-        }
+        Date expDate = new Date(nowMillis + JWT_TTL);
 
-        long expMillis = nowMillis + ttlMillis;
-        Date expDate = new Date(expMillis);
         return Jwts.builder()
                 .setId(uuid)
                 .setSubject(subject)
@@ -52,7 +48,7 @@ public class JwtUtil {
         return new SecretKeySpec(encodeKey, 0, encodeKey.length, "HmacSHA256");
     }
 
-    public static Claims parseJWT(String jwt) throws Exception {
+    public static Claims parseJWT(String jwt) {
         SecretKey secretKey = generalKey();
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)

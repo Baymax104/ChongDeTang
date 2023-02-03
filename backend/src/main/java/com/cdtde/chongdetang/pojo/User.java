@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,13 @@ public class User {
     private String photo;
     private String mail;
     private String phone;
-    private String sex;
+    private String gender;
     private String age;
+    @TableField(exist = false)
+    private String token;
+
+    public User(String password, String phone) {
+        this.password = password;
+        this.phone = phone;
+    }
 }

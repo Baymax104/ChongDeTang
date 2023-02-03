@@ -1,6 +1,5 @@
-package com.cdtde.chongdetang.service.impl.utils;
+package com.cdtde.chongdetang.pojo;
 
-import com.cdtde.chongdetang.pojo.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsImpl implements UserDetails {
+public class LoginUser implements UserDetails {
 
     private User user;
     @Override

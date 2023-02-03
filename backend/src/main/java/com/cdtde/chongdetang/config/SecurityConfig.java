@@ -1,6 +1,6 @@
 package com.cdtde.chongdetang.config;
 
-import com.cdtde.chongdetang.config.filter.JwtAuthenticationTokenFilter;
+import com.cdtde.chongdetang.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/account/token/", "/api/user/account/register/").permitAll() // 对所有用户公开
+                .antMatchers("/api/user/login", "/api/user/register").permitAll() // 对所有用户公开
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
 
