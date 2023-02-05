@@ -33,4 +33,12 @@ public interface UserService {
     @POST("/api/user/update/info")
     Observable<ResponseResult<User>> updateInfo(@Header("Authorization") String token,
                                                 @Body Map<String, Object> map);
+
+    @POST("/api/user/update/password")
+    Observable<ResponseResult<String>> updatePassword(@Header("Authorization") String token,
+                                                      @Body Map<String, String> map);
+
+    @POST("/api/user/update/phone")
+    Observable<ResponseResult<Object>> updatePhone(@Header("Authorization") String token,
+                                                   @Body String phone);
 }

@@ -13,6 +13,7 @@ import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.entity.ResponseResult;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.util.CameraUtil;
+import com.cdtde.chongdetang.util.ValidateUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.Body;
 
 /**
  * @Description
@@ -33,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * @Date 2023/1/11 1:20
  * @Version 1
  */
+@SuppressLint("CheckResult")
 public class MyRepository {
 
     private UserRepository userRepo;
@@ -74,7 +77,6 @@ public class MyRepository {
         return addresses;
     }
 
-    @SuppressLint("CheckResult")
     public void login(String phone, String password) {
         Map<String, String> map = new HashMap<>();
         map.put("phone", phone);
@@ -103,7 +105,6 @@ public class MyRepository {
                 );
     }
 
-    @SuppressLint("CheckResult")
     public void update(User user) {
         String token = "Bearer " + user.getToken();
 
@@ -139,13 +140,10 @@ public class MyRepository {
                 );
     }
 
-    @SuppressLint("CheckResult")
     public void register(String phone, String password) {
         Map<String, String> map = new HashMap<>();
-        byte[] bytes = password.getBytes(StandardCharsets.UTF_8);
 
-        String encrypt = EncryptUtils.encryptAES2HexString(bytes, AppKey.PASSWORD_KEY, "AES/CBC/PKCS5Padding", AppKey.PASSWORD_IV);
-
+        String encrypt = ValidateUtil.encrypt(password);
         map.put("phone", phone);
         map.put("password", encrypt);
 
@@ -166,6 +164,59 @@ public class MyRepository {
                         onNext,
                         throwable -> LogUtils.eTag("cdt-web-register", throwable),
                         () -> LogUtils.iTag("cdt-web-register", "注册请求结束")
+                );
+    }
+
+    public void updatePassword(String oldPassword, String newPassword) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+        String oldEncrypt = ValidateUtil.encrypt(oldPassword);
+        String newEncrypt = ValidateUtil.encrypt(newPassword);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("oldPassword", oldEncrypt);
+        map.put("newPassword", newEncrypt);
+
+        Consumer<ResponseResult<String>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                String encrypt = result.getData();
+                userRepo.getUser().setPassword(encrypt);
+                LogUtils.iTag("cdt-web-updatePassword", "密码修改成功");
+                LiveEventBus.get("MyRepository-updatePassword", Boolean.class).post(true);
+            } else {
+                LogUtils.eTag("cdt-web-updatePassword", result.getMessage());
+            }
+        };
+
+        userService.updatePassword(token, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-updatePassword", throwable),
+                        () -> LogUtils.iTag("cdt-web-updatePassword", "修改密码请求结束")
+                );
+    }
+
+    public void updatePhone(String phone) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                userRepo.getUser().setPhone(phone);
+                LogUtils.iTag("cdt-web-updatePhone", "手机号修改成功");
+                LiveEventBus.get("MyRepository-updatePhone", Boolean.class).post(true);
+            } else {
+                LogUtils.eTag("cdt-web-updatePhone", result.getMessage());
+            }
+        };
+
+        userService.updatePhone(token, phone)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-updatePhone", throwable),
+                        () -> LogUtils.iTag("cdt-web-updatePhone", "修改手机号请求结束")
                 );
     }
 

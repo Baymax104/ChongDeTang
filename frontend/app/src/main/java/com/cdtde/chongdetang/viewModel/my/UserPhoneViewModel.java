@@ -19,7 +19,7 @@ import java.util.List;
  * @Version 1
  */
 public class UserPhoneViewModel extends ValidateViewModel {
-    private MyRepository repository;
+    private MyRepository repo;
 
     private MutableLiveData<Integer> page;
 
@@ -28,7 +28,7 @@ public class UserPhoneViewModel extends ValidateViewModel {
 
 
     public UserPhoneViewModel() {
-        repository = MyRepository.getInstance();
+        repo = MyRepository.getInstance();
 
         page = new MutableLiveData<>(1);
 
@@ -36,12 +36,12 @@ public class UserPhoneViewModel extends ValidateViewModel {
         flowFragments.add(ValidateFragment.newInstance(getClass().getName()));
         flowFragments.add(UserPhoneFragment.newInstance());
 
-        phone = repository.getUser().getPhone();
+        phone = repo.getUser().getPhone();
     }
 
     @Override
     public User getUser() {
-        return repository.getUser();
+        return repo.getUser();
     }
 
     public void setPage(int page) {
@@ -56,8 +56,8 @@ public class UserPhoneViewModel extends ValidateViewModel {
         return flowFragments;
     }
 
-    public void setUserPhone() {
-        repository.getUser().setPhone(finalPhone);
+    public void updatePhone() {
+        repo.updatePhone(finalPhone);
     }
 
 }

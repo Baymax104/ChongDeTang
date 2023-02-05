@@ -104,8 +104,16 @@ public abstract class ValidateViewModel extends ViewModel {
         if (StringUtils.isEmpty(code)) {
             return false;
         }
-        // 0000为测试码
-        return code.equals(validCode) || code.equals("0000");
+
+        // 测试专用，0000为测试码
+        // ******************
+        if (code.equals("0000")) {
+            validCode = "0000";
+            finalPhone = phone;
+        }
+        //********************
+
+        return code.equals(validCode);
     }
 
     @SuppressLint("CheckResult")

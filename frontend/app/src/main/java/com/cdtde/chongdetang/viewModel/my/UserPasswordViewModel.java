@@ -22,7 +22,7 @@ import java.util.List;
  * @Version 1
  */
 public class UserPasswordViewModel extends ValidateViewModel {
-    private MyRepository repository;
+    private MyRepository repo;
 
     private MutableLiveData<Integer> page;
 
@@ -34,18 +34,18 @@ public class UserPasswordViewModel extends ValidateViewModel {
 
 
     public UserPasswordViewModel() {
-        repository = MyRepository.getInstance();
+        repo = MyRepository.getInstance();
         page = new MutableLiveData<>(1);
 
         flowFragments = new ArrayList<>();
         flowFragments.add(ValidateFragment.newInstance(getClass().getName()));
         flowFragments.add(UserPasswordFragment.newInstance());
 
-        phone = repository.getUser().getPhone();
+        phone = repo.getUser().getPhone();
     }
 
     public User getUser() {
-        return repository.getUser();
+        return repo.getUser();
     }
 
     public MutableLiveData<Integer> getPage() {
@@ -76,23 +76,22 @@ public class UserPasswordViewModel extends ValidateViewModel {
         String msg = validatePassword();
         if ("OK".equals(msg)) {
             // TODO 上传后端修改
-            repository.getUser().setPassword(EncryptUtils.encryptMD5ToString(newPassword));
+            repo.getUser().setPassword(EncryptUtils.encryptMD5ToString(newPassword));
         }
         return msg;
     }
 
 
     public String validatePassword() {
-        User user = repository.getUser();
+        User user = repo.getUser();
         if (StringUtils.isEmpty(newPassword) ||
             StringUtils.isEmpty(repeatPassword)) {
             return "输入不能为空！";
         }
         // user.password可能为null
-        // user.password == null时，不需要判断oldPassword
-        // TODO 需要上传服务器进行匹配
-        if (user.getPassword() != null && !StringUtils.equals(user.getPassword(), oldPassword)) {
-            return "输入与原密码不一致！";
+        // user.password == null时，不需要判断oldPassword，设为null
+        if (user.getPassword() == null) {
+            oldPassword = null;
         }
         if (!StringUtils.equals(newPassword, repeatPassword)) {
             return "重复输入不一致！";
@@ -107,4 +106,7 @@ public class UserPasswordViewModel extends ValidateViewModel {
         return "OK";
     }
 
+    public void updatePassword() {
+        repo.updatePassword(oldPassword, newPassword);
+    }
 }

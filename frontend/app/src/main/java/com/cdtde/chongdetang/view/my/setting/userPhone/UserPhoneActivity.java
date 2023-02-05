@@ -13,14 +13,20 @@ import androidx.lifecycle.ViewModelProvider;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityUserPhoneBinding;
+import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.impl.LoadingPopupView;
 
 public class UserPhoneActivity extends AppCompatActivity {
     private ActivityUserPhoneBinding binding;
 
     private UserPhoneViewModel vm;
+
+    private LoadingPopupView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,17 @@ public class UserPhoneActivity extends AppCompatActivity {
         binding.setViewModel(vm);
         binding.setFragmentAdapter(new FragmentAdapter(this));
 
+        XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
+        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
+
+        LiveEventBus.get("MyRepository-updatePhone", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            loading.smartDismiss();
+                            if (aBoolean) {
+                                finish();
+                            }
+                        });
+
         binding.viewPager.setUserInputEnabled(false);
         binding.confirm.setOnClickListener(v -> {
             Integer page;
@@ -46,9 +63,8 @@ public class UserPhoneActivity extends AppCompatActivity {
                     }
                 } else if (page == 2) {
                     if (vm.validate()) {
-                        vm.setUserPhone();
-                        // 上传服务器
-                        finish();
+                        vm.updatePhone();
+                        loading.show();
                     } else {
                         ToastUtils.showShort("验证码错误！");
                     }
