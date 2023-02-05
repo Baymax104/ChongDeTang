@@ -1,5 +1,6 @@
-package com.cdtde.chongdetang.pojo;
+package com.cdtde.chongdetang.service;
 
+import com.cdtde.chongdetang.pojo.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

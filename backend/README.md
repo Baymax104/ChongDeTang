@@ -11,58 +11,59 @@
     id          int                 唯一ID
     username    varchar(40)         用户名
     password    varchar(100)        密码
-    photo       varchar(100)        头像（后端已删去默认头像）
+    birthday    varchar(50)         生日
+    photo       varchar(100)        头像
     mail        varchar(40)         邮箱
     phone       varchar(20)         手机号码
-    sex         varchar(10)         性别
+    gender      varchar(10)         性别
     age         int                 年龄
-    from        varchar(100)        来自哪个平台
 
 ### 接口：
 ##### 1.注册
     对于所填信息的判断（两次密码是否一致、手机号是否是11位数字等已经判断并返回）
-    url:https://app2799.acapp.acwing.com.cn/api/user/account/register/
+    url:https://app2799.acapp.acwing.com.cn/api/user/register/
     type:post
     data:{
         phone           // 手机号
         password        // 密码
-        confirmPassword // 确认密码
     }
     return:{
-        /*
-        Map格式
-        有很多种，如success、手机号已注册、两次密码不一致等
-        在前端设计时，直接把return的值取出提示即可
-        */
-        error_message   // 错误信息
+        ResponseResult<Object>  // 包含status(success、error)、message(为什么error)
     }
 
 ##### 2.登录
     采用jwt验证，返回值中有token，记得存储
-    url:https://app2799.acapp.acwing.com.cn/api/user/account/token/
+    url:https://app2799.acapp.acwing.com.cn/api/user/login
     type:post
     data:{
         phone       // 手机号
         password    // 密码
     }
     return:{
-        token           // 验证码
-        error_message   // 错误信息，只有一个success
+        ResponseResult<User>  // data为user信息，包含token
     }
-
-##### 3.获取信息
-    用于验证token，在登录实现后应立即获取信息
-    url:https://app2799.acapp.acwing.com.cn/api/user/account/info/
-    type:get
-    headers:{   // 一定注意格式，Bearer后面有个空格，token就是登录返回的token
-        Authorization: "Bearer " + token,
+##### 3.上传新闻中心内容
+    包含行业资讯、展馆动态、每日一栏
+    url:https://app2799.acapp.acwing.com.cn/api/newscenter/upload
+    type:post
+    data:{
+        type    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
+        date    // 文章发表日期
+        title   // 文章标题
+        photo   // 文章配图
+        url     // 手机端文章网址
+        aabstract   // 文章摘要
     }
     return:{
-        error_message   // 只有success
-        username        // 昵称
-        photo           // 头像
-        mail            // 邮箱
-        phone           // 手机号
-        sex             // 性别
-        age             // 年龄
-    }    
+        ResponseResult<Object>  // success
+    }
+
+##### 4.获取新闻中心内容
+    url:https://app2799.acapp.acwing.com.cn/api/newscenter/download
+    type:post
+    data:{
+        type    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
+    }
+    return:{
+        ResponseResult<List<NewsCenter>>    //  列表形式的所有信息
+    }
