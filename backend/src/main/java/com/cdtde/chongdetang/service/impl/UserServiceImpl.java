@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
 import com.cdtde.chongdetang.pojo.LoginUser;
 import com.cdtde.chongdetang.pojo.ResponseResult;
@@ -16,9 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description
@@ -99,6 +98,52 @@ public class UserServiceImpl implements UserService {
         String username = "用户" + (user.getId() + 1000);
         user.setUsername(username);
         userMapper.update(user, queryWrapper);
+
+        result.setStatus("success");
+        return result;
+    }
+
+    @Override
+    public ResponseResult<String> updatePassword(String oldPassword, String newPassword) {
+        ResponseResult<String> result = new ResponseResult<>();
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = loginUser.getUser();
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            result.setStatus("error").setMessage("输入与原密码不一致！");
+            log.error("输入与原密码不一致");
+            return result;
+        }
+
+        String newEncrypt = passwordEncoder.encode(newPassword);
+
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", user.getId()).set("password", newEncrypt);
+        int update = userMapper.update(user, wrapper);
+        if (update != 1) {
+            result.setStatus("error").setMessage("密码修改失败");
+            log.error("密码修改失败");
+            return result;
+        }
+
+        result.setStatus("success").setData(newEncrypt);
+        return result;
+    }
+
+    @Override
+    public ResponseResult<Object> updatePhone(String phone) {
+        ResponseResult<Object> result = new ResponseResult<>();
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = loginUser.getUser();
+
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", user.getId()).set("phone", phone);
+        int update = userMapper.update(user, wrapper);
+        if (update != 1) {
+            result.setStatus("error").setMessage("手机号修改失败");
+            log.error("手机号修改失败");
+            return result;
+        }
 
         result.setStatus("success");
         return result;

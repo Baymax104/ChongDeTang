@@ -17,4 +17,8 @@ public interface UserService {
     ResponseResult<Object> register(String phone, String password);
 
     ResponseResult<User> updateInfo(User user);
+
+    ResponseResult<String> updatePassword(String oldPassword, String newPassword);
+
+    ResponseResult<Object> updatePhone(String phone);
 }

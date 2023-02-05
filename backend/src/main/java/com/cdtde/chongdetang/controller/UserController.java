@@ -10,10 +10,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -74,5 +71,22 @@ public class UserController {
         return userService.updateInfo(user);
     }
 
+    @PostMapping("/update/password")
+    public ResponseResult<String> updatePassword(@RequestBody Map<String, String> map) {
+        String oldPassword = map.get("oldPassword");
+        String newPassword = map.get("newPassword");
 
+        byte[] key = passwordKey.getBytes(StandardCharsets.UTF_8);
+        byte[] iv = passwordIv.getBytes(StandardCharsets.UTF_8);
+        AES aes = new AES(Mode.CBC, Padding.PKCS5Padding, key, iv);
+        String oldDecrypt = aes.decryptStr(oldPassword);
+        String newDecrypt = aes.decryptStr(newPassword);
+
+        return userService.updatePassword(oldDecrypt, newDecrypt);
+    }
+
+    @PostMapping("/update/phone")
+    public ResponseResult<Object> updatePhone(@RequestBody String phone) {
+        return userService.updatePhone(phone);
+    }
 }
