@@ -15,16 +15,18 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+    private String birthday;
     private String photo;
     private String mail;
     private String phone;
     private String gender;
-    private String age;
+    private Integer age;
+
     @TableField(exist = false)
     private String token;
 
-    public User(String password, String phone) {
-        this.password = password;
+    public User(String phone, String password) {
         this.phone = phone;
+        this.password = password;
     }
 }

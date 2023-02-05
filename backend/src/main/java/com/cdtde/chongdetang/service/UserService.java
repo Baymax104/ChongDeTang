@@ -3,8 +3,6 @@ package com.cdtde.chongdetang.service;
 import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.User;
 
-import java.util.Map;
-
 /**
  * @Description
  * @Author John
@@ -16,5 +14,7 @@ public interface UserService {
 
     ResponseResult<User> login(String phone, String password);
 
-    Map<String, Object> register(String phone, String password);
+    ResponseResult<Object> register(String phone, String password);
+
+    ResponseResult<User> updateInfo(User user);
 }

@@ -7,10 +7,12 @@ import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.UserService;
 import com.cdtde.chongdetang.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ import java.util.Map;
  */
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -52,16 +55,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> register(String phone, String password) {
-        Map<String,Object> map = new HashMap<>();
+    public ResponseResult<User> updateInfo(User user) {
+        ResponseResult<User> result = new ResponseResult<>();
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = loginUser.getUser().getId();
+
+        // 判断token与用户是否匹配
+        if (id != user.getId()) {
+            log.error("用户信息错误");
+            result.setStatus("error").setMessage("用户信息错误");
+            return result;
+        }
+
+        int row = userMapper.updateById(user);
+        if (row != 1) {
+            log.error("用户信息修改失败");
+            result.setStatus("error").setMessage("用户信息修改失败");
+            return result;
+        }
+
+        result.setStatus("success").setData(user);
+        return result;
+    }
+
+    @Override
+    public ResponseResult<Object> register(String phone, String password) {
+        ResponseResult<Object> result = new ResponseResult<>();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone",phone);
         List<User> accounts = userMapper.selectList(queryWrapper);
         if(!accounts.isEmpty()){
-            map.put("status", "error");
-            map.put("message", "手机号已被注册");
-            return map;
+            log.error("手机号已被注册");
+            result.setStatus("error").setMessage("手机号已被注册");
+            return result;
         }
 
         String encrypt = passwordEncoder.encode(password);
@@ -73,7 +100,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(username);
         userMapper.update(user, queryWrapper);
 
-        map.put("status","success");
-        return map;
+        result.setStatus("success");
+        return result;
     }
 }
