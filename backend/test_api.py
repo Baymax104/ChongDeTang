@@ -2,13 +2,13 @@ import requests
 
 
 def register_test():
-    url = "http://localhost:3000/api/user/account/register/"
-    d = {"username": "clb",
+    url = "https://app2799.acapp.acwing.com.cn/api/user/account/register/"
+    d = {"phone": "18056199338",
          "password": "clb030108",
-         "confirmPassword": "clb030108",
-         "mail": "1796390642@qq.com",
-         "phone": "18056199338"}
+         "confirmedPassword": "clb030108",
+         }
     res = requests.post(url, d)
+    print(res.status_code)
     print(res.reason)
 
 
@@ -35,5 +35,5 @@ def getinfo_test(token):
 
 
 if __name__ == '__main__':
-#     getinfo_test(login_test())
+    # getinfo_test(login_test())
     register_test()
