@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -30,6 +29,8 @@ import com.cdtde.chongdetang.util.PermissionUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.UserInfoViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.impl.LoadingPopupView;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -40,6 +41,8 @@ import top.zibin.luban.OnCompressListener;
 public class UserInfoActivity extends AppCompatActivity {
     private ActivityUserInfoBinding binding;
     private UserInfoViewModel vm;
+
+    private LoadingPopupView loadingPopupView;
 
     // 需要缓存一个引用，在RESULT_OK时赋值
     private Uri photoUri;
@@ -73,13 +76,16 @@ public class UserInfoActivity extends AppCompatActivity {
         WindowUtil.initActivityWindow(binding.toolbar, this, true);
         binding.setViewModel(vm);
 
-        LiveEventBus.get("user_gender", String.class)
+        XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
+        loadingPopupView = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
+
+        LiveEventBus.get("GenderDialog-gender", String.class)
                     .observe(this, s -> vm.getUser().setGender(s));
 
-        LiveEventBus.get("username", String.class)
-                    .observe(this, s -> vm.getUser().setName(s));
+        LiveEventBus.get("UsernameActivity-username", String.class)
+                    .observe(this, s -> vm.getUser().setUsername(s));
 
-        LiveEventBus.get("user_icon_action", Integer.class)
+        LiveEventBus.get("PhotoDialog-action", Integer.class)
                     .observe(this, action -> {
                         if (action == 1) { // take photo
                             takePhoto();
@@ -88,8 +94,16 @@ public class UserInfoActivity extends AppCompatActivity {
                         }
                     });
 
+        LiveEventBus.get("MyRepository-updateInfo", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                loadingPopupView.smartDismiss();
+                                finish();
+                            }
+                        });
 
-        binding.iconEntry.setOnClickListener(v -> DialogUtil.create(this, IconDialog.class).show());
+
+        binding.iconEntry.setOnClickListener(v -> DialogUtil.create(this, PhotoDialog.class, null).show());
 
         binding.nameEntry.setOnClickListener(v -> UsernameActivity.actionStart(this));
 
@@ -102,8 +116,12 @@ public class UserInfoActivity extends AppCompatActivity {
             picker.show();
         });
 
-        binding.genderEntry.setOnClickListener(v -> DialogUtil.create(this, GenderDialog.class).show());
+        binding.genderEntry.setOnClickListener(v -> DialogUtil.create(this, GenderDialog.class, null).show());
 
+        binding.confirm.setOnClickListener(v -> {
+            vm.update();
+            loadingPopupView.show();
+        });
     }
 
 

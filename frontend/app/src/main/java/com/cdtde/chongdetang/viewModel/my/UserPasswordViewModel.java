@@ -75,6 +75,7 @@ public class UserPasswordViewModel extends ValidateViewModel {
     public String setUserPassword() {
         String msg = validatePassword();
         if ("OK".equals(msg)) {
+            // TODO 上传后端修改
             repository.getUser().setPassword(EncryptUtils.encryptMD5ToString(newPassword));
         }
         return msg;
@@ -89,7 +90,7 @@ public class UserPasswordViewModel extends ValidateViewModel {
         }
         // user.password可能为null
         // user.password == null时，不需要判断oldPassword
-        oldPassword = EncryptUtils.encryptMD5ToString(oldPassword);
+        // TODO 需要上传服务器进行匹配
         if (user.getPassword() != null && !StringUtils.equals(user.getPassword(), oldPassword)) {
             return "输入与原密码不一致！";
         }

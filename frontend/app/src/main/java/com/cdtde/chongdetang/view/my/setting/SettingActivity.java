@@ -40,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
         binding.setViewModel(vm);
         WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
-        LiveEventBus.get("logout", Boolean.class)
+        LiveEventBus.get("LogoutDialog-logout", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 finish();
@@ -76,7 +76,7 @@ public class SettingActivity extends AppCompatActivity {
 
         binding.versionEntry.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
 
-        binding.logout.setOnClickListener(v -> DialogUtil.create(this, LogoutDialog.class).show());
+        binding.logout.setOnClickListener(v -> DialogUtil.create(this, LogoutDialog.class, null).show());
 
     }
 

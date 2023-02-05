@@ -7,13 +7,19 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.repository.AppKey;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Multipart;
 
 /**
  * @Description
@@ -28,7 +34,7 @@ public class WebService {
     private static WebService instance;
 
     public WebService() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("web-log", s));
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s));
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
@@ -36,6 +42,7 @@ public class WebService {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
+                .retryOnConnectionFailure(true)
                 .build();
 
         retrofit = new Retrofit.Builder()

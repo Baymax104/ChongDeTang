@@ -88,4 +88,8 @@
     <string name="input_phone">请输入手机号</string>
     <string name="input_password">请输入密码</string>
     <string name="login">登录</string>
+    <string name="register_entry_tip">没有账号？注册一个</string>
+    <string name="register">注册</string>
+    <string name="repeat_wrong_tip">重复输入不一致！</string>
+    <string name="input_phone_wrong_tip">手机号不合法！</string>
 </resources>

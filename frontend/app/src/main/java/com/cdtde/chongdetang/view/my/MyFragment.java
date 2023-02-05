@@ -59,10 +59,22 @@ public class MyFragment extends Fragment {
             return true;
         });
 
-        LiveEventBus.get("logout", Boolean.class)
+        LiveEventBus.get("LogoutDialog-logout", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 vm.logout();
+                            }
+                        });
+        LiveEventBus.get("MyRepository-login", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                vm.onUserChanged();
+                            }
+                        });
+        LiveEventBus.get("MyRepository-updateInfo", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                vm.onUserChanged();
                             }
                         });
 

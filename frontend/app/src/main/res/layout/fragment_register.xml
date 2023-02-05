@@ -6,37 +6,15 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.LoginViewModel" />
+                type="com.cdtde.chongdetang.viewModel.my.RegisterViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".view.my.setting.LoginActivity"
             tools:ignore="ContentDescription">
-
-        <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:elevation="0dp">
-
-            <androidx.appcompat.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:id="@+id/toolbar"
-                    android:fitsSystemWindows="true">
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/login"
-                        style="@style/CommonToolbarTitleStyle"/>
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +27,6 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginBottom="10dp"
                 android:hint="@string/input_phone"
                 style="@style/LoginEditStyle">
 
@@ -66,13 +43,26 @@
                     android:afterTextChanged="@{s->viewModel.setPhone(s.toString())}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/input_phone_wrong_tip"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="30dp"
+                android:fontFamily="@font/text_regular"
+                android:textColor="@color/main_variant_color"
+                android:layout_marginBottom="10dp"
+                android:visibility="@{viewModel.phoneValidity ? View.INVISIBLE : View.VISIBLE}"/>
+
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/input_password"
+                android:hint="@string/input_new_pwd"
+                app:helperTextEnabled="true"
+                app:helperText="@string/input_new_pwd_hint"
                 app:passwordToggleEnabled="true"
                 style="@style/LoginEditStyle">
 
@@ -89,25 +79,60 @@
                     android:afterTextChanged="@{s->viewModel.setPassword(s.toString())}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/input_new_pwd_hint"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="30dp"
+                android:fontFamily="@font/text_regular"
+                android:layout_marginBottom="5dp"
+                android:textColor="@{viewModel.passwordValidity ? @color/gray_1 : @color/main_variant_color}"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:hint="@string/repeat_new_pwd"
+                app:passwordToggleEnabled="true"
+                style="@style/LoginEditStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/text_regular"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:drawableStart="@drawable/password2"
+                    android:drawablePadding="10dp"
+                    android:afterTextChanged="@{s->viewModel.setRepeatPassword(s.toString())}"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/repeat_wrong_tip"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="30dp"
+                android:fontFamily="@font/text_regular"
+                android:textColor="@color/main_variant_color"
+                android:layout_marginBottom="10dp"
+                android:visibility="@{viewModel.repeatValidity ? View.INVISIBLE : View.VISIBLE}"/>
+
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="30dp"
                 android:background="@drawable/button_bg"
-                android:text="@string/login"
+                android:text="@string/register"
                 style="@style/BigButtonTextStyle"
-                android:id="@+id/login"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_entry_tip"
-                android:layout_gravity="center_horizontal"
-                android:padding="10dp"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                android:textColor="@color/gray_1"
-                android:fontFamily="@font/regular"
-                android:id="@+id/register_entry"/>
+                android:id="@+id/register"/>
+
     </LinearLayout>
 </layout>

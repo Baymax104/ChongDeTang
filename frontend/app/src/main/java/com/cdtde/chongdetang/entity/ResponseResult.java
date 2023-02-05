@@ -1,5 +1,7 @@
 package com.cdtde.chongdetang.entity;
 
+import androidx.annotation.NonNull;
+
 /**
  * @Description
  * @Author John
@@ -45,6 +47,7 @@ public class ResponseResult<T> {
         this.data = data;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ResponseResult{" +

@@ -34,12 +34,12 @@ public class GenderDialog extends BottomPopupView {
         binding.setLifecycleOwner(this);
 
         binding.male.setOnClickListener(v -> {
-            LiveEventBus.get("user_gender", String.class).post("男");
+            LiveEventBus.get("GenderDialog-gender", String.class).post("男");
             dismiss();
         });
 
         binding.female.setOnClickListener(v -> {
-            LiveEventBus.get("user_gender", String.class).post("女");
+            LiveEventBus.get("GenderDialog-gender", String.class).post("女");
             dismiss();
         });
 

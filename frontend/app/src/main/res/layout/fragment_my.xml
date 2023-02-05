@@ -7,6 +7,7 @@
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.my.MyViewModel" />
+        <import type="com.cdtde.chongdetang.entity.User"/>
     </data>
 
     <LinearLayout
@@ -48,7 +49,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:id="@+id/user_icon"
-                    android:src="@{viewModel.userPhoto}"
+                    android:src="@{viewModel.userPhoto ?? User.DEFAULT_PHOTO}"
                     android:layout_gravity="center"
                     app:riv_corner_radius="50dp"
                     app:riv_border_width="0.2dp"

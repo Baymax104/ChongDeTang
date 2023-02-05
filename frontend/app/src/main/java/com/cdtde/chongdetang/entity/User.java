@@ -1,6 +1,5 @@
 package com.cdtde.chongdetang.entity;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,7 +10,7 @@ import androidx.databinding.Bindable;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,22 +26,35 @@ import java.util.Locale;
  */
 
 public class User extends BaseObservable implements Parcelable {
-    @SerializedName("username")
-    private String name;
-    private String photo = UriUtils.res2Uri(String.valueOf(R.drawable.user_icon)).toString();
+
+    @Expose
+    private Integer id;
+    @Expose
+    private String username;
+    // 在Android端photo字段存储本地file目录下的uri路径
+    @Expose
+    private String photo;
+    @Expose
     private String gender;
+    @Expose
     private Date birthday;
+    @Expose
     private String phone;
-    private String password; // md5值
+    @Expose
+    private String password; // 加密值
+    @Expose
     private String mail;
+    @Expose
     private String token;
 
+    public static final String DEFAULT_PHOTO = UriUtils.res2Uri(String.valueOf(R.drawable.default_photo)).toString();
 
     public User() {
     }
 
-    public User(String name, String photo, String gender, Date birthday, String phone, String password, String mail, String token) {
-        this.name = name;
+    public User(Integer id, String username, String photo, String gender, Date birthday, String phone, String password, String mail, String token) {
+        this.id = id;
+        this.username = username;
         this.photo = photo;
         this.gender = gender;
         this.birthday = birthday;
@@ -52,29 +64,48 @@ public class User extends BaseObservable implements Parcelable {
         this.token = token;
     }
 
+    public User(User user) {
+        this.id = user.id;
+        this.username = user.username;
+        this.photo = user.photo;
+        this.gender = user.gender;
+        this.birthday = user.birthday != null ? (Date) user.birthday.clone() : null;
+        this.phone = user.phone;
+        this.password = user.password;
+        this.mail = user.mail;
+        this.token = user.token;
+    }
+
     public static User newInstance() {
         return new User();
     }
 
-    @Bindable
+    public Integer getId() {
+        return id;
+    }
+
+    public User setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public String getToken() {
         return token;
     }
 
     public User setToken(String token) {
         this.token = token;
-        notifyPropertyChanged(BR.token);
         return this;
     }
 
     @Bindable
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public User setName(String name) {
-        this.name = name;
-        notifyPropertyChanged(BR.name);
+    public User setUsername(String username) {
+        this.username = username;
+        notifyPropertyChanged(BR.username);
         return this;
     }
 
@@ -147,15 +178,15 @@ public class User extends BaseObservable implements Parcelable {
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel source) {
+            Integer id = source.readInt();
             String name = source.readString();
-            String uri = source.readString();
+            String photo = source.readString();
             String gender = source.readString();
             String date = source.readString();
             String phone = source.readString();
             String password = source.readString();
             String mail = source.readString();
             String token = source.readString();
-            String photo = uri != null ? uri : UriUtils.res2Uri(String.valueOf(R.drawable.user_icon)).toString();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
             Date birthday;
             try {
@@ -163,7 +194,7 @@ public class User extends BaseObservable implements Parcelable {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            return new User(name, photo, gender, birthday, phone, password, mail, token);
+            return new User(id, name, photo, gender, birthday, phone, password, mail, token);
         }
 
         @Override
@@ -179,7 +210,8 @@ public class User extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
+        dest.writeInt(id);
+        dest.writeString(username);
         dest.writeString(photo);
         dest.writeString(gender);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
@@ -195,8 +227,9 @@ public class User extends BaseObservable implements Parcelable {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", photo=" + photo +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", photo='" + photo + '\'' +
                 ", gender='" + gender + '\'' +
                 ", birthday=" + birthday +
                 ", phone='" + phone + '\'' +

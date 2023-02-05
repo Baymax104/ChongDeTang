@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.blankj.utilcode.util.EncodeUtils;
+import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.UriUtils;
 
@@ -62,6 +64,14 @@ public class CameraUtil {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         return intent;
+    }
+
+    public static String file2Base64(File file) {
+        byte[] bytes = FileIOUtils.readFile2BytesByStream(file);
+        if (bytes == null) {
+            return null;
+        }
+        return EncodeUtils.base64Encode2String(bytes);
     }
 
 }

@@ -32,7 +32,7 @@ public class UsernameActivity extends AppCompatActivity {
         binding.confirm.setOnClickListener(v -> {
             String content = binding.nameEdit.getText().toString();
             if (ValidateUtil.validateUsername(content)) {
-                LiveEventBus.get("username", String.class).post(content);
+                LiveEventBus.get("UsernameActivity-username", String.class).post(content);
                 finish();
             } else {
                 binding.setValidity(false);

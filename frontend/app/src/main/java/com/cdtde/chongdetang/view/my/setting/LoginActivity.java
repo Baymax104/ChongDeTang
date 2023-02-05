@@ -1,26 +1,33 @@
 package com.cdtde.chongdetang.view.my.setting;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityLoginBinding;
+import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.LoginViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.impl.LoadingPopupView;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
     private LoginViewModel vm;
+
+    private LoadingPopupView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,18 @@ public class LoginActivity extends AppCompatActivity {
         binding.setViewModel(vm);
         WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
+        XPopup.Builder builder = new XPopup.Builder(this)
+                .dismissOnTouchOutside(false);
+        loadingView = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
+
+        LiveEventBus.get("MyRepository-login", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                loadingView.smartDismiss();
+                                finish();
+                            }
+                        });
+
         binding.login.setOnClickListener(v -> {
             boolean isValid = vm.validate();
             if (!isValid) {
@@ -38,7 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             vm.login();
+            loadingView.show();
         });
+
+        binding.registerEntry.setOnClickListener(v -> RegisterActivity.actionStart(this));
     }
 
     public static void actionStart(Context context) {

@@ -16,9 +16,9 @@ import com.lxj.xpopup.core.BottomPopupView;
  * @Date 2023/1/9 18:17
  * @Version 1
  */
-public class IconDialog extends BottomPopupView {
+public class PhotoDialog extends BottomPopupView {
 
-    public IconDialog(@NonNull Context context) {
+    public PhotoDialog(@NonNull Context context) {
         super(context);
     }
 
@@ -34,13 +34,13 @@ public class IconDialog extends BottomPopupView {
         binding.setLifecycleOwner(this);
 
         binding.takePhoto.setOnClickListener(v -> {
-            LiveEventBus.get("user_icon_action", Integer.class)
+            LiveEventBus.get("PhotoDialog-action", Integer.class)
                     .post(1);
             dismiss();
         });
 
         binding.openAlbum.setOnClickListener(v -> {
-            LiveEventBus.get("user_icon_action", Integer.class)
+            LiveEventBus.get("PhotoDialog-action", Integer.class)
                     .post(2);
             dismiss();
         });

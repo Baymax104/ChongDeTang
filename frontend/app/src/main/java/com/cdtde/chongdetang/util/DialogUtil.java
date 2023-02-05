@@ -3,11 +3,14 @@ package com.cdtde.chongdetang.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.impl.LoadingPopupView;
 
 import java.lang.reflect.Constructor;
+
+import io.reactivex.annotations.NonNull;
 
 /**
  * @Description 基于XPopup，封装对话框创建及方法调用
@@ -25,25 +28,28 @@ public class DialogUtil {
      * 反射调用构造器Constructor(Context context)创建XPopup对话框
      * @param context context
      * @param dialogType 对话框Class对象
+     * @param builder 对话框builder对象
      * @return 对话框对象
      * @param <T> 对话框类型
      */
-    public static <T extends BasePopupView> BasePopupView create(Context context, Class<T> dialogType) {
+    public static <T extends BasePopupView> BasePopupView create(Context context, Class<T> dialogType, XPopup.Builder builder) {
         Constructor<T> constructor;
         BasePopupView dialog = null;
+        if (builder == null) {
+            builder = new XPopup.Builder(context);
+        }
 
         if (dialogType == LoadingPopupView.class) {
-            return new XPopup.Builder(context).asLoading();
+            return builder.asLoading();
         }
 
         try {
             constructor =  dialogType.getConstructor(Context.class);
             dialog = constructor.newInstance(context);
         } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("DialogUtil-create", e.getMessage());
+            LogUtils.eTag("cdt-dialog-create", e);
         }
-        return new XPopup.Builder(context).asCustom(dialog);
+        return builder.asCustom(dialog);
     }
 
 }

@@ -134,12 +134,11 @@ public abstract class ValidateViewModel extends ViewModel {
             SendSmsResponse response;
             response = client.sendSmsWithOptions(request, options);
             String status = response.body.code;
-            LogUtils.i("Sms Status: " + status);
+            LogUtils.iTag("cdt-validate-sendSms", status);
             emitter.onNext(status);
             emitter.onComplete();
         });
 
-        Consumer<Throwable> onError = LogUtils::e;
         Consumer<String> onNext = s -> {
             if ("OK".equals(s)) {
                 finalPhone = tmpPhone;
@@ -152,7 +151,11 @@ public abstract class ValidateViewModel extends ViewModel {
 
         sender.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-validate-sendSms", throwable),
+                        () -> LogUtils.eTag("cdt-validate-sendSms", "验证码发送完成")
+                );
     }
 
 }

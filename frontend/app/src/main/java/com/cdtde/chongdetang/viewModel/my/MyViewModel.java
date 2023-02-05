@@ -1,15 +1,10 @@
 package com.cdtde.chongdetang.viewModel.my;
 
-import android.net.Uri;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
-
-import java.util.List;
 
 /**
  * @Description
@@ -19,26 +14,39 @@ import java.util.List;
  * @Version 1
  */
 public class MyViewModel extends ViewModel {
-    private MyRepository repository;
+    private MyRepository repo;
 
+    private MutableLiveData<String> userPhoto;
+
+    private MutableLiveData<String> username;
 
     public MyViewModel() {
-        repository = MyRepository.getInstance();
+        repo = MyRepository.getInstance();
+        username = new MutableLiveData<>(repo.getUser().getUsername());
+        userPhoto = new MutableLiveData<>(repo.getUser().getPhoto());
     }
 
-    public String getUsername() {
-        return repository.getUser().getName();
+    public MutableLiveData<String> getUsername() {
+        return username;
     }
 
-    public String getUserPhoto() {
-        return repository.getUser().getPhoto();
+    public MutableLiveData<String> getUserPhoto() {
+        return userPhoto;
     }
 
     public void logout() {
-        repository.initUser();
+        repo.initUser();
+        username.setValue(repo.getUser().getUsername());
+        userPhoto.setValue(repo.getUser().getPhoto());
+    }
+
+    public void onUserChanged() {
+        User user = repo.getUser();
+        username.setValue(user.getUsername());
+        userPhoto.setValue(user.getPhoto());
     }
 
     public boolean isLogin() {
-        return repository.getUser().getToken() != null;
+        return repo.getUser().getToken() != null;
     }
 }
