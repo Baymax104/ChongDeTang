@@ -10,7 +10,10 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -58,16 +61,26 @@ public class UserController {
 
     @PostMapping("/update/info")
     public ResponseResult<User> updateInfo(@RequestBody Map<String, Object> map) {
-        // user中的photo字段已经是新头像的URI路径，只需要将文件上传即可
-        // 数据库中保存文件上传后得到的URL路径
-        String newPhoto = (String) map.get("newPhoto");
-        if (newPhoto != null) {
-            // TODO upload
-        }
         // Object接收json对象会转换为Map(LinkedHashMap)，手动转换为User对象
         String userJson = new Gson().toJson(map.get("user"));
         User user = new Gson().fromJson(userJson, User.class);
-        return userService.updateInfo(user);
+
+        // user中的photo字段已经是新头像的URI路径，只需要将文件上传COS即可
+        // 数据库中保存文件在COS中的ObjectKey
+        String newPhoto = (String) map.get("newPhoto");
+        String objectKey = null;
+        // 头像有修改
+        if (newPhoto != null) {
+            ResponseResult<String> result = userService.uploadPhoto(newPhoto);
+            if (result.getStatus().equals("error")) {
+                ResponseResult<User> res = new ResponseResult<>();
+                res.setStatus(result.getStatus())
+                        .setMessage(result.getMessage());
+                return res;
+            }
+            objectKey = result.getData();
+        }
+        return userService.updateInfo(user, objectKey);
     }
 
     @PostMapping("/update/password")

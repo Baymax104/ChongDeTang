@@ -1,13 +1,16 @@
 package com.cdtde.chongdetang.service.impl;
 
+import cn.hutool.core.codec.Base64;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
-import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.User;
+import com.cdtde.chongdetang.service.CosService;
+import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.UserService;
 import com.cdtde.chongdetang.utils.JwtUtil;
+import com.qcloud.cos.exception.CosClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -39,6 +43,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private CosService cosService;
+
     @Override
     public ResponseResult<User> login(String phone, String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(phone,password);
@@ -54,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseResult<User> updateInfo(User user) {
+    public ResponseResult<User> updateInfo(User user, String objectKey) {
         ResponseResult<User> result = new ResponseResult<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
@@ -66,7 +73,19 @@ public class UserServiceImpl implements UserService {
             return result;
         }
 
-        int row = userMapper.updateById(user);
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", user.getId())
+                .set("username", user.getUsername())
+                .set("gender", user.getGender())
+                .set("birthday", user.getBirthday())
+                .set("mail", user.getMail());
+
+        // 头像有修改时，objectKey != null
+        if (objectKey != null) {
+            wrapper.set("photo", objectKey);
+        }
+
+        int row = userMapper.update(null, wrapper);
         if (row != 1) {
             log.error("用户信息修改失败");
             result.setStatus("error").setMessage("用户信息修改失败");
@@ -146,6 +165,27 @@ public class UserServiceImpl implements UserService {
         }
 
         result.setStatus("success");
+        return result;
+    }
+
+    @Override
+    public ResponseResult<String> uploadPhoto(String base64) {
+        ResponseResult<String> result = new ResponseResult<>();
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = loginUser.getUser().getId();
+
+        String filename = "user_" + id + ".jpg";
+        File dest = new File("src/main/resources/static/imgs", filename);
+        File file = Base64.decodeToFile(base64, dest);
+        String objectKey = "img/user_photo/" + filename;
+
+        try {
+            cosService.upload(file, objectKey);
+        } catch (CosClientException e) {
+            result.setStatus("error").setMessage(e.getMessage());
+            return result;
+        }
+        result.setStatus("success").setData(objectKey);
         return result;
     }
 }
