@@ -92,4 +92,11 @@
     <string name="register">注册</string>
     <string name="repeat_wrong_tip">重复输入不一致！</string>
     <string name="input_phone_wrong_tip">手机号不合法！</string>
+    <string name="address_detail">地址详情</string>
+    <string name="consignee">收货人</string>
+    <string name="province_city">省份/城市</string>
+    <string name="detailed_address">详细地址</string>
+    <string name="delete">删除</string>
+    <string name="save">保存</string>
+    <string name="select_address">选择地址</string>
 </resources>

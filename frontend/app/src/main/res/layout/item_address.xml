@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_toStartOf="@id/modify_entry"
+                    android:layout_toStartOf="@id/modify"
                     android:layout_centerVertical="true">
 
                 <TextView
@@ -40,7 +40,7 @@
                         android:textColor="@color/gray_1"
                         android:textSize="16sp"
                         android:fontFamily="@font/text_regular"
-                        android:text="@{address.area}"
+                        android:text="@{address.province + ` ` + address.city}"
                         android:maxLines="1"/>
 
                 <TextView
@@ -69,8 +69,8 @@
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:fontFamily="@font/text_regular"
-                            android:maxLength="4"
-                            android:text="@{address.name}"/>
+                            android:maxLength="10"
+                            android:text="@{address.consignee}"/>
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/modify"
-                    android:id="@+id/modify_entry"
+                    android:id="@+id/modify"
                     android:layout_marginStart="10dp"
                     android:layout_alignParentEnd="true"/>
 

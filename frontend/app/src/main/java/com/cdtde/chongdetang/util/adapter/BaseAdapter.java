@@ -18,6 +18,12 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
 
     protected List<T> data;
 
+    public interface OnItemClickListener<T> {
+        void onClick(T data);
+    }
+
+    protected OnItemClickListener<T> onItemClickListener;
+
     public BaseAdapter() {
     }
 
@@ -27,6 +33,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<T> listener) {
+        this.onItemClickListener = listener;
     }
 
     public static abstract class BaseViewHolder extends RecyclerView.ViewHolder {

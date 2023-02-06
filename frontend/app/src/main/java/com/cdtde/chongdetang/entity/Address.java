@@ -6,35 +6,47 @@ import androidx.databinding.Bindable;
 import com.cdtde.chongdetang.BR;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Address extends BaseObservable implements Serializable {
-    private String name;
-    private String phone;
-    private String area; // TODO 后续需要接入省市api或者本地存储省市信息
+    private Integer id;
+    private Integer userId;
+    private String province;
+    private String city;
     private String detail;
-
-    public Address(String name, String phone, String area, String detail) {
-        this.name = name;
-        this.phone = phone;
-        this.area = area;
-        this.detail = detail;
-    }
+    private String consignee;
+    private String phone;
 
     public Address() {
-        this.name = "王小卤";
-        this.phone = "13522380331";
-        this.area = "北京市朝阳区南磨房地区";
-        this.detail = "平乐园100号北京工业大学平乐园100号北京工业大学平乐园100号北京工业大学";
+    }
+
+    public Address(String province, String city, String detail, String consignee, String phone) {
+        this.province = province;
+        this.city = city;
+        this.detail = detail;
+        this.consignee = consignee;
+        this.phone = phone;
+    }
+
+    public Address(Address address) {
+        this.id = address.id;
+        this.userId = address.userId;
+        this.consignee = address.consignee;
+        this.phone = address.phone;
+        this.province = address.province;
+        this.city = address.city;
+        this.detail = address.detail;
     }
 
     @Bindable
-    public String getName() {
-        return name;
+    public String getConsignee() {
+        return consignee;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Address setConsignee(String consignee) {
+        this.consignee = consignee;
         notifyPropertyChanged(BR.name);
+        return this;
     }
 
     @Bindable
@@ -42,19 +54,10 @@ public class Address extends BaseObservable implements Serializable {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public Address setPhone(String phone) {
         this.phone = phone;
         notifyPropertyChanged(BR.phone);
-    }
-
-    @Bindable
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-        notifyPropertyChanged(BR.area);
+        return this;
     }
 
     @Bindable
@@ -62,8 +65,50 @@ public class Address extends BaseObservable implements Serializable {
         return detail;
     }
 
-    public void setDetail(String detail) {
+    public Address setDetail(String detail) {
         this.detail = detail;
         notifyPropertyChanged(BR.detail);
+        return this;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Address setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public Address setUserId(Integer userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    @Bindable
+    public String getProvince() {
+        return province;
+    }
+
+    public Address setProvince(String province) {
+        this.province = province;
+        notifyPropertyChanged(BR.province);
+        return this;
+    }
+
+    @Bindable
+    public String getCity() {
+        return city;
+    }
+
+    public Address setCity(String city) {
+        this.city = city;
+        notifyPropertyChanged(BR.city);
+        return this;
+    }
+
 }

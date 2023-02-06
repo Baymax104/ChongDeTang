@@ -96,7 +96,7 @@
     </style>
 
     <!--ToolBar确定按钮文字样式-->
-    <style name="ToolbarConfirmTextStyle">
+    <style name="ToolbarOptionTextStyle">
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginEnd">15dp</item>
         <item name="android:textSize">16sp</item>

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.cdtde.chongdetang"
-        minSdk 23
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -109,5 +109,5 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
-
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:AddressPicker:4.1.11'
 }

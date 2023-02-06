@@ -26,11 +26,12 @@ public class AddressAdapter extends BaseAdapter<Address> {
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Address address = data.get(position);
         ((ViewHolder) holder).binding.setAddress(address);
+        ((ViewHolder) holder).binding.modify.setOnClickListener(v -> onItemClickListener.onClick(address));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
     private static class ViewHolder extends BaseViewHolder {

@@ -45,7 +45,7 @@
                             android:id="@+id/confirm"
                             android:text="@string/confirm"
                             android:layout_alignParentEnd="true"
-                            style="@style/ToolbarConfirmTextStyle"/>
+                            style="@style/ToolbarOptionTextStyle"/>
                 </RelativeLayout>
 
             </androidx.appcompat.widget.Toolbar>

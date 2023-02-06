@@ -26,6 +26,9 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.my.address.AddressDetailActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.my.setting.RegisterActivity"
                 android:exported="false" />
         <activity
@@ -44,7 +47,7 @@
         <activity android:name=".view.my.setting.userInfo.UsernameActivity" />
         <activity android:name=".view.my.setting.userPhone.UserPhoneActivity" />
         <activity android:name=".view.my.setting.userPassword.UserPasswordActivity" />
-        <activity android:name=".view.my.AddressActivity" />
+        <activity android:name=".view.my.address.AddressActivity" />
         <activity android:name=".view.my.AppointmentActivity" />
         <activity
                 android:name="com.yalantis.ucrop.UCropActivity"

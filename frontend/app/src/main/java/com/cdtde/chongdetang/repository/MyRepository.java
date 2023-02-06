@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.dataSource.web.WebService;
+import com.cdtde.chongdetang.dataSource.web.api.AddressService;
 import com.cdtde.chongdetang.dataSource.web.api.UserService;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.entity.Appointment;
@@ -26,7 +27,6 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.Body;
 
 /**
  * @Description
@@ -45,12 +45,17 @@ public class MyRepository {
     private List<Address> addresses;
 
     private UserService userService;
+    private AddressService addressService;
 
     private static MyRepository repository;
 
     private MyRepository() {
+        addresses = new ArrayList<>();
+        appointments = new ArrayList<>();
         userRepo = UserRepository.getInstance();
         userService = WebService.getInstance().create(UserService.class);
+        addressService = WebService.getInstance().create(AddressService.class);
+
         generateTest();
     }
 
@@ -220,16 +225,61 @@ public class MyRepository {
                 );
     }
 
+    public void getAllAddress() {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<List<Address>>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                if (result.getData() != null) {
+                    addresses = result.getData();
+                    LogUtils.iTag("cdt-web-getAllAddress", "获取地址成功");
+                    LiveEventBus.get("MyRepository-getAllAddress", Boolean.class).post(true);
+                }
+            } else {
+                LogUtils.eTag("cdt-web-getAllAddress", result.getMessage());
+            }
+        };
+
+        addressService.getAllAddress(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-getAllAddress", throwable),
+                        () -> LogUtils.iTag("cdt-web-getAllAddress", "获取地址请求结束")
+                );
+    }
+
+    public void updateAddress(Address address) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                LogUtils.iTag("cdt-web-updateAddress", "修改地址成功");
+                LiveEventBus.get("MyRepository-updateAddress", Boolean.class).post(true);
+            } else {
+                LogUtils.eTag("cdt-web-updateAddress", result.getMessage());
+            }
+        };
+
+        addressService.updateAddress(token, address)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-updateAddress", throwable),
+                        () -> LogUtils.iTag("cdt-web-updateAddress","修改地址请求结束")
+                );
+    }
+
     private void generateTest() {
-        appointments = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             appointments.add(new Appointment());
         }
 
-        addresses = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            addresses.add(new Address());
-        }
+//        for (int i = 0; i < 20; i++) {
+//            addresses.add(new Address());
+//        }
     }
 
 }

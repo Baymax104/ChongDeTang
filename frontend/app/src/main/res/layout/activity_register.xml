@@ -48,7 +48,7 @@
                             android:visibility="@{viewModel.page == 2 ? View.VISIBLE : View.INVISIBLE}"
                             android:text="@string/confirm"
                             android:layout_alignParentEnd="true"
-                            style="@style/ToolbarConfirmTextStyle"/>
+                            style="@style/ToolbarOptionTextStyle"/>
                 </RelativeLayout>
 
             </androidx.appcompat.widget.Toolbar>
