@@ -58,8 +58,8 @@ public class AddressDetailActivity extends AppCompatActivity {
         LiveEventBus.get("DeleteDialog-delete", Boolean.class)
                 .observe(this, aBoolean -> {
                     if (aBoolean) {
-                        vm.deleteAddress();
                         loading.show();
+                        vm.deleteAddress();
                     }
                 });
 

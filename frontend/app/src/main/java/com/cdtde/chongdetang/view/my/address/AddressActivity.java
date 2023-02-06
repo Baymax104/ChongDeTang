@@ -49,16 +49,16 @@ public class AddressActivity extends AppCompatActivity {
         LiveEventBus.get("AddressDetailActivity-updateAddress", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
-                                vm.updateAllAddress();
                                 loading.show();
+                                vm.updateAllAddress();
                             }
                         });
 
         LiveEventBus.get("AddressDetailActivity-deleteAddress", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
-                                vm.updateAllAddress();
                                 loading.show();
+                                vm.updateAllAddress();
                             }
                         });
 

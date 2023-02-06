@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
 
         LiveEventBus.get("MyRepository-login", Boolean.class)
                         .observe(this, aBoolean -> {
+                            loadingView.smartDismiss();
                             if (aBoolean) {
-                                loadingView.smartDismiss();
                                 finish();
                             }
                         });

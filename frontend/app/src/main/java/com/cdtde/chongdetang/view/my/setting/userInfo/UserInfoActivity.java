@@ -96,8 +96,8 @@ public class UserInfoActivity extends AppCompatActivity {
 
         LiveEventBus.get("MyRepository-updateInfo", Boolean.class)
                         .observe(this, aBoolean -> {
+                            loadingPopupView.smartDismiss();
                             if (aBoolean) {
-                                loadingPopupView.smartDismiss();
                                 finish();
                             }
                         });
@@ -119,8 +119,8 @@ public class UserInfoActivity extends AppCompatActivity {
         binding.genderEntry.setOnClickListener(v -> DialogUtil.create(this, GenderDialog.class, null).show());
 
         binding.confirm.setOnClickListener(v -> {
-            vm.update();
             loadingPopupView.show();
+            vm.update();
         });
     }
 

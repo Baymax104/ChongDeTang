@@ -47,8 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         LiveEventBus.get("MyRepository-register", Boolean.class)
                         .observe(this, aBoolean -> {
+                            loading.smartDismiss();
                             if (aBoolean) {
-                                loading.smartDismiss();
                                 finish();
                             }
                         });

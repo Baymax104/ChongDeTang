@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @Description
@@ -237,5 +238,26 @@ public class User extends BaseObservable implements Parcelable {
                 ", mail='" + mail + '\'' +
                 ", token='" + token + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(photo, user.photo) &&
+                Objects.equals(gender, user.gender) &&
+                Objects.equals(birthday, user.birthday) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(mail, user.mail) &&
+                Objects.equals(token, user.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, photo, gender, birthday, phone, password, mail, token);
     }
 }

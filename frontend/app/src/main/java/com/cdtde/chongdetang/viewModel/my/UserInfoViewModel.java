@@ -3,8 +3,10 @@ package com.cdtde.chongdetang.viewModel.my;
 import androidx.lifecycle.ViewModel;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 public class UserInfoViewModel extends ViewModel {
 
@@ -22,6 +24,11 @@ public class UserInfoViewModel extends ViewModel {
     }
 
     public void update() {
+        // 若信息未变动，则直接返回
+        if (ObjectUtils.equals(user, repo.getUser())) {
+            LiveEventBus.get("MyRepository-updateInfo", Boolean.class).post(true);
+            return;
+        }
         repo.update(user);
     }
 }

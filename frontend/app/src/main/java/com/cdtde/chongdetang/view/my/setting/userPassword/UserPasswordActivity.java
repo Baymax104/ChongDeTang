@@ -46,8 +46,8 @@ public class UserPasswordActivity extends AppCompatActivity {
 
         LiveEventBus.get("MyRepository-updatePassword", Boolean.class)
                         .observe(this, aBoolean -> {
+                            loading.smartDismiss();
                             if (aBoolean) {
-                                loading.smartDismiss();
                                 finish();
                             }
                         });
