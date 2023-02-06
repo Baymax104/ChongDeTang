@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.my.AddressDetailViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -42,6 +42,7 @@
                             android:id="@+id/delete"
                             android:text="@string/delete"
                             android:layout_alignParentEnd="true"
+                            android:visibility="@{viewModel.address != null ? View.VISIBLE : View.INVISIBLE}"
                             style="@style/ToolbarOptionTextStyle"/>
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>

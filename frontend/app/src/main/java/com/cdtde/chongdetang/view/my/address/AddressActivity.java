@@ -54,6 +54,14 @@ public class AddressActivity extends AppCompatActivity {
                             }
                         });
 
+        LiveEventBus.get("AddressDetailActivity-deleteAddress", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                vm.updateAllAddress();
+                                loading.show();
+                            }
+                        });
+
         binding.setLifecycleOwner(this);
         binding.setViewModel(vm);
 

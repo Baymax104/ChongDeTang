@@ -272,14 +272,32 @@ public class MyRepository {
                 );
     }
 
+    public void deleteAddress(Address address) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                LogUtils.iTag("cdt-web-deleteAddress", "删除地址成功");
+                LiveEventBus.get("MyRepository-deleteAddress", Boolean.class).post(true);
+            } else {
+                LogUtils.eTag("cdt-web-deleteAddress", result.getMessage());
+            }
+        };
+
+        addressService.deleteAddress(token, address)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-deleteAddress", throwable),
+                        () -> LogUtils.iTag("cdt-web-deleteAddress", "删除地址请求结束")
+                );
+    }
+
     private void generateTest() {
         for (int i = 0; i < 20; i++) {
             appointments.add(new Appointment());
         }
-
-//        for (int i = 0; i < 20; i++) {
-//            addresses.add(new Address());
-//        }
     }
 
 }

@@ -32,6 +32,8 @@ public class AddressDetailActivity extends AppCompatActivity {
 
     private LoadingPopupView loading;
 
+    private DeleteDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,27 @@ public class AddressDetailActivity extends AppCompatActivity {
                     }
                 });
 
+        LiveEventBus.get("DeleteDialog-delete", Boolean.class)
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        vm.deleteAddress();
+                        loading.show();
+                    }
+                });
+
+        LiveEventBus.get("MyRepository-deleteAddress", Boolean.class)
+                .observe(this, aBoolean -> {
+                    loading.dismiss();
+                    if (aBoolean) {
+                        LiveEventBus.get("AddressDetailActivity-deleteAddress", Boolean.class).post(true);
+                        finish();
+                    }
+                });
+
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false));
+
+        dialog = (DeleteDialog) DialogUtil.create(this, DeleteDialog.class, null);
 
         picker = new AddressPicker(this);
         picker.setAddressMode(AddressMode.PROVINCE_CITY);
@@ -66,9 +87,7 @@ public class AddressDetailActivity extends AppCompatActivity {
 
         binding.selectAddress.setOnClickListener(v -> picker.show());
 
-        binding.delete.setOnClickListener(v -> {
-
-        });
+        binding.delete.setOnClickListener(v -> dialog.show());
 
         binding.save.setOnClickListener(v -> {
             vm.updateAddress();

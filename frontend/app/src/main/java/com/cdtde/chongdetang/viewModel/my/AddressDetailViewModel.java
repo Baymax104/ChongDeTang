@@ -86,4 +86,10 @@ public class AddressDetailViewModel extends ViewModel {
         }
         repo.updateAddress(current);
     }
+
+    public void deleteAddress() {
+        if (address.getValue() != null) {
+            repo.deleteAddress(address.getValue());
+        }
+    }
 }

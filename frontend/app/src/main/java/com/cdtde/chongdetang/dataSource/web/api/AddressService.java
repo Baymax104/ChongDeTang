@@ -7,7 +7,9 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
@@ -26,4 +28,8 @@ public interface AddressService {
     @POST("/api/user/address")
     Observable<ResponseResult<Object>> updateAddress(@Header("Authorization") String token,
                                                       @Body Address address);
+
+    @HTTP(path = "/api/user/address", method = "DELETE", hasBody = true)
+    Observable<ResponseResult<Object>> deleteAddress(@Header("Authorization") String token,
+                                                     @Body Address address);
 }

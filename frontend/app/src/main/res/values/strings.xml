@@ -99,4 +99,5 @@
     <string name="delete">删除</string>
     <string name="save">保存</string>
     <string name="select_address">选择地址</string>
+    <string name="address_delete_confirm">确定删除该地址</string>
 </resources>
