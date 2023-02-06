@@ -11,64 +11,30 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentScene109Binding;
+import com.cdtde.chongdetang.repository.AppKey;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SceneFragment10_9#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SceneFragment10_9 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private FragmentScene109Binding binding;
 
-    public SceneFragment10_9() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SceneFragment10_9.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SceneFragment10_9 newInstance(String param1, String param2) {
-        SceneFragment10_9 fragment = new SceneFragment10_9();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding= FragmentScene109Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.setLifecycleOwner(this);
+        String url = AppKey.COS_URL +  "/img/scenes/img10_9.jpg";
+        Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.loading)
+                .into(binding.sceneImg109);
+
         binding.sceneFab109Right.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_sceneFragment10_9_to_sceneFragment10_1);
@@ -78,4 +44,10 @@ public class SceneFragment10_9 extends Fragment {
             controller.navigate(R.id.action_sceneFragment10_9_to_sceneFragment10_8);
         });
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 }
