@@ -16,4 +16,6 @@ public interface AddressService {
     ResponseResult<List<Address>> getAllAddress();
 
     ResponseResult<Address> updateAddress(Address address);
+
+    ResponseResult<Object> deleteAddress(Address address);
 }

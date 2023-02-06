@@ -79,4 +79,31 @@ public class AddressServiceImpl implements AddressService {
         result.setStatus("success").setData(address);
         return result;
     }
+
+    @Override
+    public ResponseResult<Object> deleteAddress(Address address) {
+        ResponseResult<Object> result = new ResponseResult<>();
+
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = loginUser.getUser().getId();
+
+        if (id != address.getUserId()) {
+            result.setStatus("error").setMessage("用户信息错误");
+            log.error("用户信息错误");
+            return result;
+        }
+
+        QueryWrapper<Address> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", address.getId())
+                .eq("user_id", address.getUserId());
+        int delete = addressMapper.delete(wrapper);
+        if (delete != 1) {
+            result.setStatus("error").setMessage("删除地址失败");
+            log.error("删除地址失败");
+            return result;
+        }
+
+        result.setStatus("success");
+        return result;
+    }
 }

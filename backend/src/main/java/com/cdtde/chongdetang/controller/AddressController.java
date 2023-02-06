@@ -32,4 +32,8 @@ public class AddressController {
         return addressService.updateAddress(address);
     }
 
+    @DeleteMapping
+    public ResponseResult<Object> deleteAddress(@RequestBody Address address) {
+        return addressService.deleteAddress(address);
+    }
 }
