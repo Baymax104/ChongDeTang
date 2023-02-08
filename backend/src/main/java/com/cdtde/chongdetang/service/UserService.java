@@ -12,8 +12,6 @@ public interface UserService {
 
     ResponseResult<User> updateInfo(User user, String objectKey);
 
-    ResponseResult<String> uploadPhoto(String base64);
-
     ResponseResult<String> updatePassword(String oldPassword, String newPassword);
 
     ResponseResult<Object> updatePhone(String phone);

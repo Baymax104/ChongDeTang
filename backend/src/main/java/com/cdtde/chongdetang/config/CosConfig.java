@@ -5,9 +5,13 @@ import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.region.Region;
+import com.qcloud.cos.transfer.TransferManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @Description COS服务配置
@@ -27,10 +31,12 @@ public class CosConfig {
     private String secretKey;
 
     @Bean
-    public COSClient cosClient() {
+    public TransferManager transferManager() {
         COSCredentials credentials = new BasicCOSCredentials(secretId, secretKey);
         Region region = new Region("ap-beijing");
         ClientConfig config = new ClientConfig(region);
-        return new COSClient(credentials, config);
+        COSClient client = new COSClient(credentials, config);
+        ExecutorService threadPool = Executors.newFixedThreadPool(16);
+        return new TransferManager(client, threadPool);
     }
 }

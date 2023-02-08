@@ -68,19 +68,7 @@ public class UserController {
         // user中的photo字段已经是新头像的URI路径，只需要将文件上传COS即可
         // 数据库中保存文件在COS中的ObjectKey
         String newPhoto = (String) map.get("newPhoto");
-        String objectKey = null;
-        // 头像有修改
-        if (newPhoto != null) {
-            ResponseResult<String> result = userService.uploadPhoto(newPhoto);
-            if (result.getStatus().equals("error")) {
-                ResponseResult<User> res = new ResponseResult<>();
-                res.setStatus(result.getStatus())
-                        .setMessage(result.getMessage());
-                return res;
-            }
-            objectKey = result.getData();
-        }
-        return userService.updateInfo(user, objectKey);
+        return userService.updateInfo(user, newPhoto);
     }
 
     @PostMapping("/update/password")

@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseResult<User> login(String phone, String password) {
+        ResponseResult<User> result = new ResponseResult<>();
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(phone,password);
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);    //登陆失败会自动处理
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
@@ -55,13 +56,26 @@ public class UserServiceImpl implements UserService {
         String jwt = JwtUtil.createJWT(user.getId().toString());
         user.setToken(jwt);
 
-        ResponseResult<User> result = new ResponseResult<>();
+        // 用户头像转码
+        String objectKey = user.getPhoto();
+        String filename = "user_" + user.getId() + ".jpg";
+        File file = new File("src/main/resources/static/imgs", filename);
+        try {
+            cosService.download(file, objectKey);
+        } catch (CosClientException | InterruptedException e) {
+            result.setStatus("error").setMessage("登录头像获取失败");
+            log.error("登录头像获取失败");
+            return result;
+        }
+        String encode = Base64.encode(file);
+        user.setPhoto(encode);
+
         result.setStatus("success").setData(user);
         return result;
     }
 
     @Override
-    public ResponseResult<User> updateInfo(User user, String objectKey) {
+    public ResponseResult<User> updateInfo(User user, String newPhoto) {
         ResponseResult<User> result = new ResponseResult<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
@@ -73,17 +87,44 @@ public class UserServiceImpl implements UserService {
             return result;
         }
 
+        // 头像有修改，进行上传
+        String objectKey = null;
+        if (newPhoto != null) {
+            String filename = "user_" + id + ".jpg";
+            File dest = new File("src/main/resources/static/imgs", filename);
+            File file = Base64.decodeToFile(newPhoto, dest);
+            objectKey = "img/user_photo/" + filename;
+            try {
+                cosService.upload(file, objectKey);
+            } catch (CosClientException | InterruptedException e) {
+                result.setStatus("error").setMessage(e.getMessage());
+                return result;
+            }
+        }
+
+        // 字段有变化时才修改，防止修改错误误判
+        String uriPhoto = user.getPhoto();
+        User dbUser = userMapper.selectById(user.getId());
+        user.setPhoto(objectKey);
+        if (dbUser != null && dbUser.infoEquals(user)) {
+            user.setPhoto(uriPhoto);
+            result.setStatus("success").setData(user);
+            return result;
+        } else if (dbUser == null) {
+            result.setStatus("error").setMessage("用户不存在");
+            log.error("用户不存在");
+            return result;
+        }
+        user.setPhoto(uriPhoto);
+
+        // 用户字段有修改
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
         wrapper.eq("id", user.getId())
                 .set("username", user.getUsername())
                 .set("gender", user.getGender())
                 .set("birthday", user.getBirthday())
-                .set("mail", user.getMail());
-
-        // 头像有修改时，objectKey != null
-        if (objectKey != null) {
-            wrapper.set("photo", objectKey);
-        }
+                .set("mail", user.getMail())
+                .set("photo", objectKey);
 
         int row = userMapper.update(null, wrapper);
         if (row != 1) {
@@ -165,27 +206,6 @@ public class UserServiceImpl implements UserService {
         }
 
         result.setStatus("success");
-        return result;
-    }
-
-    @Override
-    public ResponseResult<String> uploadPhoto(String base64) {
-        ResponseResult<String> result = new ResponseResult<>();
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int id = loginUser.getUser().getId();
-
-        String filename = "user_" + id + ".jpg";
-        File dest = new File("src/main/resources/static/imgs", filename);
-        File file = Base64.decodeToFile(base64, dest);
-        String objectKey = "img/user_photo/" + filename;
-
-        try {
-            cosService.upload(file, objectKey);
-        } catch (CosClientException e) {
-            result.setStatus("error").setMessage(e.getMessage());
-            return result;
-        }
-        result.setStatus("success").setData(objectKey);
         return result;
     }
 }

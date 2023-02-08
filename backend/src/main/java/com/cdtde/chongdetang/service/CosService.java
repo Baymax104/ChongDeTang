@@ -11,5 +11,7 @@ import java.io.File;
  */
 public interface CosService {
 
-    void upload(File file, String objectKey);
+    void upload(File file, String objectKey) throws InterruptedException;
+
+    void download(File file, String objectKey) throws InterruptedException;
 }

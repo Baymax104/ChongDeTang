@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 @Data
 @NoArgsConstructor
@@ -27,5 +28,13 @@ public class User {
     public User(String phone, String password) {
         this.phone = phone;
         this.password = password;
+    }
+
+    public boolean infoEquals(User user) {
+        return ObjectUtils.nullSafeEquals(photo, user.photo) &&
+                ObjectUtils.nullSafeEquals(username, user.username) &&
+                ObjectUtils.nullSafeEquals(gender, user.gender) &&
+                ObjectUtils.nullSafeEquals(birthday, user.birthday) &&
+                ObjectUtils.nullSafeEquals(mail, user.mail);
     }
 }
