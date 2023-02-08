@@ -70,7 +70,7 @@
 
 ##### 5.上传文化知识内容
     包含匾额楹联(beyl)、书画篆刻(shzk)、拓片雕刻(tpdk)、造纸印刷(zzys)
-    url:https://app2799.acapp.acwing.com.cn/api/newscenter/upload
+    url:https://app2799.acapp.acwing.com.cn/api/culturalknowledge/upload
     type:post
     data:{
         type    // 表示是哪个子栏，取值["beyl","shzk","tpdk","zzys"]
@@ -85,7 +85,7 @@
     }
 
 ##### 6.获取文化知识内容
-    url:https://app2799.acapp.acwing.com.cn/api/newscenter/download
+    url:https://app2799.acapp.acwing.com.cn/api/culturalknowledge/download
     type:post
     data:{
         type    // 表示是哪个子栏，取值["beyl","shzk","tpdk","zzys"]
@@ -96,7 +96,7 @@
 
 ##### 7.上传展示中心内容
     包含牌匾系列(pb)、书法系列(sf)、篆刻系列(zk)
-    url:https://app2799.acapp.acwing.com.cn/api/newscenter/upload
+    url:https://app2799.acapp.acwing.com.cn/api/exhibitioncenter/upload
     type:post
     data:{
         type    // 表示是哪个子栏，取值["pb","sf","zk"]
@@ -109,7 +109,7 @@
     }
 
 ##### 8.获取展示中心内容
-    url:https://app2799.acapp.acwing.com.cn/api/newscenter/download
+    url:https://app2799.acapp.acwing.com.cn/api/exhibitioncenter/download
     type:post
     data:{
         type    // 表示是哪个子栏，取值["pb","sf","zk"]
