@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,7 +15,9 @@ import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
-import com.cdtde.chongdetang.viewModel.IndexViewModel;
+import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
+import com.cdtde.chongdetang.view.index.origin.OriginActivity;
+import com.cdtde.chongdetang.viewModel.index.IndexViewModel;
 import com.youth.banner.indicator.CircleIndicator;
 
 /**
@@ -64,10 +64,11 @@ public class IndexFragment extends Fragment {
 
         binding.entry1.getRoot().setOnClickListener(v -> ScenesActivity.actionStart(getContext()));
 
-        // 临时跳转，测试web页面
-        binding.entry2.getRoot().setOnClickListener(v -> MomentActivity.actionStart(getContext()));
+        binding.entry2.getRoot().setOnClickListener(v -> AppointActivity.actionStart(getContext()));
 
         binding.entry5.getRoot().setOnClickListener(v -> OriginActivity.actionStart(getContext()));
+
+        binding.entry6.getRoot().setOnClickListener(v -> ContactActivity.actionStart(getContext()));
     }
 
     @Override

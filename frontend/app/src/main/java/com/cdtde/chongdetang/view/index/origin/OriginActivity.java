@@ -1,22 +1,18 @@
-package com.cdtde.chongdetang.view.index;
+package com.cdtde.chongdetang.view.index.origin;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityOriginBinding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.view.MenuItem;
 
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.OriginPagerAdapter;
-import com.cdtde.chongdetang.viewModel.my.AddressViewModel;
 
 
 public class OriginActivity extends AppCompatActivity {
@@ -35,7 +31,7 @@ public class OriginActivity extends AppCompatActivity {
         OriginPagerAdapter originPagerAdapter = new OriginPagerAdapter(this, getSupportFragmentManager());
         binding.viewPager.setAdapter(originPagerAdapter);
         binding.tabs.setupWithViewPager(binding.viewPager);
-
+        binding.viewPager.setOffscreenPageLimit(2);
 
     }
     public static void actionStart(Context context) {

@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.util.adapter;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -9,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.view.index.OriginWebFragment;
+import com.cdtde.chongdetang.view.index.origin.OriginWebFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -26,11 +27,12 @@ public class OriginPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return OriginWebFragment.newInstance(position + 1);
+        return OriginWebFragment.newInstance(position);
     }
 
     @Nullable

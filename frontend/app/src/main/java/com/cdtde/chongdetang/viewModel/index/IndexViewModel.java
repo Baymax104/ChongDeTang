@@ -1,10 +1,11 @@
-package com.cdtde.chongdetang.viewModel;
+package com.cdtde.chongdetang.viewModel.index;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Collection;
+import com.cdtde.chongdetang.repository.IndexRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,16 @@ import java.util.List;
  * @Version 1
  */
 public class IndexViewModel extends ViewModel {
+
+    private IndexRepository repo;
+
     private MutableLiveData<List<Integer>> bannerImg;
 
     private MutableLiveData<List<Collection>> collections;
 
 
     public IndexViewModel() {
+        repo = IndexRepository.getInstance();
         bannerImg = new MutableLiveData<>();
         collections = new MutableLiveData<>();
 

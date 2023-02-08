@@ -10,7 +10,7 @@
                 type="com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter" />
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.IndexViewModel" />
+                type="com.cdtde.chongdetang.viewModel.index.IndexViewModel" />
     </data>
 
     <LinearLayout
@@ -124,9 +124,10 @@
                 </GridLayout>
 
                 <include
-                    layout="@layout/item_block_label"
-                    android:id="@+id/collection_label"
-                    bind:text="@{@string/search_collection}"/>
+                        layout="@layout/item_block_label"
+                        android:id="@+id/collection_label"
+                        bind:text="@{@string/search_collection}"
+                        bind:requireAll="@{true}"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -145,17 +146,19 @@
                         android:background="@color/gray_4" />
 
                 <include
-                    layout="@layout/item_block_label"
-                    android:id="@+id/moment_label"
-                    bind:text="@{@string/index_moment}"/>
+                        layout="@layout/item_block_label"
+                        android:id="@+id/moment_label"
+                        bind:text="@{@string/index_moment}"
+                        bind:requireAll="@{true}"/>
 
 
                 <include layout="@layout/item_moment" />
 
                 <include
-                    layout="@layout/item_block_label"
-                    android:id="@+id/info_label"
-                    bind:text="@{@string/index_info}"/>
+                        layout="@layout/item_block_label"
+                        android:id="@+id/info_label"
+                        bind:text="@{@string/index_info}"
+                        bind:requireAll="@{true}"/>
 
                 <include layout="@layout/item_news" />
 

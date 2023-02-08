@@ -22,6 +22,9 @@ public class ValidateUtil {
     }
 
     public static boolean validatePassword(String password) {
+        if (password == null) {
+            return false;
+        }
         String pattern = "^[a-zA-Z\\d]+$";
         boolean match = password.matches(pattern);
         boolean length = password.length() >= 6 && password.length() <= 15;
@@ -29,6 +32,9 @@ public class ValidateUtil {
     }
 
     public static boolean validateUsername(String username) {
+        if (username == null) {
+            return false;
+        }
         String pattern = "^[a-zA-Z\\d\\u4e00-\\u9fa5]+$";
         boolean isMatch = Pattern.matches(pattern, username);
 

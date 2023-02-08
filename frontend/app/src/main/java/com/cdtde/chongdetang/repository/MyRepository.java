@@ -92,7 +92,11 @@ public class MyRepository {
             if (status.equals("success")) {
                 User user = result.getData();
                 if (user != null) {
-                    LogUtils.iTag("cdt-web-login", "用户结果返回", user);
+                    LogUtils.iTag("cdt-web-login", "用户结果返回");
+                    String base64 = user.getPhoto();
+                    File file = CameraUtil.base64ToFile(base64);
+                    String uri = Uri.fromFile(file).toString();
+                    user.setPhoto(uri);
                     userRepo.setUser(user);
                     LiveEventBus.get("MyRepository-login", Boolean.class).post(true);
                 }

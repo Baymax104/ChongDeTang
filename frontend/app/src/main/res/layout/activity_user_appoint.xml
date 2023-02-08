@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.AppointmentViewModel" />
+                type="com.cdtde.chongdetang.viewModel.my.UserAppointViewModel" />
         <variable
                 name="adapter"
                 type="com.cdtde.chongdetang.util.adapter.AppointmentAdapter" />

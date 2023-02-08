@@ -74,4 +74,16 @@ public class CameraUtil {
         return EncodeUtils.base64Encode2String(bytes);
     }
 
+    public static File base64ToFile(String base64) {
+        byte[] bytes = EncodeUtils.base64Decode(base64);
+        if (bytes.length == 0) {
+            return null;
+        }
+        File file = createNewFile(true);
+        if (!FileIOUtils.writeFileFromBytesByStream(file, bytes)) {
+            return null;
+        }
+        return file;
+    }
+
 }

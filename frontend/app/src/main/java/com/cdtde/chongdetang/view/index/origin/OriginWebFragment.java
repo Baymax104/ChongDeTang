@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.index;
+package com.cdtde.chongdetang.view.index.origin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentOriginBinding;
 import com.cdtde.chongdetang.util.WebViewUtil;
-import com.cdtde.chongdetang.viewModel.OriginViewModel;
+import com.cdtde.chongdetang.viewModel.index.OriginViewModel;
 
 
 /**
@@ -33,17 +34,6 @@ public class OriginWebFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        vm = new ViewModelProvider(this).get(OriginViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        vm.setIndex(index);
-    }
-
-    @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -51,12 +41,23 @@ public class OriginWebFragment extends Fragment {
         binding = FragmentOriginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        String webUrl = vm.getUrl();   //获取视图的网页地址
         WebViewUtil.configure(binding.originWebPage, true);
-        binding.originWebPage.loadUrl(webUrl);
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.setLifecycleOwner(this);
+        vm = new ViewModelProvider(this).get(OriginViewModel.class);
+        binding.setViewModel(vm);
+        int index = 0;
+        if (getArguments() != null) {
+            index = getArguments().getInt(ARG_SECTION_NUMBER);
+        }
+        vm.setIndex(index);
+
     }
 
     @Override

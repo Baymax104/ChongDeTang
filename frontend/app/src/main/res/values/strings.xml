@@ -100,4 +100,8 @@
     <string name="save">保存</string>
     <string name="select_address">选择地址</string>
     <string name="address_delete_confirm">确定删除该地址</string>
+    <string name="appoint_traffic">北京崇德堂匾额博物馆\n地址：北京市朝阳区王四营高碑店398号\n乘车路线：可乘公交11路、455路、363路观音堂站下车南行200米</string>
+    <string name="appoint_notice">一、请自觉爱护馆内公共设施及展品，若造成损坏需给予赔偿。\n二、高龄老人、残疾人士、幼儿等观众须由亲友陪同参观。\n三、请自觉保持馆内环境卫生。馆内禁止吸烟，禁止随地吐痰，禁止饮食，禁止携带宠物及危险品。\n四、自觉遵守参观秩序，禁止攀爬躺卧、大声喧哗。自觉服从馆内工作人员的管理。\n五、如遇重大或临时性活动，请尊重馆方安排。\n六、参观需要提前预约，并登记预约人姓名及联系方式、参观时间、人数及要求等。\n七、馆内严禁任何未经批准的经营活动，如外来个人或团体私自收取讲解或活动费及外来团体推销自己产品等。\n八、疫情防控期间对博物馆参观实行管控，具体通知请关注“北京崇德堂”微信公众号。</string>
+    <string name="appoint">参观预约</string>
+    <string name="contact_content">电话：010–67777359 13488885887\n邮箱：cdt@cdtde.com\n邮编：100123</string>
 </resources>

@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.repository;
 
 import com.cdtde.chongdetang.entity.Moment;
 import com.cdtde.chongdetang.entity.News;
+import com.cdtde.chongdetang.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,13 @@ import java.util.List;
  */
 public class IndexRepository {
 
-    private UserRepository userRepository;
+    private UserRepository userRepo;
     private static IndexRepository repository;
 
     private List<Moment> moments;
     private List<News> news;
     private IndexRepository() {
-        userRepository = UserRepository.getInstance();
+        userRepo = UserRepository.getInstance();
         moments = new ArrayList<>();
         news = new ArrayList<>();
     }
@@ -31,5 +32,9 @@ public class IndexRepository {
             repository = new IndexRepository();
         }
         return repository;
+    }
+
+    public User getUser() {
+        return userRepo.getUser();
     }
 }

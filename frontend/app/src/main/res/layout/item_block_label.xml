@@ -6,6 +6,10 @@
         <variable
                 name="text"
                 type="String" />
+        <variable
+                name="requireAll"
+                type="Boolean" />
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
@@ -27,6 +31,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/all"
                 android:textSize="16sp"
+                android:visibility="@{requireAll ? View.VISIBLE : View.INVISIBLE}"
                 android:fontFamily="@font/text_regular"
                 android:gravity="center_vertical|end"
                 android:layout_alignParentEnd="true"

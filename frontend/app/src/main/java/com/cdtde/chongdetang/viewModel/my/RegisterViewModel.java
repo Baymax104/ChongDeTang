@@ -28,8 +28,6 @@ public class RegisterViewModel extends ValidateViewModel {
 
     private List<Fragment> flowFragments;
 
-    private String phone;
-
     private String password;
 
     private String repeatPassword;
@@ -52,6 +50,8 @@ public class RegisterViewModel extends ValidateViewModel {
         flowFragments = new ArrayList<>();
         flowFragments.add(RegisterFragment.newInstance());
         flowFragments.add(ValidateFragment.newInstance(getClass().getName()));
+
+        phone = repo.getUser().getPhone();
     }
 
     public List<Fragment> getFlowFragments() {
@@ -76,11 +76,6 @@ public class RegisterViewModel extends ValidateViewModel {
 
     public MutableLiveData<Boolean> getRepeatValidity() {
         return repeatValidity;
-    }
-
-    @Override
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setPassword(String password) {

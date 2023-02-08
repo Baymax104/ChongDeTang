@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bottom_dialog_bg">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/appoint"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/regular"
+                android:layout_marginVertical="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_4"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
+    </LinearLayout>
+</layout>

@@ -79,7 +79,8 @@
                             <include
                                     layout="@layout/item_block_label"
                                     android:id="@+id/hot_label"
-                                    bind:text="@{@string/hot_label}" />
+                                    bind:text="@{@string/hot_label}"
+                                    bind:requireAll="@{true}"/>
                             <GridLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"

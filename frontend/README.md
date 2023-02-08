@@ -281,7 +281,7 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
             type="com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter" />
     <variable
             name="viewModel"
-            type="com.cdtde.chongdetang.viewModel.IndexViewModel" />
+            type="com.cdtde.chongdetang.viewModel.index.IndexViewModel" />
 </data>
 ```
 

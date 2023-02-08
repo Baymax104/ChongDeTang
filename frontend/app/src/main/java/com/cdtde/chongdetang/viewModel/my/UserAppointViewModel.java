@@ -6,15 +6,14 @@ import androidx.lifecycle.ViewModel;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.repository.MyRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentViewModel extends ViewModel {
+public class UserAppointViewModel extends ViewModel {
 
     private MyRepository repository;
     private MutableLiveData<List<Appointment>> appointments;
 
-    public AppointmentViewModel() {
+    public UserAppointViewModel() {
         repository = MyRepository.getInstance();
         appointments = new MutableLiveData<>(repository.getAppointments());
     }

@@ -88,7 +88,7 @@ public class MyFragment extends Fragment {
 
         binding.appointmentEntry.setOnClickListener(v -> {
             if (vm.isLogin()) {
-                AppointmentActivity.actionStart(getContext());
+                UserAppointActivity.actionStart(getContext());
             } else {
                 LoginActivity.actionStart(getContext());
             }

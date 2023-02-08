@@ -26,6 +26,12 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.index.ContactActivity"
+                android:exported="false" />
+        <activity
+                android:name=".view.index.appoint.AppointActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.my.address.AddressDetailActivity"
                 android:exported="false" />
         <activity
@@ -35,7 +41,7 @@
                 android:name=".view.my.setting.LoginActivity"
                 android:exported="false" />
         <activity
-                android:name="com.cdtde.chongdetang.view.index.OriginActivity"
+                android:name=".view.index.origin.OriginActivity"
                 android:exported="false"
                 android:label="@string/title_activity_origin" />
         <activity android:name=".view.index.MomentListActivity" />
@@ -48,7 +54,7 @@
         <activity android:name=".view.my.setting.userPhone.UserPhoneActivity" />
         <activity android:name=".view.my.setting.userPassword.UserPasswordActivity" />
         <activity android:name=".view.my.address.AddressActivity" />
-        <activity android:name=".view.my.AppointmentActivity" />
+        <activity android:name=".view.my.UserAppointActivity" />
         <activity
                 android:name="com.yalantis.ucrop.UCropActivity"
                 android:screenOrientation="portrait"

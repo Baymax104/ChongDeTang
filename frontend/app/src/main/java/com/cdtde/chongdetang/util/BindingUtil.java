@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.util;
 
 import android.net.Uri;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -79,6 +80,11 @@ public class BindingUtil {
     @BindingAdapter("banner_data")
     public static void setBannerData(Banner<Integer, BannerAdapter> banner, List<Integer> data) {
         banner.setAdapter(new BannerAdapter(data));
+    }
+
+    @BindingAdapter("web_url")
+    public static void setWebUrl(WebView view, String url) {
+        view.loadUrl(url);
     }
 
     public static void bindPasswordEdit(View view, EditText edit) {
