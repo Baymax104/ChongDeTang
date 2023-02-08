@@ -38,7 +38,9 @@ public class OriginWebFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
+
         binding = FragmentOriginBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(this);
         View root = binding.getRoot();
 
         WebViewUtil.configure(binding.originWebPage, true);

@@ -66,9 +66,11 @@ public class IndexFragment extends Fragment {
 
         binding.entry2.getRoot().setOnClickListener(v -> AppointActivity.actionStart(getContext()));
 
+        binding.entry4.getRoot().setOnClickListener(v -> CultureActivity.actionStart(getContext()));
         binding.entry5.getRoot().setOnClickListener(v -> OriginActivity.actionStart(getContext()));
 
         binding.entry6.getRoot().setOnClickListener(v -> ContactActivity.actionStart(getContext()));
+
     }
 
     @Override
