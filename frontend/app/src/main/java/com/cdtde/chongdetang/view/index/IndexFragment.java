@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -67,7 +65,9 @@ public class IndexFragment extends Fragment {
         // 临时跳转，测试web页面
         binding.entry2.getRoot().setOnClickListener(v -> MomentActivity.actionStart(getContext()));
 
+        binding.entry4.getRoot().setOnClickListener(v -> CultureActivity.actionStart(getContext()));
         binding.entry5.getRoot().setOnClickListener(v -> OriginActivity.actionStart(getContext()));
+
     }
 
     @Override

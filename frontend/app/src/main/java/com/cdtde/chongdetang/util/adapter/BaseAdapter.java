@@ -2,10 +2,12 @@ package com.cdtde.chongdetang.util.adapter;
 
 import android.view.View;
 
-import androidx.annotation.NonNull;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import io.reactivex.annotations.NonNull;
 
 /**
  * @Description

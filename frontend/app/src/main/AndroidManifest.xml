@@ -38,6 +38,13 @@
                 android:name="com.cdtde.chongdetang.view.index.OriginActivity"
                 android:exported="false"
                 android:label="@string/title_activity_origin" />
+        <activity
+            android:name="com.cdtde.chongdetang.view.index.CultureDeatailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.cdtde.chongdetang.view.index.CultureActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ChongDeTang.NoActionBar" />
         <activity android:name=".view.index.MomentListActivity" />
         <activity android:name=".view.index.MomentActivity" />
         <activity android:name=".view.index.ScenesActivity" />

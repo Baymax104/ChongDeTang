@@ -95,6 +95,11 @@
         <item name="android:fontFamily">@font/text_regular</item>
     </style>
 
+    <style name="Theme.ChongDeTang.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <!--ToolBar确定按钮文字样式-->
     <style name="ToolbarOptionTextStyle">
         <item name="android:gravity">center_vertical</item>
