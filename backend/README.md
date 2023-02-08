@@ -43,7 +43,7 @@
         ResponseResult<User>  // data为user信息，包含token
     }
 ##### 3.上传新闻中心内容
-    包含行业资讯、展馆动态、每日一栏
+    包含行业资讯(hyzx)、展馆动态(zgdt)、每日一栏(mryl)
     url:https://app2799.acapp.acwing.com.cn/api/newscenter/upload
     type:post
     data:{
@@ -63,6 +63,56 @@
     type:post
     data:{
         type    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
+    }
+    return:{
+        ResponseResult<List<NewsCenter>>    //  列表形式的所有信息
+    }
+
+##### 5.上传文化知识内容
+    包含匾额楹联(beyl)、书画篆刻(shzk)、拓片雕刻(tpdk)、造纸印刷(zzys)
+    url:https://app2799.acapp.acwing.com.cn/api/newscenter/upload
+    type:post
+    data:{
+        type    // 表示是哪个子栏，取值["beyl","shzk","tpdk","zzys"]
+        date    // 文章发表日期
+        title   // 文章标题
+        photo   // 文章配图
+        url     // 手机端文章网址
+        aabstract   // 文章摘要
+    }
+    return:{
+        ResponseResult<Object>  // success
+    }
+
+##### 6.获取文化知识内容
+    url:https://app2799.acapp.acwing.com.cn/api/newscenter/download
+    type:post
+    data:{
+        type    // 表示是哪个子栏，取值["beyl","shzk","tpdk","zzys"]
+    }
+    return:{
+        ResponseResult<List<NewsCenter>>    //  列表形式的所有信息
+    }
+
+##### 7.上传展示中心内容
+    包含牌匾系列(pb)、书法系列(sf)、篆刻系列(zk)
+    url:https://app2799.acapp.acwing.com.cn/api/newscenter/upload
+    type:post
+    data:{
+        type    // 表示是哪个子栏，取值["pb","sf","zk"]
+        title   // 文章标题
+        photo   // 文章配图
+        url     // 手机端文章网址
+    }
+    return:{
+        ResponseResult<Object>  // success
+    }
+
+##### 8.获取展示中心内容
+    url:https://app2799.acapp.acwing.com.cn/api/newscenter/download
+    type:post
+    data:{
+        type    // 表示是哪个子栏，取值["pb","sf","zk"]
     }
     return:{
         ResponseResult<List<NewsCenter>>    //  列表形式的所有信息
