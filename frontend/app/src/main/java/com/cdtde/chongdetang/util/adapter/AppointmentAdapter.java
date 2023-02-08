@@ -22,12 +22,14 @@ public class AppointmentAdapter extends BaseAdapter<Appointment> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        ((ViewHolder) holder).binding.setAppointment(data.get(position));
+        Appointment appointment = data.get(position);
+        ((ViewHolder) holder).binding.setAppointment(appointment);
+        ((ViewHolder) holder).binding.detailEntry.setOnClickListener(v -> onItemClickListener.onClick(appointment));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
     private static class ViewHolder extends BaseViewHolder {

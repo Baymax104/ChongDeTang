@@ -29,6 +29,6 @@ public class UserInfoViewModel extends ViewModel {
             LiveEventBus.get("MyRepository-updateInfo", Boolean.class).post(true);
             return;
         }
-        repo.update(user);
+        repo.update(user, repo.getUser().getPhoto());
     }
 }

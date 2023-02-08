@@ -109,8 +109,8 @@
         <item name="android:fontFamily">@font/regular</item>
     </style>
 
-    <!--登录页输入框样式-->
-    <style name="LoginEditStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <!--TextInputLayout输入框样式-->
+    <style name="TextInputEditStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusBottomEnd">15dp</item>
         <item name="boxCornerRadiusBottomStart">15dp</item>
         <item name="boxCornerRadiusTopEnd">15dp</item>
@@ -149,5 +149,12 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/regular</item>
         <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="AppointmentInfoTextStyle">
+        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:fontFamily">@font/text_regular</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

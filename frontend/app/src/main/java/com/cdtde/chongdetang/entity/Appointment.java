@@ -9,37 +9,65 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Appointment extends BaseObservable implements Serializable {
+
+    private Integer id;
+    private String subscriber;
+    private String phone;
+    private String number;
     private Date date;
-    private int id;
     private Date orderTime;
-    private double orderMoney;
+    private Double orderMoney;
 
     private State state;
 
     public Appointment() {
-        date = new Date();
-        id = 0;
-        orderTime = new Date();
-        orderMoney = 0;
-        state = State.FAIL;
     }
 
-    public Appointment(int id, Date date, Date orderTime, double orderMoney, State state) {
+    public Appointment(String subscriber, String phone, String number, Date date) {
+        this.subscriber = subscriber;
+        this.phone = phone;
+        this.number = number;
         this.date = date;
-        this.id = id;
-        this.orderTime = orderTime;
-        this.orderMoney = orderMoney;
-        this.state = state;
     }
 
     @Bindable
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
         notifyPropertyChanged(BR.id);
+    }
+
+    @Bindable
+    public String getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(String subscriber) {
+        this.subscriber = subscriber;
+        notifyPropertyChanged(BR.subscriber);
+    }
+
+    @Bindable
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+        notifyPropertyChanged(BR.phone);
+    }
+
+    @Bindable
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+        notifyPropertyChanged(BR.number);
     }
 
     @Bindable
@@ -63,11 +91,11 @@ public class Appointment extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public double getOrderMoney() {
+    public Double getOrderMoney() {
         return orderMoney;
     }
 
-    public void setOrderMoney(double orderMoney) {
+    public void setOrderMoney(Double orderMoney) {
         this.orderMoney = orderMoney;
         notifyPropertyChanged(BR.orderMoney);
     }

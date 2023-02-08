@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.util.adapter;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -24,6 +25,7 @@ public class CulturePagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.

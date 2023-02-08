@@ -34,6 +34,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return fragments.size();
+        return fragments != null ? fragments.size() : 0;
     }
 }

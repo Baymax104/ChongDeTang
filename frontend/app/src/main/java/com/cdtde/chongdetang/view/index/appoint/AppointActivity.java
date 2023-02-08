@@ -14,10 +14,16 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityAppointBinding;
+import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.LoginActivity;
-import com.cdtde.chongdetang.viewModel.index.AppointViewModel;
+import com.cdtde.chongdetang.viewModel.my.AppointViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.impl.LoadingPopupView;
+
+import java.util.Date;
 
 public class AppointActivity extends AppCompatActivity {
 
@@ -26,6 +32,8 @@ public class AppointActivity extends AppCompatActivity {
     private AppointViewModel vm;
 
     private AppointDialog dialog;
+
+    private LoadingPopupView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +44,24 @@ public class AppointActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(AppointViewModel.class);
 
         dialog = (AppointDialog) DialogUtil.create(this, AppointDialog.class, null);
-        
+        XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
+        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
+
+        LiveEventBus.get("AppointDialog-appoint", Appointment.class)
+                        .observe(this, appointment -> {
+                            appointment.setOrderTime(new Date());
+                            appointment.setState(Appointment.State.PROCESSING);
+                            vm.addAppointment(appointment);
+                            loading.show();
+                        });
+
+        LiveEventBus.get("MyRepository-addAppointment", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            loading.smartDismiss();
+                            if (aBoolean) {
+                                ToastUtils.showShort("预约成功！");
+                            }
+                        });
 
         Glide.with(this)
                 .load(R.drawable.content_banner)
@@ -48,7 +73,7 @@ public class AppointActivity extends AppCompatActivity {
 
         binding.appoint.setOnClickListener(v -> {
             if (vm.isLogin()) {
-                ToastUtils.showShort("预约");
+                dialog.show();
             } else {
                 LoginActivity.actionStart(this);
             }

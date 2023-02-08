@@ -106,4 +106,6 @@ public class IndexRepository {
     public void setCultureDetailUrl(String cultureDetailUrl) {
         this.cultureDetailUrl = cultureDetailUrl;
     }
+
+
 }

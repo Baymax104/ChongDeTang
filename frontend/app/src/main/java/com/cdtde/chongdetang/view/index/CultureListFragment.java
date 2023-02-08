@@ -7,16 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentCultureListBinding;
 import com.cdtde.chongdetang.util.adapter.CultureAdapter;
-import com.cdtde.chongdetang.util.inerface.cultureRycleclick;
 import com.cdtde.chongdetang.viewModel.CultureViewModel;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.annotations.Nullable;
 
 
 /**
@@ -36,7 +34,7 @@ public class CultureListFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         int page = 1;
         if (getArguments() != null) {
             page = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -47,14 +45,10 @@ public class CultureListFragment extends Fragment {
         binding.setPage(page);
         CultureAdapter cultureAdapter = new CultureAdapter();
         int finalPage = page;
-        cultureAdapter.setOnItemClickListener(new cultureRycleclick() {
-            @Override
-            public void onItemClick(int position) {
-                String str = vm.getUrl(finalPage,position);
-                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
-                vm.setDetailUel(str);
-                CultureDeatailActivity.actionStart(getContext());
-            }
+        cultureAdapter.setOnItemClickListener(data -> {
+            String str = data.getUrl();
+            vm.setDetailUel(str);
+            CultureDeatailActivity.actionStart(getContext());
         });
         binding.setAdapter(cultureAdapter);
         binding.setViewModel(vm);

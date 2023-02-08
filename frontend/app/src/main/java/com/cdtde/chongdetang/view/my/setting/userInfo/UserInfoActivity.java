@@ -16,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.UriUtils;
@@ -31,9 +29,11 @@ import com.cdtde.chongdetang.viewModel.my.UserInfoViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
+import com.lxj.xpopupext.popup.TimePickerPopup;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.util.Calendar;
 
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
@@ -43,6 +43,8 @@ public class UserInfoActivity extends AppCompatActivity {
     private UserInfoViewModel vm;
 
     private LoadingPopupView loadingPopupView;
+
+    private TimePickerPopup timePicker;
 
     // 需要缓存一个引用，在RESULT_OK时赋值
     private Uri photoUri;
@@ -79,6 +81,16 @@ public class UserInfoActivity extends AppCompatActivity {
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
         loadingPopupView = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
 
+        Calendar start = Calendar.getInstance();
+        start.set(1900, 0, 1);
+        Calendar end = Calendar.getInstance();
+        timePicker = new TimePickerPopup(this)
+                .setDefaultDate(end)
+                .setDateRange(start, end)
+                .setTimePickerListener((DialogUtil.TimePickerListenerAdapter) (date, view) ->
+                        vm.getUser().setBirthday(date)
+                );
+
         LiveEventBus.get("GenderDialog-gender", String.class)
                     .observe(this, s -> vm.getUser().setGender(s));
 
@@ -103,20 +115,19 @@ public class UserInfoActivity extends AppCompatActivity {
                         });
 
 
-        binding.iconEntry.setOnClickListener(v -> DialogUtil.create(this, PhotoDialog.class, null).show());
+        binding.iconEntry.setOnClickListener(v ->
+                DialogUtil.create(this, PhotoDialog.class, null).show()
+        );
 
         binding.nameEntry.setOnClickListener(v -> UsernameActivity.actionStart(this));
 
-        binding.birthEntry.setOnClickListener(v -> {
-            TimePickerView picker = new TimePickerBuilder(this, (date, v1) -> vm.getUser().setBirthday(date))
-                    .setTitleText("选择日期")
-                    .setCancelColor(Color.BLACK)
-                    .setSubmitColor(Color.parseColor("#bd1b21"))
-                    .build();
-            picker.show();
-        });
+        binding.birthEntry.setOnClickListener(v ->
+                DialogUtil.create(this, timePicker, null).show()
+        );
 
-        binding.genderEntry.setOnClickListener(v -> DialogUtil.create(this, GenderDialog.class, null).show());
+        binding.genderEntry.setOnClickListener(v ->
+                DialogUtil.create(this, GenderDialog.class, null).show()
+        );
 
         binding.confirm.setOnClickListener(v -> {
             loadingPopupView.show();

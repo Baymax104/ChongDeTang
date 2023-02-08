@@ -100,8 +100,8 @@ public class BindingUtil {
     }
 
     @BindingConversion
-    public static String convertDouble(double value) {
-        return String.valueOf(value);
+    public static String convertDouble(Double value) {
+        return value != null ? String.valueOf(value) : "0.0";
     }
 
     @BindingConversion

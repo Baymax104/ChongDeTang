@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.AddressService;
+import com.cdtde.chongdetang.dataSource.web.api.AppointmentService;
 import com.cdtde.chongdetang.dataSource.web.api.UserService;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.entity.Appointment;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -46,6 +48,7 @@ public class MyRepository {
 
     private UserService userService;
     private AddressService addressService;
+    private AppointmentService appointmentService;
 
     private static MyRepository repository;
 
@@ -55,8 +58,7 @@ public class MyRepository {
         userRepo = UserRepository.getInstance();
         userService = WebService.getInstance().create(UserService.class);
         addressService = WebService.getInstance().create(AddressService.class);
-
-        generateTest();
+        appointmentService = WebService.getInstance().create(AppointmentService.class);
     }
 
     public static MyRepository getInstance() {
@@ -114,12 +116,12 @@ public class MyRepository {
                 );
     }
 
-    public void update(User user) {
+    public void update(User user, String originPhoto) {
         String token = "Bearer " + user.getToken();
 
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);
-        if (user.getPhoto() != null) {
+        if (!user.getPhoto().equals(originPhoto)) {
             File file = UriUtils.uri2File(Uri.parse(user.getPhoto()));
             String base64 = CameraUtil.file2Base64(file);
             map.put("newPhoto", base64);
@@ -298,10 +300,51 @@ public class MyRepository {
                 );
     }
 
-    private void generateTest() {
-        for (int i = 0; i < 20; i++) {
-            appointments.add(new Appointment());
-        }
+    public void getAllAppointment() {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<List<Appointment>>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                if (result.getData() != null) {
+                    appointments = result.getData();
+                    LogUtils.iTag("cdt-web-getAllAppointment", "获取预约成功");
+                    LiveEventBus.get("MyRepository-getAllAppointment", Boolean.class).post(true);
+                }
+            } else {
+                LogUtils.eTag("cdt-web-getAllAppointment", result.getMessage());
+            }
+        };
+
+        appointmentService.getAllAppointment(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-getAllAppointment", throwable),
+                        () -> LogUtils.iTag("cdt-web-getAllAppointment", "获取预约请求结束")
+                );
+    }
+
+    public void addAppointment(Appointment appointment) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                LogUtils.iTag("cdt-web-addAppointment", "添加预约成功");
+                LiveEventBus.get("MyRepository-addAppointment", Boolean.class).post(true);
+            } else {
+                LogUtils.eTag("cdt-web-addAppointment", result.getMessage());
+            }
+        };
+
+        appointmentService.addAppointment(token, appointment)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-addAppointment", throwable),
+                        () -> LogUtils.iTag("cdt-web-addAppointment", "添加预约请求结束")
+                );
     }
 
 }

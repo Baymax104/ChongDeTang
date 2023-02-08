@@ -2,13 +2,16 @@ package com.cdtde.chongdetang.util;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.impl.LoadingPopupView;
+import com.lxj.xpopupext.listener.TimePickerListener;
 
 import java.lang.reflect.Constructor;
+import java.util.Date;
 
 import io.reactivex.annotations.NonNull;
 
@@ -20,6 +23,15 @@ import io.reactivex.annotations.NonNull;
  * @Version 1
  */
 public class DialogUtil {
+
+    public interface TimePickerListenerAdapter extends TimePickerListener {
+        @Override
+        default void onTimeChanged(Date date) {
+        }
+        @Override
+        default void onCancel() {
+        }
+    }
 
     private DialogUtil() {
     }
@@ -50,6 +62,13 @@ public class DialogUtil {
             LogUtils.eTag("cdt-dialog-create", e);
         }
         return builder.asCustom(dialog);
+    }
+
+    public static <T extends BasePopupView> BasePopupView create(Context context, T view, XPopup.Builder builder) {
+        if (builder == null) {
+            builder = new XPopup.Builder(context);
+        }
+        return builder.asCustom(view);
     }
 
 }

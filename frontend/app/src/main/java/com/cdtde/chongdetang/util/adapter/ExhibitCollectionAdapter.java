@@ -5,12 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ItemExhibitCollectionBinding;
 import com.cdtde.chongdetang.entity.Collection;
 
-import io.reactivex.annotations.NonNull;
 
 /**
  * @Description
@@ -38,7 +38,7 @@ public class ExhibitCollectionAdapter extends BaseAdapter<Collection> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
     private static class ViewHolder extends BaseViewHolder {

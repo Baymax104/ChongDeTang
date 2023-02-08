@@ -28,7 +28,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="30dp"
                 android:hint="@string/input_phone"
-                style="@style/LoginEditStyle">
+                style="@style/TextInputEditStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 app:helperTextEnabled="true"
                 app:helperText="@string/input_new_pwd_hint"
                 app:passwordToggleEnabled="true"
-                style="@style/LoginEditStyle">
+                style="@style/TextInputEditStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                 android:layout_marginHorizontal="30dp"
                 android:hint="@string/repeat_new_pwd"
                 app:passwordToggleEnabled="true"
-                style="@style/LoginEditStyle">
+                style="@style/TextInputEditStyle">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

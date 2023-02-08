@@ -34,7 +34,7 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
     private static class ViewHolder extends BaseViewHolder {

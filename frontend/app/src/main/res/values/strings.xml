@@ -48,9 +48,7 @@
     <string name="appoint_success">预约成功</string>
     <string name="appoint_date">预约日期</string>
     <string name="detail">详情</string>
-    <string name="appoint_id_text">预约编号：</string>
-    <string name="appoint_time_text">下单时间：</string>
-    <string name="appoint_money_text">金额：</string>
+    <string name="appoint_id">预约编号：</string>
     <string name="user_icon">头像</string>
     <string name="username">用户名</string>
     <string name="user_gender">性别</string>
@@ -76,7 +74,7 @@
     <string name="culture_tab_text_1">匾额楹联</string>
     <string name="culture_tab_text_2">书画篆刻</string>
     <string name="culture_tab_text_3">造纸印刷</string>
-    <string name="culture_tab_text_4">拓片调班</string>
+    <string name="culture_tab_text_4">拓片雕版</string>
     <string name="update_phone">更换手机号</string>
     <string name="update_pwd">修改密码</string>
     <string name="phone_validate_tip">为了您的安全，该操作需要验证手机号</string>
@@ -108,4 +106,13 @@
     <string name="appoint_notice">一、请自觉爱护馆内公共设施及展品，若造成损坏需给予赔偿。\n二、高龄老人、残疾人士、幼儿等观众须由亲友陪同参观。\n三、请自觉保持馆内环境卫生。馆内禁止吸烟，禁止随地吐痰，禁止饮食，禁止携带宠物及危险品。\n四、自觉遵守参观秩序，禁止攀爬躺卧、大声喧哗。自觉服从馆内工作人员的管理。\n五、如遇重大或临时性活动，请尊重馆方安排。\n六、参观需要提前预约，并登记预约人姓名及联系方式、参观时间、人数及要求等。\n七、馆内严禁任何未经批准的经营活动，如外来个人或团体私自收取讲解或活动费及外来团体推销自己产品等。\n八、疫情防控期间对博物馆参观实行管控，具体通知请关注“北京崇德堂”微信公众号。</string>
     <string name="appoint">参观预约</string>
     <string name="contact_content">电话：010–67777359 13488885887\n邮箱：cdt@cdtde.com\n邮编：100123</string>
+    <string name="appoint_name">预约人姓名：</string>
+    <string name="appoint_phone">手机号：</string>
+    <string name="appoint_dialog_name">真实姓名</string>
+    <string name="appoint_number">人数</string>
+    <string name="phone">手机号</string>
+    <string name="select_date">选择日期</string>
+    <string name="appoint_info_number">人数：</string>
+    <string name="appoint_info_time">下单时间：</string>
+    <string name="appoint_info_money">金额：</string>
 </resources>

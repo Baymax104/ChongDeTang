@@ -34,7 +34,7 @@ public class ShopProductAdapter extends BaseAdapter<Product> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
     private static class ViewHolder extends BaseViewHolder {

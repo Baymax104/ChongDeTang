@@ -8,17 +8,15 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+
 import com.cdtde.chongdetang.R;
 
 import com.cdtde.chongdetang.databinding.ItemIndexCultureBinding;
 import com.cdtde.chongdetang.entity.Culture;
-import com.cdtde.chongdetang.util.inerface.cultureRycleclick;
 
-import io.reactivex.annotations.NonNull;
 
 public class CultureAdapter extends BaseAdapter<Culture>{
-    private cultureRycleclick listener;
-
 
     @NonNull
     @Override
@@ -31,16 +29,12 @@ public class CultureAdapter extends BaseAdapter<Culture>{
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Culture culture = data.get(position);
         ((ViewHolder) holder).binding.setCulture(culture);
-        ((ViewHolder) holder).binding.getRoot().setOnClickListener(v -> listener.onItemClick(position));
-    }
-
-    public void setOnItemClickListener(cultureRycleclick listener){
-        this.listener=listener;
+        ((ViewHolder) holder).binding.getRoot().setOnClickListener(v -> onItemClickListener.onClick(culture));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
 

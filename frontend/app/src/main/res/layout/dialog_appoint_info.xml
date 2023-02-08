@@ -12,13 +12,9 @@
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            app:cardCornerRadius="10dp"
-            android:layout_margin="10dp"
-            app:cardElevation="3dp"
-            android:padding="10dp"
+            android:layout_height="300dp"
+            app:cardCornerRadius="15dp"
             tools:ignore="RelativeOverlap">
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -49,8 +45,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
-                            android:id="@+id/appoint_state"
                             android:gravity="center"
+                            android:id="@+id/appoint_state"
                             android:text="@{appointment.state}"
                             android:textStyle="bold"
                             android:textColor="@{appointment.state==State.FAIL ? @color/black : @color/main_color}"
@@ -119,15 +115,15 @@
                             style="@style/AppointmentInfoTextStyle"/>
                 </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:id="@+id/phone_text"
                             android:text="@string/appoint_phone"
                             style="@style/AppointmentInfoTextStyle"/>
 
@@ -135,25 +131,71 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="@{appointment.phone}"
-                            android:layout_toEndOf="@id/phone_text"
+                            style="@style/AppointmentInfoTextStyle"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/appoint_info_number"
                             style="@style/AppointmentInfoTextStyle"/>
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:id="@+id/detail_entry"
-                            android:text="@string/detail"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/text_regular"
-                            android:layout_alignParentEnd="true"/>
+                            android:text="@{appointment.number}"
+                            style="@style/AppointmentInfoTextStyle"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/appoint_info_time"
+                            style="@style/AppointmentInfoTextStyle"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@{appointment.orderTime}"
+                            style="@style/AppointmentInfoTextStyle"/>
+
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/appoint_info_money"
+                            style="@style/AppointmentInfoTextStyle"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@{appointment.orderMoney}"
+                            style="@style/AppointmentInfoTextStyle"/>
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-
 
     </com.google.android.material.card.MaterialCardView>
 </layout>
