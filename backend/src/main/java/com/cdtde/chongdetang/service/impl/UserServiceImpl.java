@@ -63,9 +63,7 @@ public class UserServiceImpl implements UserService {
         try {
             cosService.download(file, objectKey);
         } catch (CosClientException | InterruptedException e) {
-            result.setStatus("error").setMessage("登录头像获取失败");
-            log.error("登录头像获取失败");
-            return result;
+            throw new RuntimeException("登录头像获取失败");
         }
         String encode = Base64.encode(file);
         user.setPhoto(encode);
@@ -82,9 +80,7 @@ public class UserServiceImpl implements UserService {
 
         // 判断token与用户是否匹配
         if (id != user.getId()) {
-            log.error("用户信息错误");
-            result.setStatus("error").setMessage("用户信息错误");
-            return result;
+            throw new RuntimeException("用户信息错误");
         }
 
         // 头像有修改，进行上传
@@ -97,8 +93,7 @@ public class UserServiceImpl implements UserService {
             try {
                 cosService.upload(file, objectKey);
             } catch (CosClientException | InterruptedException e) {
-                result.setStatus("error").setMessage(e.getMessage());
-                return result;
+                throw new RuntimeException("头像上传失败");
             }
         }
 
@@ -111,9 +106,7 @@ public class UserServiceImpl implements UserService {
             result.setStatus("success").setData(user);
             return result;
         } else if (dbUser == null) {
-            result.setStatus("error").setMessage("用户不存在");
-            log.error("用户不存在");
-            return result;
+            throw new RuntimeException("用户不存在");
         }
         user.setPhoto(uriPhoto);
 
@@ -128,9 +121,7 @@ public class UserServiceImpl implements UserService {
 
         int row = userMapper.update(null, wrapper);
         if (row != 1) {
-            log.error("用户信息修改失败");
-            result.setStatus("error").setMessage("用户信息修改失败");
-            return result;
+            throw new RuntimeException("用户信息修改失败");
         }
 
         result.setStatus("success").setData(user);
@@ -145,9 +136,7 @@ public class UserServiceImpl implements UserService {
         queryWrapper.eq("phone",phone);
         List<User> accounts = userMapper.selectList(queryWrapper);
         if(!accounts.isEmpty()){
-            log.error("手机号已被注册");
-            result.setStatus("error").setMessage("手机号已被注册");
-            return result;
+            throw new RuntimeException("手机号已被注册");
         }
 
         String encrypt = passwordEncoder.encode(password);
@@ -170,9 +159,7 @@ public class UserServiceImpl implements UserService {
         User user = loginUser.getUser();
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            result.setStatus("error").setMessage("输入与原密码不一致！");
-            log.error("输入与原密码不一致");
-            return result;
+            throw new RuntimeException("输入与原密码不一致");
         }
 
         String newEncrypt = passwordEncoder.encode(newPassword);
@@ -181,9 +168,7 @@ public class UserServiceImpl implements UserService {
         wrapper.eq("id", user.getId()).set("password", newEncrypt);
         int update = userMapper.update(user, wrapper);
         if (update != 1) {
-            result.setStatus("error").setMessage("密码修改失败");
-            log.error("密码修改失败");
-            return result;
+            throw new RuntimeException("密码修改失败");
         }
 
         result.setStatus("success").setData(newEncrypt);
@@ -200,9 +185,7 @@ public class UserServiceImpl implements UserService {
         wrapper.eq("id", user.getId()).set("phone", phone);
         int update = userMapper.update(user, wrapper);
         if (update != 1) {
-            result.setStatus("error").setMessage("手机号修改失败");
-            log.error("手机号修改失败");
-            return result;
+            throw new RuntimeException("手机号修改失败");
         }
 
         result.setStatus("success");

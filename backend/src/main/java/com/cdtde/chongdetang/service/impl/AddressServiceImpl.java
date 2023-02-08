@@ -54,15 +54,11 @@ public class AddressServiceImpl implements AddressService {
             address.setUserId(id);
             int insert = addressMapper.insert(address);
             if (insert != 1) {
-                result.setStatus("error").setMessage("添加地址失败");
-                log.error("添加地址失败");
-                return result;
+                throw new RuntimeException("添加地址失败");
             }
         } else {
             if (id != address.getUserId()) {
-                result.setStatus("error").setMessage("用户信息错误");
-                log.error("用户信息错误");
-                return result;
+                throw new RuntimeException("用户信息错误");
             }
 
             UpdateWrapper<Address> wrapper = new UpdateWrapper<>();
@@ -70,9 +66,7 @@ public class AddressServiceImpl implements AddressService {
                             .eq("user_id", address.getUserId());
             int update = addressMapper.update(address, wrapper);
             if (update != 1) {
-                result.setStatus("error").setMessage("修改地址信息失败");
-                log.error("修改地址信息失败");
-                return result;
+                throw new RuntimeException("修改地址信息失败");
             }
         }
 
@@ -88,9 +82,7 @@ public class AddressServiceImpl implements AddressService {
         int id = loginUser.getUser().getId();
 
         if (id != address.getUserId()) {
-            result.setStatus("error").setMessage("用户信息错误");
-            log.error("用户信息错误");
-            return result;
+            throw new RuntimeException("用户信息错误");
         }
 
         QueryWrapper<Address> wrapper = new QueryWrapper<>();
@@ -98,9 +90,7 @@ public class AddressServiceImpl implements AddressService {
                 .eq("user_id", address.getUserId());
         int delete = addressMapper.delete(wrapper);
         if (delete != 1) {
-            result.setStatus("error").setMessage("删除地址失败");
-            log.error("删除地址失败");
-            return result;
+            throw new RuntimeException("删除地址失败");
         }
 
         result.setStatus("success");

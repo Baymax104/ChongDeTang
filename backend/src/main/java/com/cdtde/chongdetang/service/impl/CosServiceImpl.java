@@ -1,7 +1,6 @@
 package com.cdtde.chongdetang.service.impl;
 
 import com.cdtde.chongdetang.service.CosService;
-import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.model.GetObjectRequest;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.transfer.*;
@@ -30,7 +29,7 @@ public class CosServiceImpl implements CosService {
     private TransferManager transferManager;
 
     @Override
-    public void upload(File file, String objectKey) throws CosClientException, InterruptedException {
+    public void upload(File file, String objectKey) throws InterruptedException {
         PutObjectRequest request = new PutObjectRequest(bucket, objectKey, file);
         Upload upload = transferManager.upload(request);
         showProgress(upload);
@@ -38,7 +37,7 @@ public class CosServiceImpl implements CosService {
     }
 
     @Override
-    public void download(File file, String objectKey) throws CosClientException, InterruptedException {
+    public void download(File file, String objectKey) throws InterruptedException {
         GetObjectRequest request = new GetObjectRequest(bucket, objectKey);
         Download download = transferManager.download(request, file);
         showProgress(download);
