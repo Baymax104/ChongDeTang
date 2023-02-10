@@ -5,5 +5,5 @@
     <!--    2.设置按钮的颜色-->
     <!--    3.设置边框大粗细和颜色-->
     <corners android:radius="15dp"/>
-    <solid android:color="@color/main_variant_color"/>
+    <solid android:color="@color/main_color"/>
 </shape>

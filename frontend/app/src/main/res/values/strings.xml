@@ -115,4 +115,9 @@
     <string name="appoint_info_number">人数：</string>
     <string name="appoint_info_time">下单时间：</string>
     <string name="appoint_info_money">金额：</string>
+    <string name="product_detail">商品详情</string>
+    <string name="buy">立即购买</string>
+    <string name="product_intro">商品介绍</string>
+    <string name="product_launch_time">上架时间：</string>
+    <string name="add_shopping">加入购物车</string>
 </resources>

@@ -4,30 +4,52 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.cdtde.chongdetang.entity.Product"/>
         <variable
                 name="product"
-                type="com.cdtde.chongdetang.entity.Product" />
+                type="Product" />
+        <variable
+                name="clickHandler"
+                type="com.cdtde.chongdetang.util.adapter.BaseAdapter.OnItemClickListener&lt;Product>" />
     </data>
 
 
     <LinearLayout
             android:layout_width="105dp"
             android:layout_height="170dp"
-            android:layout_margin="5dp"
             android:orientation="vertical"
+            android:onClick="@{()->clickHandler.onClick(product)}"
             tools:ignore="ContentDescription">
 
         <com.makeramen.roundedimageview.RoundedImageView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@{product.image}"
+                img_url="@{product.photo}"
+                img_cos="@{true}"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="10dp"/>
 
-        <TextView
-                style="@style/ItemTitleStyle"
-                android:text="@{product.name}"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemTitleStyle"
+                    android:text="@{product.name}"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/main_color"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/text_regular"
+                    android:text="@{`￥` + (product.price ?? ``)}"/>
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

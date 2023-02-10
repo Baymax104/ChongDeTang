@@ -30,6 +30,7 @@ public class ShopProductAdapter extends BaseAdapter<Product> {
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Product product = data.get(position);
         ((ViewHolder) holder).binding.setProduct(product);
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(product));
     }
 
     @Override

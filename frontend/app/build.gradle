@@ -110,4 +110,8 @@ dependencies {
     implementation 'com.github.gzu-liyujiang.AndroidPicker:AddressPicker:4.1.11'
 
     implementation 'com.github.li-xiaojun:XPopupExt:1.0.0'
+
+    // https://mvnrepository.com/artifact/com.github.bumptech.glide/recyclerview-integration
+    implementation 'com.github.bumptech.glide:recyclerview-integration:4.11.0'
+
 }

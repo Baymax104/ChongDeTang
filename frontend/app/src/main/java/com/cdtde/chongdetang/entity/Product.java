@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.entity;
 
-import android.net.Uri;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -10,6 +8,7 @@ import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Description
@@ -22,24 +21,12 @@ public class Product extends BaseObservable implements Serializable {
 
     private Integer id;
     private String name;
-    private String image;
-
-    private double price;
+    private String photo;
+    private Double price;
+    private Date launchTime;
+    private String introduction;
 
     public Product() {
-        name = "测试";
-        image = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture)).toString();
-    }
-
-    public Product(String name, String image) {
-        this.name = name;
-        this.image = image;
-    }
-
-    public Product(Integer id, String name, String image) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
     }
 
     @Bindable
@@ -53,22 +40,38 @@ public class Product extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public String getImage() {
-        return image;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPhoto(String photo) {
+        this.photo = photo;
         notifyPropertyChanged(BR.image);
     }
 
     @Bindable
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
         notifyPropertyChanged(BR.price);
+    }
+
+    public Date getLaunchTime() {
+        return launchTime;
+    }
+
+    public void setLaunchTime(Date launchTime) {
+        this.launchTime = launchTime;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 }

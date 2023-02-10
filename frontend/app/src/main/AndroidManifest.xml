@@ -26,6 +26,9 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.shop.ProductActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.index.ContactActivity"
                 android:exported="false" />
         <activity
@@ -45,12 +48,12 @@
                 android:exported="false"
                 android:label="@string/title_activity_origin" />
         <activity
-            android:name="com.cdtde.chongdetang.view.index.CultureDeatailActivity"
-            android:exported="false" />
+                android:name="com.cdtde.chongdetang.view.index.CultureDeatailActivity"
+                android:exported="false" />
         <activity
-            android:name="com.cdtde.chongdetang.view.index.CultureActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ChongDeTang.NoActionBar" />
+                android:name="com.cdtde.chongdetang.view.index.CultureActivity"
+                android:exported="false"
+                android:theme="@style/Theme.ChongDeTang.NoActionBar" />
         <activity android:name=".view.index.MomentListActivity" />
         <activity android:name=".view.index.MomentActivity" />
         <activity android:name=".view.index.ScenesActivity" />

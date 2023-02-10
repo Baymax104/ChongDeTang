@@ -15,6 +15,7 @@ import com.cdtde.chongdetang.view.exhibit.ExhibitFragment;
 import com.cdtde.chongdetang.view.index.IndexFragment;
 import com.cdtde.chongdetang.view.my.MyFragment;
 import com.cdtde.chongdetang.view.shop.ShopFragment;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_index) {
                 binding.viewPager.setCurrentItem(0, false);
+                LiveEventBus.get("MainActivity-page", Integer.class).post(0);
             } else if (id == R.id.nav_exhibit) {
                 binding.viewPager.setCurrentItem(1, false);
+                LiveEventBus.get("MainActivity-page", Integer.class).post(1);
             } else if (id == R.id.nav_shop) {
                 binding.viewPager.setCurrentItem(2, false);
+                LiveEventBus.get("MainActivity-page", Integer.class).post(2);
             } else if (id == R.id.nav_my) {
                 binding.viewPager.setCurrentItem(3, false);
+                LiveEventBus.get("MainActivity-page", Integer.class).post(3);
             }
             return true;
         });

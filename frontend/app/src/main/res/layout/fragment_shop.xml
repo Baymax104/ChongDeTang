@@ -7,7 +7,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.ShopViewModel" />
+                type="com.cdtde.chongdetang.viewModel.shop.ShopViewModel" />
         <variable
                 name="productAdapter"
                 type="com.cdtde.chongdetang.util.adapter.ShopProductAdapter" />
@@ -47,7 +47,8 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/white">
 
                 <com.youth.banner.Banner
                         android:layout_width="match_parent"
@@ -88,7 +89,7 @@
                                     android:columnCount="3"
                                     android:orientation="horizontal"
                                     android:paddingHorizontal="5dp"
-                                    android:layout_marginTop="10dp">
+                                    android:layout_marginVertical="10dp">
                                 <include
                                         layout="@layout/item_hot_product"
                                         android:layout_columnWeight="1"
@@ -97,7 +98,7 @@
                                         android:layout_height="0dp"
                                         android:id="@+id/hot_product1"
                                         android:layout_marginHorizontal="5dp"
-                                        bind:product="@{viewModel.products[0]}"/>
+                                        bind:product="@{viewModel.hotProducts[0]}"/>
                                 <include
                                         layout="@layout/item_hot_product"
                                         android:layout_columnWeight="1"
@@ -106,7 +107,7 @@
                                         android:layout_height="0dp"
                                         android:id="@+id/hot_product2"
                                         android:layout_marginHorizontal="5dp"
-                                        bind:product="@{viewModel.products[1]}"/>
+                                        bind:product="@{viewModel.hotProducts[1]}"/>
                                 <include
                                         layout="@layout/item_hot_product"
                                         android:layout_columnWeight="1"
@@ -115,7 +116,7 @@
                                         android:layout_height="0dp"
                                         android:id="@+id/hot_product3"
                                         android:layout_marginHorizontal="5dp"
-                                        bind:product="@{viewModel.products[2]}"/>
+                                        bind:product="@{viewModel.hotProducts[2]}"/>
                             </GridLayout>
                         </LinearLayout>
 

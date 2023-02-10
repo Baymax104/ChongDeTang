@@ -20,18 +20,18 @@ import java.util.List;
  */
 public class ExhibitViewModel extends ViewModel {
 
-    private ExhibitRepository repository;
+    private ExhibitRepository repo;
     private MutableLiveData<List<Fragment>> tabFragments;
     private MutableLiveData<List<Collection>> collectionPage1;
     private MutableLiveData<List<Collection>> collectionPage2;
     private MutableLiveData<List<Collection>> collectionPage3;
 
     public ExhibitViewModel() {
-        repository = ExhibitRepository.getInstance();
+        repo = ExhibitRepository.getInstance();
         tabFragments = new MutableLiveData<>();
-        collectionPage1 = new MutableLiveData<>(repository.getCollectionPage1());
-        collectionPage2 = new MutableLiveData<>(repository.getCollectionPage2());
-        collectionPage3 = new MutableLiveData<>(repository.getCollectionPage3());
+        collectionPage1 = new MutableLiveData<>(repo.getCollectionPage1());
+        collectionPage2 = new MutableLiveData<>(repo.getCollectionPage2());
+        collectionPage3 = new MutableLiveData<>(repo.getCollectionPage3());
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(TabFragment.newInstance(1));

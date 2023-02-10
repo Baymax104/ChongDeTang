@@ -19,8 +19,7 @@
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/toolbar_layout"
-                app:elevation="0dp">
+                android:id="@+id/toolbar_layout">
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -38,10 +37,9 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="230dp"
                 android:orientation="vertical"
-                android:paddingTop="50dp"
-                android:paddingBottom="20dp"
+                android:paddingTop="70dp"
                 android:background="@drawable/user_bg">
 
 
@@ -69,6 +67,11 @@
 
 
         </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_4"/>
 
         <LinearLayout
                 android:layout_width="match_parent"

@@ -30,6 +30,9 @@
                     android:scaleType="centerCrop" />
 
             <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center"
                     style="@style/ItemTitleStyle"
                     android:text="@{collection.name}" />
 

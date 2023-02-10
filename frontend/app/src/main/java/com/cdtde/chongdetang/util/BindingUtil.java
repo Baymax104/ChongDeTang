@@ -1,21 +1,33 @@
 package com.cdtde.chongdetang.util;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.BindingConversion;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.UriUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.ImageViewTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Appointment;
+import com.cdtde.chongdetang.repository.AppKey;
 import com.cdtde.chongdetang.util.adapter.BannerAdapter;
 import com.cdtde.chongdetang.util.adapter.BaseAdapter;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
@@ -27,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * @Description DataBinding自定义绑定的工具类，由DataBinding自动调用
@@ -41,9 +54,43 @@ public class BindingUtil {
         view.setImageResource(resId);
     }
 
-    @BindingAdapter("img_url")
-    public static void setImgUrl(ImageView view, String url) {
-        // 网络请求图片
+    @BindingAdapter(value = {"img_url", "img_cos"}, requireAll = false)
+    public static void setImgUrl(ImageView view, String url, Boolean cos) {
+        if (url == null) {
+            Glide.with(view)
+                    .load(R.drawable.loading)
+                    .into(view);
+        } else {
+            if (cos) {
+                String path = AppKey.COS_URL + "/" + url;
+                Glide.with(view)
+                        .asBitmap()
+                        .load(path)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.loading)
+                        .into(new ImageViewTarget<Bitmap>(view) {
+                            @Override
+                            protected void setResource(@Nullable Bitmap resource) {
+                                if (resource != null) {
+                                    int imgWidth = resource.getWidth();
+                                    int imgHeight = resource.getHeight();
+                                    int scaleWidth = view.getWidth();
+                                    int scaleHeight = scaleWidth * imgHeight / imgWidth;
+                                    Bitmap scale = ImageUtils.scale(resource, scaleWidth, scaleHeight);
+                                    view.setImageBitmap(scale);
+                                }
+                            }
+                        });
+            } else {
+                Glide.with(view)
+                        .asBitmap()
+                        .load(url)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.loading)
+                        .override(533, 640)
+                        .into(view);
+            }
+        }
     }
 
     @BindingAdapter("src")

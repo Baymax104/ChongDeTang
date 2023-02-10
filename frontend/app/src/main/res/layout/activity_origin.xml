@@ -36,6 +36,9 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:tabBackground="@color/bar_color"
+                    app:tabIndicatorColor="@color/main_color"
+                    app:tabSelectedTextColor="@color/main_color"
                     tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.appbar.AppBarLayout>
 
