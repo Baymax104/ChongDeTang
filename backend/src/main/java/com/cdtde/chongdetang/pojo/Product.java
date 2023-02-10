@@ -6,19 +6,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Product {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer brandId;
-    private String productName;
-    private float price;
-    @JsonFormat(pattern="yyyy--MM-dd HH:mm:ss")
+    private String name;
+    private Double price;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date launchTime;
-    private String productPhoto;
+    private String photo;
+    private String introduction;
 }
