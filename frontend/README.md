@@ -136,7 +136,6 @@ APP使用MVVM架构
 
       ``` java
       binding.setViewModel(vm);
-      ``
 - LiveData与DataBinding联动
   - LiveData和DataBinding联动可以让视图同步更新
   - 原理：LiveData使用了观察者模式来实现同步更新，即设置了一个观察者对象来观察某个变量，当变量的值改变时，观察者就做出反应
@@ -145,8 +144,8 @@ APP使用MVVM架构
     ``` java
     // 通常在activity中设置，因此传this
     mutableLiveData.observe(this, value -> {
-	// 变量改变后我们需要更新视图，可以在此处通过binding对象调用控件来设置属性
-	binding.xxx.setXXX(value);
+	  // 变量改变后我们需要更新视图，可以在此处通过binding对象调用控件来设置属性
+	  binding.xxx.setXXX(value);
     });
     ```
    - LiveData和DataBinding联动
@@ -168,9 +167,9 @@ APP使用MVVM架构
   ``` java
   class XXXViewModel extends ViewModel {
       private MutableLiveData<XXX> value;
-	public MutableLiveData<XXX> getValue() {
-		return value;
-	}
+	    public MutableLiveData<XXX> getValue() {
+		    return value;
+	    }
   }
   ```
   ``` xml
@@ -192,7 +191,7 @@ xml文件使用下划线+小写字符命名
 
 - fragment：使用fragment前缀，fragment_...
 - activity：使用activity前缀，activity_...
-- 列表项或重复的标签项：使用item前缀，item_...
+- 列表项或复用的布局：使用item前缀，item_...
 - dialog：使用dialog前缀，dialog_...
 
 drawable资源命名：一到两个主要单词即可，下划线连接，不需要表示从属的页面
@@ -249,6 +248,9 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
         Collection collection = data.get(position);
         binding.setCollection(collection);
         // 也可以通过binding对象binding.id获取控件，手动设置
+        // BaseAdapter添加了点击事件接口OnItemClickListener，包含一个onClick方法，传入一个数据类
+        // 整个列表项参与点击事件时为itemView设置点击事件
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(collection));
     }
 
     @Override
@@ -307,9 +309,75 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 最后在Fragment或Activity中设置data标签中的数据
 
 ``` java
-binding.setCollectionAdapter(new IndexCollectionAdapter());
+IndexCollectionAdapter adapter = new IndexCollectionAdapter();
+// 若设置了点击事件，则在onItemClickListener没有判空时必须调用setOnItemClickListener设置点击事件，否则会报空指针异常
+adapter.setOnItemClickListener(data -> {
+    //statements;
+});
+binding.setCollectionAdapter(adapter);
 binding.setViewModel(vm);
 ```
+
+## 网络通信
+
+app使用retrofit+RxJava+LiveEventBus实现网络通信，网络通信方法在repository层实现
+
+retrofit负责网络请求，RxJava负责异步线程切换，LiveEventBus负责在异步结果返回后通知相应的组件
+
+以添加预约功能为例
+
+1.   定义网络请求接口
+
+     定义AppointmentService接口，包含一个添加预约的抽象方法
+
+     ``` java
+     @POST("/api/user/appointment")
+     Observable<ResponseResult<Object>> addAppointment(@Header("Authorization") String token,
+                                                           @Body Appointment appointment);
+     
+     ```
+
+     使用Retrofit注解配置请求，返回一个Observable类型，即被观察者
+
+2.   创建AppointmentService对象
+
+     在MyRepository的空参构造中调用WebService创建AppointmentService
+
+     ``` java
+     appointmentService = WebService.getInstance().create(AppointmentService.class);
+     ```
+
+3.   定义调用方法
+
+     ``` java
+     public void addAppointment(Appointment appointment) {
+         String token = "Bearer " + userRepo.getUser().getToken();
+     
+         // 定义结果返回行为
+         Consumer<ResponseResult<Object>> onNext = result -> {
+             if (result.getStatus().equals("success")) {
+                 LogUtils.iTag("cdt-web-addAppointment", "添加预约成功");
+                 // 结果返回后使用LiveEventBus通知其他组件，相关的组件接收通知执行相应的行为，如关闭loading对话框
+                 LiveEventBus.get("MyRepository-addAppointment", Boolean.class).post(true);
+             } else {
+                 LogUtils.eTag("cdt-web-addAppointment", result.getMessage());
+             }
+         };
+     
+         // 对addAppointment方法返回的Observable设置订阅
+         appointmentService.addAppointment(token, appointment)
+                     .subscribeOn(Schedulers.io()) // Observable在IO线程执行
+                     .observeOn(AndroidSchedulers.mainThread()) // 观察者在主线程观察
+                     .subscribe( // 订阅行为
+                             // onNext:一个事件结果返回的回调行为
+                             onNext,
+                             // onError:异常处理行为
+                             throwable -> LogUtils.eTag("cdt-web-addAppointment", throwable),
+                             // onCompleted:所有事件完成的回调行为
+                             () -> LogUtils.iTag("cdt-web-addAppointment", "添加预约请求结束")
+                     );
+         }
+     ```
 
 ## WebView修改HTML实现
 
@@ -351,7 +419,7 @@ public static void configure(WebView view, boolean isListPage) {
 })()
 ```
 
-## 项目依赖的UI组件
+## 项目依赖的组件
 
 - FlowLayout：流式布局，可以实现搜索页面的内容标签效果
 
@@ -375,14 +443,38 @@ public static void configure(WebView view, boolean isListPage) {
   
   [JeremyLiao/LiveEventBus: EventBus for Android，消息总线，基于LiveData，具有生命周期感知能力，支持Sticky，支持AndroidX，支持跨进程，支持跨APP (github.com)](https://github.com/JeremyLiao/LiveEventBus)
   
-- AndroidUtilCode：Android工具类
+- AndroidUtilCode：Android工具类，非常实用！
 
   [Blankj/AndroidUtilCode: Android developers should collect the following utils(updating). (github.com)](https://github.com/Blankj/AndroidUtilCode)
 
-- Android-PickerView：选择器控件
+- XPopupExt：基于Xpopup的扩展选择器控件
 
-  [Bigkoo/Android-PickerView: This is a picker view for android , support linkage effect, timepicker and optionspicker.（时间选择器、省市区三级联动） (github.com)](https://github.com/Bigkoo/Android-PickerView)
+  [li-xiaojun/XPopupExt: XPopup扩展功能库，基于XPopup强大的弹窗能力和PickerView的选择器逻辑，封装了时间选择器弹窗、城市选择器弹窗和条件选择器。 (github.com)](https://github.com/li-xiaojun/XPopupExt)
 
 - UCrop：裁剪功能库
 
   [Yalantis/uCrop: Image Cropping Library for Android (github.com)](https://github.com/Yalantis/uCrop)
+  
+- MMKV：键值对存储方案，同步读写性能高，可替代SharedPreference，腾讯出品，半属精品
+
+  [Tencent/MMKV: An efficient, small mobile key-value storage framework developed by WeChat. Works on Android, iOS, macOS, Windows, and POSIX. (github.com)](https://github.com/Tencent/MMKV)
+
+- Luban：图片压缩库，使用体验不错
+
+  [Curzibn/Luban: Luban(鲁班)—Image compression with efficiency very close to WeChat Moments/可能是最接近微信朋友圈的图片压缩算法 (github.com)](https://github.com/Curzibn/Luban)
+
+- RxAndroid：RxJava的Android版本，可用于异步多线程通信
+
+  [Curzibn/Luban: Luban(鲁班)—Image compression with efficiency very close to WeChat Moments/可能是最接近微信朋友圈的图片压缩算法 (github.com)](https://github.com/Curzibn/Luban)
+
+- retrofit：基于okhttp的网络请求库，可搭配RxJava使用。好用！好用！好用！
+
+  [square/retrofit: A type-safe HTTP client for Android and the JVM (github.com)](https://github.com/square/retrofit)
+
+- gson：json转换库。好用好用好用
+
+  [google/gson: A Java serialization/deserialization library to convert Java Objects into JSON and back (github.com)](https://github.com/google/gson)
+
+- AndroidPicker：选择器控件
+
+  [gzu-liyujiang/AndroidPicker: 安卓选择器类库，包括日期及时间选择器（可用于出生日期、营业时间等）、单项选择器（可用于性别、民族、职业、学历、星座等）、二三级联动选择器（可用于车牌号、基金定投日期等）、城市地址选择器（分省级、地市级及区县级）、数字选择器（可用于年龄、身高、体重、温度等）、日历选日期择器（可用于酒店及机票预定日期）、颜色选择器、文件及目录选择器、图片选择器等……WheelPicker/DatePicker/TimePicker/OptionPicker/NumberPicker/LinkagePicker/AddressPicker/CarPlatePicker/CalendarPicker/ColorPicker/FilePicker/ImagePicker etc. (github.com)](https://github.com/gzu-liyujiang/AndroidPicker)

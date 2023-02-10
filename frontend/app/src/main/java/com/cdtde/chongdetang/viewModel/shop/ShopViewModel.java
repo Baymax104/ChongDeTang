@@ -47,11 +47,6 @@ public class ShopViewModel extends ViewModel {
         return hotProducts;
     }
 
-    public Product getHotProduct(int i) {
-        List<Product> value = hotProducts.getValue();
-        return value != null ? value.get(i) : null;
-    }
-
     public void refreshAllProduct() {
         products.setValue(repo.getProducts());
         hotProducts.setValue(repo.getHotProducts());
