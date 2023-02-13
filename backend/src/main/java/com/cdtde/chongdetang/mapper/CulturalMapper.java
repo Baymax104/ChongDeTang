@@ -2,8 +2,8 @@ package com.cdtde.chongdetang.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import com.cdtde.chongdetang.pojo.CulturalKnowledge;
+import com.cdtde.chongdetang.pojo.Cultural;
 @Mapper
-public interface CulturalKnowledgeMapper extends BaseMapper<CulturalKnowledge> {
+public interface CulturalMapper extends BaseMapper<Cultural> {
 
 }

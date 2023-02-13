@@ -3,10 +3,13 @@ package com.cdtde.chongdetang.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
+
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +19,8 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private String birthday;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
     private String photo;
     private String mail;
     private String phone;

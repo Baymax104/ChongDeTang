@@ -58,15 +58,17 @@ public class UserServiceImpl implements UserService {
 
         // 用户头像转码
         String objectKey = user.getPhoto();
-        String filename = "user_" + user.getId() + ".jpg";
-        File file = new File("src/main/resources/static/imgs", filename);
-        try {
-            cosService.download(file, objectKey);
-        } catch (CosClientException | InterruptedException e) {
-            throw new RuntimeException("登录头像获取失败");
+        if (objectKey != null) {
+            String filename = "user_" + user.getId() + ".jpg";
+            File file = new File("src/main/resources/static/imgs", filename);
+            try {
+                cosService.download(file, objectKey);
+            } catch (CosClientException | InterruptedException e) {
+                throw new RuntimeException("登录头像获取失败");
+            }
+            String encode = Base64.encode(file);
+            user.setPhoto(encode);
         }
-        String encode = Base64.encode(file);
-        user.setPhoto(encode);
 
         result.setStatus("success").setData(user);
         return result;

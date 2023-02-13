@@ -1,9 +1,12 @@
 package com.cdtde.chongdetang.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.util.Date;
 
 /**
  * @Description
@@ -22,8 +25,10 @@ public class Appointment {
     private String subscriber;
     private String phone;
     private String number;
-    private String date;
-    private String orderTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date orderTime;
     private Double orderMoney;
     private String state;
 }

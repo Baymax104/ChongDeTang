@@ -10,22 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CulturalKnowledge {
+public class Collection {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String date;
     private String title;
     private String photo;
     private String url;
     private String type;
-    private String aabstract;
-
-    public CulturalKnowledge(String type, String date,String title,String photo,String url,String aabstract) {
-        this.date = date;
-        this.url = url;
-        this.title = title;
-        this.photo = photo;
-        this.type = type;
-        this.aabstract = aabstract;
-    }
 }
