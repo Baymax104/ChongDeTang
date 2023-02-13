@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,7 +16,8 @@ import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
-import com.cdtde.chongdetang.viewModel.ExhibitViewModel;
+import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 /**
  * @Description
@@ -51,6 +50,21 @@ public class ExhibitFragment extends Fragment {
 
         binding.setViewModel(vm);
         binding.setTabAdapter(new FragmentAdapter(requireActivity()));
+
+        LiveEventBus.get("MainActivity-page", Integer.class)
+                        .observeSticky(this, page -> {
+                            if (page == 1 && !vm.isInit()) {
+                                vm.updateAllCollection();
+                            }
+                        });
+
+        LiveEventBus.get("ExhibitRepository-getAllCollection", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                vm.refreshAllCollection();
+                                vm.setInit(true);
+                            }
+                        });
 
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);

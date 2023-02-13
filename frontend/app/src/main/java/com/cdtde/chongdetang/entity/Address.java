@@ -6,7 +6,6 @@ import androidx.databinding.Bindable;
 import com.cdtde.chongdetang.BR;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Address extends BaseObservable implements Serializable {
     private Integer id;

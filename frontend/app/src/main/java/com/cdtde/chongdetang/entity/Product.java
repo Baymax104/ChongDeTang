@@ -3,9 +3,9 @@ package com.cdtde.chongdetang.entity;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
-import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.util.adapter.DateFormatAdapter;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +23,7 @@ public class Product extends BaseObservable implements Serializable {
     private String name;
     private String photo;
     private Double price;
+    @JsonAdapter(DateFormatAdapter.class)
     private Date launchTime;
     private String introduction;
 
@@ -46,7 +47,7 @@ public class Product extends BaseObservable implements Serializable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-        notifyPropertyChanged(BR.image);
+        notifyPropertyChanged(BR.photo);
     }
 
     @Bindable

@@ -1,7 +1,6 @@
 package com.cdtde.chongdetang.view.exhibit;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter;
-import com.cdtde.chongdetang.viewModel.ExhibitViewModel;
-
-import java.util.List;
+import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 /**
  * @Description
@@ -46,11 +43,16 @@ public class TabFragment extends Fragment {
         if (getArguments() != null) {
             page = getArguments().getInt("page");
         }
-        vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
-
         binding.setLifecycleOwner(this);
-        binding.setAdapter(new ExhibitCollectionAdapter());
+        vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
         binding.setViewModel(vm);
+
+        ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
+        adapter.setOnItemClickListener(data -> {
+            LiveEventBus.get("TabFragment-onItemClick", Collection.class).post(data);
+            CollectionActivity.actionStart(requireActivity());
+        });
+        binding.setAdapter(adapter);
         binding.setPage(page);
     }
 

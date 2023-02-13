@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityUserAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;

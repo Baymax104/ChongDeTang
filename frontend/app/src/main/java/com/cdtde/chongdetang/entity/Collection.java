@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.entity;
 
-import android.net.Uri;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -19,56 +17,55 @@ import java.io.Serializable;
  * @Version 1
  */
 public class Collection extends BaseObservable implements Serializable {
-    private int id;
-    private String name;
-    private String image;
-    private String description;
+
+    private Integer id;
+    private String title;
+    private String photo;
+    private String url;
+    private String type;
 
     public Collection() {
-        name = "测试";
-        image = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture)).toString();
-    }
-
-    public Collection(String name, String image, String description) {
-        this.name = name;
-        this.image = image;
-        this.description = description;
-    }
-
-    public Collection(int id, String name, String image, String description) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.description = description;
+        title = "测试";
+        photo = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture)).toString();
     }
 
     @Bindable
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
-        notifyPropertyChanged(BR.name);
-    }
-
-    @Bindable
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-        notifyPropertyChanged(BR.description);
+    public void setTitle(String title) {
+        this.title = title;
+        notifyPropertyChanged(BR.title);
     }
 
     @Bindable
-    public String getImage() {
-        return image;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-        notifyPropertyChanged(BR.image);
+    public void setUrl(String url) {
+        this.url = url;
+        notifyPropertyChanged(BR.url);
+    }
+
+    @Bindable
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+        notifyPropertyChanged(BR.photo);
+    }
+
+    @Bindable
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+        notifyPropertyChanged(BR.type);
     }
 }

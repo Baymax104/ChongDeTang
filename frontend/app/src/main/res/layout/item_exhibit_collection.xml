@@ -26,14 +26,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    android:src="@{collection.image}" />
+                    img_url="@{collection.photo}"
+                    img_cos="@{false}"/>
 
             <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     style="@style/ItemTitleStyle"
-                    android:text="@{collection.name}"/>
+                    android:text="@{collection.title}"
+                    android:layout_margin="7dp"/>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

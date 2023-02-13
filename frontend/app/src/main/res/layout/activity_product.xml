@@ -56,8 +56,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="350dp"
                             android:scaleType="centerCrop"
-                            img_url="@{viewModel.product != null ? viewModel.product.photo : null}"
-                            img_cos="@{true}"/>
+                            android:id="@+id/img" />
 
                     <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"

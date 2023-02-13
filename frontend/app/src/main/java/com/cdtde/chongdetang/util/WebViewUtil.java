@@ -24,13 +24,13 @@ public class WebViewUtil {
         view.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress >= 40) {
+                if (newProgress >= 90) {
                     view.loadUrl("javascript:(function() {" +
                             "document.getElementsByClassName('nav')[0].remove();" +
                             "document.getElementsByClassName('logo')[0].remove();" +
                             "document.getElementById('bottom').remove();" +
                             (isListPage ? "document.getElementsByClassName('flc')[0].remove();" : "") +
-                            "})()");
+                            "})();");
                 }
                 super.onProgressChanged(view, newProgress);
             }

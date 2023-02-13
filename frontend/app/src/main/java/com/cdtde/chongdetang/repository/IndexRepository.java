@@ -5,11 +5,8 @@ import com.cdtde.chongdetang.entity.Moment;
 import com.cdtde.chongdetang.entity.News;
 import com.cdtde.chongdetang.entity.User;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * @Description

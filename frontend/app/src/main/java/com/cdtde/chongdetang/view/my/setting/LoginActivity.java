@@ -18,7 +18,6 @@ import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.LoginViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.impl.LoadingPopupView;
 
 public class LoginActivity extends AppCompatActivity {

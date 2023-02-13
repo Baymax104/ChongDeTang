@@ -2,7 +2,6 @@ package com.cdtde.chongdetang.viewModel.my;
 
 import androidx.lifecycle.ViewModel;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;

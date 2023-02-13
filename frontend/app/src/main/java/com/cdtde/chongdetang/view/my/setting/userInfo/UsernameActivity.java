@@ -15,8 +15,6 @@ import com.cdtde.chongdetang.util.ValidateUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
-import java.util.regex.Pattern;
-
 public class UsernameActivity extends AppCompatActivity {
     private ActicityUsernameBinding binding;
 

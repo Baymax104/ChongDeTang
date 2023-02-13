@@ -1,6 +1,6 @@
 package com.cdtde.chongdetang.dataSource.web.api;
 
-import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.ResponseResult;
 
 import java.util.List;
@@ -12,11 +12,10 @@ import retrofit2.http.GET;
  * @Description
  * @Author John
  * @email
- * @Date 2023/2/9 23:00
+ * @Date 2023/2/13 1:45
  * @Version 1
  */
-public interface ProductService {
-
-    @GET("/api/product")
-    Observable<ResponseResult<List<Product>>> getAllProduct();
+public interface CollectionService {
+    @GET("/api/collection")
+    Observable<ResponseResult<List<Collection>>> getAllCollection();
 }

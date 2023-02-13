@@ -44,8 +44,4 @@ public class MomentActivity extends AppCompatActivity {
         return true;
     }
 
-    private void hideHtmlContent() {
-        //修改文本，可以注入任意的html代码，我是直接注入一段带样式的文本节点，表现良好
-
-    }
 }

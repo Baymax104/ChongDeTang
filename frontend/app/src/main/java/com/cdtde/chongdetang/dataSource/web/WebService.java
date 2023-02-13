@@ -2,24 +2,15 @@ package com.cdtde.chongdetang.dataSource.web;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.repository.AppKey;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Multipart;
 
 /**
  * @Description

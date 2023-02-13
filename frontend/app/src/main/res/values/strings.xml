@@ -120,4 +120,5 @@
     <string name="product_intro">商品介绍</string>
     <string name="product_launch_time">上架时间：</string>
     <string name="add_shopping">加入购物车</string>
+    <string name="collection_detail">藏品详情</string>
 </resources>

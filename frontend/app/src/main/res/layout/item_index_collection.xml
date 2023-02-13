@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:src="@{collection.image}"
+                    android:src="@{collection.photo}"
                     android:scaleType="centerCrop" />
 
             <TextView
@@ -34,7 +34,7 @@
                     android:layout_height="35dp"
                     android:gravity="center"
                     style="@style/ItemTitleStyle"
-                    android:text="@{collection.name}" />
+                    android:text="@{collection.title}" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

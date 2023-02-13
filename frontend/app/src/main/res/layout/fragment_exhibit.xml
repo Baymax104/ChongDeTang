@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.ExhibitViewModel" />
+                type="com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel" />
         <variable
                 name="tabAdapter"
                 type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />

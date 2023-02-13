@@ -1,12 +1,9 @@
 package com.cdtde.chongdetang.view.my.setting;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -24,7 +20,6 @@ import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordActivity;
 import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneActivity;
 import com.cdtde.chongdetang.viewModel.my.SettingViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
 
 public class SettingActivity extends AppCompatActivity {
     private ActivitySettingBinding binding;

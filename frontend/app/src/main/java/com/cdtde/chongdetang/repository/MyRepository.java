@@ -3,7 +3,6 @@ package com.cdtde.chongdetang.repository;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 
-import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.dataSource.web.WebService;
@@ -19,12 +18,10 @@ import com.cdtde.chongdetang.util.ValidateUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -96,9 +93,11 @@ public class MyRepository {
                 if (user != null) {
                     LogUtils.iTag("cdt-web-login", "用户结果返回");
                     String base64 = user.getPhoto();
-                    File file = CameraUtil.base64ToFile(base64);
-                    String uri = Uri.fromFile(file).toString();
-                    user.setPhoto(uri);
+                    if (base64 != null) {
+                        File file = CameraUtil.base64ToFile(base64);
+                        String uri = Uri.fromFile(file).toString();
+                        user.setPhoto(uri);
+                    }
                     userRepo.setUser(user);
                     LiveEventBus.get("MyRepository-login", Boolean.class).post(true);
                 }
@@ -121,7 +120,7 @@ public class MyRepository {
 
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);
-        if (!user.getPhoto().equals(originPhoto)) {
+        if (user.getPhoto() != null && !user.getPhoto().equals(originPhoto)) {
             File file = UriUtils.uri2File(Uri.parse(user.getPhoto()));
             String base64 = CameraUtil.file2Base64(file);
             map.put("newPhoto", base64);

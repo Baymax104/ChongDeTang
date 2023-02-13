@@ -4,12 +4,10 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.DialogAppointInfoBinding;
 import com.cdtde.chongdetang.entity.Appointment;
-import com.cdtde.chongdetang.viewModel.my.AppointViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.core.CenterPopupView;
 

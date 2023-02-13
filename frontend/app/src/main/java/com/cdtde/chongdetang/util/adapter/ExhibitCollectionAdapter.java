@@ -33,6 +33,7 @@ public class ExhibitCollectionAdapter extends BaseAdapter<Collection> {
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Collection collection = data.get(position);
         ((ViewHolder) holder).binding.setCollection(collection);
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(collection));
     }
 
 

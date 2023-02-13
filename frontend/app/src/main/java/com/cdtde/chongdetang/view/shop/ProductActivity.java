@@ -10,9 +10,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.blankj.utilcode.util.ConvertUtils;
+import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityProductBinding;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.repository.AppKey;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.shop.ProductViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
@@ -34,7 +37,18 @@ public class ProductActivity extends AppCompatActivity {
         WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
         LiveEventBus.get("ShopFragment-onItemClick", Product.class)
-                .observeSticky(this, product -> vm.setProduct(product));
+                .observeSticky(this, product -> {
+                    vm.setProduct(product);
+                    // 加载图片
+                    String path = AppKey.COS_URL + "/" + product.getPhoto();
+                    Glide.with(this)
+                            .asBitmap()
+                            .load(path)
+                            .skipMemoryCache(true)
+                            .placeholder(R.drawable.loading)
+                            .override(ConvertUtils.dp2px(350))
+                            .into(binding.img);
+                });
     }
 
     public static void actionStart(Context context) {

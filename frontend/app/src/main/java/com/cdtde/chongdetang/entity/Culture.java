@@ -1,9 +1,5 @@
 package com.cdtde.chongdetang.entity;
 
-import com.cdtde.chongdetang.R;
-
-import java.util.Date;
-
 public class Culture {
     private String type;
     private String title;    //实际标题内容

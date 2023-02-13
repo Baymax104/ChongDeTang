@@ -1,8 +1,6 @@
 package com.cdtde.chongdetang.util;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.lxj.xpopup.XPopup;
@@ -12,8 +10,6 @@ import com.lxj.xpopupext.listener.TimePickerListener;
 
 import java.lang.reflect.Constructor;
 import java.util.Date;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * @Description 基于XPopup，封装对话框创建及方法调用

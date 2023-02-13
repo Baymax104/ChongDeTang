@@ -10,7 +10,9 @@ import androidx.databinding.Bindable;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.util.adapter.DateFormatAdapter;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +40,7 @@ public class User extends BaseObservable implements Parcelable {
     @Expose
     private String gender;
     @Expose
+    @JsonAdapter(DateFormatAdapter.class)
     private Date birthday;
     @Expose
     private String phone;

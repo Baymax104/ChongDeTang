@@ -1,11 +1,8 @@
 package com.cdtde.chongdetang.util.adapter;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;

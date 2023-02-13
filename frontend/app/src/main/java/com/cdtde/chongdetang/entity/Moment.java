@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.entity;
 
-import android.net.Uri;
-
 import java.io.Serializable;
 import java.util.Date;
 

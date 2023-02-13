@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentUserPasswordBinding;
-import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment;
 import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
 
 /**

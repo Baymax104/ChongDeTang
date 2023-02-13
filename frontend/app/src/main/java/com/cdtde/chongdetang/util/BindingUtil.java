@@ -1,7 +1,6 @@
 package com.cdtde.chongdetang.util;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.BindingConversion;
@@ -17,14 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.UriUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.ImageViewTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.repository.AppKey;
@@ -39,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 /**
  * @Description DataBinding自定义绑定的工具类，由DataBinding自动调用
@@ -49,15 +42,40 @@ import java.util.Optional;
  * @Version 1
  */
 public class BindingUtil {
+
+    public static class ImageTarget extends ImageViewTarget<Bitmap> {
+
+        public ImageTarget(ImageView view) {
+            super(view);
+        }
+
+        @Override
+        protected void setResource(@Nullable Bitmap resource) {
+            if (resource != null) {
+                int imgWidth = ConvertUtils.dp2px(resource.getWidth());
+                int imgHeight = ConvertUtils.dp2px(resource.getHeight());
+                int scaleWidth = view.getWidth();
+                int scaleHeight = scaleWidth * imgHeight / imgWidth;
+                Bitmap scale = ImageUtils.scale(resource, scaleWidth, scaleHeight);
+                ViewGroup.LayoutParams params = view.getLayoutParams();
+                params.height = scaleHeight;
+                view.setLayoutParams(params);
+                view.setImageBitmap(scale);
+            }
+        }
+    }
+
+
     @BindingAdapter("src")
     public static void setSrc(ImageView view, int resId) {
         view.setImageResource(resId);
     }
 
-    @BindingAdapter(value = {"img_url", "img_cos"}, requireAll = false)
+    @BindingAdapter(value = {"img_url", "img_cos"})
     public static void setImgUrl(ImageView view, String url, Boolean cos) {
         if (url == null) {
             Glide.with(view)
+                    .asBitmap()
                     .load(R.drawable.loading)
                     .into(view);
         } else {
@@ -68,27 +86,13 @@ public class BindingUtil {
                         .load(path)
                         .skipMemoryCache(true)
                         .placeholder(R.drawable.loading)
-                        .into(new ImageViewTarget<Bitmap>(view) {
-                            @Override
-                            protected void setResource(@Nullable Bitmap resource) {
-                                if (resource != null) {
-                                    int imgWidth = resource.getWidth();
-                                    int imgHeight = resource.getHeight();
-                                    int scaleWidth = view.getWidth();
-                                    int scaleHeight = scaleWidth * imgHeight / imgWidth;
-                                    Bitmap scale = ImageUtils.scale(resource, scaleWidth, scaleHeight);
-                                    view.setImageBitmap(scale);
-                                }
-                            }
-                        });
+                        .into(new ImageTarget(view));
             } else {
                 Glide.with(view)
                         .asBitmap()
                         .load(url)
-                        .skipMemoryCache(true)
                         .placeholder(R.drawable.loading)
-                        .override(533, 640)
-                        .into(view);
+                        .into(new ImageTarget(view));
             }
         }
     }

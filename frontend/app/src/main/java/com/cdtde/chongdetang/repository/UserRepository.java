@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.repository;
 
-import android.app.Application;
-
 import com.blankj.utilcode.util.Utils;
 import com.cdtde.chongdetang.entity.User;
 

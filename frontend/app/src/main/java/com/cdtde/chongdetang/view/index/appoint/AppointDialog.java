@@ -1,11 +1,8 @@
 package com.cdtde.chongdetang.view.index.appoint;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
@@ -14,17 +11,12 @@ import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.ValidateUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BottomPopupView;
-import com.lxj.xpopupext.listener.TimePickerListener;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Optional;
 
 /**
  * @Description
