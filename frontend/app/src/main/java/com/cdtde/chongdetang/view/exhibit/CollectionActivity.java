@@ -29,7 +29,7 @@ public class CollectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collection);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         vm = new ViewModelProvider(this).get(CollectionViewModel.class);
         binding.setViewModel(vm);

@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(LoginViewModel.class);
         binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         XPopup.Builder builder = new XPopup.Builder(this)
                 .dismissOnTouchOutside(false);

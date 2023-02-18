@@ -41,14 +41,12 @@ public class Culture extends BaseObservable {
         notifyPropertyChanged(BR.description);
     }
 
-    @Bindable
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-        notifyPropertyChanged(BR.type);
     }
 
     @Bindable

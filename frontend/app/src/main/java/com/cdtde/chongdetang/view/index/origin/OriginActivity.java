@@ -37,7 +37,7 @@ public class OriginActivity extends AppCompatActivity {
         binding.setFragmentAdapter(new FragmentAdapter(this));
         binding.setViewModel(vm);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);

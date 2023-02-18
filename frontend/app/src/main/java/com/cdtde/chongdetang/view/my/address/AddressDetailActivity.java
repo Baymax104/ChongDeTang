@@ -41,7 +41,7 @@ public class AddressDetailActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(AddressDetailViewModel.class);
         binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         LiveEventBus.get("AddressActivity-onItemClick", Address.class)
                 .observeSticky(this, address -> vm.setAddress(address));

@@ -1,47 +1,47 @@
-package com.cdtde.chongdetang.view.index.culture;
+package com.cdtde.chongdetang.view.index.couplet;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ActivityCultureDetailBinding;
-import com.cdtde.chongdetang.entity.Culture;
+import com.cdtde.chongdetang.databinding.ActivityCoupletDetailBinding;
+import com.cdtde.chongdetang.entity.News;
 import com.cdtde.chongdetang.util.WebViewUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.index.CultureDetailViewModel;
+import com.cdtde.chongdetang.viewModel.index.CoupletDetailViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
-import io.reactivex.annotations.NonNull;
+public class CoupletDetailActivity extends AppCompatActivity {
 
-public class CultureDetailActivity extends AppCompatActivity {
-    private ActivityCultureDetailBinding binding;
-    private CultureDetailViewModel vm;
+    private ActivityCoupletDetailBinding binding;
+
+    private CoupletDetailViewModel vm;
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, CoupletDetailActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_culture_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_couplet_detail);
         binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(CultureDetailViewModel.class);
-
+        vm = new ViewModelProvider(this).get(CoupletDetailViewModel.class);
         binding.setViewModel(vm);
 
         WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         WebViewUtil.configure(binding.webPage, false);
 
-        LiveEventBus.get("CultureListFragment-onItemClick", Culture.class)
-                .observeSticky(this, vm::setCulture);
-    }
-
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, CultureDetailActivity.class);
-        context.startActivity(intent);
+        LiveEventBus.get("CoupletActivity-onItemClick", News.class)
+                .observeSticky(this, vm::setCouplet);
     }
 
     @Override
@@ -52,4 +52,5 @@ public class CultureDetailActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

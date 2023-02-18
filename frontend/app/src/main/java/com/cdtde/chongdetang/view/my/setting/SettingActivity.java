@@ -33,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(SettingViewModel.class);
         binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         LiveEventBus.get("LogoutDialog-logout", Boolean.class)
                         .observe(this, aBoolean -> {

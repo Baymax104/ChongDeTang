@@ -27,7 +27,7 @@ public class SearchActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(SearchViewModel.class);
         binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, false);
+        WindowUtil.initActivityWindow(binding.toolbar, this, false, true);
 
     }
 

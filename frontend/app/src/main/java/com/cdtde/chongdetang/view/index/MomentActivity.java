@@ -23,7 +23,7 @@ public class MomentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_moment);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         WebViewUtil.configure(binding.webPage, true);
 

@@ -34,7 +34,7 @@ public class ProductActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(ProductViewModel.class);
         binding.setViewModel(vm);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         LiveEventBus.get("ShopFragment-onItemClick", Product.class)
                 .observeSticky(this, product -> {

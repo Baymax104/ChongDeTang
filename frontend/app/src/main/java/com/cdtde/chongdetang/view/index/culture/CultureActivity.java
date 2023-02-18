@@ -34,14 +34,14 @@ public class CultureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_culture);
         vm = new ViewModelProvider(this).get(CultureViewModel.class);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         binding.setLifecycleOwner(this);
 
         binding.setViewModel(vm);
         binding.setFragmentAdapter(new FragmentAdapter(this));
 
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
-                .dismissOnTouchOutside(false));
+                .dismissOnTouchOutside(false)).show();
 
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);

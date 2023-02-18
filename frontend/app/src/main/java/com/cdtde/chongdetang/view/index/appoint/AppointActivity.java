@@ -40,7 +40,7 @@ public class AppointActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_appoint);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, false);
         vm = new ViewModelProvider(this).get(AppointViewModel.class);
 
         dialog = (AppointDialog) DialogUtil.create(this, AppointDialog.class, null);

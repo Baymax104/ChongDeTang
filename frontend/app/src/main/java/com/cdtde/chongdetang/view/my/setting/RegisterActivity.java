@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         vm = new ViewModelProvider(this).get(RegisterViewModel.class);
         binding.setViewModel(vm);
         binding.setFragmentAdapter(new FragmentAdapter(this));

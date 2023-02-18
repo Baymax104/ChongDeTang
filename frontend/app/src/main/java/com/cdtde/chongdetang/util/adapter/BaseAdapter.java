@@ -24,7 +24,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Ba
         void onClick(T data);
     }
 
-    protected OnItemClickListener<T> onItemClickListener;
+    protected OnItemClickListener<T> onItemClickListener = data1 -> {
+    };
 
     public BaseAdapter() {
     }

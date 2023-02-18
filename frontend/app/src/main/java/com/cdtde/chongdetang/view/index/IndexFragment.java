@@ -16,8 +16,10 @@ import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
+import com.cdtde.chongdetang.view.index.couplet.CoupletActivity;
 import com.cdtde.chongdetang.view.index.culture.CultureActivity;
 import com.cdtde.chongdetang.view.index.origin.OriginActivity;
+import com.cdtde.chongdetang.view.index.scenes.ScenesActivity;
 import com.cdtde.chongdetang.viewModel.index.IndexViewModel;
 import com.youth.banner.indicator.CircleIndicator;
 
@@ -67,7 +69,10 @@ public class IndexFragment extends Fragment {
 
         binding.entry2.getRoot().setOnClickListener(v -> AppointActivity.actionStart(getContext()));
 
+        binding.entry3.getRoot().setOnClickListener(v -> CoupletActivity.actionStart(getContext()));
+
         binding.entry4.getRoot().setOnClickListener(v -> CultureActivity.actionStart(getContext()));
+
         binding.entry5.getRoot().setOnClickListener(v -> OriginActivity.actionStart(getContext()));
 
         binding.entry6.getRoot().setOnClickListener(v -> ContactActivity.actionStart(getContext()));

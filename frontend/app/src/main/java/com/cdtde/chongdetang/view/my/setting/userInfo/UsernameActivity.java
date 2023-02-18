@@ -23,7 +23,7 @@ public class UsernameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.acticity_username);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         binding.setValidity(true);
 

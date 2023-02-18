@@ -1,6 +1,8 @@
 package com.cdtde.chongdetang.util;
 
+import android.graphics.Color;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowInsets;
 
 import androidx.appcompat.app.ActionBar;
@@ -22,12 +24,14 @@ public class WindowUtil {
 
     /**
      * 初始化Activity的ToolBar
-     * 隐藏原标题，设置状态栏为亮色主题(白底黑字)，ToolBar背景延伸到状态栏
-     * @param toolbar Activity的ToolBar
-     * @param activity activity实例
-     * @param back 是否需要返回按钮
+     * 隐藏原标题，设置状态栏主题，ToolBar背景延伸到状态栏
+     *
+     * @param toolbar    Activity的ToolBar
+     * @param activity   activity实例
+     * @param back       是否需要返回按钮
+     * @param lightTheme 是否是亮色主题(白底黑字)，默认为暗色主题(黑底白字)
      */
-    public static void initActivityWindow(Toolbar toolbar, AppCompatActivity activity, boolean back) {
+    public static void initActivityWindow(Toolbar toolbar, AppCompatActivity activity, boolean back, boolean lightTheme) {
         activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
@@ -37,7 +41,12 @@ public class WindowUtil {
                 actionBar.setHomeAsUpIndicator(R.drawable.arrow_left);
             }
         }
-        activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        Window window = activity.getWindow();
+        if (!lightTheme) {
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+        int theme = lightTheme ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0;
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|theme);
     }
 
     /**

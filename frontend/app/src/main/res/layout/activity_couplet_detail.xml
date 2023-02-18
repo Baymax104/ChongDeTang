@@ -3,18 +3,16 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.CultureDetailViewModel" />
+                type="com.cdtde.chongdetang.viewModel.index.CoupletDetailViewModel" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".view.index.MomentActivity">
-
+            tools:context=".view.index.couplet.CoupletDetailActivity">
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +28,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.culture != null ? viewModel.culture.title : ``}"
+                        android:text="@{viewModel.couplet != null ? viewModel.couplet.title : ``}"
                         style="@style/CommonToolbarTitleStyle"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -42,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/web_page"
-                web_url="@{viewModel.culture != null ? viewModel.culture.url : null}" />
+                web_url="@{viewModel.couplet != null ? viewModel.couplet.url : null}" />
 
     </LinearLayout>
 </layout>

@@ -35,7 +35,7 @@ public class UserPasswordActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(UserPasswordViewModel.class);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);

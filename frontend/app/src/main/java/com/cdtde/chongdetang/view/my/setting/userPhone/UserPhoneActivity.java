@@ -35,7 +35,7 @@ public class UserPhoneActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(UserPhoneViewModel.class);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         binding.setViewModel(vm);
         binding.setFragmentAdapter(new FragmentAdapter(this));

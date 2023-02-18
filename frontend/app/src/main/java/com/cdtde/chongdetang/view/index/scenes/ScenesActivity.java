@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.index;
+package com.cdtde.chongdetang.view.index.scenes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,7 @@ public class ScenesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scene);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

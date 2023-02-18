@@ -75,7 +75,7 @@ public class UserInfoActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(UserInfoViewModel.class);
         binding.setLifecycleOwner(this);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true);
+        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         binding.setViewModel(vm);
 
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);

@@ -26,6 +26,12 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.index.couplet.CoupletDetailActivity"
+                android:exported="false" />
+        <activity
+                android:name=".view.index.couplet.CoupletActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.exhibit.CollectionActivity"
                 android:exported="false" />
         <activity
@@ -59,7 +65,7 @@
                 android:theme="@style/Theme.ChongDeTang.NoActionBar" />
         <activity android:name=".view.index.MomentListActivity" />
         <activity android:name=".view.index.MomentActivity" />
-        <activity android:name=".view.index.ScenesActivity" />
+        <activity android:name=".view.index.scenes.ScenesActivity" />
         <activity android:name=".view.my.setting.SettingActivity" />
         <activity android:name=".view.my.FeedbackActivity" />
         <activity android:name=".view.my.setting.userInfo.UserInfoActivity" />
