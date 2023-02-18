@@ -17,11 +17,10 @@ public class News {
     private Integer id;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
-
     private String title;
     private String photo;
     private String url;
     private String type;
-    private String aabstract;
+    private String description;
 
 }
