@@ -63,8 +63,8 @@
                 android:name="com.cdtde.chongdetang.view.index.culture.CultureActivity"
                 android:exported="false"
                 android:theme="@style/Theme.ChongDeTang.NoActionBar" />
-        <activity android:name=".view.index.MomentListActivity" />
-        <activity android:name=".view.index.MomentActivity" />
+        <activity android:name=".view.index.moment.MomentActivity" />
+        <activity android:name=".view.index.moment.MomentDetailActivity" />
         <activity android:name=".view.index.scenes.ScenesActivity" />
         <activity android:name=".view.my.setting.SettingActivity" />
         <activity android:name=".view.my.FeedbackActivity" />
@@ -80,7 +80,7 @@
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                 tools:ignore="LockedOrientationActivity" />
         <activity
-                android:name=".view.SearchActivity"
+                android:name=".view.index.SearchActivity"
                 android:exported="false">
             <meta-data
                     android:name="android.app.lib_name"

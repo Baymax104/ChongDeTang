@@ -32,7 +32,9 @@ public class IndexRepository {
     private UserRepository userRepo;
     private static IndexRepository repository;
 
-    private List<News> news;
+    private List<News> couplet;
+    private List<News> moments;
+    private List<News> infos;
 
     private List<Culture> cultures;
 
@@ -43,8 +45,10 @@ public class IndexRepository {
 
     private IndexRepository() {
         userRepo = UserRepository.getInstance();
-        news = new ArrayList<>();
+        couplet = new ArrayList<>();
         cultures = new ArrayList<>();
+        moments = new ArrayList<>();
+        infos = new ArrayList<>();
 
         cultureService = WebService.getInstance().create(CultureService.class);
         newsService = WebService.getInstance().create(NewsService.class);
@@ -65,8 +69,16 @@ public class IndexRepository {
         return cultures;
     }
 
-    public List<News> getNews() {
-        return news;
+    public List<News> getCouplet() {
+        return couplet;
+    }
+
+    public List<News> getMoments() {
+        return moments;
+    }
+
+    public List<News> getInfos() {
+        return infos;
     }
 
     public void getAllCulture() {
@@ -96,7 +108,13 @@ public class IndexRepository {
         Consumer<ResponseResult<List<News>>> onNext = result -> {
             if (result.getStatus().equals("success")) {
                 if (result.getData() != null) {
-                    news = result.getData();
+                    if ("mryl".equals(type)) {
+                        couplet = result.getData();
+                    } else if ("zgdt".equals(type)) {
+                        moments = result.getData();
+                    } else if ("hyzx".equals(type)) {
+                        infos = result.getData();
+                    }
                     LiveEventBus.get("IndexRepository-getNews-" + type, Boolean.class).post(true);
                     LogUtils.iTag("cdt-web-getNews", "获取news成功");
                 }

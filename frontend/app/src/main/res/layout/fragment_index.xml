@@ -152,7 +152,14 @@
                         bind:requireAll="@{true}"/>
 
 
-                <include layout="@layout/item_moment" />
+                <include
+                        layout="@layout/item_news"
+                        android:id="@+id/first_moment"
+                        bind:news="@{viewModel.moments[0]}"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
 
                 <include
                         layout="@layout/item_block_label"
@@ -160,7 +167,10 @@
                         bind:text="@{@string/index_info}"
                         bind:requireAll="@{true}"/>
 
-                <include layout="@layout/item_news" />
+                <include
+                        layout="@layout/item_news"
+                        android:id="@+id/first_info"
+                        bind:news="@{viewModel.infos[0]}"/>
 
             </LinearLayout>
 

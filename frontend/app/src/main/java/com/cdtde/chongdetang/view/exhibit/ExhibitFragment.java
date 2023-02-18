@@ -15,7 +15,7 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
-import com.cdtde.chongdetang.view.SearchActivity;
+import com.cdtde.chongdetang.view.index.SearchActivity;
 import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 

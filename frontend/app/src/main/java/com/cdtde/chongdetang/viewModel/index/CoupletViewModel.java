@@ -37,6 +37,6 @@ public class CoupletViewModel extends ViewModel {
     }
 
     public void refreshAllCouplet() {
-        couplets.setValue(repo.getNews());
+        couplets.setValue(repo.getCouplet());
     }
 }

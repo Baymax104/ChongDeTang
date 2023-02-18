@@ -15,7 +15,7 @@ import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
-import com.cdtde.chongdetang.view.SearchActivity;
+import com.cdtde.chongdetang.view.index.SearchActivity;
 import com.cdtde.chongdetang.viewModel.shop.ShopViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.youth.banner.indicator.CircleIndicator;

@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel;
+package com.cdtde.chongdetang.viewModel.index;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

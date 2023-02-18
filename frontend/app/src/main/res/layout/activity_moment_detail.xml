@@ -3,10 +3,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.CultureDetailViewModel" />
+                name="moment"
+                type="com.cdtde.chongdetang.entity.News" />
     </data>
 
     <LinearLayout
@@ -30,7 +29,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.culture != null ? viewModel.culture.title : ``}"
+                        android:text="@{moment.title}"
                         style="@style/CommonToolbarTitleStyle"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -42,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/web_page"
-                web_url="@{viewModel.culture != null ? viewModel.culture.url : null}" />
+                web_url="@{moment.url}"/>
 
     </LinearLayout>
 </layout>

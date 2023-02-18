@@ -7,13 +7,13 @@
         <import type="android.view.View"/>
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.SearchViewModel" />
+                type="com.cdtde.chongdetang.viewModel.index.SearchViewModel" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.SearchActivity"
+            tools:context=".view.index.SearchActivity"
             android:orientation="vertical"
             android:fitsSystemWindows="true"
             tools:ignore="ContentDescription,RelativeOverlap">

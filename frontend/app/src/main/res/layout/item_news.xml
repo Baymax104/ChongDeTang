@@ -3,49 +3,101 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+                name="news"
+                type="com.cdtde.chongdetang.entity.News" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                tools:ignore="ContentDescription">
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="测试测试测试测试测试测试"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+            <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/main_color" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        sub_day="@{news.date}"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/regular" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        sub_date="@{news.date}"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/regular" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
                     android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="5dp">
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:text="测试测试测试测试"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{news.title}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/regular"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{news.description}"
+                        android:textColor="@color/gray_1"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/text_regular"
+                        android:layout_marginTop="5dp"
+                        android:maxLines="2"
+                        android:ellipsize="end" />
+
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    img_url="@{news.photo}"
+                    img_cos="@{false}"/>
 
         </LinearLayout>
 
-        <ImageView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/test_picture"
-                tools:ignore="ContentDescription" />
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_4"
+                android:layout_marginHorizontal="15dp" />
     </LinearLayout>
 </layout>
