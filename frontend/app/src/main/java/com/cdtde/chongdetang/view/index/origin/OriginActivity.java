@@ -4,34 +4,43 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
+import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityOriginBinding;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.MenuItem;
 
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.OriginPagerAdapter;
+import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.viewModel.index.OriginViewModel;
 
 
 public class OriginActivity extends AppCompatActivity {
 
     private ActivityOriginBinding binding;
-    //vm在 Fragment中声明
+
+    private OriginViewModel vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityOriginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_origin);
+        binding.setLifecycleOwner(this);
+
+        vm = new ViewModelProvider(this).get(OriginViewModel.class);
+
+        binding.setFragmentAdapter(new FragmentAdapter(this));
+        binding.setViewModel(vm);
 
         WindowUtil.initActivityWindow(binding.toolbar, this, true);
 
-        OriginPagerAdapter originPagerAdapter = new OriginPagerAdapter(this, getSupportFragmentManager());
-        binding.viewPager.setAdapter(originPagerAdapter);
-        binding.tabs.setupWithViewPager(binding.viewPager);
         binding.viewPager.setOffscreenPageLimit(2);
+        ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
 
     }
     public static void actionStart(Context context) {

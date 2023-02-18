@@ -7,19 +7,22 @@
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.index.OriginViewModel" />
+        <variable
+                name="page"
+                type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".view.index.origin.OriginWebFragment">
+            tools:context=".view.index.origin.OriginFragment">
 
         <WebView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/origin_web_page"
-                web_url="@{viewModel.webUrl}" />
+                android:id="@+id/web_page"
+                web_url="@{viewModel.getPageUrl(page)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

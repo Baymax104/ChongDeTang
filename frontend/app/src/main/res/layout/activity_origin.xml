@@ -4,7 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+                name="fragmentAdapter"
+                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+        <variable
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.index.OriginViewModel" />
     </data>
 
     <LinearLayout
@@ -34,19 +39,50 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
+        <com.angcyo.tablayout.DslTabLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabBackground="@color/bar_color"
-                app:tabIndicatorColor="@color/main_color"
-                app:tabSelectedTextColor="@color/main_color"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:layout_height="50dp"
+                android:id="@+id/tabs"
+                android:paddingHorizontal="5dp"
+                android:background="@color/bar_color"
+                app:tab_orientation="HORIZONTAL"
+                app:tab_item_is_equ_width="true"
+                app:tab_default_index="0"
+                app:tab_draw_indicator="true"
+                app:tab_select_color="@color/white"
+                app:tab_deselect_color="@color/black"
+                app:tab_enable_gradient_color="true"
+                app:tab_indicator_shape="RECTANGLE"
+                app:tab_indicator_solid_color="@color/main_color"
+                app:tab_indicator_radius="15dp"
+                app:tab_indicator_width="110dp"
+                app:tab_indicator_height="30dp"
+                app:tab_indicator_y_offset="10dp"
+                app:tab_indicator_enable_flow="true">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Origin_tab_text1"
+                    style="@style/TabTextStyle"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Origin_tab_text2"
+                    style="@style/TabTextStyle"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Origin_tab_text3"
+                    style="@style/TabTextStyle"/>
+        </com.angcyo.tablayout.DslTabLayout>
 
-        <androidx.viewpager.widget.ViewPager
+
+        <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                fragments="@{viewModel.fragments}"
+                fragment_adapter="@{fragmentAdapter}"
                 tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>

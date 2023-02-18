@@ -18,48 +18,39 @@ import com.cdtde.chongdetang.viewModel.index.OriginViewModel;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class OriginWebFragment extends Fragment {
-
-    private static final String ARG_SECTION_NUMBER = "section_number";
+public class OriginFragment extends Fragment {
 
     private OriginViewModel vm;
     private FragmentOriginBinding binding;
 
-    public static OriginWebFragment newInstance(int index) {
-        OriginWebFragment fragment = new OriginWebFragment();
+    public static OriginFragment newInstance(int index) {
+        OriginFragment fragment = new OriginFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
+        bundle.putInt("page", index);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOriginBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(this);
-        View root = binding.getRoot();
-
-        WebViewUtil.configure(binding.originWebPage, true);
-
-        return root;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(OriginViewModel.class);
-        binding.setViewModel(vm);
-        int index = 0;
+        int index = 1;
         if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
+            index = getArguments().getInt("page");
         }
-        vm.setIndex(index);
+        binding.setLifecycleOwner(this);
+        vm = new ViewModelProvider(requireActivity()).get(OriginViewModel.class);
+        WebViewUtil.configure(binding.webPage, true);
 
+        binding.setViewModel(vm);
+        binding.setPage(index);
     }
 
     @Override
