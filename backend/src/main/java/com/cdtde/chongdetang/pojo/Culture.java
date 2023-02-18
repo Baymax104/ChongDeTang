@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cultural {
+public class Culture {
     @TableId(type = IdType.AUTO)
     private Integer id;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -22,5 +22,5 @@ public class Cultural {
     private String photo;
     private String url;
     private String type;
-    private String aabstract;
+    private String description;
 }
