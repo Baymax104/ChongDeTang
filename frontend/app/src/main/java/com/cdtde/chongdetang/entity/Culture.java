@@ -1,65 +1,93 @@
 package com.cdtde.chongdetang.entity;
 
-public class Culture {
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+import com.cdtde.chongdetang.BR;
+import com.cdtde.chongdetang.util.adapter.DateFormatAdapter;
+import com.google.gson.annotations.JsonAdapter;
+
+import java.util.Date;
+
+public class Culture extends BaseObservable {
+
+    private Integer id;
     private String type;
-    private String title;    //实际标题内容
-    private String disTitle; //显示在列表item中的内容
-    private String date;
+    private String title;
+    private String description;
+    @JsonAdapter(DateFormatAdapter.class)
+    private Date date;
     private String url;
+    private String photo;
 
     public Culture() {
-        title="山东青岛一收藏家收藏千余块汉画像砖 无处存放";
-        date="2022-12-12";
-    }
-    public Culture(String title,String url) {
-        this.title=title;
-        this.url=url;
-        date="2022-12-12";
     }
 
-
-    public String getDisTitle() {
-        int endPos=15;
-        if (title.length()>endPos){
-            disTitle=title.substring(0,endPos)+"...";
-        }
-        else disTitle=title;
-        return disTitle;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDisTitle(String disTitle) {
-        this.disTitle = disTitle;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        notifyPropertyChanged(BR.description);
+    }
+
+    @Bindable
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+        notifyPropertyChanged(BR.type);
     }
 
+    @Bindable
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+        notifyPropertyChanged(BR.title);
     }
 
-    public String getDate() {
+    @Bindable
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
+        notifyPropertyChanged(BR.date);
     }
 
+    @Bindable
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
+        notifyPropertyChanged(BR.url);
+    }
+
+    @Bindable
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+        notifyPropertyChanged(BR.photo);
     }
 }

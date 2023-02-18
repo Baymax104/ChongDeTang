@@ -51,10 +51,10 @@
                 android:exported="false"
                 android:label="@string/title_activity_origin" />
         <activity
-                android:name="com.cdtde.chongdetang.view.index.CultureDeatailActivity"
+                android:name="com.cdtde.chongdetang.view.index.culture.CultureDetailActivity"
                 android:exported="false" />
         <activity
-                android:name="com.cdtde.chongdetang.view.index.CultureActivity"
+                android:name="com.cdtde.chongdetang.view.index.culture.CultureActivity"
                 android:exported="false"
                 android:theme="@style/Theme.ChongDeTang.NoActionBar" />
         <activity android:name=".view.index.MomentListActivity" />

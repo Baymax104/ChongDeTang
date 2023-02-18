@@ -71,10 +71,10 @@
     <string name="Origin_tab_text_2">崇德缘起</string>
     <string name="Origin_tab_text_3">馆长介绍</string>
     <string name="origin_title">崇德缘起</string>
-    <string name="culture_tab_text_1">匾额楹联</string>
-    <string name="culture_tab_text_2">书画篆刻</string>
-    <string name="culture_tab_text_3">造纸印刷</string>
-    <string name="culture_tab_text_4">拓片雕版</string>
+    <string name="culture_tab_text1">匾额楹联</string>
+    <string name="culture_tab_text2">书画篆刻</string>
+    <string name="culture_tab_text3">造纸印刷</string>
+    <string name="culture_tab_text4">拓片雕版</string>
     <string name="update_phone">更换手机号</string>
     <string name="update_pwd">修改密码</string>
     <string name="phone_validate_tip">为了您的安全，该操作需要验证手机号</string>

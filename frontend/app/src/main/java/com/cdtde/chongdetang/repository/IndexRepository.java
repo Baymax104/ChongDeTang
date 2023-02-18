@@ -1,12 +1,23 @@
 package com.cdtde.chongdetang.repository;
 
+import android.annotation.SuppressLint;
+
+import com.blankj.utilcode.util.LogUtils;
+import com.cdtde.chongdetang.dataSource.web.WebService;
+import com.cdtde.chongdetang.dataSource.web.api.CultureService;
 import com.cdtde.chongdetang.entity.Culture;
 import com.cdtde.chongdetang.entity.Moment;
 import com.cdtde.chongdetang.entity.News;
+import com.cdtde.chongdetang.entity.ResponseResult;
 import com.cdtde.chongdetang.entity.User;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @Description
@@ -15,6 +26,7 @@ import java.util.List;
  * @Date 2023/1/13 1:33
  * @Version 1
  */
+@SuppressLint("CheckResult")
 public class IndexRepository {
 
     private UserRepository userRepo;
@@ -23,12 +35,9 @@ public class IndexRepository {
     private List<Moment> moments;
     private List<News> news;
 
-    private List<Culture> culturePage1;
-    private List<Culture> culturePage2;
-    private List<Culture> culturePage3;
-    private List<Culture> culturePage4;
+    private List<Culture> cultures;
 
-    private String cultureDetailUrl;
+    private CultureService cultureService;
 
 
 
@@ -36,12 +45,9 @@ public class IndexRepository {
         userRepo = UserRepository.getInstance();
         moments = new ArrayList<>();
         news = new ArrayList<>();
+        cultures = new ArrayList<>();
 
-        culturePage1 = new ArrayList<>();
-        culturePage2 = new ArrayList<>();
-        culturePage3 = new ArrayList<>();
-        culturePage4 = new ArrayList<>();
-        generateTest();
+        cultureService = WebService.getInstance().create(CultureService.class);
     }
 
     public static IndexRepository getInstance() {
@@ -55,54 +61,30 @@ public class IndexRepository {
         return userRepo.getUser();
     }
 
-
-    public List<Culture> getCulturePage1() {
-        return culturePage1;
+    public List<Culture> getCultures() {
+        return cultures;
     }
 
-    public List<Culture> getCulturePage2() {
-        return culturePage2;
+    public void getAllCulture() {
+        Consumer<ResponseResult<List<Culture>>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                if (result.getData() != null) {
+                    cultures = result.getData();
+                    LiveEventBus.get("IndexRepository-getAllCulture", Boolean.class).post(true);
+                    LogUtils.iTag("cdt-web-getAllCulture", "获取“崇德讲堂”成功");
+                }
+            } else {
+                LogUtils.eTag("cdt-web-getAllCulture", result.getMessage());
+            }
+        };
+
+        cultureService.getAllCulture()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-getAllCulture", throwable),
+                        () -> LogUtils.iTag("cdt-web-getAllCulture", "获取“崇德讲堂”请求结束")
+                );
     }
-
-    public List<Culture> getCulturePage3() {
-        return culturePage3;
-    }
-
-    public List<Culture> getCulturePage4() {
-        return culturePage4;
-    }
-
-    public void setCulturePage1(List<Culture> culturePage1) {
-        this.culturePage1 = culturePage1;
-    }
-
-    private void generateTest() {
-
-
-        for (int i = 0; i < 30; i++) {
-            culturePage1.add(new Culture());
-        }
-
-        for (int i = 0; i < 30; i++) {
-            culturePage2.add(new Culture());
-        }
-
-        for (int i = 0; i < 30; i++) {
-            culturePage3.add(new Culture());
-        }
-
-        for (int i = 0; i < 30; i++) {
-            culturePage4.add(new Culture());
-        }
-    }
-
-    public String getCultureDetailUrl() {
-        return cultureDetailUrl;
-    }
-
-    public void setCultureDetailUrl(String cultureDetailUrl) {
-        this.cultureDetailUrl = cultureDetailUrl;
-    }
-
-
 }

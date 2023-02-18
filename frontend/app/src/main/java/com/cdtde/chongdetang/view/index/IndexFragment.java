@@ -16,6 +16,7 @@ import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.SearchActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
+import com.cdtde.chongdetang.view.index.culture.CultureActivity;
 import com.cdtde.chongdetang.view.index.origin.OriginActivity;
 import com.cdtde.chongdetang.viewModel.index.IndexViewModel;
 import com.youth.banner.indicator.CircleIndicator;

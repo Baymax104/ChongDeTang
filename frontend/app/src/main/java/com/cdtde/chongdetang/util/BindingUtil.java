@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
@@ -136,6 +137,28 @@ public class BindingUtil {
     @BindingAdapter("web_url")
     public static void setWebUrl(WebView view, String url) {
         view.loadUrl(url);
+    }
+
+    @BindingAdapter("sub_date")
+    public static void setSubDate(TextView view, Date date) {
+        String d = "";
+        if (date != null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+            String format1 = format.format(date);
+            d = format1.substring(0, format1.length() - 3);
+        }
+        view.setText(d);
+    }
+
+    @BindingAdapter("sub_day")
+    public static void setSubDay(TextView view, Date date) {
+        String d = "";
+        if (date != null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+            String format1 = format.format(date);
+            d = format1.substring(format1.length() - 2);
+        }
+        view.setText(d);
     }
 
     public static void bindPasswordEdit(View view, EditText edit) {

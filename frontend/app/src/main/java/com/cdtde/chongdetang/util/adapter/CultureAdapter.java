@@ -4,12 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
-
-import com.cdtde.chongdetang.databinding.ItemIndexCultureBinding;
+import com.cdtde.chongdetang.databinding.ItemCultureBinding;
 import com.cdtde.chongdetang.entity.Culture;
 
 
@@ -18,7 +16,7 @@ public class CultureAdapter extends BaseAdapter<Culture>{
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_index_culture, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_culture, parent, false);
         return new ViewHolder(view);
     }
 
@@ -37,13 +35,10 @@ public class CultureAdapter extends BaseAdapter<Culture>{
 
 
     private static class ViewHolder extends BaseViewHolder {
-        ItemIndexCultureBinding binding;
-        View view;
+        ItemCultureBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = ItemIndexCultureBinding.bind(itemView);
-            view =itemView;
-
+            binding = ItemCultureBinding.bind(itemView);
         }
     }
 

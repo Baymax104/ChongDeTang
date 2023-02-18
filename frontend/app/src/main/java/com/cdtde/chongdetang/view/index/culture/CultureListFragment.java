@@ -1,27 +1,25 @@
-package com.cdtde.chongdetang.view.index;
+package com.cdtde.chongdetang.view.index.culture;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.databinding.FragmentCultureListBinding;
+import com.cdtde.chongdetang.entity.Culture;
 import com.cdtde.chongdetang.util.adapter.CultureAdapter;
-import com.cdtde.chongdetang.viewModel.CultureViewModel;
-
+import com.cdtde.chongdetang.viewModel.index.CultureViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class CultureListFragment extends Fragment {
-
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
     private CultureViewModel vm;
     private FragmentCultureListBinding binding;
@@ -36,27 +34,25 @@ public class CultureListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         int page = 1;
         if (getArguments() != null) {
-            page = getArguments().getInt(ARG_SECTION_NUMBER);
+            page = getArguments().getInt("page");
         }
-        vm = new ViewModelProvider(this).get(CultureViewModel.class);
-        vm.setIndex(page);
+        binding.setLifecycleOwner(this);
+        vm = new ViewModelProvider(requireActivity()).get(CultureViewModel.class);
 
-        binding.setPage(page);
+        binding.setViewModel(vm);
         CultureAdapter cultureAdapter = new CultureAdapter();
-        int finalPage = page;
         cultureAdapter.setOnItemClickListener(data -> {
-            String str = data.getUrl();
-            vm.setDetailUel(str);
-            CultureDeatailActivity.actionStart(getContext());
+            CultureDetailActivity.actionStart(getContext());
+            LiveEventBus.get("CultureListFragment-onItemClick", Culture.class).post(data);
         });
         binding.setAdapter(cultureAdapter);
-        binding.setViewModel(vm);
+        binding.setPage(page);
     }
 
     public static CultureListFragment newInstance(int index) {
         CultureListFragment fragment = new CultureListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
+        bundle.putInt("page", index);
         fragment.setArguments(bundle);
         return fragment;
     }
