@@ -3,6 +3,7 @@ package com.cdtde.chongdetang.viewModel.shop;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.ShopRepository;
 
@@ -52,7 +53,7 @@ public class ShopViewModel extends ViewModel {
     }
 
     public void updateAllProduct() {
-        repo.getAllProduct();
+        repo.requestAllProduct();
     }
 
     public boolean isInit() {
@@ -61,5 +62,8 @@ public class ShopViewModel extends ViewModel {
 
     public void setInit(boolean init) {
         isInit = init;
+        if (init) {
+            LogUtils.iTag("cdt-shop", "shop初始化完成");
+        }
     }
 }

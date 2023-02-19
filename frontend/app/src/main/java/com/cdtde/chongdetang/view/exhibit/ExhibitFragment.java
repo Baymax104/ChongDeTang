@@ -58,7 +58,7 @@ public class ExhibitFragment extends Fragment {
                             }
                         });
 
-        LiveEventBus.get("ExhibitRepository-getAllCollection", Boolean.class)
+        LiveEventBus.get("ExhibitRepository-requestAllCollection", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 vm.refreshAllCollection();

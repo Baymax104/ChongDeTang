@@ -3,6 +3,7 @@ package com.cdtde.chongdetang.viewModel.index;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.News;
@@ -25,17 +26,21 @@ public class IndexViewModel extends ViewModel {
 
     private MutableLiveData<List<Integer>> bannerImg;
 
-    private MutableLiveData<List<Collection>> collections;
+    private MutableLiveData<List<Collection>> hotCollections;
 
     private MutableLiveData<List<News>> moments;
 
     private MutableLiveData<List<News>> infos;
 
+    private boolean isMomentInit;
+    private boolean isInfoInit;
+    private boolean isHotCollectionInit;
+
 
     public IndexViewModel() {
         repo = IndexRepository.getInstance();
         bannerImg = new MutableLiveData<>();
-        collections = new MutableLiveData<>();
+        hotCollections = new MutableLiveData<>();
         moments = new MutableLiveData<>();
         infos = new MutableLiveData<>();
 
@@ -45,17 +50,17 @@ public class IndexViewModel extends ViewModel {
         imgs.add(R.drawable.index_banner3);
         bannerImg.setValue(imgs);
 
-        updateAllMoment();
-        updateAllInfo();
-        generateTest();
+        isMomentInit = false;
+        isInfoInit = false;
+        isHotCollectionInit = false;
     }
 
     public MutableLiveData<List<Integer>> getBannerImg() {
         return bannerImg;
     }
 
-    public MutableLiveData<List<Collection>> getCollections() {
-        return collections;
+    public MutableLiveData<List<Collection>> getHotCollections() {
+        return hotCollections;
     }
 
     public MutableLiveData<List<News>> getMoments() {
@@ -67,11 +72,48 @@ public class IndexViewModel extends ViewModel {
     }
 
     public void updateAllMoment() {
-        repo.getNews("zgdt");
+        repo.requestNews("zgdt");
     }
 
     public void updateAllInfo() {
-        repo.getNews("hyzx");
+        repo.requestNews("hyzx");
+    }
+
+    public void updateHotCollection() {
+        repo.requestHotCollection();
+    }
+
+    public boolean isMomentInit() {
+        return isMomentInit;
+    }
+
+    public void setMomentInit(boolean momentInit) {
+        isMomentInit = momentInit;
+        if (momentInit) {
+            LogUtils.iTag("cdt-index", "index-moment初始化完成");
+        }
+    }
+
+    public boolean isInfoInit() {
+        return isInfoInit;
+    }
+
+    public void setInfoInit(boolean infoInit) {
+        isInfoInit = infoInit;
+        if (infoInit) {
+            LogUtils.iTag("cdt-index", "index-info初始化完成");
+        }
+    }
+
+    public boolean isHotCollectionInit() {
+        return isHotCollectionInit;
+    }
+
+    public void setHotCollectionInit(boolean hotCollectionInit) {
+        isHotCollectionInit = hotCollectionInit;
+        if (hotCollectionInit) {
+            LogUtils.iTag("cdt-index", "index-hotCollection初始化完成");
+        }
     }
 
     public void refreshAllMoment() {
@@ -88,11 +130,7 @@ public class IndexViewModel extends ViewModel {
                 .post(infos1.toArray(new News[0]));
     }
 
-    private void generateTest() {
-        List<Collection> value2 = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            value2.add(new Collection());
-        }
-        collections.setValue(value2);
+    public void refreshHotCollection() {
+        hotCollections.setValue(repo.getHotCollection());
     }
 }

@@ -61,7 +61,7 @@ public class ShopFragment extends Fragment {
                             }
                         });
 
-        LiveEventBus.get("ShopRepository-getAllProduct", Boolean.class)
+        LiveEventBus.get("ShopRepository-requestAllProduct", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 vm.refreshAllProduct();

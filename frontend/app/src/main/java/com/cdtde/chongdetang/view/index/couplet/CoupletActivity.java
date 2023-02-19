@@ -56,7 +56,7 @@ public class CoupletActivity extends AppCompatActivity {
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)).show();
 
-        LiveEventBus.get("IndexRepository-getNews-mryl", Boolean.class)
+        LiveEventBus.get("IndexRepository-requestNews-mryl", Boolean.class)
                 .observe(this, aBoolean -> {
                     loading.smartDismiss();
                     if (aBoolean) {

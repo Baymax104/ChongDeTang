@@ -85,17 +85,17 @@ public class ShopRepository {
         }
     }
 
-    public void getAllProduct() {
+    public void requestAllProduct() {
         Consumer<ResponseResult<List<Product>>> onNext = result -> {
             if (result.getStatus().equals("success")) {
                 if (result.getData() != null) {
                     products = result.getData();
                     updateHotProduct();
-                    LogUtils.iTag("cdt-web-getAllProduct", "获取商品成功");
-                    LiveEventBus.get("ShopRepository-getAllProduct", Boolean.class).post(true);
+                    LogUtils.iTag("cdt-web-requestAllProduct", "获取商品成功");
+                    LiveEventBus.get("ShopRepository-requestAllProduct", Boolean.class).post(true);
                 }
             } else {
-                LogUtils.eTag("cdt-web-getAllProduct", result.getMessage());
+                LogUtils.eTag("cdt-web-requestAllProduct", result.getMessage());
             }
         };
 
@@ -104,8 +104,8 @@ public class ShopRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        throwable -> LogUtils.eTag("cdt-web-getAllProduct", throwable),
-                        () -> LogUtils.iTag("cdt-web-getAllProduct", "获取商品请求结束")
+                        throwable -> LogUtils.eTag("cdt-web-requestAllProduct", throwable),
+                        () -> LogUtils.iTag("cdt-web-requestAllProduct", "获取商品请求结束")
                 );
     }
 

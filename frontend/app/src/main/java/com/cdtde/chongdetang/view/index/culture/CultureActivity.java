@@ -46,7 +46,7 @@ public class CultureActivity extends AppCompatActivity {
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
 
-        LiveEventBus.get("IndexRepository-getAllCulture", Boolean.class)
+        LiveEventBus.get("IndexRepository-requestAllCulture", Boolean.class)
                 .observe(this, aBoolean -> {
                     loading.smartDismiss();
                     if (aBoolean) {

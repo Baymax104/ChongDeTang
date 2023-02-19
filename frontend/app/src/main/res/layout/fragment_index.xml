@@ -131,14 +131,14 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="190dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/collection_list"
                         android:padding="5dp"
                         tools:listitem="@layout/item_index_collection"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="horizontal"
                         recycler_adapter="@{collectionAdapter}"
-                        recycler_data="@{viewModel.collections}"/>
+                        recycler_data="@{viewModel.hotCollections}"/>
 
                 <View
                         android:layout_width="match_parent"

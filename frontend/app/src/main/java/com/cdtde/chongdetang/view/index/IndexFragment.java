@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
+import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.News;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
+import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
 import com.cdtde.chongdetang.view.index.couplet.CoupletActivity;
 import com.cdtde.chongdetang.view.index.culture.CultureActivity;
@@ -56,9 +58,14 @@ public class IndexFragment extends Fragment {
         setHasOptionsMenu(true);
         vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
         binding.setLifecycleOwner(this);
-
-        binding.setCollectionAdapter(new IndexCollectionAdapter());
         binding.setViewModel(vm);
+
+        IndexCollectionAdapter adapter = new IndexCollectionAdapter();
+        adapter.setOnItemClickListener(data -> {
+            LiveEventBus.get("TabFragment-onItemClick", Collection.class).post(data);
+            CollectionActivity.actionStart(requireContext());
+        });
+        binding.setCollectionAdapter(adapter);
 
         binding.banner.setIndicator(new CircleIndicator(getContext()));
 
@@ -70,19 +77,44 @@ public class IndexFragment extends Fragment {
             return true;
         });
 
-        LiveEventBus.get("IndexRepository-getNews-zgdt", Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (aBoolean) {
-                        vm.refreshAllMoment();
+        LiveEventBus.get("MainActivity-page", Integer.class)
+                .observeSticky(this, page -> {
+                    if (page == 0) {
+                        if (!vm.isMomentInit()) {
+                            vm.updateAllMoment();
+                        }
+                        if (!vm.isInfoInit()) {
+                            vm.updateAllInfo();
+                        }
+                        if (!vm.isHotCollectionInit()) {
+                            vm.updateHotCollection();
+                        }
                     }
                 });
 
-        LiveEventBus.get("IndexRepository-getNews-hyzx", Boolean.class)
+        LiveEventBus.get("IndexRepository-requestNews-zgdt", Boolean.class)
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        vm.refreshAllMoment();
+                        vm.setMomentInit(true);
+                    }
+                });
+
+        LiveEventBus.get("IndexRepository-requestNews-hyzx", Boolean.class)
                 .observe(this, aBoolean -> {
                     if (aBoolean) {
                         vm.refreshAllInfo();
+                        vm.setInfoInit(true);
                     }
                 });
+
+        LiveEventBus.get("IndexRepository-requestHotCollection", Boolean.class)
+                        .observe(this, aBoolean -> {
+                            if (aBoolean) {
+                                vm.refreshHotCollection();
+                                vm.setHotCollectionInit(true);
+                            }
+                        });
 
         binding.entry1.getRoot().setOnClickListener(v -> ScenesActivity.actionStart(getContext()));
 
@@ -113,6 +145,10 @@ public class IndexFragment extends Fragment {
             }
         });
         binding.infoLabel.allEntry.setOnClickListener(v -> InfoActivity.actionStart(getContext()));
+
+        binding.collectionLabel.allEntry.setOnClickListener(v ->
+            LiveEventBus.get("IndexFragment-allCollection", Boolean.class).post(true)
+        );
     }
 
     @Override

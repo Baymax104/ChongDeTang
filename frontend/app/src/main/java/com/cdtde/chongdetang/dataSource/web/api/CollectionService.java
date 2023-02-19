@@ -18,4 +18,7 @@ import retrofit2.http.GET;
 public interface CollectionService {
     @GET("/api/collection")
     Observable<ResponseResult<List<Collection>>> getAllCollection();
+
+    @GET("/api/collection/hot")
+    Observable<ResponseResult<List<Collection>>> getHotCollection();
 }

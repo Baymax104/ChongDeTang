@@ -10,7 +10,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-            android:layout_width="105dp"
+            android:layout_width="100dp"
             android:layout_height="150dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
@@ -26,15 +26,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:src="@{collection.photo}"
+                    img_url="@{collection.photo}"
+                    img_cos="@{false}"
                     android:scaleType="centerCrop" />
 
             <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     style="@style/ItemTitleStyle"
-                    android:text="@{collection.title}" />
+                    android:text="@{collection.title}"
+                    android:layout_margin="7dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

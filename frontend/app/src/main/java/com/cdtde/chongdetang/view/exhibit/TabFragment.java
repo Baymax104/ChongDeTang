@@ -50,7 +50,7 @@ public class TabFragment extends Fragment {
         ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
         adapter.setOnItemClickListener(data -> {
             LiveEventBus.get("TabFragment-onItemClick", Collection.class).post(data);
-            CollectionActivity.actionStart(requireActivity());
+            CollectionActivity.actionStart(requireContext());
         });
         binding.setAdapter(adapter);
         binding.setPage(page);

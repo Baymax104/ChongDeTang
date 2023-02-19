@@ -50,16 +50,16 @@ public class ExhibitRepository {
     public List<Collection> getCollections() {
         return collections;
     }
-    public void getAllCollection() {
+    public void requestAllCollection() {
         Consumer<ResponseResult<List<Collection>>> onNext = result -> {
             if (result.getStatus().equals("success")) {
                 if (result.getData() != null) {
                     collections = result.getData();
-                    LiveEventBus.get("ExhibitRepository-getAllCollection", Boolean.class).post(true);
-                    LogUtils.iTag("cdt-web-getAllCollection", "获取藏品成功");
+                    LiveEventBus.get("ExhibitRepository-requestAllCollection", Boolean.class).post(true);
+                    LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品成功");
                 }
             } else {
-                LogUtils.eTag("cdt-web-getAllCollection", result.getMessage());
+                LogUtils.eTag("cdt-web-requestAllCollection", result.getMessage());
             }
         };
 
@@ -68,8 +68,8 @@ public class ExhibitRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        throwable -> LogUtils.eTag("cdt-web-getAllCollection", throwable),
-                        () -> LogUtils.iTag("cdt-web-getAllCollection", "获取藏品请求结束")
+                        throwable -> LogUtils.eTag("cdt-web-requestAllCollection", throwable),
+                        () -> LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品请求结束")
                 );
     }
 }

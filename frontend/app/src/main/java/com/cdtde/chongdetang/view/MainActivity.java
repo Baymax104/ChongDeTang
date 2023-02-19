@@ -31,22 +31,16 @@ public class MainActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         initView();
 
-
-
         binding.mainNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_index) {
                 binding.viewPager.setCurrentItem(0, false);
-                LiveEventBus.get("MainActivity-page", Integer.class).post(0);
             } else if (id == R.id.nav_exhibit) {
                 binding.viewPager.setCurrentItem(1, false);
-                LiveEventBus.get("MainActivity-page", Integer.class).post(1);
             } else if (id == R.id.nav_shop) {
                 binding.viewPager.setCurrentItem(2, false);
-                LiveEventBus.get("MainActivity-page", Integer.class).post(2);
             } else if (id == R.id.nav_my) {
                 binding.viewPager.setCurrentItem(3, false);
-                LiveEventBus.get("MainActivity-page", Integer.class).post(3);
             }
             return true;
         });
@@ -55,11 +49,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 binding.mainNav.getMenu().getItem(position).setChecked(true);
+                LiveEventBus.get("MainActivity-page", Integer.class).post(position);
             }
         });
 
         binding.viewPager.setUserInputEnabled(false);
-        binding.viewPager.setOffscreenPageLimit(4);
+        binding.viewPager.setOffscreenPageLimit(3);
+
+        LiveEventBus.get("IndexFragment-allCollection", Boolean.class)
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        binding.viewPager.setCurrentItem(1, false);
+                    }
+                });
     }
 
     private void initView() {

@@ -76,6 +76,7 @@ public class AddressDetailViewModel extends ViewModel {
         if (current == null) {
             current = new Address(province, city, detail, consignee, phone);
         } else {
+            // TODO 没有修改时点击保存要直接退出
             current.setConsignee(consignee)
                     .setPhone(phone)
                     .setProvince(province)
