@@ -21,6 +21,7 @@
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:id="@+id/toolbar_layout">
 
             <androidx.appcompat.widget.Toolbar
@@ -38,13 +39,13 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:src="@drawable/test_picture"
-                    android:padding="10dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/exhibit_banner"
                     android:scaleType="centerCrop"
-                    android:background="@color/white"
+                    app:riv_corner_radius="10dp"
                     app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
 
             <com.angcyo.tablayout.DslTabLayout
