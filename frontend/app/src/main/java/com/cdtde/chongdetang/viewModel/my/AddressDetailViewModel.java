@@ -38,6 +38,11 @@ public class AddressDetailViewModel extends ViewModel {
 
     public void setAddress(Address address) {
         this.address.setValue(address);
+        consignee = address.getConsignee();
+        phone = address.getPhone();
+        province = address.getProvince();
+        city = address.getCity();
+        detail = address.getDetail();
     }
 
     public MutableLiveData<Address> getAddress() {
@@ -76,7 +81,6 @@ public class AddressDetailViewModel extends ViewModel {
         if (current == null) {
             current = new Address(province, city, detail, consignee, phone);
         } else {
-            // TODO 没有修改时点击保存要直接退出
             current.setConsignee(consignee)
                     .setPhone(phone)
                     .setProvince(province)
