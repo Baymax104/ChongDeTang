@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CollectionService {
     ResponseResult<List<Collection>> download();
+
+    ResponseResult<List<Collection>> getHot();
 }

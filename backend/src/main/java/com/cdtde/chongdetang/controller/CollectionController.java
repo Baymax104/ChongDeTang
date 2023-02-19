@@ -20,4 +20,9 @@ public class CollectionController {
     public ResponseResult<List<Collection>> download(){
         return collectionService.download();
     }
+
+    @GetMapping("/hot")
+    public ResponseResult<List<Collection>> getHot() {
+        return collectionService.getHot();
+    }
 }
