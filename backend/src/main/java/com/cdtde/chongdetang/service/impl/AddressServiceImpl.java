@@ -61,9 +61,17 @@ public class AddressServiceImpl implements AddressService {
                 throw new RuntimeException("用户信息错误");
             }
 
+            // 修改前判重
+            Address dbAddress = addressMapper.selectById(address.getId());
+            if (address.equals(dbAddress)) {
+                result.setStatus("success").setData(address);
+                return result;
+            }
+
+            // 有变化才修改
             UpdateWrapper<Address> wrapper = new UpdateWrapper<>();
             wrapper.eq("id", address.getId())
-                            .eq("user_id", address.getUserId());
+                    .eq("user_id", address.getUserId());
             int update = addressMapper.update(address, wrapper);
             if (update != 1) {
                 throw new RuntimeException("修改地址信息失败");
