@@ -18,6 +18,8 @@ import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
 import com.cdtde.chongdetang.view.index.couplet.CoupletActivity;
 import com.cdtde.chongdetang.view.index.culture.CultureActivity;
+import com.cdtde.chongdetang.view.index.info.InfoActivity;
+import com.cdtde.chongdetang.view.index.info.InfoDetailActivity;
 import com.cdtde.chongdetang.view.index.moment.MomentActivity;
 import com.cdtde.chongdetang.view.index.moment.MomentDetailActivity;
 import com.cdtde.chongdetang.view.index.origin.OriginActivity;
@@ -98,11 +100,19 @@ public class IndexFragment extends Fragment {
             News news = binding.firstInfo.getNews();
             if (news != null) {
                 LiveEventBus.get("MomentActivity-onItemClick", News.class).post(news);
-                MomentDetailActivity.actionStart(requireActivity());
+                MomentDetailActivity.actionStart(getContext());
             }
         });
         binding.momentLabel.allEntry.setOnClickListener(v -> MomentActivity.actionStart(getContext()));
 
+        binding.firstInfo.getRoot().setOnClickListener(v -> {
+            News news = binding.firstInfo.getNews();
+            if (news != null) {
+                LiveEventBus.get("InfoActivity-onItemClick", News.class).post(news);
+                InfoDetailActivity.actionStart(getContext());
+            }
+        });
+        binding.infoLabel.allEntry.setOnClickListener(v -> InfoActivity.actionStart(getContext()));
     }
 
     @Override

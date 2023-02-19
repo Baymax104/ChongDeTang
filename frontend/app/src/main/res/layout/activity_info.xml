@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="com.cdtde.chongdetang.entity.News"/>
+        <variable
+                name="adapter"
+                type="com.cdtde.chongdetang.util.adapter.NewsAdapter" />
+        <variable
+                name="infos"
+                type="List&lt;News>" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            tools:context=".view.index.info.InfoActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bar_color"
+                    android:id="@+id/toolbar"
+                    android:fitsSystemWindows="true"
+                    app:layout_scrollFlags="scroll|enterAlways">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonToolbarTitleStyle"
+                        android:text="@string/index_info" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                tools:listitem="@layout/item_news"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                recycler_adapter="@{adapter}"
+                recycler_data="@{infos}"/>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
