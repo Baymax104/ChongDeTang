@@ -16,6 +16,7 @@ import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.view.index.SearchActivity;
+import com.cdtde.chongdetang.view.my.setting.LoginActivity;
 import com.cdtde.chongdetang.viewModel.shop.ShopViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.youth.banner.indicator.CircleIndicator;
@@ -82,6 +83,14 @@ public class ShopFragment extends Fragment {
         binding.hotProduct1.setClickHandler(this::clickItem);
         binding.hotProduct2.setClickHandler(this::clickItem);
         binding.hotProduct3.setClickHandler(this::clickItem);
+
+        binding.shoppingEntry.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                ShoppingActivity.actionStart(requireContext());
+            } else {
+                LoginActivity.actionStart(requireContext());
+            }
+        });
     }
 
     public void clickItem(Product product) {

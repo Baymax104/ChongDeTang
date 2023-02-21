@@ -8,6 +8,8 @@ import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.ProductService;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Shopping;
+import com.cdtde.chongdetang.entity.User;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class ShopRepository {
 
     private List<Product> hotProducts;
 
+    private List<Shopping> shoppings;
+
     private ProductService productService;
 
     private ShopRepository() {
@@ -51,6 +55,7 @@ public class ShopRepository {
 
         products = new ArrayList<>();
         hotProducts = new ArrayList<>();
+        shoppings = new ArrayList<>();
 
         productService = WebService.getInstance().create(ProductService.class);
     }
@@ -60,6 +65,10 @@ public class ShopRepository {
             repository = new ShopRepository();
         }
         return repository;
+    }
+
+    public User getUser() {
+        return userRepo.getUser();
     }
 
     public List<Integer> getBannerResource() {
@@ -72,6 +81,10 @@ public class ShopRepository {
 
     public List<Product> getHotProducts() {
         return hotProducts;
+    }
+
+    public List<Shopping> getShoppings() {
+        return shoppings;
     }
 
     public void updateHotProduct() {
@@ -106,6 +119,56 @@ public class ShopRepository {
                         onNext,
                         throwable -> LogUtils.eTag("cdt-web-requestAllProduct", throwable),
                         () -> LogUtils.iTag("cdt-web-requestAllProduct", "获取商品请求结束")
+                );
+    }
+
+    public void requestShopping() {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<List<Shopping>>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                if (result.getData() != null) {
+                    shoppings = result.getData();
+                    LiveEventBus.get("ShopRepository-requestShopping", Boolean.class).post(true);
+                    LogUtils.iTag("cdt-web-requestShopping", "获取购物车成功");
+                }
+            } else {
+                LogUtils.eTag("cdt-web-requestShopping", result.getMessage());
+            }
+        };
+
+        productService.getShoppingByUser(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-requestShopping", throwable),
+                        () -> LogUtils.iTag("cdt-web-requestShopping", "获取购物车请求结束")
+                );
+    }
+
+    public void updateShoppingNumber(Shopping shopping, Integer number) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<Integer>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                if (result.getData() != null) {
+                    shopping.setNumber(result.getData());
+                    LiveEventBus.get("ShopRepository-updateShoppingNumber", Boolean.class).post(true);
+                    LogUtils.iTag("cdt-web-updateShoppingNumber", "修改商品数量成功");
+                }
+            } else {
+                LogUtils.eTag("cdt-web-updateShoppingNumber", result.getMessage());
+            }
+        };
+
+        productService.updateShoppingNumber(token, shopping.getId(), shopping.getProduct().getId(), number)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-updateShoppingNumber", throwable),
+                        () -> LogUtils.iTag("cdt-web-updateShoppingNumber", "修改商品数量请求结束")
                 );
     }
 

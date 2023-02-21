@@ -121,4 +121,9 @@
     <string name="product_launch_time">上架时间：</string>
     <string name="add_shopping">加入购物车</string>
     <string name="collection_detail">藏品详情</string>
+    <string name="select_tip">已选：</string>
+    <string name="edit">编辑</string>
+    <string name="all_select">全选</string>
+    <string name="settle">结算</string>
+    <string name="sum_tip">总计：</string>
 </resources>

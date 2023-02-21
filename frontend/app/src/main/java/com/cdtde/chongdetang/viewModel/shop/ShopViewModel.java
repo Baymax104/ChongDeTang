@@ -35,6 +35,10 @@ public class ShopViewModel extends ViewModel {
         isInit = false;
     }
 
+    public boolean isLogin() {
+        return repo.getUser().getToken() != null;
+    }
+
     public MutableLiveData<List<Integer>> getBannerResource() {
         return bannerResource;
     }

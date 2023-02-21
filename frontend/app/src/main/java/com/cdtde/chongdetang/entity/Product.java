@@ -30,6 +30,14 @@ public class Product extends BaseObservable implements Serializable {
     public Product() {
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Bindable
     public String getName() {
         return name;

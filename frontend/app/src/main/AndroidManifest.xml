@@ -26,6 +26,9 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.shop.ShoppingActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.index.info.InfoDetailActivity"
                 android:exported="false" />
         <activity
