@@ -89,4 +89,21 @@ public class ProductServiceImpl implements ProductService {
 
         return new ResponseResult<>("success", null, null);
     }
+
+    @Override
+    public ResponseResult<Object> deleteShopping(Shopping shopping) {
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = loginUser.getUser().getId();
+
+        if (userId != shopping.getUserId()) {
+            throw new RuntimeException("用户信息错误");
+        }
+
+        int i = shoppingMapper.deleteById(shopping);
+        if (i != 1) {
+            throw new RuntimeException("删除购物车失败");
+        }
+
+        return new ResponseResult<>("success", null, null);
+    }
 }

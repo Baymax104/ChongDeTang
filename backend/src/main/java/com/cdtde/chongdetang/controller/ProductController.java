@@ -44,4 +44,9 @@ public class ProductController {
     public ResponseResult<Object> addShopping(@RequestBody Shopping shopping) {
         return productService.addShopping(shopping);
     }
+
+    @DeleteMapping("/shopping")
+    public ResponseResult<Object> deleteShopping(@RequestBody Shopping shopping) {
+        return productService.deleteShopping(shopping);
+    }
 }
