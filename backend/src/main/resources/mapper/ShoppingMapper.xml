@@ -4,16 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cdtde.chongdetang.mapper.ShoppingMapper">
 
-    <select id="getShoppingByUserId" resultMap="shopping_map">
+    <insert id="insertShopping">
+        insert into shopping(user_id, product_id, number)
+        values (#{shopping.userId}, #{shopping.product.id}, #{shopping.number});
+    </insert>
+
+    <select id="selectByOneKey" resultMap="shopping_map">
         select s.id sid,
                s.user_id,
                s.number,
                p.*
         from shopping s
         join product p on p.id = s.product_id
-        where s.user_id = #{userId};
+        where user_id = #{userId}
+        or product_id = #{productId};
     </select>
-    
+
+    <select id="selectByAllKey" resultMap="shopping_map">
+        select s.id sid,
+               s.user_id,
+               s.number,
+               p.*
+        from shopping s
+        join product p on p.id = s.product_id
+        where user_id = #{userId}
+        and product_id = #{productId};
+    </select>
+
     <resultMap id="shopping_map" type="com.cdtde.chongdetang.pojo.Shopping">
         <id column="sid" property="id"/>
         <result column="user_id" property="userId"/>

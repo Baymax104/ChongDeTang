@@ -39,4 +39,9 @@ public class ProductController {
                                                        @RequestParam("number") Integer number) {
         return productService.updateShoppingNumber(shoppingId, productId, number);
     }
+
+    @PostMapping("/shopping")
+    public ResponseResult<Object> addShopping(@RequestBody Shopping shopping) {
+        return productService.addShopping(shopping);
+    }
 }

@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     public ResponseResult<List<Shopping>> getShoppingByUser() {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
-        List<Shopping> shopping = shoppingMapper.getShoppingByUserId(userId);
+        List<Shopping> shopping = shoppingMapper.selectByOneKey(userId, null);
         return new ResponseResult<>("success", null, shopping);
     }
 
@@ -61,5 +61,32 @@ public class ProductServiceImpl implements ProductService {
         }
         result.setStatus("success").setData(number);
         return result;
+    }
+
+    @Override
+    public ResponseResult<Object> addShopping(Shopping shopping) {
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = loginUser.getUser().getId();
+        shopping.setUserId(userId);
+
+        Shopping s = shoppingMapper.selectByAllKey(userId, shopping.getProduct().getId());
+        // 若不存在则添加，否则增加数量
+        int i;
+        if (s == null) {
+            i = shoppingMapper.insertShopping(shopping);
+        } else {
+            s.setNumber(s.getNumber() + shopping.getNumber());
+            UpdateWrapper<Shopping> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id", s.getId())
+                    .eq("user_id", s.getUserId())
+                    .eq("product_id", s.getProduct().getId())
+                    .set("number", s.getNumber());
+            i = shoppingMapper.update(null, wrapper);
+        }
+        if (i != 1) {
+            throw new RuntimeException("添加购物车失败");
+        }
+
+        return new ResponseResult<>("success", null, null);
     }
 }

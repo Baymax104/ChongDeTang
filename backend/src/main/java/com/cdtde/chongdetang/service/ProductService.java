@@ -18,4 +18,5 @@ public interface ProductService {
     ResponseResult<List<Product>> getAllProduct();
     ResponseResult<List<Shopping>> getShoppingByUser();
     ResponseResult<Integer> updateShoppingNumber(Integer shoppingId, Integer productId, Integer number);
+    ResponseResult<Object> addShopping(Shopping shopping);
 }
