@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.service;
 
 import com.cdtde.chongdetang.pojo.Product;
 import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Shopping;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ import java.util.List;
 public interface ProductService {
 
     ResponseResult<List<Product>> getAllProduct();
+    ResponseResult<List<Shopping>> getShoppingByUser();
+    ResponseResult<Integer> updateShoppingNumber(Integer shoppingId, Integer productId, Integer number);
 }

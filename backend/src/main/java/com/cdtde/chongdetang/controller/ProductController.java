@@ -2,11 +2,10 @@ package com.cdtde.chongdetang.controller;
 
 import com.cdtde.chongdetang.pojo.Product;
 import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Shopping;
 import com.cdtde.chongdetang.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +26,17 @@ public class ProductController {
     @GetMapping
     public ResponseResult<List<Product>> getAllProduct() {
         return productService.getAllProduct();
+    }
+
+    @GetMapping("/shopping")
+    public ResponseResult<List<Shopping>> getShoppingByUser() {
+        return productService.getShoppingByUser();
+    }
+
+    @PostMapping("/shopping/{shoppingId}/{productId}")
+    public ResponseResult<Integer> updateShoppingNumber(@PathVariable("shoppingId") Integer shoppingId,
+                                                       @PathVariable("productId") Integer productId,
+                                                       @RequestParam("number") Integer number) {
+        return productService.updateShoppingNumber(shoppingId, productId, number);
     }
 }
