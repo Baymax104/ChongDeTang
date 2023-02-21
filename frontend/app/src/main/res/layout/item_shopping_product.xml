@@ -8,94 +8,124 @@
                 type="com.cdtde.chongdetang.viewModel.shop.ShoppingViewModel.CheckedShopping" />
     </data>
 
-    <LinearLayout
-            android:orientation="horizontal"
+    <com.mcxtzhang.swipemenulib.SwipeMenuLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:paddingVertical="10dp"
-            tools:ignore="ContentDescription">
-
-        <CheckBox
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:id="@+id/check"
-                android:checked="@={checkedShopping.checked}"
-                style="@style/Widget.Material3.CompoundButton.RadioButton"/>
-
-        <ImageView
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                img_url="@{checkedShopping.shopping.product.photo}"
-                img_cos="@{true}"
-                img_rounded="@{true}"
-                img_fix="@{true}"/>
+            android:layout_height="110dp">
 
         <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:layout_marginStart="7dp"
-                android:layout_marginEnd="5dp">
+                android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="@{checkedShopping.shopping.product.name}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/regular"
-                    android:gravity="center_vertical|start"
-                    android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:layout_height="109dp"
+                    android:orientation="horizontal"
+                    android:paddingVertical="10dp"
+                    tools:ignore="ContentDescription">
 
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    tools:ignore="RelativeOverlap">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="@{`￥` + checkedShopping.shopping.product.price}"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/main_color"
-                        android:letterSpacing="0.1"
-                        android:fontFamily="@font/text_regular"/>
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/add"
-                        android:id="@+id/add"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="5dp"/>
-                <TextView
+                <CheckBox
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:id="@+id/number"
-                        android:text="@{String.valueOf(checkedShopping.shopping.number)}"
-                        android:layout_toStartOf="@id/add"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/text_regular"
-                        android:textSize="16sp"/>
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/subtract"
-                        android:id="@+id/subtract"
-                        android:layout_toStartOf="@id/number"
-                        android:layout_centerVertical="true"/>
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/check"
+                        android:checked="@={checkedShopping.checked}"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"/>
 
-            </RelativeLayout>
+                <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        img_url="@{checkedShopping.shopping.product.photo}"
+                        img_cos="@{true}"
+                        img_rounded="@{true}"
+                        img_fix="@{true}"/>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="5dp">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="@{checkedShopping.shopping.product.name}"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/regular"
+                            android:gravity="center_vertical|start"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            tools:ignore="RelativeOverlap">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="@{`￥` + checkedShopping.shopping.product.price}"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/main_color"
+                                android:letterSpacing="0.1"
+                                android:fontFamily="@font/text_regular"/>
+
+                        <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/add"
+                                android:id="@+id/add"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"/>
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:id="@+id/number"
+                                android:text="@{String.valueOf(checkedShopping.shopping.number)}"
+                                android:layout_toStartOf="@id/add"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/text_regular"
+                                android:textSize="16sp"/>
+                        <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/subtract"
+                                android:id="@+id/subtract"
+                                android:layout_toStartOf="@id/number"
+                                android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_4"
+                    android:layout_marginHorizontal="15dp"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:background="@color/red"
+                android:text="@string/delete"
+                android:id="@+id/delete"
+                android:gravity="center"
+                android:fontFamily="@font/regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+    </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
+
 </layout>

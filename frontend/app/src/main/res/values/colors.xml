@@ -3,6 +3,7 @@
     <color name="main_color">#bd1b21</color>
     <color name="main_variant_color">#FF3333</color>
     <color name="main_variant_color2">#8c0c0c</color>
+    <color name="red">#f00</color>
     <color name="second_color">#CC6633</color>
     <color name="second_variant_color">#f9a825</color>
     <color name="black">#FF000000</color>

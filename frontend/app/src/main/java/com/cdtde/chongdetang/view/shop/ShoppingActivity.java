@@ -78,6 +78,12 @@ public class ShoppingActivity extends AppCompatActivity {
                     }
                 }
             }
+
+            @Override
+            public void onDeleteClick(ShoppingViewModel.CheckedShopping checkedShopping) {
+                vm.deleteShopping(checkedShopping);
+                loading.show();
+            }
         });
 
         binding.setAdapter(adapter);
@@ -99,6 +105,13 @@ public class ShoppingActivity extends AppCompatActivity {
                     loading.smartDismiss();
                     if (aBoolean) {
                         vm.refreshPrice();
+                    }
+                });
+
+        LiveEventBus.get("ShopRepository-deleteShopping", Boolean.class)
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        vm.updateShopping();
                     }
                 });
 

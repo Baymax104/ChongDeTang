@@ -9,6 +9,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -37,4 +38,8 @@ public interface ProductService {
     @POST("/api/product/shopping")
     Observable<ResponseResult<Object>> addShopping(@Header("Authorization") String token,
                                                    @Body Shopping shopping);
+
+    @HTTP(path = "/api/product/shopping", method = "DELETE", hasBody = true)
+    Observable<ResponseResult<Object>> deleteShopping(@Header("Authorization") String token,
+                                                      @Body Shopping shopping);
 }

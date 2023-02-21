@@ -27,6 +27,9 @@ public class ShoppingAdapter extends BaseAdapter<ShoppingViewModel.CheckedShoppi
         default void onUpdateNumberClick(ShoppingViewModel.CheckedShopping checkedShopping, boolean isAdd) {
         }
 
+        default void onDeleteClick(ShoppingViewModel.CheckedShopping checkedShopping) {
+        }
+
     }
 
     private ItemListener itemListener = new ItemListener() {
@@ -54,6 +57,7 @@ public class ShoppingAdapter extends BaseAdapter<ShoppingViewModel.CheckedShoppi
         });
         ((ViewHolder) holder).binding.add.setOnClickListener(v -> itemListener.onUpdateNumberClick(checkedShopping, true));
         ((ViewHolder) holder).binding.subtract.setOnClickListener(v -> itemListener.onUpdateNumberClick(checkedShopping, false));
+        ((ViewHolder) holder).binding.delete.setOnClickListener(v -> itemListener.onDeleteClick(checkedShopping));
     }
 
     @Override

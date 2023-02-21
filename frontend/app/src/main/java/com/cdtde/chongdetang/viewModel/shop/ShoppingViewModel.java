@@ -165,4 +165,9 @@ public class ShoppingViewModel extends ViewModel {
             selectPrice.setValue(value);
         }
     }
+
+    public void deleteShopping(CheckedShopping checkedShopping) {
+        Shopping shopping = checkedShopping.getShopping();
+        repo.deleteShopping(shopping);
+    }
 }
