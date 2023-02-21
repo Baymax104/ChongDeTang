@@ -193,6 +193,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@id/buy"
                     android:layout_marginEnd="10dp"
+                    android:id="@+id/addShopping"
                     android:text="@string/add_shopping"
                     style="@style/ButtonTextStyle"/>
         </RelativeLayout>

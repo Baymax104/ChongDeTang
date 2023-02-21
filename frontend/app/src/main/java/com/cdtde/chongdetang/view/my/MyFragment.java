@@ -18,6 +18,7 @@ import com.cdtde.chongdetang.view.my.address.AddressActivity;
 import com.cdtde.chongdetang.view.my.setting.LoginActivity;
 import com.cdtde.chongdetang.view.my.setting.SettingActivity;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
+import com.cdtde.chongdetang.view.shop.ShoppingActivity;
 import com.cdtde.chongdetang.viewModel.my.MyViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -104,7 +105,7 @@ public class MyFragment extends Fragment {
 
         binding.shoppingEntry.setOnClickListener(v -> {
             if (vm.isLogin()) {
-                ToastUtils.showShort("进入购物车");
+                ShoppingActivity.actionStart(requireContext());
             } else {
                 LoginActivity.actionStart(getContext());
             }

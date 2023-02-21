@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.util;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
@@ -19,6 +20,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Appointment;
@@ -27,6 +32,7 @@ import com.cdtde.chongdetang.util.adapter.BannerAdapter;
 import com.cdtde.chongdetang.util.adapter.BaseAdapter;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.util.adapter.SearchTagAdapter;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.youth.banner.Banner;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -42,6 +48,7 @@ import java.util.Locale;
  * @Date 2023/1/7 23:31
  * @Version 1
  */
+@SuppressLint("CheckResult")
 public class BindingUtil {
 
     public static class ImageTarget extends ImageViewTarget<Bitmap> {
@@ -66,39 +73,53 @@ public class BindingUtil {
         }
     }
 
-
-    @BindingAdapter("src")
-    public static void setSrc(ImageView view, int resId) {
-        view.setImageResource(resId);
-    }
-
-    @BindingAdapter(value = {"img_url", "img_cos"})
-    public static void setImgUrl(ImageView view, String url, Boolean cos) {
+    @BindingAdapter(value = {"img_url", "img_cos", "img_rounded", "img_fix"}, requireAll = false)
+    public static void setImgUrl(ImageView view, String url, boolean cos, boolean rounded, boolean fix) {
         if (url == null) {
             Glide.with(view)
                     .asBitmap()
                     .load(R.drawable.loading)
                     .into(view);
-        } else {
-            if (cos) {
-                String path = AppKey.COS_URL + "/" + url;
-                Glide.with(view)
-                        .asBitmap()
-                        .load(path)
-                        .skipMemoryCache(true)
-                        .placeholder(R.drawable.loading)
-                        .into(new ImageTarget(view));
+            return;
+        }
+
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.loading)
+                .skipMemoryCache(true);
+
+        if (rounded) {
+            // 调用transform后会将ImageView的scaleType覆盖，需要重新设置
+            // 若在调用transform后在调用centerCrop，centerCrop也是调用transform，会将之前的设置覆盖
+            options.transform(
+                    new CenterCrop(),
+                    new RoundedCorners(ConvertUtils.dp2px(10))
+            );
+        }
+        if (cos) {
+            String path = AppKey.COS_URL + "/" + url;
+            RequestBuilder<Bitmap> request = Glide.with(view)
+                    .asBitmap()
+                    .load(path)
+                    .apply(options);
+            if (fix) {
+                request.into(view);
             } else {
-                Glide.with(view)
-                        .asBitmap()
-                        .load(url)
-                        .placeholder(R.drawable.loading)
-                        .into(new ImageTarget(view));
+                request.into(new ImageTarget(view));
             }
+            return;
+        }
+        RequestBuilder<Bitmap> request = Glide.with(view)
+                .asBitmap()
+                .load(url)
+                .apply(options);
+        if (fix) {
+            request.into(view);
+        } else {
+            request.into(new ImageTarget(view));
         }
     }
 
-    @BindingAdapter("src")
+    @BindingAdapter("img_uri")
     public static void setImg(ImageView view, String uriString) {
         Uri uri = Uri.parse(uriString);
         view.setImageURI(uri);

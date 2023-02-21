@@ -7,6 +7,7 @@ import com.cdtde.chongdetang.entity.Shopping;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -33,4 +34,7 @@ public interface ProductService {
                                                             @Path("shoppingId") Integer shoppingId,
                                                             @Path("productId") Integer productId,
                                                             @Query("number") Integer number);
+    @POST("/api/product/shopping")
+    Observable<ResponseResult<Object>> addShopping(@Header("Authorization") String token,
+                                                   @Body Shopping shopping);
 }

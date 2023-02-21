@@ -172,4 +172,26 @@ public class ShopRepository {
                 );
     }
 
+    public void addShopping(Shopping shopping) {
+        String token = "Bearer " + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            if (result.getStatus().equals("success")) {
+                LiveEventBus.get("ShopRepository-addShopping", Boolean.class).post(true);
+                LogUtils.iTag("cdt-web-addShopping", "添加购物车成功");
+            } else {
+                LogUtils.eTag("cdt-web-addShopping", result.getMessage());
+            }
+        };
+
+        productService.addShopping(token, shopping)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        throwable -> LogUtils.eTag("cdt-web-addShopping", throwable),
+                        () -> LogUtils.iTag("cdt-web-addShopping", "添加购物车请求结束")
+                );
+    }
+
 }

@@ -2,7 +2,8 @@ package com.cdtde.chongdetang.entity;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
+
+import com.cdtde.chongdetang.BR;
 
 import java.io.Serializable;
 
@@ -20,6 +21,11 @@ public class Shopping extends BaseObservable implements Serializable {
     private Product product;
 
     public Shopping() {
+    }
+
+    public Shopping(Integer number, Product product) {
+        this.number = number;
+        this.product = product;
     }
 
     public Integer getId() {

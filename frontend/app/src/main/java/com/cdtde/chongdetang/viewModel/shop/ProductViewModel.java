@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.entity.Shopping;
 import com.cdtde.chongdetang.repository.ShopRepository;
 
 /**
@@ -30,5 +31,12 @@ public class ProductViewModel extends ViewModel {
 
     public void setProduct(Product product) {
         this.product.setValue(product);
+    }
+
+    public void addShopping() {
+        if (product.getValue() != null) {
+            Shopping shopping = new Shopping(1, product.getValue());
+            repo.addShopping(shopping);
+        }
     }
 }
