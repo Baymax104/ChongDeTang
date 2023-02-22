@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.News;
@@ -92,27 +94,33 @@ public class IndexFragment extends Fragment {
                     }
                 });
 
-        LiveEventBus.get("IndexRepository-requestNews-zgdt", Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (aBoolean) {
+        LiveEventBus.get("IndexRepository-requestNews-zgdt", WebException.class)
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
                         vm.refreshAllMoment();
                         vm.setMomentInit(true);
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 
-        LiveEventBus.get("IndexRepository-requestNews-hyzx", Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (aBoolean) {
+        LiveEventBus.get("IndexRepository-requestNews-hyzx", WebException.class)
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
                         vm.refreshAllInfo();
                         vm.setInfoInit(true);
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 
-        LiveEventBus.get("IndexRepository-requestHotCollection", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
+        LiveEventBus.get("IndexRepository-requestHotCollection", WebException.class)
+                        .observe(this, exception -> {
+                            if (exception.isSuccess()) {
                                 vm.refreshHotCollection();
                                 vm.setHotCollectionInit(true);
+                            } else {
+                                ToastUtils.showShort(exception.getMessage());
                             }
                         });
 

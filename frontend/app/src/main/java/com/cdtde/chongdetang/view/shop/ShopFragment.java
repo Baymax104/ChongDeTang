@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.util.WindowUtil;
@@ -62,11 +64,13 @@ public class ShopFragment extends Fragment {
                             }
                         });
 
-        LiveEventBus.get("ShopRepository-requestAllProduct", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
+        LiveEventBus.get("ShopRepository-requestAllProduct", WebException.class)
+                        .observe(this, e -> {
+                            if (e.isSuccess()) {
                                 vm.refreshAllProduct();
                                 vm.setInit(true);
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 

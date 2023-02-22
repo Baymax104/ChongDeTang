@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityAddressBinding;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -38,16 +40,18 @@ public class AddressActivity extends AppCompatActivity {
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)).show();
 
-        LiveEventBus.get("MyRepository-getAllAddress", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            loading.smartDismiss();
-                            if (aBoolean) {
-                                vm.refreshAllAddress();
-                            }
-                        });
+        LiveEventBus.get("MyRepository-getAllAddress", WebException.class)
+                .observe(this, e -> {
+                    loading.smartDismiss();
+                    if (e.isSuccess()) {
+                        vm.refreshAllAddress();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+                });
 
         LiveEventBus.get("AddressDetailActivity-updateAddress", Boolean.class)
-                        .observe(this, aBoolean -> {
+                .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 loading.show();
                                 vm.updateAllAddress();

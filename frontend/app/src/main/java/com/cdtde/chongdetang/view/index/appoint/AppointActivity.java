@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -55,11 +56,13 @@ public class AppointActivity extends AppCompatActivity {
                             loading.show();
                         });
 
-        LiveEventBus.get("MyRepository-addAppointment", Boolean.class)
-                        .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-addAppointment", WebException.class)
+                        .observe(this, e -> {
                             loading.smartDismiss();
-                            if (aBoolean) {
+                            if (e.isSuccess()) {
                                 ToastUtils.showShort("预约成功！");
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 

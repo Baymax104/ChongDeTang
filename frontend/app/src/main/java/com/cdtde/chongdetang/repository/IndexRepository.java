@@ -3,6 +3,7 @@ package com.cdtde.chongdetang.repository;
 import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.CollectionService;
 import com.cdtde.chongdetang.dataSource.web.api.CultureService;
@@ -91,15 +92,15 @@ public class IndexRepository {
 
     public void requestAllCulture() {
         Consumer<ResponseResult<List<Culture>>> onNext = result -> {
-            if (result.getStatus().equals("success")) {
-                if (result.getData() != null) {
-                    cultures = result.getData();
-                    LiveEventBus.get("IndexRepository-requestAllCulture", Boolean.class).post(true);
-                    LogUtils.iTag("cdt-web-requestAllCulture", "获取“崇德讲堂”成功");
-                }
+            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+            if (isSuccess) {
+                cultures = result.getData();
+                LogUtils.iTag("cdt-web-requestAllCulture", "获取“崇德讲堂”成功");
             } else {
                 LogUtils.eTag("cdt-web-requestAllCulture", result.getMessage());
             }
+            LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
         };
 
         cultureService.getAllCulture()
@@ -107,28 +108,28 @@ public class IndexRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        throwable -> LogUtils.eTag("cdt-web-requestAllCulture", throwable),
+                        WebService.onError("requestAllCulture", "IndexRepository-requestAllCulture"),
                         () -> LogUtils.iTag("cdt-web-requestAllCulture", "获取“崇德讲堂”请求结束")
                 );
     }
 
     public void requestNews(String type) {
         Consumer<ResponseResult<List<News>>> onNext = result -> {
-            if (result.getStatus().equals("success")) {
-                if (result.getData() != null) {
-                    if ("mryl".equals(type)) {
-                        couplet = result.getData();
-                    } else if ("zgdt".equals(type)) {
-                        moments = result.getData();
-                    } else if ("hyzx".equals(type)) {
-                        infos = result.getData();
-                    }
-                    LiveEventBus.get("IndexRepository-requestNews-" + type, Boolean.class).post(true);
-                    LogUtils.iTag("cdt-web-requestNews", "获取news成功");
+            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+            if (isSuccess) {
+                if ("mryl".equals(type)) {
+                    couplet = result.getData();
+                } else if ("zgdt".equals(type)) {
+                    moments = result.getData();
+                } else if ("hyzx".equals(type)) {
+                    infos = result.getData();
                 }
+                LogUtils.iTag("cdt-web-requestNews", "获取news成功");
             } else {
                 LogUtils.eTag("cdt-web-requestNews", result.getMessage());
             }
+            LiveEventBus.get("IndexRepository-requestNews-" + type, WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
         };
 
         newsService.getNews(type)
@@ -136,22 +137,22 @@ public class IndexRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        throwable -> LogUtils.eTag("cdt-web-requestNews", throwable),
+                        WebService.onError("requestNews", "IndexRepository-requestNews-" + type),
                         () -> LogUtils.iTag("cdt-web-requestNews", "获取news请求结束")
                 );
     }
 
     public void requestHotCollection() {
         Consumer<ResponseResult<List<Collection>>> onNext = result -> {
-            if (result.getStatus().equals("success")) {
-                if (result.getData() != null) {
-                    hotCollection = result.getData();
-                    LiveEventBus.get("IndexRepository-requestHotCollection", Boolean.class).post(true);
-                    LogUtils.iTag("cdt-web-requestHotCollection", "获取藏品精选成功");
-                }
+            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+            if (isSuccess) {
+                hotCollection = result.getData();
+                LogUtils.iTag("cdt-web-requestHotCollection", "获取藏品精选成功");
             } else {
                 LogUtils.eTag("cdt-web-requestHotCollection", result.getMessage());
             }
+            LiveEventBus.get("IndexRepository-requestHotCollection", WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
         };
 
         collectionService.getHotCollection()
@@ -159,7 +160,7 @@ public class IndexRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        throwable -> LogUtils.eTag("cdt-web-requestHotCollection", throwable),
+                        WebService.onError("requestHotCollection", "IndexRepository-requestHotCollection"),
                         () -> LogUtils.iTag("cdt-web-requestHotCollection", "获取藏品精选请求结束")
                 );
     }

@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityAddressDetailBinding;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -44,14 +46,16 @@ public class AddressDetailActivity extends AppCompatActivity {
         WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         LiveEventBus.get("AddressActivity-onItemClick", Address.class)
-                .observeSticky(this, address -> vm.setAddress(address));
+                .observeSticky(this, vm::setAddress);
 
-        LiveEventBus.get("MyRepository-updateAddress", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-updateAddress", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         LiveEventBus.get("AddressDetailActivity-updateAddress", Boolean.class).post(true);
                         finish();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 
@@ -63,12 +67,14 @@ public class AddressDetailActivity extends AppCompatActivity {
                     }
                 });
 
-        LiveEventBus.get("MyRepository-deleteAddress", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-deleteAddress", WebException.class)
+                .observe(this, e -> {
                     loading.dismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         LiveEventBus.get("AddressDetailActivity-deleteAddress", Boolean.class).post(true);
                         finish();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 

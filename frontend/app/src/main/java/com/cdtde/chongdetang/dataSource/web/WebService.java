@@ -2,10 +2,13 @@ package com.cdtde.chongdetang.dataSource.web;
 
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.repository.AppKey;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -24,14 +27,14 @@ public class WebService {
 
     private static WebService instance;
 
-    public WebService() {
+    private WebService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s));
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .retryOnConnectionFailure(true)
                 .build();
@@ -53,5 +56,13 @@ public class WebService {
 
     public <T> T create(Class<T> cl) {
         return retrofit.create(cl);
+    }
+
+    public static Consumer<Throwable> onError(String functionName, String eventKey) {
+        return throwable1 -> {
+            LogUtils.eTag("cdt-web-" + functionName, throwable1);
+            LiveEventBus.get(eventKey, WebException.class)
+                    .post(new WebException(false, throwable1.getMessage()));
+        };
     }
 }

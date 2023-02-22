@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityUserPhoneBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
@@ -43,11 +44,13 @@ public class UserPhoneActivity extends AppCompatActivity {
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
 
-        LiveEventBus.get("MyRepository-updatePhone", Boolean.class)
-                        .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-updatePhone", WebException.class)
+                        .observe(this, e -> {
                             loading.smartDismiss();
-                            if (aBoolean) {
+                            if (e.isSuccess()) {
                                 finish();
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 

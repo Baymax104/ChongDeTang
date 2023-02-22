@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityShoppingBinding;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -91,27 +92,33 @@ public class ShoppingActivity extends AppCompatActivity {
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)).show();
 
-        LiveEventBus.get("ShopRepository-requestShopping", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("ShopRepository-requestShopping", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         vm.refreshShopping();
                         vm.checkAll(true);
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 
-        LiveEventBus.get("ShopRepository-updateShoppingNumber", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("ShopRepository-updateShoppingNumber", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         vm.refreshPrice();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 
-        LiveEventBus.get("ShopRepository-deleteShopping", Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (aBoolean) {
+        LiveEventBus.get("ShopRepository-deleteShopping", WebException.class)
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
                         vm.updateShopping();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 

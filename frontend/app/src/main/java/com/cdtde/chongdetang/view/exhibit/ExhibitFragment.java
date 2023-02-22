@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
@@ -58,11 +60,13 @@ public class ExhibitFragment extends Fragment {
                             }
                         });
 
-        LiveEventBus.get("ExhibitRepository-requestAllCollection", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
+        LiveEventBus.get("ExhibitRepository-requestAllCollection", WebException.class)
+                        .observe(this, exception -> {
+                            if (exception.isSuccess()) {
                                 vm.refreshAllCollection();
                                 vm.setInit(true);
+                            } else {
+                                ToastUtils.showShort(exception.getMessage());
                             }
                         });
 

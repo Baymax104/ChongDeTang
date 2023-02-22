@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityUserInfoBinding;
 import com.cdtde.chongdetang.util.CameraUtil;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -106,11 +107,13 @@ public class UserInfoActivity extends AppCompatActivity {
                         }
                     });
 
-        LiveEventBus.get("MyRepository-updateInfo", Boolean.class)
-                        .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-updateInfo", WebException.class)
+                        .observe(this, e -> {
                             loadingPopupView.smartDismiss();
-                            if (aBoolean) {
+                            if (e.isSuccess()) {
                                 finish();
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 

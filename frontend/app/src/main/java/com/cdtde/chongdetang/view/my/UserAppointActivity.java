@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityUserAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -55,11 +57,13 @@ public class UserAppointActivity extends AppCompatActivity {
 
         binding.setAdapter(adapter);
 
-        LiveEventBus.get("MyRepository-getAllAppointment", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-getAllAppointment", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         vm.refreshAllAppointment();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 

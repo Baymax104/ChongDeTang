@@ -11,7 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityCultureBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
@@ -46,11 +48,13 @@ public class CultureActivity extends AppCompatActivity {
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
 
-        LiveEventBus.get("IndexRepository-requestAllCulture", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         vm.refreshAllCulture();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
     }

@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
 import com.cdtde.chongdetang.entity.News;
 import com.cdtde.chongdetang.util.DialogUtil;
@@ -56,11 +58,13 @@ public class CoupletActivity extends AppCompatActivity {
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)).show();
 
-        LiveEventBus.get("IndexRepository-requestNews-mryl", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("IndexRepository-requestNews-mryl", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         vm.refreshAllCouplet();
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
     }

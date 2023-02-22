@@ -3,6 +3,7 @@ package com.cdtde.chongdetang.repository;
 import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.CollectionService;
 import com.cdtde.chongdetang.entity.Collection;
@@ -52,15 +53,15 @@ public class ExhibitRepository {
     }
     public void requestAllCollection() {
         Consumer<ResponseResult<List<Collection>>> onNext = result -> {
-            if (result.getStatus().equals("success")) {
-                if (result.getData() != null) {
-                    collections = result.getData();
-                    LiveEventBus.get("ExhibitRepository-requestAllCollection", Boolean.class).post(true);
-                    LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品成功");
-                }
+            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+            if (isSuccess) {
+                collections = result.getData();
+                LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品成功");
             } else {
                 LogUtils.eTag("cdt-web-requestAllCollection", result.getMessage());
             }
+            LiveEventBus.get("ExhibitRepository-requestAllCollection", WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
         };
 
         collectionService.getAllCollection()
@@ -68,7 +69,7 @@ public class ExhibitRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        throwable -> LogUtils.eTag("cdt-web-requestAllCollection", throwable),
+                        WebService.onError("requestAllCollection", "ExhibitRepository-requestAllCollection"),
                         () -> LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品请求结束")
                 );
     }

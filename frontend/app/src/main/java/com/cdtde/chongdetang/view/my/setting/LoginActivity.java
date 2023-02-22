@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityLoginBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
@@ -41,11 +42,13 @@ public class LoginActivity extends AppCompatActivity {
                 .dismissOnTouchOutside(false);
         loadingView = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
 
-        LiveEventBus.get("MyRepository-login", Boolean.class)
-                        .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-login", WebException.class)
+                        .observe(this, e -> {
                             loadingView.smartDismiss();
-                            if (aBoolean) {
+                            if (e.isSuccess()) {
                                 finish();
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 

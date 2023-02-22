@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityProductBinding;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.AppKey;
@@ -59,11 +60,13 @@ public class ProductActivity extends AppCompatActivity {
                             .into(binding.img);
                 });
 
-        LiveEventBus.get("ShopRepository-addShopping", Boolean.class)
-                .observe(this, aBoolean -> {
+        LiveEventBus.get("ShopRepository-addShopping", WebException.class)
+                .observe(this, e -> {
                     loading.smartDismiss();
-                    if (aBoolean) {
+                    if (e.isSuccess()) {
                         ToastUtils.showShort("添加成功！");
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 

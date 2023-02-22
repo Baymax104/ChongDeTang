@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityRegisterBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
@@ -45,11 +46,14 @@ public class RegisterActivity extends AppCompatActivity {
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
 
-        LiveEventBus.get("MyRepository-register", Boolean.class)
-                        .observe(this, aBoolean -> {
+        LiveEventBus.get("MyRepository-register", WebException.class)
+                        .observe(this, e -> {
                             loading.smartDismiss();
-                            if (aBoolean) {
+                            if (e.isSuccess()) {
+                                ToastUtils.showShort("注册成功！");
                                 finish();
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 

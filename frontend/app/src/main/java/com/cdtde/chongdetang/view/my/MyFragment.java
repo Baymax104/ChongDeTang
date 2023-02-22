@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.my.address.AddressActivity;
@@ -66,16 +67,20 @@ public class MyFragment extends Fragment {
                                 vm.logout();
                             }
                         });
-        LiveEventBus.get("MyRepository-login", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
+        LiveEventBus.get("MyRepository-login", WebException.class)
+                        .observe(this, e -> {
+                            if (e.isSuccess()) {
                                 vm.onUserChanged();
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
-        LiveEventBus.get("MyRepository-updateInfo", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
+        LiveEventBus.get("MyRepository-updateInfo", WebException.class)
+                        .observe(this, e -> {
+                            if (e.isSuccess()) {
                                 vm.onUserChanged();
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
                             }
                         });
 
