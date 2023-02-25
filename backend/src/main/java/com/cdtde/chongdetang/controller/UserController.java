@@ -5,17 +5,16 @@ import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
 import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.User;
+import com.cdtde.chongdetang.pojo.UserCollect;
 import com.cdtde.chongdetang.service.UserService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,4 +88,10 @@ public class UserController {
     public ResponseResult<Object> updatePhone(@RequestBody String phone) {
         return userService.updatePhone(phone);
     }
+
+    @GetMapping("/collect/{type}")
+    public ResponseResult<List<UserCollect>> getUserCollect(@PathVariable("type") String type) {
+        return userService.getUserCollect(type);
+    }
+
 }

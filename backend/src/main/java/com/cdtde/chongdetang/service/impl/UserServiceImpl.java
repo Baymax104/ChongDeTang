@@ -3,9 +3,9 @@ package com.cdtde.chongdetang.service.impl;
 import cn.hutool.core.codec.Base64;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.cdtde.chongdetang.mapper.UserCollectMapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
-import com.cdtde.chongdetang.pojo.ResponseResult;
-import com.cdtde.chongdetang.pojo.User;
+import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.CosService;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.UserService;
@@ -45,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CosService cosService;
+
+    @Autowired
+    private UserCollectMapper userCollectMapper;
 
     @Override
     public ResponseResult<User> login(String phone, String password) {
@@ -192,5 +195,22 @@ public class UserServiceImpl implements UserService {
 
         result.setStatus("success");
         return result;
+    }
+
+    @Override
+    public ResponseResult<List<UserCollect>> getUserCollect(String type) {
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = loginUser.getUser().getId();
+
+        List<UserCollect> userCollects;
+        if ("collection".equals(type)) {
+            userCollects = userCollectMapper.getUserCollection(userId);
+        } else if ("product".equals(type)) {
+            userCollects = userCollectMapper.getUserProduct(userId);
+        } else {
+            throw new RuntimeException("获取路径错误");
+        }
+
+        return new ResponseResult<>("success", null, userCollects);
     }
 }

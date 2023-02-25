@@ -1,7 +1,8 @@
 package com.cdtde.chongdetang.service;
 
-import com.cdtde.chongdetang.pojo.ResponseResult;
-import com.cdtde.chongdetang.pojo.User;
+import com.cdtde.chongdetang.pojo.*;
+
+import java.util.List;
 
 
 public interface UserService {
@@ -15,4 +16,7 @@ public interface UserService {
     ResponseResult<String> updatePassword(String oldPassword, String newPassword);
 
     ResponseResult<Object> updatePhone(String phone);
+
+    ResponseResult<List<UserCollect>> getUserCollect(String type);
+
 }
