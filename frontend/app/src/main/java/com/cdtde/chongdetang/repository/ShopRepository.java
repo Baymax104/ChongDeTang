@@ -124,7 +124,7 @@ public class ShopRepository {
     }
 
     public void requestShopping() {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<List<Shopping>>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
@@ -174,7 +174,7 @@ public class ShopRepository {
     }
 
     public void addShopping(Shopping shopping) {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");

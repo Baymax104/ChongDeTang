@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my.setting;
+package com.cdtde.chongdetang.view.my.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityLoginBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.view.my.register.RegisterActivity;
 import com.cdtde.chongdetang.viewModel.my.LoginViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;

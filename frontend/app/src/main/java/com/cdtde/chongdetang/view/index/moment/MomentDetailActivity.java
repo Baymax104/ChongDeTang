@@ -29,11 +29,12 @@ public class MomentDetailActivity extends AppCompatActivity {
 
         WebViewUtil.configure(binding.webPage, false);
 
-        LiveEventBus.get("MomentActivity-onItemClick", News.class)
+        LiveEventBus.get("MomentDetailActivity-getData", News.class)
                         .observeSticky(this, binding::setMoment);
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, News moment) {
+        LiveEventBus.get("MomentDetailActivity-getData", News.class).post(moment);
         Intent intent = new Intent(context, MomentDetailActivity.class);
         context.startActivity(intent);
     }

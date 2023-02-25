@@ -36,11 +36,12 @@ public class CollectionActivity extends AppCompatActivity {
 
         WebViewUtil.configure(binding.webPage, false);
 
-        LiveEventBus.get("TabFragment-onItemClick", Collection.class)
+        LiveEventBus.get("CollectionActivity-getData", Collection.class)
                 .observeSticky(this, vm::setCollection);
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, Collection collection) {
+        LiveEventBus.get("CollectionActivity-getData", Collection.class).post(collection);
         context.startActivity(new Intent(context, CollectionActivity.class));
     }
 

@@ -15,6 +15,8 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.view.my.login.LoginActivity;
+import com.cdtde.chongdetang.view.my.login.LogoutDialog;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordActivity;
 import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneActivity;

@@ -70,16 +70,10 @@ public class AddressActivity extends AppCompatActivity {
         binding.setViewModel(vm);
 
         AddressAdapter adapter = new AddressAdapter();
-        adapter.setOnItemClickListener(data -> {
-            AddressDetailActivity.actionStart(this);
-            LiveEventBus.get("AddressActivity-onItemClick", Address.class).post(data);
-        });
+        adapter.setOnItemClickListener(data -> AddressDetailActivity.actionStart(this, data));
         binding.setAdapter(adapter);
 
-        binding.addEntry.setOnClickListener(v -> {
-            AddressDetailActivity.actionStart(this);
-            LiveEventBus.get("AddressActivity-onItemClick", Address.class).post(null);
-        });
+        binding.addEntry.setOnClickListener(v -> AddressDetailActivity.actionStart(this, null));
     }
 
 

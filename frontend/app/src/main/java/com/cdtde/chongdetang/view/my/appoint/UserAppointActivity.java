@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my;
+package com.cdtde.chongdetang.view.my.appoint;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.AppointmentAdapter;
-import com.cdtde.chongdetang.view.index.appoint.AppointInfoDialog;
 import com.cdtde.chongdetang.viewModel.my.AppointViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;

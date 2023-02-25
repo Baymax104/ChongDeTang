@@ -18,7 +18,7 @@ import com.cdtde.chongdetang.databinding.ActivityAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.view.my.setting.LoginActivity;
+import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.viewModel.my.AppointViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;

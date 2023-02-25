@@ -27,6 +27,8 @@ public class WebService {
 
     private static WebService instance;
 
+    public static final String TOKEN_PREFIX = "Bearer ";
+
     private WebService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s));
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

@@ -45,7 +45,7 @@ public class AddressDetailActivity extends AppCompatActivity {
         binding.setViewModel(vm);
         WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
-        LiveEventBus.get("AddressActivity-onItemClick", Address.class)
+        LiveEventBus.get("AddressDetailActivity-getData", Address.class)
                 .observeSticky(this, vm::setAddress);
 
         LiveEventBus.get("MyRepository-updateAddress", WebException.class)
@@ -101,7 +101,8 @@ public class AddressDetailActivity extends AppCompatActivity {
         });
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, Address address) {
+        LiveEventBus.get("AddressDetailActivity-getData", Address.class).post(address);
         Intent intent = new Intent(context, AddressDetailActivity.class);
         context.startActivity(intent);
     }

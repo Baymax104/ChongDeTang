@@ -16,7 +16,9 @@ import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.my.address.AddressActivity;
-import com.cdtde.chongdetang.view.my.setting.LoginActivity;
+import com.cdtde.chongdetang.view.my.appoint.UserAppointActivity;
+import com.cdtde.chongdetang.view.my.collect.UserCollectActivity;
+import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.my.setting.SettingActivity;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.shop.ShoppingActivity;
@@ -102,7 +104,7 @@ public class MyFragment extends Fragment {
 
         binding.collectionEntry.setOnClickListener(v -> {
             if (vm.isLogin()) {
-                ToastUtils.showShort("进入收藏");
+                UserCollectActivity.actionStart(getContext());
             } else {
                 LoginActivity.actionStart(getContext());
             }

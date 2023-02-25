@@ -24,7 +24,8 @@ public class CoupletDetailActivity extends AppCompatActivity {
 
     private CoupletDetailViewModel vm;
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, News couplet) {
+        LiveEventBus.get("CoupletDetailActivity-getData", News.class).post(couplet);
         Intent intent = new Intent(context, CoupletDetailActivity.class);
         context.startActivity(intent);
     }
@@ -40,7 +41,7 @@ public class CoupletDetailActivity extends AppCompatActivity {
         WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         WebViewUtil.configure(binding.webPage, false);
 
-        LiveEventBus.get("CoupletActivity-onItemClick", News.class)
+        LiveEventBus.get("CoupletDetailActivity-getData", News.class)
                 .observeSticky(this, vm::setCouplet);
     }
 

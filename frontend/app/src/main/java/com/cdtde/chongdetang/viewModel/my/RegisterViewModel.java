@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
 import com.cdtde.chongdetang.util.ValidateUtil;
-import com.cdtde.chongdetang.view.my.setting.RegisterFragment;
+import com.cdtde.chongdetang.view.my.register.RegisterFragment;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
 
 import java.util.ArrayList;

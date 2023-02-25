@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my.setting;
+package com.cdtde.chongdetang.view.my.register;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

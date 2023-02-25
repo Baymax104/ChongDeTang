@@ -12,8 +12,11 @@ import com.cdtde.chongdetang.dataSource.web.api.AppointmentService;
 import com.cdtde.chongdetang.dataSource.web.api.UserService;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.entity.Appointment;
+import com.cdtde.chongdetang.entity.Collection;
+import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.entity.ResponseResult;
 import com.cdtde.chongdetang.entity.User;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.util.CameraUtil;
 import com.cdtde.chongdetang.util.ValidateUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -44,6 +48,10 @@ public class MyRepository {
 
     private List<Address> addresses;
 
+    private List<Collection> collections;
+
+    private List<Product> products;
+
     private UserService userService;
     private AddressService addressService;
     private AppointmentService appointmentService;
@@ -53,6 +61,8 @@ public class MyRepository {
     private MyRepository() {
         addresses = new ArrayList<>();
         appointments = new ArrayList<>();
+        collections = new ArrayList<>();
+        products = new ArrayList<>();
         userRepo = UserRepository.getInstance();
         userService = WebService.getInstance().create(UserService.class);
         addressService = WebService.getInstance().create(AddressService.class);
@@ -80,6 +90,14 @@ public class MyRepository {
 
     public List<Address> getAddresses() {
         return addresses;
+    }
+
+    public List<Collection> getCollections() {
+        return collections;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     public void login(String phone, String password) {
@@ -116,7 +134,7 @@ public class MyRepository {
     }
 
     public void update(User user, String originPhoto) {
-        String token = "Bearer " + user.getToken();
+        String token = WebService.TOKEN_PREFIX + user.getToken();
 
         Map<String, Object> map = new HashMap<>();
         map.put("user", user);
@@ -210,7 +228,7 @@ public class MyRepository {
     }
 
     public void updatePhone(String phone) {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
@@ -260,7 +278,7 @@ public class MyRepository {
     }
 
     public void updateAddress(Address address) {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
@@ -308,7 +326,7 @@ public class MyRepository {
     }
 
     public void getAllAppointment() {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<List<Appointment>>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
@@ -353,6 +371,64 @@ public class MyRepository {
                         onNext,
                         WebService.onError("addAppointment", "MyRepository-addAppointment"),
                         () -> LogUtils.iTag("cdt-web-addAppointment", "添加预约请求结束")
+                );
+    }
+
+    public void requestUserCollection() {
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<List<UserCollect>>> onNext = result -> {
+            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+            if (isSuccess) {
+                List<UserCollect> userCollects = result.getData();
+                collections = userCollects.stream()
+                        .map(UserCollect::getCollection)
+                        .collect(Collectors.toList());
+                
+                LogUtils.iTag("cdt-web-requestUserCollection", "获取收藏藏品成功");
+            } else {
+                LogUtils.eTag("cdt-web-requestUserCollection", result.getMessage());
+            }
+            LiveEventBus.get("MyRepository-requestUserCollection", WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
+        };
+        
+        userService.getUserCollect(token, "collection")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        WebService.onError("requestUserCollection", "MyRepository-requestUserCollection"),
+                        () -> LogUtils.iTag("cdt-web-requestUserCollection", "获取用户收藏藏品请求结束")
+                );
+    }
+
+    public void requestUserProduct() {
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
+
+        Consumer<ResponseResult<List<UserCollect>>> onNext = result -> {
+            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+            if (isSuccess) {
+                List<UserCollect> userCollects = result.getData();
+                products = userCollects.stream()
+                        .map(UserCollect::getProduct)
+                        .collect(Collectors.toList());
+
+                LogUtils.iTag("cdt-web-requestUserProduct", "获取收藏商品成功");
+            } else {
+                LogUtils.eTag("cdt-web-requestUserProduct", result.getMessage());
+            }
+            LiveEventBus.get("MyRepository-requestUserProduct", WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
+        };
+
+        userService.getUserCollect(token, "product")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        WebService.onError("requestUserProduct", "MyRepository-requestUserProduct"),
+                        () -> LogUtils.iTag("cdt-web-requestUserProduct", "获取用户收藏商品请求结束")
                 );
     }
 

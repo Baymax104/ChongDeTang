@@ -49,10 +49,9 @@ public class CoupletActivity extends AppCompatActivity {
         binding.setViewModel(vm);
 
         CoupletAdapter adapter = new CoupletAdapter();
-        adapter.setOnItemClickListener(data -> {
-            CoupletDetailActivity.actionStart(this);
-            LiveEventBus.get("CoupletActivity-onItemClick", News.class).post(data);
-        });
+        adapter.setOnItemClickListener(data ->
+                CoupletDetailActivity.actionStart(this, data)
+        );
         binding.setAdapter(adapter);
 
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)

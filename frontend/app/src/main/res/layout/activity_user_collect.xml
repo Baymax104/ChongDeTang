@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
                 name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.CultureViewModel" />
-
+                type="com.cdtde.chongdetang.viewModel.my.UserCollectViewModel" />
         <variable
-                name="fragmentAdapter"
+                name="adapter"
                 type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.index.OriginActivity"
-            android:orientation="vertical">
+            tools:context=".view.my.collect.UserCollectActivity">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -36,55 +33,39 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/index_entry4"
-                        style="@style/CommonToolbarTitleStyle" />
-
+                        style="@style/CommonToolbarTitleStyle"
+                        android:text="@string/user_collection" />
             </androidx.appcompat.widget.Toolbar>
 
             <com.angcyo.tablayout.DslTabLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:id="@+id/tabs"
-                    android:paddingHorizontal="5dp"
                     android:background="@color/bar_color"
-                    app:tab_indicator_width="90dp"
-                    style="@style/DslTabStyle">
-
+                    android:paddingHorizontal="5dp"
+                    style="@style/DslTabStyle"
+                    app:tab_indicator_width="90dp">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/culture_tab_text1"
-                        style="@style/TabTextStyle" />
-
+                        android:text="@string/collection"
+                        style="@style/TabTextStyle"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/culture_tab_text2"
-                        style="@style/TabTextStyle" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/culture_tab_text3"
-                        style="@style/TabTextStyle" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/culture_tab_text4"
-                        style="@style/TabTextStyle" />
+                        android:text="@string/product"
+                        style="@style/TabTextStyle"/>
             </com.angcyo.tablayout.DslTabLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                fragments="@{viewModel.tabFragments}"
-                fragment_adapter="@{fragmentAdapter}"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                android:id="@+id/view_pager"
+                fragments="@{viewModel.fragments}"
+                fragment_adapter="@{adapter}"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

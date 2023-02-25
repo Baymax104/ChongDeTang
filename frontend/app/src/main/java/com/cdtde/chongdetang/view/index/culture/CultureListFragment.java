@@ -41,10 +41,9 @@ public class CultureListFragment extends Fragment {
 
         binding.setViewModel(vm);
         CultureAdapter cultureAdapter = new CultureAdapter();
-        cultureAdapter.setOnItemClickListener(data -> {
-            CultureDetailActivity.actionStart(getContext());
-            LiveEventBus.get("CultureListFragment-onItemClick", Culture.class).post(data);
-        });
+        cultureAdapter.setOnItemClickListener(data ->
+            CultureDetailActivity.actionStart(getContext(), data)
+        );
         binding.setAdapter(cultureAdapter);
         binding.setPage(page);
     }

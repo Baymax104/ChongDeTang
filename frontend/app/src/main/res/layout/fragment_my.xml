@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/collection_icon"
-                        android:text="@string/collection"
+                        android:text="@string/user_collection"
                         android:layout_centerVertical="true"
                         style="@style/EntryTextStyle" />
 

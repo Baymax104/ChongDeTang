@@ -49,15 +49,17 @@ public class ShoppingAdapter extends BaseAdapter<ShoppingViewModel.CheckedShoppi
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         ShoppingViewModel.CheckedShopping checkedShopping = data.get(position);
-        ((ViewHolder) holder).binding.setCheckedShopping(checkedShopping);
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(checkedShopping));
-        ((ViewHolder) holder).binding.check.setOnClickListener(v -> {
+        ViewHolder vh = (ViewHolder) holder;
+        vh.binding.setCheckedShopping(checkedShopping);
+
+        vh.binding.item.setOnClickListener(v -> onItemClickListener.onClick(checkedShopping));
+        vh.binding.check.setOnClickListener(v -> {
             CheckBox box = (CheckBox) v;
             itemListener.onCheckChange(checkedShopping, box.isChecked());
         });
-        ((ViewHolder) holder).binding.add.setOnClickListener(v -> itemListener.onUpdateNumberClick(checkedShopping, true));
-        ((ViewHolder) holder).binding.subtract.setOnClickListener(v -> itemListener.onUpdateNumberClick(checkedShopping, false));
-        ((ViewHolder) holder).binding.delete.setOnClickListener(v -> itemListener.onDeleteClick(checkedShopping));
+        vh.binding.add.setOnClickListener(v -> itemListener.onUpdateNumberClick(checkedShopping, true));
+        vh.binding.subtract.setOnClickListener(v -> itemListener.onUpdateNumberClick(checkedShopping, false));
+        vh.binding.delete.setOnClickListener(v -> itemListener.onDeleteClick(checkedShopping));
     }
 
     @Override

@@ -351,7 +351,7 @@ retrofit负责网络请求，RxJava负责异步线程切换，LiveEventBus负责
 
      ``` java
      public void addAppointment(Appointment appointment) {
-         String token = "Bearer " + userRepo.getUser().getToken();
+         String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
      
          // 定义结果返回行为
          Consumer<ResponseResult<Object>> onNext = result -> {

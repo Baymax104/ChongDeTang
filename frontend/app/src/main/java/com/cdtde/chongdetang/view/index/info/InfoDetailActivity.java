@@ -30,7 +30,7 @@ public class InfoDetailActivity extends AppCompatActivity {
 
         WebViewUtil.configure(binding.webPage, false);
 
-        LiveEventBus.get("InfoActivity-onItemClick", News.class)
+        LiveEventBus.get("InfoDetailActivity-getData", News.class)
                 .observeSticky(this, binding::setInfo);
     }
 
@@ -43,7 +43,8 @@ public class InfoDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, News info) {
+        LiveEventBus.get("InfoDetailActivity-getData", News.class).post(info);
         Intent intent = new Intent(context, InfoDetailActivity.class);
         context.startActivity(intent);
     }

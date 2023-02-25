@@ -46,7 +46,7 @@ public class ProductActivity extends AppCompatActivity {
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false));
 
-        LiveEventBus.get("ShopFragment-onItemClick", Product.class)
+        LiveEventBus.get("ProductActivity-getData", Product.class)
                 .observeSticky(this, product -> {
                     vm.setProduct(product);
                     // 加载图片
@@ -78,7 +78,8 @@ public class ProductActivity extends AppCompatActivity {
         });
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, Product product) {
+        LiveEventBus.get("ProductActivity-getData", Product.class).post(product);
         Intent intent = new Intent(context, ProductActivity.class);
         context.startActivity(intent);
     }

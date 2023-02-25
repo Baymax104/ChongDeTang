@@ -41,10 +41,9 @@ public class MomentActivity extends AppCompatActivity {
                 .observeSticky(this, news -> binding.setMoments(Arrays.asList(news)));
 
         NewsAdapter adapter = new NewsAdapter();
-        adapter.setOnItemClickListener(data -> {
-            LiveEventBus.get("MomentActivity-onItemClick", News.class).post(data);
-            MomentDetailActivity.actionStart(this);
-        });
+        adapter.setOnItemClickListener(data ->
+            MomentDetailActivity.actionStart(this, data)
+        );
         binding.setAdapter(adapter);
     }
 

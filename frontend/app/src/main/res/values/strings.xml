@@ -36,7 +36,7 @@
     <string name="address">收货地址</string>
     <string name="notice">消息通知</string>
     <string name="appointment">我的预约</string>
-    <string name="collection">我的收藏</string>
+    <string name="user_collection">我的收藏</string>
     <string name="feedback">意见反馈</string>
     <string name="settings">设置</string>
     <string name="user_info">个人资料</string>
@@ -126,4 +126,6 @@
     <string name="all_select">全选</string>
     <string name="settle">结算</string>
     <string name="sum_tip">总计：</string>
+    <string name="collection">藏品</string>
+    <string name="product">商品</string>
 </resources>

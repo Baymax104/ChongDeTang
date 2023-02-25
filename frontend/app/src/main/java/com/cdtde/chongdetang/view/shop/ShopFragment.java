@@ -18,7 +18,7 @@ import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.view.index.SearchActivity;
-import com.cdtde.chongdetang.view.my.setting.LoginActivity;
+import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.viewModel.shop.ShopViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.youth.banner.indicator.CircleIndicator;
@@ -98,8 +98,7 @@ public class ShopFragment extends Fragment {
     }
 
     public void clickItem(Product product) {
-        ProductActivity.actionStart(getContext());
-        LiveEventBus.get("ShopFragment-onItemClick", Product.class).post(product);
+        ProductActivity.actionStart(getContext(), product);
     }
 
     @Override

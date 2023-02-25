@@ -35,10 +35,9 @@ public class InfoActivity extends AppCompatActivity {
                 .observeSticky(this, news -> binding.setInfos(Arrays.asList(news)));
 
         NewsAdapter adapter = new NewsAdapter();
-        adapter.setOnItemClickListener(data -> {
-            LiveEventBus.get("InfoActivity-onItemClick", News.class).post(data);
-            InfoDetailActivity.actionStart(this);
-        });
+        adapter.setOnItemClickListener(data ->
+            InfoDetailActivity.actionStart(this, data)
+        );
         binding.setAdapter(adapter);
     }
 

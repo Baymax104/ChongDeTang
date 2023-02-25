@@ -51,8 +51,7 @@ public class ShoppingActivity extends AppCompatActivity {
         ShoppingAdapter adapter = new ShoppingAdapter();
         adapter.setOnItemClickListener(data -> {
             Product product = data.getShopping().getProduct();
-            LiveEventBus.get("ShopFragment-onItemClick", Product.class).post(product);
-            ProductActivity.actionStart(this);
+            ProductActivity.actionStart(this, product);
         });
         adapter.setOnCheckChangeListener(new ShoppingAdapter.ItemListener() {
             @Override

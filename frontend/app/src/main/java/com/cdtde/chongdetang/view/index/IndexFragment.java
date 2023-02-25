@@ -63,10 +63,9 @@ public class IndexFragment extends Fragment {
         binding.setViewModel(vm);
 
         IndexCollectionAdapter adapter = new IndexCollectionAdapter();
-        adapter.setOnItemClickListener(data -> {
-            LiveEventBus.get("TabFragment-onItemClick", Collection.class).post(data);
-            CollectionActivity.actionStart(requireContext());
-        });
+        adapter.setOnItemClickListener(data ->
+            CollectionActivity.actionStart(requireContext(), data)
+        );
         binding.setCollectionAdapter(adapter);
 
         binding.banner.setIndicator(new CircleIndicator(getContext()));
@@ -139,8 +138,7 @@ public class IndexFragment extends Fragment {
         binding.firstMoment.getRoot().setOnClickListener(v -> {
             News news = binding.firstInfo.getNews();
             if (news != null) {
-                LiveEventBus.get("MomentActivity-onItemClick", News.class).post(news);
-                MomentDetailActivity.actionStart(getContext());
+                MomentDetailActivity.actionStart(getContext(), news);
             }
         });
         binding.momentLabel.allEntry.setOnClickListener(v -> MomentActivity.actionStart(getContext()));
@@ -148,8 +146,7 @@ public class IndexFragment extends Fragment {
         binding.firstInfo.getRoot().setOnClickListener(v -> {
             News news = binding.firstInfo.getNews();
             if (news != null) {
-                LiveEventBus.get("InfoActivity-onItemClick", News.class).post(news);
-                InfoDetailActivity.actionStart(getContext());
+                InfoDetailActivity.actionStart(getContext(), news);
             }
         });
         binding.infoLabel.allEntry.setOnClickListener(v -> InfoActivity.actionStart(getContext()));

@@ -35,11 +35,12 @@ public class CultureDetailActivity extends AppCompatActivity {
         WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         WebViewUtil.configure(binding.webPage, false);
 
-        LiveEventBus.get("CultureListFragment-onItemClick", Culture.class)
+        LiveEventBus.get("CultureDetailActivity-getData", Culture.class)
                 .observeSticky(this, vm::setCulture);
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, Culture culture) {
+        LiveEventBus.get("CultureDetailActivity-getData", Culture.class).post(culture);
         Intent intent = new Intent(context, CultureDetailActivity.class);
         context.startActivity(intent);
     }

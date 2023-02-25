@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my.setting;
+package com.cdtde.chongdetang.view.my.login;
 
 import android.content.Context;
 

@@ -48,10 +48,9 @@ public class TabFragment extends Fragment {
         binding.setViewModel(vm);
 
         ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
-        adapter.setOnItemClickListener(data -> {
-            LiveEventBus.get("TabFragment-onItemClick", Collection.class).post(data);
-            CollectionActivity.actionStart(requireContext());
-        });
+        adapter.setOnItemClickListener(data ->
+            CollectionActivity.actionStart(requireContext(), data)
+        );
         binding.setAdapter(adapter);
         binding.setPage(page);
     }

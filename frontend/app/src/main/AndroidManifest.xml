@@ -26,6 +26,9 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.my.collect.UserCollectActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.shop.ShoppingActivity"
                 android:exported="false" />
         <activity
@@ -56,10 +59,10 @@
                 android:name=".view.my.address.AddressDetailActivity"
                 android:exported="false" />
         <activity
-                android:name=".view.my.setting.RegisterActivity"
+                android:name=".view.my.register.RegisterActivity"
                 android:exported="false" />
         <activity
-                android:name=".view.my.setting.LoginActivity"
+                android:name=".view.my.login.LoginActivity"
                 android:exported="false" />
         <activity
                 android:name=".view.index.origin.OriginActivity"
@@ -81,7 +84,7 @@
         <activity android:name=".view.my.setting.userPhone.UserPhoneActivity" />
         <activity android:name=".view.my.setting.userPassword.UserPasswordActivity" />
         <activity android:name=".view.my.address.AddressActivity" />
-        <activity android:name=".view.my.UserAppointActivity" />
+        <activity android:name=".view.my.appoint.UserAppointActivity" />
         <activity
                 android:name="com.yalantis.ucrop.UCropActivity"
                 android:screenOrientation="portrait"

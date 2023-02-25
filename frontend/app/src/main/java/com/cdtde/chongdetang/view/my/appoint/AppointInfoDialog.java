@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.index.appoint;
+package com.cdtde.chongdetang.view.my.appoint;
 
 import android.content.Context;
 import android.view.View;

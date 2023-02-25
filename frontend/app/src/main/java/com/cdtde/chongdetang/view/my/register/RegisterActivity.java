@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.my.setting;
+package com.cdtde.chongdetang.view.my.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
