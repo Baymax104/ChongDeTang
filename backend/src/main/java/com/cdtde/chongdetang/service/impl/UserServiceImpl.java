@@ -213,4 +213,21 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseResult<>("success", null, userCollects);
     }
+
+    @Override
+    public ResponseResult<Object> addUserCollect(UserCollect userCollect) {
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = loginUser.getUser().getId();
+
+        if (userId != userCollect.getUserId()) {
+            throw new RuntimeException("用户信息错误");
+        }
+
+        int i = userCollectMapper.insertUserCollect(userCollect);
+        if (i != 1) {
+            throw new RuntimeException("添加用户收藏错误");
+        }
+
+        return new ResponseResult<>("success", null, null);
+    }
 }

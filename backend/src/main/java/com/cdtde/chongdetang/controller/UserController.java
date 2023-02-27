@@ -94,4 +94,9 @@ public class UserController {
         return userService.getUserCollect(type);
     }
 
+    @PostMapping("/collect")
+    public ResponseResult<Object> addUserCollect(@RequestBody UserCollect userCollect) {
+        return userService.addUserCollect(userCollect);
+    }
+
 }

@@ -18,4 +18,6 @@ import java.util.List;
 public interface UserCollectMapper extends BaseMapper<UserCollect> {
     List<UserCollect> getUserCollection(@Param("userId") Integer userId);
     List<UserCollect> getUserProduct(@Param("userId") Integer userId);
+
+    int insertUserCollect(@Param("userCollect") UserCollect userCollect);
 }

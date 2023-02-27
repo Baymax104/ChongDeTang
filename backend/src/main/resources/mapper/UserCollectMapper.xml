@@ -4,6 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cdtde.chongdetang.mapper.UserCollectMapper">
 
+    <insert id="insertUserCollect">
+        insert into user_collect(collection_id, product_id, user_id)
+        values (#{userCollect.collection.id}, #{userCollect.product.id}, #{userCollect.userId});
+    </insert>
+
     <select id="getUserCollection" resultMap="user_collection">
         select
             uc.id uid,

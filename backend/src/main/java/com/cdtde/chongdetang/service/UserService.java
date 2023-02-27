@@ -19,4 +19,6 @@ public interface UserService {
 
     ResponseResult<List<UserCollect>> getUserCollect(String type);
 
+    ResponseResult<Object> addUserCollect(UserCollect userCollect);
+
 }
