@@ -10,11 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentUserCollectionBinding;
-import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.viewModel.my.UserCollectViewModel;
@@ -33,6 +31,10 @@ public class UserCollectionFragment extends Fragment {
 
     private UserCollectViewModel vm;
 
+    public static UserCollectionFragment newInstance() {
+        return new UserCollectionFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class UserCollectionFragment extends Fragment {
 
         ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
         adapter.setOnItemClickListener(data ->
-            CollectionActivity.actionStart(requireContext(), data)
+                CollectionActivity.actionStart(requireContext(), data)
         );
         binding.setAdapter(adapter);
 
@@ -63,9 +65,5 @@ public class UserCollectionFragment extends Fragment {
                         ToastUtils.showShort(exception.getMessage());
                     }
                 });
-    }
-
-    public static UserCollectionFragment newInstance() {
-        return new UserCollectionFragment();
     }
 }
