@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,11 @@ public class Product {
     private Integer id;
     private String name;
     private Double price;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date launchTime;
     private String photo;
     private String introduction;
+
+    @TableField(exist = false)
+    private boolean isUserCollect;
 }

@@ -3,12 +3,15 @@ package com.cdtde.chongdetang.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.ProductMapper;
 import com.cdtde.chongdetang.mapper.ShoppingMapper;
+import com.cdtde.chongdetang.mapper.UserCollectMapper;
 import com.cdtde.chongdetang.pojo.Product;
 import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.Shopping;
+import com.cdtde.chongdetang.pojo.UserCollect;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +33,33 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ShoppingMapper shoppingMapper;
 
+    @Autowired
+    private UserCollectMapper userCollectMapper;
+
     @Override
     public ResponseResult<List<Product>> getAllProduct() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Product> products = productMapper.selectList(null);
+
+        // 未登录
+        if ("anonymousUser".equals(authentication.getPrincipal())) {
+            return new ResponseResult<>("success", null, products);
+        }
+
+        // 已登录，获取收藏状态
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        int userId = loginUser.getUser().getId();
+        List<UserCollect> userProducts = userCollectMapper.getUserProduct(userId);
+
+        for (UserCollect uc : userProducts) {
+            for (Product p : products) {
+                if (uc.getProduct().getId().equals(p.getId())) {
+                    p.setUserCollect(true);
+                    break;
+                }
+            }
+        }
+
         return new ResponseResult<>("success", null, products);
     }
 
