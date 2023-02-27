@@ -6,6 +6,7 @@
     <color name="red">#f00</color>
     <color name="second_color">#CC6633</color>
     <color name="second_variant_color">#f9a825</color>
+    <color name="yellow1">#fdd835</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bar_color">#f5f5f5</color>

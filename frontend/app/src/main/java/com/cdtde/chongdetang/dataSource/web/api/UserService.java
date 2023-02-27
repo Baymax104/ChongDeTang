@@ -44,4 +44,8 @@ public interface UserService {
     @GET("/api/user/collect/{type}")
     Observable<ResponseResult<List<UserCollect>>> getUserCollect(@Header("Authorization") String token,
                                                                  @Path("type") String type);
+
+    @POST("/api/user/collect")
+    Observable<ResponseResult<Object>> addUserCollect(@Header("Authorization") String token,
+                                                      @Body UserCollect userCollect);
 }

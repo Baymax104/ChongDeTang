@@ -20,6 +20,7 @@ import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.AppKey;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.viewModel.shop.ProductViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -70,11 +71,28 @@ public class ProductActivity extends AppCompatActivity {
                     }
                 });
 
+        LiveEventBus.get("ShopRepository-addUserCollect", WebException.class)
+                        .observe(this, e -> {
+                            if (e.isSuccess()) {
+                                ToastUtils.showShort("收藏成功");
+                            } else {
+                                ToastUtils.showShort(e.getMessage());
+                            }
+                        });
+
         binding.shoppingEntry.setOnClickListener(v -> ShoppingActivity.actionStart(this));
 
         binding.addShopping.setOnClickListener(v -> {
             loading.show();
             vm.addShopping();
+        });
+
+        binding.collect.setOnClickListener(v -> {
+            if (vm.isLogin()) {
+                vm.addUserCollect();
+            } else {
+                LoginActivity.actionStart(this);
+            }
         });
     }
 

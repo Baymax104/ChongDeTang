@@ -16,6 +16,14 @@ public class UserCollect {
     public UserCollect() {
     }
 
+    public UserCollect(Collection collection) {
+        this.collection = collection;
+    }
+
+    public UserCollect(Product product) {
+        this.product = product;
+    }
+
     public Integer getId() {
         return id;
     }

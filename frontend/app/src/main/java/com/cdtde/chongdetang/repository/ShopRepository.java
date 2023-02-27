@@ -7,10 +7,12 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.ProductService;
+import com.cdtde.chongdetang.dataSource.web.api.UserService;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.entity.ResponseResult;
 import com.cdtde.chongdetang.entity.Shopping;
 import com.cdtde.chongdetang.entity.User;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.ArrayList;
@@ -46,6 +48,8 @@ public class ShopRepository {
 
     private ProductService productService;
 
+    private UserService userService;
+
     private ShopRepository() {
         userRepo = UserRepository.getInstance();
 
@@ -59,6 +63,7 @@ public class ShopRepository {
         shoppings = new ArrayList<>();
 
         productService = WebService.getInstance().create(ProductService.class);
+        userService = WebService.getInstance().create(UserService.class);
     }
 
     public static ShopRepository getInstance() {
@@ -219,6 +224,37 @@ public class ShopRepository {
                         WebService.onError("deleteShopping", "ShopRepository-deleteShopping"),
                         () -> LogUtils.iTag("cdt-web-deleteShopping", "删除购物车请求结束")
                 );
+    }
+
+    public void addUserCollect(UserCollect userCollect) {
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
+        userCollect.setUserId(userRepo.getUser().getId());
+
+        String eventKey = "ShopRepository-addUserCollect";
+        String tag = "cdt-web-addUserCollect";
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            boolean isSuccess = result.getStatus().equals("success");
+            if (isSuccess) {
+                userCollect.getProduct().setUserCollect(true);
+                LogUtils.iTag(tag, "添加商品收藏成功");
+            } else {
+                LogUtils.eTag(tag, result.getMessage());
+            }
+            LiveEventBus.get(eventKey, WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
+        };
+
+        userService.addUserCollect(token, userCollect)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onNext,
+                        WebService.onError("addUserCollect", eventKey),
+                        () -> LogUtils.iTag(tag, "添加商品收藏请求结束")
+                );
+
+
     }
 
 }

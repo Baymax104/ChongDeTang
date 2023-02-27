@@ -27,6 +27,8 @@ public class Product extends BaseObservable implements Serializable {
     private Date launchTime;
     private String introduction;
 
+    private boolean isUserCollect;
+
     public Product() {
     }
 
@@ -82,5 +84,15 @@ public class Product extends BaseObservable implements Serializable {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    @Bindable
+    public boolean isUserCollect() {
+        return isUserCollect;
+    }
+
+    public void setUserCollect(boolean userCollect) {
+        isUserCollect = userCollect;
+        notifyPropertyChanged(BR.userCollect);
     }
 }
