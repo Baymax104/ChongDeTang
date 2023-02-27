@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                         .observe(this, e -> {
                             loadingView.smartDismiss();
                             if (e.isSuccess()) {
+                                LiveEventBus.get("User-isLogin", Boolean.class).post(true);
                                 finish();
                             } else {
                                 ToastUtils.showShort(e.getMessage());

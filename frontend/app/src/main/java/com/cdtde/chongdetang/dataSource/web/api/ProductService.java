@@ -25,7 +25,7 @@ import retrofit2.http.Query;
 public interface ProductService {
 
     @GET("/api/product")
-    Observable<ResponseResult<List<Product>>> getAllProduct();
+    Observable<ResponseResult<List<Product>>> getAllProduct(@Header("Authorization") String token);
 
     @GET("/api/product/shopping")
     Observable<ResponseResult<List<Shopping>>> getShoppingByUser(@Header("Authorization") String token);

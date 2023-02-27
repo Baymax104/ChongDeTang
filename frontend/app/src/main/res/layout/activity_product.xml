@@ -181,7 +181,7 @@
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
                     android:id="@+id/collect"
-                    android:src="@{viewModel.product != null &amp;&amp; viewModel.product.userCollect ? @drawable/collect_fill : @drawable/collect}"
+                    android:src="@{viewModel.product.userCollect ? @drawable/collect_fill : @drawable/collect}"
                     android:layout_alignParentStart="true"/>
             <Button
                     android:layout_width="100dp"

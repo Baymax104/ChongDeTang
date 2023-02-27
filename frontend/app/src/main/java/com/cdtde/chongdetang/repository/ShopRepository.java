@@ -105,6 +105,9 @@ public class ShopRepository {
     }
 
     public void requestAllProduct() {
+        String token = userRepo.getUser().getToken() != null ?
+                WebService.TOKEN_PREFIX + userRepo.getUser().getToken() : null;
+
         Consumer<ResponseResult<List<Product>>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
@@ -118,7 +121,7 @@ public class ShopRepository {
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
-        productService.getAllProduct()
+        productService.getAllProduct(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -253,8 +256,6 @@ public class ShopRepository {
                         WebService.onError("addUserCollect", eventKey),
                         () -> LogUtils.iTag(tag, "添加商品收藏请求结束")
                 );
-
-
     }
 
 }

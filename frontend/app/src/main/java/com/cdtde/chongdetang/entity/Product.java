@@ -2,13 +2,14 @@ package com.cdtde.chongdetang.entity;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 
-import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.util.adapter.DateFormatAdapter;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * @Description
@@ -27,7 +28,8 @@ public class Product extends BaseObservable implements Serializable {
     private Date launchTime;
     private String introduction;
 
-    private boolean isUserCollect;
+    // 坑：boolean类型在转为json时会将is前缀去掉
+    private Boolean userCollect;
 
     public Product() {
     }
@@ -88,11 +90,11 @@ public class Product extends BaseObservable implements Serializable {
 
     @Bindable
     public boolean isUserCollect() {
-        return isUserCollect;
+        return Optional.ofNullable(userCollect).orElse(false);
     }
 
     public void setUserCollect(boolean userCollect) {
-        isUserCollect = userCollect;
+        this.userCollect = userCollect;
         notifyPropertyChanged(BR.userCollect);
     }
 }

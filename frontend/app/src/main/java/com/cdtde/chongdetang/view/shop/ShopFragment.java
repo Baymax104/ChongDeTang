@@ -65,14 +65,20 @@ public class ShopFragment extends Fragment {
                         });
 
         LiveEventBus.get("ShopRepository-requestAllProduct", WebException.class)
-                        .observe(this, e -> {
-                            if (e.isSuccess()) {
-                                vm.refreshAllProduct();
-                                vm.setInit(true);
-                            } else {
-                                ToastUtils.showShort(e.getMessage());
-                            }
-                        });
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
+                        vm.refreshAllProduct();
+                        vm.setInit(true);
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+                });
+        LiveEventBus.get("User-isLogin", Boolean.class)
+                .observeSticky(this, aBoolean -> {
+                    // TODO 更新状态比较激进，后续改进
+                    vm.updateAllProduct();
+                    vm.setInit(false);
+                });
 
         binding.banner.setIndicator(new CircleIndicator(getContext()));
 

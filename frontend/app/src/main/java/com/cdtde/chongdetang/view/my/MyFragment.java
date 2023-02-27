@@ -67,6 +67,7 @@ public class MyFragment extends Fragment {
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 vm.logout();
+                                LiveEventBus.get("User-isLogin", Boolean.class).post(false);
                             }
                         });
         LiveEventBus.get("MyRepository-login", WebException.class)
