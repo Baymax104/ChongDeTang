@@ -107,7 +107,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         }
                     });
 
-        LiveEventBus.get("MyRepository-updateInfo", WebException.class)
+        LiveEventBus.get("MyRepository-requestUpdateInfo", WebException.class)
                         .observe(this, e -> {
                             loadingPopupView.smartDismiss();
                             if (e.isSuccess()) {

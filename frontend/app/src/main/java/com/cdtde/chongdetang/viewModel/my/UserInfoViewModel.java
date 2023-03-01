@@ -26,7 +26,7 @@ public class UserInfoViewModel extends ViewModel {
     public void update() {
         // 若信息未变动，则直接返回
         if (ObjectUtils.equals(user, repo.getUser())) {
-            LiveEventBus.get("MyRepository-updateInfo", WebException.class)
+            LiveEventBus.get("MyRepository-requestUpdateInfo", WebException.class)
                     .post(new WebException(true, null));
             return;
         }

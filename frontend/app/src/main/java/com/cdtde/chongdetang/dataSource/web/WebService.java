@@ -3,9 +3,7 @@ package com.cdtde.chongdetang.dataSource.web;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.repository.AppKey;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,8 +29,8 @@ public class WebService {
     public static final String TOKEN_PREFIX = "Bearer ";
 
     private WebService() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s));
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s))
+                .setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
@@ -61,11 +59,4 @@ public class WebService {
         return retrofit.create(cl);
     }
 
-    public static Consumer<Throwable> onError(String functionName, String eventKey) {
-        return throwable1 -> {
-            LogUtils.eTag("cdt-web-" + functionName, throwable1);
-            LiveEventBus.get(eventKey, WebException.class)
-                    .post(new WebException(false, throwable1.getMessage()));
-        };
-    }
 }

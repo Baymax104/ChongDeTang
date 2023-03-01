@@ -2,7 +2,6 @@ package com.cdtde.chongdetang.repository;
 
 import android.annotation.SuppressLint;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.ProductService;
@@ -113,22 +112,19 @@ public class ShopRepository {
             if (isSuccess) {
                 products = result.getData();
                 updateHotProduct();
-                LogUtils.iTag("cdt-web-requestAllProduct", "获取商品成功");
-            } else {
-                LogUtils.eTag("cdt-web-requestAllProduct", result.getMessage());
             }
             LiveEventBus.get("ShopRepository-requestAllProduct", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ShopRepository-requestAllProduct", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         productService.getAllProduct(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestAllProduct", "ShopRepository-requestAllProduct"),
-                        () -> LogUtils.iTag("cdt-web-requestAllProduct", "获取商品请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 
     public void requestShopping() {
@@ -138,47 +134,41 @@ public class ShopRepository {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 shoppings = result.getData();
-                LogUtils.iTag("cdt-web-requestShopping", "获取购物车成功");
-            } else {
-                LogUtils.eTag("cdt-web-requestShopping", result.getMessage());
             }
             LiveEventBus.get("ShopRepository-requestShopping", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ShopRepository-requestShopping", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         productService.getShoppingByUser(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestShopping", "ShopRepository-requestShopping"),
-                        () -> LogUtils.iTag("cdt-web-requestShopping", "获取购物车请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 
     public void requestUpdateShoppingNumber(Shopping shopping, Integer number) {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Integer>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 shopping.setNumber(result.getData());
-                LogUtils.iTag("cdt-web-requestUpdateShoppingNumber", "修改商品数量成功");
-            } else {
-                LogUtils.eTag("cdt-web-requestUpdateShoppingNumber", result.getMessage());
             }
             LiveEventBus.get("ShopRepository-requestUpdateShoppingNumber", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ShopRepository-requestUpdateShoppingNumber", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         productService.updateShoppingNumber(token, shopping.getId(), shopping.getProduct().getId(), number)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestUpdateShoppingNumber", "ShopRepository-requestUpdateShoppingNumber"),
-                        () -> LogUtils.iTag("cdt-web-requestUpdateShoppingNumber", "修改商品数量请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 
     public void requestAddShopping(Shopping shopping) {
@@ -186,47 +176,37 @@ public class ShopRepository {
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
-            if (isSuccess) {
-                LogUtils.iTag("cdt-web-requestAddShopping", "添加购物车成功");
-            } else {
-                LogUtils.eTag("cdt-web-requestAddShopping", result.getMessage());
-            }
             LiveEventBus.get("ShopRepository-requestAddShopping", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ShopRepository-requestAddShopping", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         productService.addShopping(token, shopping)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestAddShopping", "ShopRepository-requestAddShopping"),
-                        () -> LogUtils.iTag("cdt-web-requestAddShopping", "添加购物车请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 
     public void requestDeleteShopping(Shopping shopping) {
-        String token = "Bearer " + userRepo.getUser().getToken();
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
-            if (isSuccess) {
-                LogUtils.iTag("cdt-web-requestDeleteShopping", "删除购物车成功");
-            } else {
-                LogUtils.eTag("cdt-web-requestDeleteShopping", result.getMessage());
-            }
             LiveEventBus.get("ShopRepository-requestDeleteShopping", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ShopRepository-requestDeleteShopping", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         productService.deleteShopping(token, shopping)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestDeleteShopping", "ShopRepository-requestDeleteShopping"),
-                        () -> LogUtils.iTag("cdt-web-requestDeleteShopping", "删除购物车请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 
     public void requestAddUserCollect(UserCollect userCollect) {
@@ -234,28 +214,24 @@ public class ShopRepository {
         userCollect.setUserId(userRepo.getUser().getId());
 
         String eventKey = "ShopRepository-requestAddUserCollect";
-        String tag = "cdt-web-requestAddUserCollect";
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
             if (isSuccess) {
                 userCollect.getProduct().setUserCollect(true);
-                LogUtils.iTag(tag, "添加商品收藏成功");
-            } else {
-                LogUtils.eTag(tag, result.getMessage());
             }
             LiveEventBus.get(eventKey, WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ShopRepository-requestDeleteShopping", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         userService.addUserCollect(token, userCollect)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestAddUserCollect", eventKey),
-                        () -> LogUtils.iTag(tag, "添加商品收藏请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 
 }

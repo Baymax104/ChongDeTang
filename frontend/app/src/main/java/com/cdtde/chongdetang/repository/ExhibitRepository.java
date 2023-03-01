@@ -2,7 +2,6 @@ package com.cdtde.chongdetang.repository;
 
 import android.annotation.SuppressLint;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.CollectionService;
 import com.cdtde.chongdetang.entity.Collection;
@@ -56,21 +55,18 @@ public class ExhibitRepository {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 collections = result.getData();
-                LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品成功");
-            } else {
-                LogUtils.eTag("cdt-web-requestAllCollection", result.getMessage());
             }
             LiveEventBus.get("ExhibitRepository-requestAllCollection", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get("ExhibitRepository-requestAllCollection", WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
         collectionService.getAllCollection()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        onNext,
-                        WebService.onError("requestAllCollection", "ExhibitRepository-requestAllCollection"),
-                        () -> LogUtils.iTag("cdt-web-requestAllCollection", "获取藏品请求结束")
-                );
+                .subscribe(onNext, onError);
     }
 }

@@ -78,7 +78,7 @@ public class MyFragment extends Fragment {
                                 ToastUtils.showShort(e.getMessage());
                             }
                         });
-        LiveEventBus.get("MyRepository-updateInfo", WebException.class)
+        LiveEventBus.get("MyRepository-requestUpdateInfo", WebException.class)
                         .observe(this, e -> {
                             if (e.isSuccess()) {
                                 vm.onUserChanged();
