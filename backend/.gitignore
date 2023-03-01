@@ -37,3 +37,5 @@ build/
 .vscode/
 
 src/test
+
+src/main/resources/application-real.properties
