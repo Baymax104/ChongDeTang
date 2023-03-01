@@ -35,6 +35,8 @@
         ResponseResult<User>  // data为user信息，包含token
     }
 
+
+
 ##### updateInfo
 
 ``` 
@@ -73,6 +75,19 @@ url: /api/user/update/phone
 method: post
 data: {
 	phone  // 新手机号
+}
+return: {
+	success
+}
+```
+##### setAdmin
+``` 
+修改管理员权限
+url: /api/user/update/admin
+method: post
+data: {
+	phone   // 手机号
+	mode    // 0代表设置为非管理员，1代表设置为管理员
 }
 return: {
 	success

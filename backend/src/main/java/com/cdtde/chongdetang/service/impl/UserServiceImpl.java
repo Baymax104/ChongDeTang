@@ -230,4 +230,13 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseResult<>("success", null, null);
     }
+    @Override
+    public ResponseResult<Object> setAdmin(String phone,int mode){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone",phone);
+        User user = userMapper.selectOne(queryWrapper);
+        user.setAdmin(mode);
+        userMapper.update(user, queryWrapper);
+        return new ResponseResult<>("success",null,null);
+    }
 }
