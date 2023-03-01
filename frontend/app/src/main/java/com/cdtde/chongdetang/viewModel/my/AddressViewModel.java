@@ -29,6 +29,6 @@ public class AddressViewModel extends ViewModel {
     }
 
     public void updateAllAddress() {
-        repo.getAllAddress();
+        repo.requestAllAddress();
     }
 }

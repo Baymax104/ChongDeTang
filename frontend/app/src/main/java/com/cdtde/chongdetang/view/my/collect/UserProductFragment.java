@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.databinding.FragmentUserProductBinding;
-import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.view.shop.ProductActivity;
 import com.cdtde.chongdetang.viewModel.my.UserCollectViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;

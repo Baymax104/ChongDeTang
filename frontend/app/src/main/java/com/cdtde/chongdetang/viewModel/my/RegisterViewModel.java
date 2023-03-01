@@ -105,6 +105,6 @@ public class RegisterViewModel extends ValidateViewModel {
     }
 
     public void register() {
-        repo.register(phone, password);
+        repo.requestRegister(phone, password);
     }
 }

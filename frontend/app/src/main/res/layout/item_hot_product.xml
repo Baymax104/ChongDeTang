@@ -10,7 +10,7 @@
                 type="Product" />
         <variable
                 name="clickHandler"
-                type="com.cdtde.chongdetang.util.adapter.BaseAdapter.OnItemClickListener&lt;Product>" />
+                type="com.cdtde.chongdetang.adapter.BaseAdapter.OnItemClickListener&lt;Product>" />
     </data>
 
 

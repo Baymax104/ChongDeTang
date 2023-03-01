@@ -1,20 +1,20 @@
 package com.cdtde.chongdetang.view.my.address;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityAddressDetailBinding;
 import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.viewModel.my.AddressDetailViewModel;
@@ -48,11 +48,11 @@ public class AddressDetailActivity extends AppCompatActivity {
         LiveEventBus.get("AddressDetailActivity-getData", Address.class)
                 .observeSticky(this, vm::setAddress);
 
-        LiveEventBus.get("MyRepository-updateAddress", WebException.class)
+        LiveEventBus.get("MyRepository-requestUpdateAddress", WebException.class)
                 .observe(this, e -> {
                     loading.smartDismiss();
                     if (e.isSuccess()) {
-                        LiveEventBus.get("AddressDetailActivity-updateAddress", Boolean.class).post(true);
+                        LiveEventBus.get("AddressDetailActivity-requestUpdateAddress", Boolean.class).post(true);
                         finish();
                     } else {
                         ToastUtils.showShort(e.getMessage());
@@ -67,11 +67,11 @@ public class AddressDetailActivity extends AppCompatActivity {
                     }
                 });
 
-        LiveEventBus.get("MyRepository-deleteAddress", WebException.class)
+        LiveEventBus.get("MyRepository-requestDeleteAddress", WebException.class)
                 .observe(this, e -> {
                     loading.dismiss();
                     if (e.isSuccess()) {
-                        LiveEventBus.get("AddressDetailActivity-deleteAddress", Boolean.class).post(true);
+                        LiveEventBus.get("AddressDetailActivity-requestDeleteAddress", Boolean.class).post(true);
                         finish();
                     } else {
                         ToastUtils.showShort(e.getMessage());

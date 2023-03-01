@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
-import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
+import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class UserPhoneViewModel extends ValidateViewModel {
     }
 
     public void updatePhone() {
-        repo.updatePhone(finalPhone);
+        repo.requestUpdatePhone(finalPhone);
     }
 
 }

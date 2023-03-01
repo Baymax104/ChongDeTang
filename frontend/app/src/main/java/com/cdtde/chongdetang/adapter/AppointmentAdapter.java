@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,23 +7,24 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ItemAddressBinding;
-import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.databinding.ItemAppointmentBinding;
+import com.cdtde.chongdetang.entity.Appointment;
 
-public class AddressAdapter extends BaseAdapter<Address> {
+
+public class AppointmentAdapter extends BaseAdapter<Appointment> {
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_appointment, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        Address address = data.get(position);
-        ((ViewHolder) holder).binding.setAddress(address);
-        ((ViewHolder) holder).binding.modify.setOnClickListener(v -> onItemClickListener.onClick(address));
+        Appointment appointment = data.get(position);
+        ((ViewHolder) holder).binding.setAppointment(appointment);
+        ((ViewHolder) holder).binding.detailEntry.setOnClickListener(v -> onItemClickListener.onClick(appointment));
     }
 
     @Override
@@ -33,10 +34,10 @@ public class AddressAdapter extends BaseAdapter<Address> {
 
     private static class ViewHolder extends BaseViewHolder {
 
-        ItemAddressBinding binding;
+        ItemAppointmentBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = ItemAddressBinding.bind(itemView);
+            binding = ItemAppointmentBinding.bind(itemView);
         }
     }
 }

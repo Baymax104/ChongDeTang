@@ -8,7 +8,7 @@
                 type="com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel" />
         <variable
                 name="fragmentAdapter"
-                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
     </data>
 
     <LinearLayout

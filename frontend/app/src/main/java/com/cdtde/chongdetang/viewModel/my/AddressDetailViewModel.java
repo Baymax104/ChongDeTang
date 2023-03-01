@@ -87,12 +87,12 @@ public class AddressDetailViewModel extends ViewModel {
                     .setCity(city)
                     .setDetail(detail);
         }
-        repo.updateAddress(current);
+        repo.requestUpdateAddress(current);
     }
 
     public void deleteAddress() {
         if (address.getValue() != null) {
-            repo.deleteAddress(address.getValue());
+            repo.requestDeleteAddress(address.getValue());
         }
     }
 }

@@ -28,7 +28,7 @@ public class AppointViewModel extends ViewModel {
     }
 
     public void updateAllAppointment() {
-        repo.getAllAppointment();
+        repo.requestAllAppointment();
     }
 
     public void refreshAllAppointment() {
@@ -36,6 +36,6 @@ public class AppointViewModel extends ViewModel {
     }
 
     public void addAppointment(Appointment appointment) {
-        repo.addAppointment(appointment);
+        repo.requestAddAppointment(appointment);
     }
 }

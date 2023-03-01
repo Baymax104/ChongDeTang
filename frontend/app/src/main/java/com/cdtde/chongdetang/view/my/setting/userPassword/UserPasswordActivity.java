@@ -12,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityUserPasswordBinding;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -45,7 +45,7 @@ public class UserPasswordActivity extends AppCompatActivity {
         binding.setFragmentAdapter(new FragmentAdapter(this));
         binding.viewPager.setUserInputEnabled(false);
 
-        LiveEventBus.get("MyRepository-updatePassword", WebException.class)
+        LiveEventBus.get("MyRepository-requestUpdatePassword", WebException.class)
                         .observe(this, e -> {
                             loading.smartDismiss();
                             if (e.isSuccess()) {

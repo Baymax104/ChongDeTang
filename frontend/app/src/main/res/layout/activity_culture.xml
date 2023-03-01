@@ -11,7 +11,7 @@
 
         <variable
                 name="fragmentAdapter"
-                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

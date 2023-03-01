@@ -14,9 +14,9 @@ import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityProductBinding;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.repository.AppKey;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
@@ -61,7 +61,7 @@ public class ProductActivity extends AppCompatActivity {
                             .into(binding.img);
                 });
 
-        LiveEventBus.get("ShopRepository-addShopping", WebException.class)
+        LiveEventBus.get("ShopRepository-requestAddShopping", WebException.class)
                 .observe(this, e -> {
                     loading.smartDismiss();
                     if (e.isSuccess()) {
@@ -71,7 +71,7 @@ public class ProductActivity extends AppCompatActivity {
                     }
                 });
 
-        LiveEventBus.get("ShopRepository-addUserCollect", WebException.class)
+        LiveEventBus.get("ShopRepository-requestAddUserCollect", WebException.class)
                         .observe(this, e -> {
                             if (e.isSuccess()) {
                                 ToastUtils.showShort("收藏成功");

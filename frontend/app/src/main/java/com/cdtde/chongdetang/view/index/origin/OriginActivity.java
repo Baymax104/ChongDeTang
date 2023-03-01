@@ -3,20 +3,18 @@ package com.cdtde.chongdetang.view.index.origin;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
-import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ActivityOriginBinding;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.MenuItem;
-
+import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.databinding.ActivityOriginBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.viewModel.index.OriginViewModel;
 
 

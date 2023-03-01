@@ -10,11 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.cdtde.chongdetang.adapter.ExhibitCollectionAdapter;
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
-import com.cdtde.chongdetang.entity.Collection;
-import com.cdtde.chongdetang.util.adapter.ExhibitCollectionAdapter;
 import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 /**
  * @Description

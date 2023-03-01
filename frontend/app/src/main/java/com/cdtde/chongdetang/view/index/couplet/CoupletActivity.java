@@ -1,24 +1,23 @@
 package com.cdtde.chongdetang.view.index.couplet;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.CoupletAdapter;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
-import com.cdtde.chongdetang.entity.News;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.CoupletAdapter;
 import com.cdtde.chongdetang.viewModel.index.CoupletViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;

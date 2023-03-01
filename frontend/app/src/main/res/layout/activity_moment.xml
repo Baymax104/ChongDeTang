@@ -8,7 +8,7 @@
         <import type="com.cdtde.chongdetang.entity.News"/>
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.util.adapter.NewsAdapter" />
+                type="com.cdtde.chongdetang.adapter.NewsAdapter" />
         <variable
                 name="moments"
                 type="List&lt;News>" />

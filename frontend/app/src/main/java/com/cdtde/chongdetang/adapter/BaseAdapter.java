@@ -1,7 +1,6 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import android.view.View;
-
 
 import androidx.recyclerview.widget.RecyclerView;
 

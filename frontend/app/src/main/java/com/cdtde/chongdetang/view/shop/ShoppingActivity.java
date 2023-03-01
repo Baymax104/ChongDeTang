@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.ShoppingAdapter;
 import com.cdtde.chongdetang.databinding.ActivityShoppingBinding;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.ShoppingAdapter;
 import com.cdtde.chongdetang.viewModel.shop.ShoppingViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -102,7 +102,7 @@ public class ShoppingActivity extends AppCompatActivity {
                     }
                 });
 
-        LiveEventBus.get("ShopRepository-updateShoppingNumber", WebException.class)
+        LiveEventBus.get("ShopRepository-requestUpdateShoppingNumber", WebException.class)
                 .observe(this, e -> {
                     loading.smartDismiss();
                     if (e.isSuccess()) {
@@ -112,7 +112,7 @@ public class ShoppingActivity extends AppCompatActivity {
                     }
                 });
 
-        LiveEventBus.get("ShopRepository-deleteShopping", WebException.class)
+        LiveEventBus.get("ShopRepository-requestDeleteShopping", WebException.class)
                 .observe(this, e -> {
                     if (e.isSuccess()) {
                         vm.updateShopping();

@@ -1,20 +1,20 @@
 package com.cdtde.chongdetang.view.my.collect;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityUserCollectBinding;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.viewModel.my.UserCollectViewModel;
 
 public class UserCollectActivity extends AppCompatActivity {

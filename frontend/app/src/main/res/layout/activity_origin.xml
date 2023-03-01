@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="fragmentAdapter"
-                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.index.OriginViewModel" />

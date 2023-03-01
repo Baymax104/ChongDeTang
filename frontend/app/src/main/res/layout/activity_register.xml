@@ -9,7 +9,7 @@
                 type="com.cdtde.chongdetang.viewModel.my.RegisterViewModel" />
         <variable
                 name="fragmentAdapter"
-                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
         <import type="android.view.View"/>
     </data>
 

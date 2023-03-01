@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.cdtde.chongdetang.adapter.CultureAdapter;
 import com.cdtde.chongdetang.databinding.FragmentCultureListBinding;
-import com.cdtde.chongdetang.entity.Culture;
-import com.cdtde.chongdetang.util.adapter.CultureAdapter;
 import com.cdtde.chongdetang.viewModel.index.CultureViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 
 /**

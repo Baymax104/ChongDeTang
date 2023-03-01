@@ -1,22 +1,22 @@
 package com.cdtde.chongdetang.view.my.register;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityRegisterBinding;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.viewModel.my.RegisterViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
 
-        LiveEventBus.get("MyRepository-register", WebException.class)
+        LiveEventBus.get("MyRepository-requestRegister", WebException.class)
                         .observe(this, e -> {
                             loading.smartDismiss();
                             if (e.isSuccess()) {

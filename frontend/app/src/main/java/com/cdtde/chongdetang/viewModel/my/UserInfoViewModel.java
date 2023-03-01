@@ -3,8 +3,8 @@ package com.cdtde.chongdetang.viewModel.my;
 import androidx.lifecycle.ViewModel;
 
 import com.blankj.utilcode.util.ObjectUtils;
-import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.entity.User;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.repository.MyRepository;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -30,6 +30,6 @@ public class UserInfoViewModel extends ViewModel {
                     .post(new WebException(true, null));
             return;
         }
-        repo.update(user, repo.getUser().getPhoto());
+        repo.requestUpdateInfo(user, repo.getUser().getPhoto());
     }
 }

@@ -26,13 +26,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.BannerAdapter;
+import com.cdtde.chongdetang.adapter.BaseAdapter;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.adapter.SearchTagAdapter;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.repository.AppKey;
-import com.cdtde.chongdetang.util.adapter.BannerAdapter;
-import com.cdtde.chongdetang.util.adapter.BaseAdapter;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
-import com.cdtde.chongdetang.util.adapter.SearchTagAdapter;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.youth.banner.Banner;
 import com.zhy.view.flowlayout.TagFlowLayout;
 

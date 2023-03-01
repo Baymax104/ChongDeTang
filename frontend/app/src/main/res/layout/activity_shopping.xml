@@ -9,7 +9,7 @@
                 type="com.cdtde.chongdetang.viewModel.shop.ShoppingViewModel" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.util.adapter.ShoppingAdapter" />
+                type="com.cdtde.chongdetang.adapter.ShoppingAdapter" />
     </data>
 
     <LinearLayout

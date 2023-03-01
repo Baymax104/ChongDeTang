@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityMainBinding;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.view.exhibit.ExhibitFragment;
 import com.cdtde.chongdetang.view.index.IndexFragment;
 import com.cdtde.chongdetang.view.my.MyFragment;

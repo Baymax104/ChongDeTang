@@ -9,7 +9,7 @@
                 type="com.cdtde.chongdetang.viewModel.my.UserCollectViewModel" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.util.adapter.ShopProductAdapter" />
+                type="com.cdtde.chongdetang.adapter.ShopProductAdapter" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

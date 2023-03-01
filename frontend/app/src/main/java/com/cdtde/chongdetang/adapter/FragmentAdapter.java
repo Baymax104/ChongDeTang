@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

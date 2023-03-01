@@ -35,6 +35,6 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login() {
-        repo.login(phone, password);
+        repo.requestLogin(phone, password);
     }
 }

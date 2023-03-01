@@ -12,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.view.index.SearchActivity;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.viewModel.shop.ShopViewModel;

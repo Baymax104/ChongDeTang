@@ -12,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityUserPhoneBinding;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -44,7 +44,7 @@ public class UserPhoneActivity extends AppCompatActivity {
         XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
 
-        LiveEventBus.get("MyRepository-updatePhone", WebException.class)
+        LiveEventBus.get("MyRepository-requestUpdatePhone", WebException.class)
                         .observe(this, e -> {
                             loading.smartDismiss();
                             if (e.isSuccess()) {

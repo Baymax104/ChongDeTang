@@ -10,7 +10,7 @@
                 type="com.cdtde.chongdetang.viewModel.shop.ShopViewModel" />
         <variable
                 name="productAdapter"
-                type="com.cdtde.chongdetang.util.adapter.ShopProductAdapter" />
+                type="com.cdtde.chongdetang.adapter.ShopProductAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

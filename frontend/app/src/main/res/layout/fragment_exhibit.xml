@@ -9,7 +9,7 @@
                 type="com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel" />
         <variable
                 name="tabAdapter"
-                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -1,20 +1,19 @@
 package com.cdtde.chongdetang.view.index.info;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.NewsAdapter;
 import com.cdtde.chongdetang.databinding.ActivityInfoBinding;
 import com.cdtde.chongdetang.entity.News;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.NewsAdapter;
-import com.cdtde.chongdetang.view.index.moment.MomentActivity;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.Arrays;

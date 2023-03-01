@@ -8,8 +8,8 @@ import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
 import com.cdtde.chongdetang.util.ValidateUtil;
-import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordFragment;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
+import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +107,6 @@ public class UserPasswordViewModel extends ValidateViewModel {
     }
 
     public void updatePassword() {
-        repo.updatePassword(oldPassword, newPassword);
+        repo.requestUpdatePassword(oldPassword, newPassword);
     }
 }

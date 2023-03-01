@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;

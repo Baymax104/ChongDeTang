@@ -37,7 +37,7 @@ public class ProductViewModel extends ViewModel {
     public void addShopping() {
         if (product.getValue() != null) {
             Shopping shopping = new Shopping(1, product.getValue());
-            repo.addShopping(shopping);
+            repo.requestAddShopping(shopping);
         }
     }
 
@@ -48,7 +48,7 @@ public class ProductViewModel extends ViewModel {
     public void addUserCollect() {
         if (product.getValue() != null) {
             UserCollect userCollect = new UserCollect(product.getValue());
-            repo.addUserCollect(userCollect);
+            repo.requestAddUserCollect(userCollect);
         }
     }
 }

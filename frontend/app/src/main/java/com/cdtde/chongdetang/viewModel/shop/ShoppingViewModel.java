@@ -11,7 +11,6 @@ import com.cdtde.chongdetang.repository.ShopRepository;
 
 import java.util.List;
 import java.util.OptionalDouble;
-import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -139,7 +138,7 @@ public class ShoppingViewModel extends ViewModel {
         if (n > 100) {
             return true;
         }
-        repo.updateShoppingNumber(shopping, n);
+        repo.requestUpdateShoppingNumber(shopping, n);
         return false;
     }
 
@@ -149,7 +148,7 @@ public class ShoppingViewModel extends ViewModel {
         if (n < 1) {
             return true;
         }
-        repo.updateShoppingNumber(shopping, n);
+        repo.requestUpdateShoppingNumber(shopping, n);
         return false;
     }
 
@@ -168,6 +167,6 @@ public class ShoppingViewModel extends ViewModel {
 
     public void deleteShopping(CheckedShopping checkedShopping) {
         Shopping shopping = checkedShopping.getShopping();
-        repo.deleteShopping(shopping);
+        repo.requestDeleteShopping(shopping);
     }
 }

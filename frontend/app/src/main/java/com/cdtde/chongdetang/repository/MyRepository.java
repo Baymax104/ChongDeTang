@@ -5,7 +5,6 @@ import android.net.Uri;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.UriUtils;
-import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.AddressService;
 import com.cdtde.chongdetang.dataSource.web.api.AppointmentService;
@@ -17,6 +16,7 @@ import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.entity.ResponseResult;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.entity.UserCollect;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.CameraUtil;
 import com.cdtde.chongdetang.util.ValidateUtil;
 import com.jeremyliao.liveeventbus.LiveEventBus;
@@ -100,7 +100,7 @@ public class MyRepository {
         return products;
     }
 
-    public void login(String phone, String password) {
+    public void requestLogin(String phone, String password) {
         Map<String, String> map = new HashMap<>();
         map.put("phone", phone);
         map.put("password", password);
@@ -109,7 +109,7 @@ public class MyRepository {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 User user = result.getData();
-                LogUtils.iTag("cdt-web-login", "用户结果返回");
+                LogUtils.iTag("cdt-web-requestLogin", "用户结果返回");
                 String base64 = user.getPhoto();
                 if (base64 != null) {
                     File file = CameraUtil.base64ToFile(base64);
@@ -118,9 +118,9 @@ public class MyRepository {
                 }
                 userRepo.setUser(user);
             } else {
-                LogUtils.eTag("cdt-web-login",  result.getMessage());
+                LogUtils.eTag("cdt-web-requestLogin", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-login", WebException.class)
+            LiveEventBus.get("MyRepository-requestLogin", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
         userService.login(map)
@@ -128,12 +128,12 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("login", "MyRepository-login"),
-                        () -> LogUtils.iTag("cdt-web-login", "登录请求结束")
+                        WebService.onError("requestLogin", "MyRepository-requestLogin"),
+                        () -> LogUtils.iTag("cdt-web-requestLogin", "登录请求结束")
                 );
     }
 
-    public void update(User user, String originPhoto) {
+    public void requestUpdateInfo(User user, String originPhoto) {
         String token = WebService.TOKEN_PREFIX + user.getToken();
 
         Map<String, Object> map = new HashMap<>();
@@ -148,12 +148,12 @@ public class MyRepository {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 User res = result.getData();
-                LogUtils.iTag("cdt-web-updateInfo", "用户结果返回", res);
+                LogUtils.iTag("cdt-web-requestUpdateInfo", "用户结果返回", res);
                 userRepo.setUser(res);
             } else {
-                LogUtils.eTag("cdt-web-updateInfo",  result.getMessage());
+                LogUtils.eTag("cdt-web-requestUpdateInfo", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-updateInfo", WebException.class)
+            LiveEventBus.get("MyRepository-requestUpdateInfo", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -162,12 +162,12 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("updateInfo", "MyRepository-updateInfo"),
-                        () -> LogUtils.iTag("cdt-web-updateInfo", "更新请求结束")
+                        WebService.onError("requestUpdateInfo", "MyRepository-requestUpdateInfo"),
+                        () -> LogUtils.iTag("cdt-web-requestUpdateInfo", "更新请求结束")
                 );
     }
 
-    public void register(String phone, String password) {
+    public void requestRegister(String phone, String password) {
         Map<String, String> map = new HashMap<>();
 
         String encrypt = ValidateUtil.encrypt(password);
@@ -177,11 +177,11 @@ public class MyRepository {
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
             if (isSuccess) {
-                LogUtils.iTag("cdt-web-register", "注册成功");
+                LogUtils.iTag("cdt-web-requestRegister", "注册成功");
             } else {
-                LogUtils.eTag("cdt-web-register", result.getMessage());
+                LogUtils.eTag("cdt-web-requestRegister", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-register", WebException.class)
+            LiveEventBus.get("MyRepository-requestRegister", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -190,12 +190,12 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("register", "MyRepository-register"),
-                        () -> LogUtils.iTag("cdt-web-register", "注册请求结束")
+                        WebService.onError("requestRegister", "MyRepository-requestRegister"),
+                        () -> LogUtils.iTag("cdt-web-requestRegister", "注册请求结束")
                 );
     }
 
-    public void updatePassword(String oldPassword, String newPassword) {
+    public void requestUpdatePassword(String oldPassword, String newPassword) {
         String token = "Bearer " + userRepo.getUser().getToken();
         String oldEncrypt = ValidateUtil.encrypt(oldPassword);
         String newEncrypt = ValidateUtil.encrypt(newPassword);
@@ -209,11 +209,11 @@ public class MyRepository {
             if (isSuccess) {
                 String encrypt = result.getData();
                 userRepo.getUser().setPassword(encrypt);
-                LogUtils.iTag("cdt-web-updatePassword", "密码修改成功");
+                LogUtils.iTag("cdt-web-requestUpdatePassword", "密码修改成功");
             } else {
-                LogUtils.eTag("cdt-web-updatePassword", result.getMessage());
+                LogUtils.eTag("cdt-web-requestUpdatePassword", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-updatePassword", WebException.class)
+            LiveEventBus.get("MyRepository-requestUpdatePassword", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -222,23 +222,23 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("updatePassword", "MyRepository-updatePassword"),
-                        () -> LogUtils.iTag("cdt-web-updatePassword", "修改密码请求结束")
+                        WebService.onError("requestUpdatePassword", "MyRepository-requestUpdatePassword"),
+                        () -> LogUtils.iTag("cdt-web-requestUpdatePassword", "修改密码请求结束")
                 );
     }
 
-    public void updatePhone(String phone) {
+    public void requestUpdatePhone(String phone) {
         String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
             if (isSuccess) {
                 userRepo.getUser().setPhone(phone);
-                LogUtils.iTag("cdt-web-updatePhone", "手机号修改成功");
+                LogUtils.iTag("cdt-web-requestUpdatePhone", "手机号修改成功");
             } else {
-                LogUtils.eTag("cdt-web-updatePhone", result.getMessage());
+                LogUtils.eTag("cdt-web-requestUpdatePhone", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-updatePhone", WebException.class)
+            LiveEventBus.get("MyRepository-requestUpdatePhone", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -247,23 +247,23 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("updatePhone", "MyRepository-updatePhone"),
-                        () -> LogUtils.iTag("cdt-web-updatePhone", "修改手机号请求结束")
+                        WebService.onError("requestUpdatePhone", "MyRepository-requestUpdatePhone"),
+                        () -> LogUtils.iTag("cdt-web-requestUpdatePhone", "修改手机号请求结束")
                 );
     }
 
-    public void getAllAddress() {
+    public void requestAllAddress() {
         String token = "Bearer " + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<List<Address>>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 addresses = result.getData();
-                LogUtils.iTag("cdt-web-getAllAddress", "获取地址成功");
+                LogUtils.iTag("cdt-web-requestAllAddress", "获取地址成功");
             } else {
-                LogUtils.eTag("cdt-web-getAllAddress", result.getMessage());
+                LogUtils.eTag("cdt-web-requestAllAddress", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-getAllAddress", WebException.class)
+            LiveEventBus.get("MyRepository-requestAllAddress", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -272,22 +272,22 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("getAllAddress", "MyRepository-getAllAddress"),
-                        () -> LogUtils.iTag("cdt-web-getAllAddress", "获取地址请求结束")
+                        WebService.onError("requestAllAddress", "MyRepository-requestAllAddress"),
+                        () -> LogUtils.iTag("cdt-web-requestAllAddress", "获取地址请求结束")
                 );
     }
 
-    public void updateAddress(Address address) {
+    public void requestUpdateAddress(Address address) {
         String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
             if (isSuccess) {
-                LogUtils.iTag("cdt-web-updateAddress", "修改地址成功");
+                LogUtils.iTag("cdt-web-requestUpdateAddress", "修改地址成功");
             } else {
-                LogUtils.eTag("cdt-web-updateAddress", result.getMessage());
+                LogUtils.eTag("cdt-web-requestUpdateAddress", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-updateAddress", WebException.class)
+            LiveEventBus.get("MyRepository-requestUpdateAddress", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -296,22 +296,22 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("updateAddress", "MyRepository-updateAddress"),
-                        () -> LogUtils.iTag("cdt-web-updateAddress","修改地址请求结束")
+                        WebService.onError("requestUpdateAddress", "MyRepository-requestUpdateAddress"),
+                        () -> LogUtils.iTag("cdt-web-requestUpdateAddress", "修改地址请求结束")
                 );
     }
 
-    public void deleteAddress(Address address) {
+    public void requestDeleteAddress(Address address) {
         String token = "Bearer " + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
             if (isSuccess) {
-                LogUtils.iTag("cdt-web-deleteAddress", "删除地址成功");
+                LogUtils.iTag("cdt-web-requestDeleteAddress", "删除地址成功");
             } else {
-                LogUtils.eTag("cdt-web-deleteAddress", result.getMessage());
+                LogUtils.eTag("cdt-web-requestDeleteAddress", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-deleteAddress", WebException.class)
+            LiveEventBus.get("MyRepository-requestDeleteAddress", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -320,23 +320,23 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("deleteAddress", "MyRepository-deleteAddress"),
-                        () -> LogUtils.iTag("cdt-web-deleteAddress", "删除地址请求结束")
+                        WebService.onError("requestDeleteAddress", "MyRepository-requestDeleteAddress"),
+                        () -> LogUtils.iTag("cdt-web-requestDeleteAddress", "删除地址请求结束")
                 );
     }
 
-    public void getAllAppointment() {
+    public void requestAllAppointment() {
         String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<List<Appointment>>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
             if (isSuccess) {
                 appointments = result.getData();
-                LogUtils.iTag("cdt-web-getAllAppointment", "获取预约成功");
+                LogUtils.iTag("cdt-web-requestAllAppointment", "获取预约成功");
             } else {
-                LogUtils.eTag("cdt-web-getAllAppointment", result.getMessage());
+                LogUtils.eTag("cdt-web-requestAllAppointment", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-getAllAppointment", WebException.class)
+            LiveEventBus.get("MyRepository-requestAllAppointment", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -345,22 +345,22 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("getAllAppointment", "MyRepository-getAllAppointment"),
-                        () -> LogUtils.iTag("cdt-web-getAllAppointment", "获取预约请求结束")
+                        WebService.onError("requestAllAppointment", "MyRepository-requestAllAppointment"),
+                        () -> LogUtils.iTag("cdt-web-requestAllAppointment", "获取预约请求结束")
                 );
     }
 
-    public void addAppointment(Appointment appointment) {
-        String token = "Bearer " + userRepo.getUser().getToken();
+    public void requestAddAppointment(Appointment appointment) {
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
             if (isSuccess) {
-                LogUtils.iTag("cdt-web-addAppointment", "添加预约成功");
+                LogUtils.iTag("cdt-web-requestAddAppointment", "添加预约成功");
             } else {
-                LogUtils.eTag("cdt-web-addAppointment", result.getMessage());
+                LogUtils.eTag("cdt-web-requestAddAppointment", result.getMessage());
             }
-            LiveEventBus.get("MyRepository-addAppointment", WebException.class)
+            LiveEventBus.get("MyRepository-requestAddAppointment", WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };
 
@@ -369,8 +369,8 @@ public class MyRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onNext,
-                        WebService.onError("addAppointment", "MyRepository-addAppointment"),
-                        () -> LogUtils.iTag("cdt-web-addAppointment", "添加预约请求结束")
+                        WebService.onError("requestAddAppointment", "MyRepository-requestAddAppointment"),
+                        () -> LogUtils.iTag("cdt-web-requestAddAppointment", "添加预约请求结束")
                 );
     }
 

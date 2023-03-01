@@ -12,12 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.AddressAdapter;
 import com.cdtde.chongdetang.databinding.ActivityAddressBinding;
-import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.AddressAdapter;
 import com.cdtde.chongdetang.viewModel.my.AddressViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -40,7 +39,7 @@ public class AddressActivity extends AppCompatActivity {
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)).show();
 
-        LiveEventBus.get("MyRepository-getAllAddress", WebException.class)
+        LiveEventBus.get("MyRepository-requestAllAddress", WebException.class)
                 .observe(this, e -> {
                     loading.smartDismiss();
                     if (e.isSuccess()) {
@@ -50,7 +49,7 @@ public class AddressActivity extends AppCompatActivity {
                     }
                 });
 
-        LiveEventBus.get("AddressDetailActivity-updateAddress", Boolean.class)
+        LiveEventBus.get("AddressDetailActivity-requestUpdateAddress", Boolean.class)
                 .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 loading.show();
@@ -58,7 +57,7 @@ public class AddressActivity extends AppCompatActivity {
                             }
                         });
 
-        LiveEventBus.get("AddressDetailActivity-deleteAddress", Boolean.class)
+        LiveEventBus.get("AddressDetailActivity-requestDeleteAddress", Boolean.class)
                         .observe(this, aBoolean -> {
                             if (aBoolean) {
                                 loading.show();

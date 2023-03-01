@@ -12,12 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
+import com.cdtde.chongdetang.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
-import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.News;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
 import com.cdtde.chongdetang.view.index.couplet.CoupletActivity;

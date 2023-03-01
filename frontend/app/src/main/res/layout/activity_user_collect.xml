@@ -9,7 +9,7 @@
                 type="com.cdtde.chongdetang.viewModel.my.UserCollectViewModel" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.util.adapter.FragmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

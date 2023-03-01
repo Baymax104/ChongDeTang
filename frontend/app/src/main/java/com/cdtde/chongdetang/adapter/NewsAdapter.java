@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,30 +7,30 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ItemShopProductBinding;
-import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.databinding.ItemNewsBinding;
+import com.cdtde.chongdetang.entity.News;
 
 /**
  * @Description
  * @Author John
  * @email
- * @Date 2023/1/8 20:51
+ * @Date 2023/2/18 21:06
  * @Version 1
  */
-public class ShopProductAdapter extends BaseAdapter<Product> {
+public class NewsAdapter extends BaseAdapter<News> {
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shop_product, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        Product product = data.get(position);
-        ((ViewHolder) holder).binding.setProduct(product);
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(product));
+        News news = data.get(position);
+        ((ViewHolder) holder).binding.setNews(news);
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(news));
     }
 
     @Override
@@ -40,10 +40,11 @@ public class ShopProductAdapter extends BaseAdapter<Product> {
 
     private static class ViewHolder extends BaseViewHolder {
 
-        ItemShopProductBinding binding;
-        public ViewHolder(@NonNull View itemView) {
+        ItemNewsBinding binding;
+
+        public ViewHolder(View itemView) {
             super(itemView);
-            binding = ItemShopProductBinding.bind(itemView);
+            binding = ItemNewsBinding.bind(itemView);
         }
     }
 }

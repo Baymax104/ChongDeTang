@@ -1,21 +1,21 @@
 package com.cdtde.chongdetang.view.index.appoint;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.ActivityAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
@@ -56,7 +56,7 @@ public class AppointActivity extends AppCompatActivity {
                             loading.show();
                         });
 
-        LiveEventBus.get("MyRepository-addAppointment", WebException.class)
+        LiveEventBus.get("MyRepository-requestAddAppointment", WebException.class)
                         .observe(this, e -> {
                             loading.smartDismiss();
                             if (e.isSuccess()) {

@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,30 +7,30 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ItemCoupletBinding;
-import com.cdtde.chongdetang.entity.News;
+import com.cdtde.chongdetang.databinding.ItemShopProductBinding;
+import com.cdtde.chongdetang.entity.Product;
 
 /**
  * @Description
  * @Author John
  * @email
- * @Date 2023/2/18 19:15
+ * @Date 2023/1/8 20:51
  * @Version 1
  */
-public class CoupletAdapter extends BaseAdapter<News> {
+public class ShopProductAdapter extends BaseAdapter<Product> {
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_couplet, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shop_product, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        News news = data.get(position);
-        ((ViewHolder) holder).binding.setNews(news);
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(news));
+        Product product = data.get(position);
+        ((ViewHolder) holder).binding.setProduct(product);
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(product));
     }
 
     @Override
@@ -39,10 +39,11 @@ public class CoupletAdapter extends BaseAdapter<News> {
     }
 
     private static class ViewHolder extends BaseViewHolder {
-        ItemCoupletBinding binding;
-        public ViewHolder(View itemView) {
+
+        ItemShopProductBinding binding;
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = ItemCoupletBinding.bind(itemView);
+            binding = ItemShopProductBinding.bind(itemView);
         }
     }
 }

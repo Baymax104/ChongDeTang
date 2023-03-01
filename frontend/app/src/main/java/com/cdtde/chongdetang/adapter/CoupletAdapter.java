@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.util.adapter;
+package com.cdtde.chongdetang.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.ItemNewsBinding;
+import com.cdtde.chongdetang.databinding.ItemCoupletBinding;
 import com.cdtde.chongdetang.entity.News;
 
 /**
  * @Description
  * @Author John
  * @email
- * @Date 2023/2/18 21:06
+ * @Date 2023/2/18 19:15
  * @Version 1
  */
-public class NewsAdapter extends BaseAdapter<News> {
+public class CoupletAdapter extends BaseAdapter<News> {
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_couplet, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,12 +39,10 @@ public class NewsAdapter extends BaseAdapter<News> {
     }
 
     private static class ViewHolder extends BaseViewHolder {
-
-        ItemNewsBinding binding;
-
+        ItemCoupletBinding binding;
         public ViewHolder(View itemView) {
             super(itemView);
-            binding = ItemNewsBinding.bind(itemView);
+            binding = ItemCoupletBinding.bind(itemView);
         }
     }
 }

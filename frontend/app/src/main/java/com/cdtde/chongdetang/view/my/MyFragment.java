@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.dataSource.web.WebException;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.my.address.AddressActivity;
 import com.cdtde.chongdetang.view.my.appoint.UserAppointActivity;
@@ -70,7 +70,7 @@ public class MyFragment extends Fragment {
                                 LiveEventBus.get("User-isLogin", Boolean.class).post(false);
                             }
                         });
-        LiveEventBus.get("MyRepository-login", WebException.class)
+        LiveEventBus.get("MyRepository-requestLogin", WebException.class)
                         .observe(this, e -> {
                             if (e.isSuccess()) {
                                 vm.onUserChanged();
