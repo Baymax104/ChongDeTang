@@ -56,4 +56,20 @@ public class AppointmentServiceImpl implements AppointmentService {
         result.setStatus("success");
         return result;
     }
+
+    @Override
+    public ResponseResult<Object> changeStatus(String id, String status){
+        ResponseResult<Object> result = new ResponseResult<>();
+
+        QueryWrapper<Appointment> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        Appointment appointment = appointmentMapper.selectOne(wrapper);
+        appointment.setStatus(status);
+        int i = appointmentMapper.update(appointment,wrapper);
+        if (i != 1){
+            throw new RuntimeException("预约状态更新失败");
+        }
+        result.setStatus("success");
+        return result;
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -24,5 +25,12 @@ public class CollectionController {
     @GetMapping("/hot")
     public ResponseResult<List<Collection>> getHot() {
         return collectionService.getHot();
+    }
+
+    @PostMapping("/select")
+    public ResponseResult<Object> setSelected(@RequestBody Map<String, String> map){
+        String id = map.get("id");
+        String status = map.get("status");
+        return collectionService.setSelected(id,status);
     }
 }

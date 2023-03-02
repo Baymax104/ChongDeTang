@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface NewsService {
     ResponseResult<List<News>> download(String type);
+
+    public ResponseResult<Object> upload(String date,String title, String photo,String url,String type,String description);
 }

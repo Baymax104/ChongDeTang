@@ -16,7 +16,7 @@
     type:post
     data:{
         phone           // 手机号
-        password        // 密码
+        password        // 加密后密码
     }
     return:{
         ResponseResult<Object>  // 包含status(success、error)、message(为什么error)
@@ -29,7 +29,7 @@
     type:post
     data:{
         phone       // 手机号
-        password    // 密码
+        password    // 加密后密码
     }
     return:{
         ResponseResult<User>  // data为user信息，包含token
@@ -175,11 +175,23 @@ return: {
 	success
 }
 ```
+##### changeStatus
+``` 
+更改审核状态
+url: /api/user/appointment/status
+method: post
+data: {
+	String id          // 预约的id号
+	String status      // 要更改到什么状态，取值['PROCESSING','SUCCESS','FAIL'] 
+}
+return: {
+	success
+}
+```
 
 #### CollectionController
 
 ##### download
-
 ``` 
 获取所有藏品
 url: /api/collection
@@ -202,29 +214,79 @@ return: {
 }
 ```
 
+##### setSelected
+
+``` 
+藏品设置精选
+url: /api/collection/select
+method: post
+data: {
+    String id  // 藏品id
+    String status  // 1为设置精选，0为取消精选
+}
+
+return: {
+	List<Collection>  // 热搜藏品列表
+}
+```
+
 #### CultureController
 
 ##### download
-
+```
+    // 在前端区分四个type，取值["beyl","shzk","zzys","tpdk"]
     url:/api/culture
     method:get
     data: null
     return:{
         List<Culture>    //  Culture列表
     }
+```
+##### upload
+```
+//代表匾额楹联，书画篆刻，造纸印刷，拓片雕刻
+url:/api/culture/{type} // 表示是哪个子栏，取值["beyl","shzk","zzys","tpdk"]
+method:post
+data:{
+    String date    // YYYY-MM-DD
+    String title
+    String photo
+    String url
+    String description
 
+return:{
+    success
+}
+```
+    
 #### NewsController
 
 ##### download
+```
+代表行业资讯、展馆动态、每日一联
+url:/api/news/{type}    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
+method:get
+data: None
+return:{
+    ResponseResult<List<News>>    //  列表形式的所有信息
+}
+```
+##### upload
+```
+url:/api/news/{type}    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
+method:post
+data:{
+    String date    // YYYY-MM-DD
+    String title
+    String photo
+    String url
+    String description
 
-    url:/api/news/{type}
-    method:get
-    data:{
-        type    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
-    }
-    return:{
-        ResponseResult<List<News>>    //  列表形式的所有信息
-    }
+return:{
+    success
+}
+```
+    
 
 #### ProductController
 
