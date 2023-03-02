@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import(/* webpackChunkName: "dashboard" */ '../views/DashBoardView.vue')
+      component: () => import(/* webpackChunkName: "dashboard" */ '../views/single/DashBoardView.vue')
     },
 
     //  活动预约审核
@@ -37,6 +37,12 @@ const router = createRouter({
       path: '/message_configuration',
       name: 'message_configuration',
       component: () => import('../views/home/MessageConfigurationView.vue')
+    },
+      // 权限管理
+    {
+      path: '/auth_manage',
+      name: 'auth_manage',
+      component: () => import('../views/single/AuthManageView.vue')
     }
   ]
 })

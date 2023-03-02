@@ -30,5 +30,5 @@ public class Appointment {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date orderTime;
     private Double orderMoney;
-    private String state;
+    private String status;
 }

@@ -17,4 +17,5 @@ public class Collection {
     private String photo;
     private String url;
     private String type;
+    private String selected;
 }

@@ -11,18 +11,12 @@
                 <div class="line" />
                 <el-menu background-color="#222832" text-color="#fff" :router="true" :default-openeds="state.defaultOpen"
                     :default-active='state.currentPath'>
-                    <el-sub-menu index="1">
-                        <template #title>
-                            <span>Dashboard</span>
-                        </template>
-                        <el-menu-item-group>
-                          <el-menu-item index="/dashboard"><el-icon>
-                            <Plus />
-                          </el-icon>大盘数据</el-menu-item>
-                        </el-menu-item-group>
-                    </el-sub-menu>
+                  <el-menu-item index="/dashboard">
+                    <el-icon><Plus /></el-icon>
+                    <span>大盘数据</span>
+                  </el-menu-item>
                     <el-sub-menu index="2">
-                        <template #title>
+                        <template #title><el-icon><setting /></el-icon>
                             <span>首页管理</span>
                         </template>
                         <el-menu-item-group>
@@ -38,6 +32,10 @@
 
                         </el-menu-item-group>
                     </el-sub-menu>
+                  <el-menu-item index="/auth_manage">
+                    <el-icon><setting /></el-icon>
+                    <span>权限管理</span>
+                  </el-menu-item>
                 </el-menu>
             </el-aside>
             <el-container class="content">

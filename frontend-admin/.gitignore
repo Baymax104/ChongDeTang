@@ -33,5 +33,5 @@ pnpm-debug.log*
 /nbdist/
 /.nb-gradle/
 
-### config ###
-config
+dist
+config/app-key.js

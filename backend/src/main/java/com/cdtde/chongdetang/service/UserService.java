@@ -21,4 +21,8 @@ public interface UserService {
 
     ResponseResult<Object> addUserCollect(UserCollect userCollect);
 
+    ResponseResult<Object> setAdmin(String phone,String mode);
+
+    ResponseResult<List<User>> getAllUser();
+
 }

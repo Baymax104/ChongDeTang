@@ -13,6 +13,7 @@ import com.cdtde.chongdetang.utils.JwtUtil;
 import com.qcloud.cos.exception.CosClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,6 +49,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserCollectMapper userCollectMapper;
+    @Value("${cos.url}")
+    private String urlFront;
 
     @Override
     public ResponseResult<User> login(String phone, String password) {
@@ -229,5 +232,34 @@ public class UserServiceImpl implements UserService {
         }
 
         return new ResponseResult<>("success", null, null);
+    }
+    @Override
+    public ResponseResult<Object> setAdmin(String phone,String mode){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone",phone);
+        User user = userMapper.selectOne(queryWrapper);
+        user.setAdmin(mode);
+        int i = userMapper.update(user, queryWrapper);
+        if(i != 1){
+            throw new RuntimeException("管理员设置错误");
+        }
+        return new ResponseResult<>("success",null,null);
+    }
+
+    @Override
+    public ResponseResult<List<User>> getAllUser(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.ne("phone",-1);
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(user -> {
+            if(user.getPhoto() != null){
+                user.setPhoto(urlFront + user.getPhoto());
+            }
+        });
+        ResponseResult<List<User>> res = new ResponseResult<>();
+        res.setData(users);
+        res.setStatus("success");
+
+        return res;
     }
 }

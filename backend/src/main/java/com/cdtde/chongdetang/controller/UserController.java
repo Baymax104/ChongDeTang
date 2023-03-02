@@ -40,7 +40,12 @@ public class UserController {
     @PostMapping("/login")
     public ResponseResult<User> login(@RequestBody Map<String, String> map) {
         String phone = map.get("phone");
-        String password = map.get("password");
+        String aesPassword = map.get("password");
+        byte[] key = passwordKey.getBytes(StandardCharsets.UTF_8);
+        byte[] iv = passwordIv.getBytes(StandardCharsets.UTF_8);
+        AES aes = new AES(Mode.CBC, Padding.PKCS5Padding, key, iv);
+        String password = aes.decryptStr(aesPassword);
+
         return userService.login(phone, password);
     }
 
@@ -97,6 +102,18 @@ public class UserController {
     @PostMapping("/collect")
     public ResponseResult<Object> addUserCollect(@RequestBody UserCollect userCollect) {
         return userService.addUserCollect(userCollect);
+    }
+
+    @PostMapping("/admin")
+    public ResponseResult<Object> setAdmin(@RequestBody Map<String,String> map){
+        String phone = map.get("phone");
+        String mode = map.get("mode");
+        return userService.setAdmin(phone,mode);
+    }
+
+    @GetMapping("/admin")
+    public ResponseResult<List<User>> getAllUser(){
+        return userService.getAllUser();
     }
 
 }

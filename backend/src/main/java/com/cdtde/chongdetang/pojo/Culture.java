@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -23,4 +25,21 @@ public class Culture {
     private String url;
     private String type;
     private String description;
+
+    public Culture(String date,String title, String photo,String url,String type,String description) {
+
+        Date d = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            d = sdf.parse(date);
+        } catch (ParseException pe) {
+            System.out.println("日期转化失败");
+        }
+        this.date = d;
+        this.title = title;
+        this.photo = photo;
+        this.url = url;
+        this.type = type;
+        this.description = description;
+    }
 }

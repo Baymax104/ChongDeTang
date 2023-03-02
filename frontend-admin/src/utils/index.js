@@ -31,5 +31,6 @@ export const pathMap = {
   dashboard: '监控数据',
   event_audit: '活动预约审核',
   collection_filtrate: '藏品精选筛选',
-  message_configuration: '消息推送设置'
+  message_configuration: '消息推送设置',
+  auth_manage: '人员权限管理'
 }
