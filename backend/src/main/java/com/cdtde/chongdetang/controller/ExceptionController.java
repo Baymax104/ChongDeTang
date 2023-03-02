@@ -4,7 +4,10 @@ import com.cdtde.chongdetang.pojo.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description
@@ -24,5 +27,10 @@ public class ExceptionController {
         result.setStatus("error").setMessage(e.getMessage());
         log.error("Catch Exception: {}", e.getMessage());
         return result;
+    }
+
+    @RequestMapping("/error/token")
+    public void handleException(HttpServletRequest request) {
+        throw (RuntimeException) request.getAttribute("tokenError");
     }
 }

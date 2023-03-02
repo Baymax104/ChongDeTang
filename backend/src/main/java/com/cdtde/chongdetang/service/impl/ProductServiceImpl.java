@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productMapper.selectList(null);
 
         // 未登录
-        if ("anonymousUser".equals(authentication.getPrincipal())) {
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
             return new ResponseResult<>("success", null, products);
         }
 

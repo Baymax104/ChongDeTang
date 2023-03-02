@@ -37,16 +37,26 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         if (!token.startsWith("Bearer ")) {
-            log.error("Token错误");
+            request.setAttribute("tokenError", new RuntimeException("token缺少Bearer"));
+            request.getRequestDispatcher("/error/token").forward(request, response);
             return;
         }
 
         token = token.substring(7);
-        Claims claims = JwtUtil.parseJWT(token);
+        Claims claims;
+        try {
+            claims = JwtUtil.parseJWT(token);
+        } catch (Exception e) {
+            request.setAttribute("tokenError", e);
+            request.getRequestDispatcher("/error/token").forward(request, response);
+            return;
+        }
+
         String userid = claims.getSubject();
         User user = userMapper.selectById(Integer.parseInt(userid));
         if (user == null) {
-            log.error("用户未登录");
+            request.setAttribute("tokenError", new RuntimeException("用户未注册"));
+            request.getRequestDispatcher("/error/token").forward(request, response);
             return;
         }
 
