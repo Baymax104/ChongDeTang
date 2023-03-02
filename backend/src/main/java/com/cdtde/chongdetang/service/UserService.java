@@ -23,4 +23,6 @@ public interface UserService {
 
     ResponseResult<Object> setAdmin(String phone,int mode);
 
+    ResponseResult<List<User>> getAllUser();
+
 }

@@ -99,11 +99,16 @@ public class UserController {
         return userService.addUserCollect(userCollect);
     }
 
-    @PostMapping("/update/admin")
+    @PostMapping("/admin")
     public ResponseResult<Object> setAdmin(@RequestBody Map<String,String> map){
         String phone = map.get("phone");
         int mode = Integer.parseInt(map.get("mode"));
         return userService.setAdmin(phone,mode);
+    }
+
+    @GetMapping("/admin")
+    public ResponseResult<List<User>> getAllUser(){
+        return userService.getAllUser();
     }
 
 }

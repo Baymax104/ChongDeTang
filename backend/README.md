@@ -83,7 +83,7 @@ return: {
 ##### setAdmin
 ``` 
 修改管理员权限
-url: /api/user/update/admin
+url: /api/user/admin
 method: post
 data: {
 	phone   // 手机号
@@ -93,6 +93,18 @@ return: {
 	success
 }
 ```
+
+##### getAllUser
+``` 
+获取用户列表
+url: /api/user/admin
+method: get
+data: None
+return: {
+    ResponseResult<List<User>> 
+}
+```
+
 
 #### AddressController
 

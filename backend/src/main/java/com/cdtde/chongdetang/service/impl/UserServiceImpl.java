@@ -239,4 +239,16 @@ public class UserServiceImpl implements UserService {
         userMapper.update(user, queryWrapper);
         return new ResponseResult<>("success",null,null);
     }
+
+    @Override
+    public ResponseResult<List<User>> getAllUser(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.ne("phone",-1);
+        List<User> users = userMapper.selectList(queryWrapper);
+        ResponseResult<List<User>> res = new ResponseResult<>();
+        res.setData(users);
+        res.setStatus("success");
+
+        return res;
+    }
 }
