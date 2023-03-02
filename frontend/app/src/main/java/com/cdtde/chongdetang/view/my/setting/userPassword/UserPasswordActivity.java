@@ -65,7 +65,7 @@ public class UserPasswordActivity extends AppCompatActivity {
                         ToastUtils.showShort("验证码错误！");
                     }
                 } else if (page == 2) {
-                    String msg = vm.setUserPassword();
+                    String msg = vm.validatePassword();
                     if ("OK".equals(msg)) {
                         vm.updatePassword();
                         loading.show();

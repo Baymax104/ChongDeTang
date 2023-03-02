@@ -44,7 +44,7 @@ public class WebService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl(AppKey.TEST_SERVER_BASE_URL)
+                .baseUrl(AppKey.SERVER_BASE_URL)
                 .build();
     }
 

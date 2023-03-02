@@ -72,15 +72,6 @@ public class UserPasswordViewModel extends ValidateViewModel {
         this.repeatPassword = repeatPassword;
     }
 
-    public String setUserPassword() {
-        String msg = validatePassword();
-        if ("OK".equals(msg)) {
-            // TODO 上传后端修改
-            repo.getUser().setPassword(EncryptUtils.encryptMD5ToString(newPassword));
-        }
-        return msg;
-    }
-
 
     public String validatePassword() {
         User user = repo.getUser();

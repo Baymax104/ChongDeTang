@@ -10,7 +10,7 @@
     <string name="name_hint">请输入新昵称……</string>
     <string name="new_phone_hint">请输入新手机号</string>
     <string name="phone_hint">请输入手机号</string>
-    <string name="input_old_pwd">输入原密码（没有密码可不填写）</string>
+    <string name="input_old_pwd">输入原密码</string>
     <string name="input_new_pwd">输入新密码</string>
     <string name="input_new_pwd_hint">密码为6–15位大小写字母和数字的组合</string>
     <string name="repeat_new_pwd">再次输入新密码</string>

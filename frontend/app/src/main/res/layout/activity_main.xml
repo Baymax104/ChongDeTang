@@ -8,8 +8,8 @@
                 name="fragmentAdapter"
                 type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
         <variable
-                name="fragments"
-                type="java.util.List&lt;androidx.fragment.app.Fragment>" />
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.MainViewModel" />
     </data>
 
     <RelativeLayout
@@ -23,7 +23,7 @@
                 android:id="@+id/view_pager"
                 android:layout_above="@id/main_nav"
                 fragment_adapter="@{fragmentAdapter}"
-                fragments="@{fragments}"/>
+                fragments="@{viewModel.fragments}"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:layout_width="match_parent"

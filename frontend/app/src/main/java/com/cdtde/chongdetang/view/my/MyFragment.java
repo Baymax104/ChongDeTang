@@ -22,6 +22,7 @@ import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.my.setting.SettingActivity;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.shop.ShoppingActivity;
+import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.cdtde.chongdetang.viewModel.my.MyViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -36,6 +37,7 @@ public class MyFragment extends Fragment {
 
     private FragmentMyBinding binding;
     private MyViewModel vm;
+    private MainViewModel mainViewModel;
 
     @Nullable
     @Override
@@ -52,6 +54,7 @@ public class MyFragment extends Fragment {
         setHasOptionsMenu(true);
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         binding.setViewModel(vm);
 

@@ -25,7 +25,7 @@ public class WebServiceAspect {
     public void beforeRequest(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String functionName = signature.getName();
-        LogUtils.iTag("cdt-web-" + functionName, functionName + "发送请求");
+        LogUtils.iTag("cdt-web-" + functionName, functionName + "调用");
     }
 
     @SuppressWarnings("rawtypes")
@@ -35,9 +35,9 @@ public class WebServiceAspect {
         ResponseResult result = (ResponseResult) arg;
         String name = joinPoint.getSignature().getName();
         if ("success".equals(result.getStatus())) {
-            LogUtils.iTag("cdt-web-" + name, name + "请求结果成功");
+            LogUtils.iTag("cdt-web-" + name, name + "：请求结果成功");
         } else {
-            LogUtils.eTag("cdt-web-" + name, "请求结果失败");
+            LogUtils.eTag("cdt-web-" + name, name + "：请求结果失败");
         }
     }
 

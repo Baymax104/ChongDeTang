@@ -18,6 +18,7 @@ import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
 import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.index.SearchActivity;
+import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -33,6 +34,8 @@ public class ExhibitFragment extends Fragment {
     private FragmentExhibitBinding binding;
 
     private ExhibitViewModel vm;
+
+    private MainViewModel mainViewModel;
 
     @Nullable
     @Override
@@ -50,15 +53,16 @@ public class ExhibitFragment extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
         binding.setLifecycleOwner(this);
 
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
         binding.setViewModel(vm);
         binding.setTabAdapter(new FragmentAdapter(requireActivity()));
 
-        LiveEventBus.get("MainActivity-page", Integer.class)
-                        .observeSticky(this, page -> {
-                            if (page == 1 && !vm.isInit()) {
-                                vm.updateAllCollection();
-                            }
-                        });
+        mainViewModel.getPage().observe(this, page -> {
+            if (page == 1 && !vm.isInit()) {
+                vm.updateAllCollection();
+            }
+        });
 
         LiveEventBus.get("ExhibitRepository-requestAllCollection", WebException.class)
                         .observe(this, exception -> {

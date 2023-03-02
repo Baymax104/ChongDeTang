@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.MyRepository;
+import com.cdtde.chongdetang.viewModel.MainViewModel;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 
 /**
  * @Description
@@ -13,7 +15,7 @@ import com.cdtde.chongdetang.repository.MyRepository;
  * @Date 2023/1/10 17:52
  * @Version 1
  */
-public class MyViewModel extends ViewModel {
+public class MyViewModel extends MainViewModel {
     private MyRepository repo;
 
     private MutableLiveData<String> userPhoto;

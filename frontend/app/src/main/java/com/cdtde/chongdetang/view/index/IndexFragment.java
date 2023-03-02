@@ -27,6 +27,7 @@ import com.cdtde.chongdetang.view.index.moment.MomentActivity;
 import com.cdtde.chongdetang.view.index.moment.MomentDetailActivity;
 import com.cdtde.chongdetang.view.index.origin.OriginActivity;
 import com.cdtde.chongdetang.view.index.scenes.ScenesActivity;
+import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.cdtde.chongdetang.viewModel.index.IndexViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.youth.banner.indicator.CircleIndicator;
@@ -42,6 +43,8 @@ public class IndexFragment extends Fragment {
     private FragmentIndexBinding binding;
 
     private IndexViewModel vm;
+
+    private MainViewModel mainViewModel;
 
     @Nullable
     @Override
@@ -61,6 +64,9 @@ public class IndexFragment extends Fragment {
         binding.setLifecycleOwner(this);
         binding.setViewModel(vm);
 
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+
         IndexCollectionAdapter adapter = new IndexCollectionAdapter();
         adapter.setOnItemClickListener(data ->
             CollectionActivity.actionStart(requireContext(), data)
@@ -77,20 +83,19 @@ public class IndexFragment extends Fragment {
             return true;
         });
 
-        LiveEventBus.get("MainActivity-page", Integer.class)
-                .observeSticky(this, page -> {
-                    if (page == 0) {
-                        if (!vm.isMomentInit()) {
-                            vm.updateAllMoment();
-                        }
-                        if (!vm.isInfoInit()) {
-                            vm.updateAllInfo();
-                        }
-                        if (!vm.isHotCollectionInit()) {
-                            vm.updateHotCollection();
-                        }
-                    }
-                });
+        mainViewModel.getPage().observe(this, page -> {
+            if (page == 0) {
+                if (!vm.isMomentInit()) {
+                    vm.updateAllMoment();
+                }
+                if (!vm.isInfoInit()) {
+                    vm.updateAllInfo();
+                }
+                if (!vm.isHotCollectionInit()) {
+                    vm.updateHotCollection();
+                }
+            }
+        });
 
         LiveEventBus.get("IndexRepository-requestNews-zgdt", WebException.class)
                 .observe(this, e -> {
@@ -150,9 +155,7 @@ public class IndexFragment extends Fragment {
         });
         binding.infoLabel.allEntry.setOnClickListener(v -> InfoActivity.actionStart(getContext()));
 
-        binding.collectionLabel.allEntry.setOnClickListener(v ->
-            LiveEventBus.get("IndexFragment-allCollection", Boolean.class).post(true)
-        );
+        binding.collectionLabel.allEntry.setOnClickListener(v -> mainViewModel.setPage(1));
     }
 
     @Override

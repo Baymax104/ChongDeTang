@@ -19,6 +19,7 @@ import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.index.SearchActivity;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
+import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.cdtde.chongdetang.viewModel.shop.ShopViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.youth.banner.indicator.CircleIndicator;
@@ -34,6 +35,7 @@ public class ShopFragment extends Fragment {
 
     private FragmentShopBinding binding;
     private ShopViewModel vm;
+    private MainViewModel mainViewModel;
 
     @Nullable
     @Override
@@ -53,16 +55,17 @@ public class ShopFragment extends Fragment {
         binding.setLifecycleOwner(this);
         binding.setViewModel(vm);
 
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
         ShopProductAdapter adapter = new ShopProductAdapter();
         adapter.setOnItemClickListener(this::clickItem);
         binding.setProductAdapter(adapter);
 
-        LiveEventBus.get("MainActivity-page", Integer.class)
-                        .observeSticky(this, page -> {
-                            if (page == 2 && !vm.isInit()) {
-                                vm.updateAllProduct();
-                            }
-                        });
+        mainViewModel.getPage().observe(this, page -> {
+            if (page == 2 && !vm.isInit()) {
+                vm.updateAllProduct();
+            }
+        });
 
         LiveEventBus.get("ShopRepository-requestAllProduct", WebException.class)
                 .observe(this, e -> {
@@ -75,9 +78,14 @@ public class ShopFragment extends Fragment {
                 });
         LiveEventBus.get("User-isLogin", Boolean.class)
                 .observeSticky(this, aBoolean -> {
-                    // TODO 更新状态比较激进，后续改进
-                    vm.updateAllProduct();
-                    vm.setInit(false);
+                    Integer page;
+                    if ((page = mainViewModel.getPage().getValue()) != null) {
+                        if (page == 2) {
+                            vm.updateAllProduct();
+                        } else {
+                            vm.setInit(false);
+                        }
+                    }
                 });
 
         binding.banner.setIndicator(new CircleIndicator(getContext()));

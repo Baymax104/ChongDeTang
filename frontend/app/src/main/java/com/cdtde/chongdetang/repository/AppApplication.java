@@ -27,9 +27,6 @@ public class AppApplication extends Application {
         } else {
             user = mmkv.decodeParcelable("user", User.class);
         }
-
-        XAOP.init(this);
-        XAOP.debug("cdt-aspect");
     }
 
     public void setUser(User user) {

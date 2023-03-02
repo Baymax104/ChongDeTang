@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.cdtde.chongdetang.R;
@@ -15,6 +16,7 @@ import com.cdtde.chongdetang.view.exhibit.ExhibitFragment;
 import com.cdtde.chongdetang.view.index.IndexFragment;
 import com.cdtde.chongdetang.view.my.MyFragment;
 import com.cdtde.chongdetang.view.shop.ShopFragment;
+import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.ArrayList;
@@ -24,57 +26,40 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    private MainViewModel vm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
-        initView();
+        vm = new ViewModelProvider(this).get(MainViewModel.class);
+        binding.setViewModel(vm);
+        binding.setFragmentAdapter(new FragmentAdapter(this));
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        vm.getPage().observe(this, page -> {
+            binding.viewPager.setCurrentItem(page, false);
+            binding.mainNav.getMenu().getItem(page).setChecked(true);
+        });
 
         binding.mainNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_index) {
-                binding.viewPager.setCurrentItem(0, false);
+                vm.setPage(0);
             } else if (id == R.id.nav_exhibit) {
-                binding.viewPager.setCurrentItem(1, false);
+                vm.setPage(1);
             } else if (id == R.id.nav_shop) {
-                binding.viewPager.setCurrentItem(2, false);
+                vm.setPage(2);
             } else if (id == R.id.nav_my) {
-                binding.viewPager.setCurrentItem(3, false);
+                vm.setPage(3);
             }
             return true;
         });
 
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                binding.mainNav.getMenu().getItem(position).setChecked(true);
-                LiveEventBus.get("MainActivity-page", Integer.class).post(position);
-            }
-        });
-
         binding.viewPager.setUserInputEnabled(false);
         binding.viewPager.setOffscreenPageLimit(3);
-
-        LiveEventBus.get("IndexFragment-allCollection", Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (aBoolean) {
-                        binding.viewPager.setCurrentItem(1, false);
-                    }
-                });
-    }
-
-    private void initView() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new IndexFragment());
-        fragments.add(new ExhibitFragment());
-        fragments.add(new ShopFragment());
-        fragments.add(new MyFragment());
-        FragmentAdapter adapter = new FragmentAdapter(this);
-        binding.setFragmentAdapter(adapter);
-        binding.setFragments(fragments);
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
 }

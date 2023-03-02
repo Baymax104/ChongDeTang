@@ -100,6 +100,8 @@ public class MyRepository {
     }
 
     public void requestLogin(String phone, String password) {
+        // TODO login加密
+//        String encrypt = ValidateUtil.encrypt(password);
         Map<String, String> map = new HashMap<>();
         map.put("phone", phone);
         map.put("password", password);
