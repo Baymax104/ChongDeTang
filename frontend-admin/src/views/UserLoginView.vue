@@ -26,11 +26,10 @@
 </template>
 
 <script setup>
-import axios from '@/utils/axios'
 import { reactive, ref } from 'vue'
 import { localSet } from '../utils'
-import { encodePassword } from "../utils/aes";
 import {ElMessage} from "element-plus";
+import { login } from "../api/login";
 
 const loginForm = ref(null)
 const state = reactive({
@@ -51,10 +50,7 @@ const state = reactive({
 const submitForm = async () => {
   loginForm.value.validate((valid) => {
     if (valid) {
-      axios.post('/api/user/login', {
-        phone: state.ruleForm.phone || '',
-        password: encodePassword(state.ruleForm.password)
-      }).then(res => {
+      login(state.ruleForm.phone, state.ruleForm.password).then(res => {
         if (res.admin === "1"){
           console.log("登录返回数据", res)
           localSet('token', res.token)

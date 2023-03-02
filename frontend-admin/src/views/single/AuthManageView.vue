@@ -2,8 +2,7 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span>用户授权</span>
-        <el-button @click="getUserList">获取列表</el-button>
+        <span>授权用户为管理员</span>
       </div>
     </template>
     <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%">
@@ -44,8 +43,7 @@
 <script setup>
 import {computed, ref} from 'vue'
 import {localGet} from "../../utils";
-import axios from "../../utils/axios";
-import {setAdmin, resetAdmin} from "../../api/auth";
+import { setAdmin, resetAdmin, getUserList } from "../../api/auth";
 import {ElMessage} from "element-plus";
 
 // tag标签数据
@@ -63,14 +61,14 @@ const judgeCurrentUserRole = (curId) => {
 const tableData = ref([])
 
 // 后端获取用户列表
-const getUserList = () => {
-  axios.get('/api/user/admin').then(res => {
+const handleGetUserList = () => {
+  getUserList().then(res => {
     console.log(res)
     tableData.value = res
   })
 }
 // 页面加载时刷新
-getUserList()
+handleGetUserList()
 
 // 模糊搜索
 const search = ref('')
@@ -87,7 +85,7 @@ const filterTableData = computed(() =>
 const handleSetAdmin = (index, row) => {
   setAdmin(row.phone, 1).then( res => {
     ElMessage.success(`授权<${row.username}>为管理员成功`)
-    getUserList()
+    handleGetUserList()
   })
 }
 
@@ -95,9 +93,8 @@ const handleSetAdmin = (index, row) => {
 const handleResetAdmin = (index, row) => {
   resetAdmin(row.phone, 0).then( res => {
     ElMessage.success(`取消授权<${row.username}>成功`)
-    getUserList()
+    handleGetUserList()
   })
-
 }
 </script>
 
