@@ -33,5 +33,3 @@ pnpm-debug.log*
 /nbdist/
 /.nb-gradle/
 
-### config ###
-config
