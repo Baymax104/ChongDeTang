@@ -9,11 +9,11 @@
         </div>
       </div>
       <el-form label-position="top" :rules="state.rules" :model="state.ruleForm" ref="loginForm" class="login-form">
-        <el-form-item label="账号" prop="username">
-          <el-input  type="text" v-model.trim="state.ruleForm.username" autocomplete="off" placeholder="admin"></el-input>
+        <el-form-item label="手机号" prop="phone">
+          <el-input  type="text" v-model.trim="state.ruleForm.phone" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model.trim="state.ruleForm.password" autocomplete="off" placeholder="123456"></el-input>
+          <el-input type="password" v-model.trim="state.ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
@@ -27,19 +27,21 @@
 
 <script setup>
 import axios from '@/utils/axios'
-import md5 from 'js-md5'
 import { reactive, ref } from 'vue'
-import { localSet } from '@/utils'
+import { localSet } from '../utils'
+import { encodePassword } from "../utils/aes";
+import {ElMessage} from "element-plus";
+
 const loginForm = ref(null)
 const state = reactive({
   ruleForm: {
-    username: '',
+    phone: '',
     password: ''
   },
   checked: true,
   rules: {
-    username: [
-      { required: 'true', message: '账户不能为空', trigger: 'blur' }
+    phone: [
+      { required: 'true', message: '手机号不能为空', trigger: 'blur' }
     ],
     password: [
       { required: 'true', message: '密码不能为空', trigger: 'blur' }
@@ -49,12 +51,19 @@ const state = reactive({
 const submitForm = async () => {
   loginForm.value.validate((valid) => {
     if (valid) {
-      axios.post('/adminUser/login', {
-        userName: state.ruleForm.username || '',
-        passwordMd5: md5(state.ruleForm.password)
+      axios.post('/api/user/login', {
+        phone: state.ruleForm.phone || '',
+        password: encodePassword(state.ruleForm.password)
       }).then(res => {
-        localSet('token', res)
-        window.location.href = '/'
+        if (res.admin === "1"){
+          console.log("登录返回数据", res)
+          localSet('token', res.token)
+          localSet('userinfo', res)
+          window.location.href = '/'
+        }
+        else {
+          ElMessage.error('登录失败，您不是管理员！')
+        }
       })
     } else {
       console.log('error submit!!')

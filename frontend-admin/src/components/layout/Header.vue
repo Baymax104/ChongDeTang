@@ -14,13 +14,13 @@
         <template #reference>
           <div class="author">
             <i class="icon el-icon-s-custom" />
-            {{ state.userInfo && state.userInfo.nickName || '' }}
+            {{ state.userInfo && state.userInfo.username || '' }}
             <i class="el-icon-caret-bottom" />
           </div>
         </template>
         <div class="nickname">
-          <p>登录名：{{ state.userInfo && state.userInfo.loginUserName || '' }}</p>
-          <p>昵称：{{ state.userInfo && state.userInfo.nickName || '' }}</p>
+          <p>登录名：{{ state.userInfo && state.userInfo.username || '' }}</p>
+          <p>手机号：{{ state.userInfo && state.userInfo.phone || '' }}</p>
           <el-tag size="small" effect="dark" class="logout" @click="logout">退出</el-tag>
         </div>
       </el-popover>
@@ -29,10 +29,10 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from '@/utils/axios'
-import { localRemove, pathMap } from '@/utils'
+import {onMounted, reactive} from 'vue'
+import {useRouter} from 'vue-router'
+import {localRemove, pathMap} from '@/utils'
+import {localGet} from "../../utils";
 
 const router = useRouter()
 const state = reactive({
@@ -49,17 +49,15 @@ const state = reactive({
 })
 // 获取用户信息
 const getUserInfo = async () => {
-  const userInfo = await axios.get('/adminUser/profile')
-  state.userInfo = userInfo
+  state.userInfo = localGet('userinfo')
 }
 // 退出登录
 const logout = () => {
-  axios.delete('/logout').then(() => {
-    // 退出之后，将本地保存的 token  清理掉
-    localRemove('token')
-    // 回到登录页
-    router.push({ path: '/login' })
-  })
+  // 退出之后，将本地保存的 token  清理掉
+  localRemove('token')
+  localRemove('userinfo')
+  // 回到登录页
+  router.push({ path: '/login' })
 }
 
 router.afterEach((to) => {
