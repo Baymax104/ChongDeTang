@@ -28,4 +28,11 @@ public class NewsServiceImpl implements NewsService {
         result.setStatus("success").setData(newsList);
         return result;
     }
+
+    @Override
+    public ResponseResult<Object> upload(String date,String title, String photo,String url,String type,String description){
+        News news  = new News(date,title,photo,url,type,description);
+        newsMapper.insert(news);
+        return new ResponseResult<Object>("success",null,null);
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description
@@ -27,8 +28,17 @@ public class AppointmentController {
         return appointmentService.getAllAppointment();
     }
 
+
     @PostMapping
     public ResponseResult<Object> addAppointment(@RequestBody Appointment appointment) {
         return appointmentService.addAppointment(appointment);
     }
+
+    @PostMapping("/status")
+    public ResponseResult<Object> changeStatus(@RequestBody Map<String, String> map){
+        String id = map.get("id");
+        String status = map.get("status");
+        return appointmentService.changeStatus(id,status);
+    }
+
 }

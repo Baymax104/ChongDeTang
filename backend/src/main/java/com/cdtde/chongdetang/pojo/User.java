@@ -25,7 +25,7 @@ public class User {
     private String mail;
     private String phone;
     private String gender;
-    private Integer admin;
+    private String admin;
 
     @TableField(exist = false)
     private String token;
@@ -33,7 +33,7 @@ public class User {
     public User(String phone, String password) {
         this.phone = phone;
         this.password = password;
-        this.admin = 0;
+        this.admin = "0";
     }
 
     public boolean infoEquals(User user) {

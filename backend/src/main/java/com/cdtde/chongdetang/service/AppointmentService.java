@@ -16,4 +16,7 @@ public interface AppointmentService {
     ResponseResult<List<Appointment>> getAllAppointment();
 
     ResponseResult<Object> addAppointment(Appointment appointment);
+
+    ResponseResult<Object> changeStatus(String id,String status);
+
 }

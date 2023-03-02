@@ -30,6 +30,9 @@ public class CosConfig {
     @Value("${cos.secret-key}")
     private String secretKey;
 
+
+
+
     @Bean
     public TransferManager transferManager() {
         COSCredentials credentials = new BasicCOSCredentials(secretId, secretKey);
