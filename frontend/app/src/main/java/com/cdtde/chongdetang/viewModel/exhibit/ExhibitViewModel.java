@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.repository.ExhibitRepository;
 import com.cdtde.chongdetang.view.exhibit.TabFragment;
@@ -91,8 +90,5 @@ public class ExhibitViewModel extends ViewModel {
 
     public void setInit(boolean init) {
         isInit = init;
-        if (init) {
-            LogUtils.iTag("cdt-exhibit", "exhibit初始化完成");
-        }
     }
 }

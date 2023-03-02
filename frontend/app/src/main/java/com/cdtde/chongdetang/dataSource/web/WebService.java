@@ -2,12 +2,10 @@ package com.cdtde.chongdetang.dataSource.web;
 
 import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.repository.AppKey;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -30,7 +28,7 @@ public class WebService {
 
     private WebService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s))
-                .setLevel(HttpLoggingInterceptor.Level.BODY);
+                .setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
@@ -44,7 +42,7 @@ public class WebService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl(AppKey.SERVER_BASE_URL)
+                .baseUrl(AppKey.TEST_SERVER_BASE_URL)
                 .build();
     }
 

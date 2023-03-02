@@ -3,7 +3,6 @@ package com.cdtde.chongdetang.viewModel.index;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.News;
@@ -89,9 +88,6 @@ public class IndexViewModel extends ViewModel {
 
     public void setMomentInit(boolean momentInit) {
         isMomentInit = momentInit;
-        if (momentInit) {
-            LogUtils.iTag("cdt-index", "index-moment初始化完成");
-        }
     }
 
     public boolean isInfoInit() {
@@ -100,9 +96,6 @@ public class IndexViewModel extends ViewModel {
 
     public void setInfoInit(boolean infoInit) {
         isInfoInit = infoInit;
-        if (infoInit) {
-            LogUtils.iTag("cdt-index", "index-info初始化完成");
-        }
     }
 
     public boolean isHotCollectionInit() {
@@ -111,9 +104,6 @@ public class IndexViewModel extends ViewModel {
 
     public void setHotCollectionInit(boolean hotCollectionInit) {
         isHotCollectionInit = hotCollectionInit;
-        if (hotCollectionInit) {
-            LogUtils.iTag("cdt-index", "index-hotCollection初始化完成");
-        }
     }
 
     public void refreshAllMoment() {
