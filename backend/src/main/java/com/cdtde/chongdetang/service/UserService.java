@@ -25,4 +25,6 @@ public interface UserService {
 
     ResponseResult<List<User>> getAllUser();
 
+    ResponseResult<Object> addFeedback(String content);
+
 }
