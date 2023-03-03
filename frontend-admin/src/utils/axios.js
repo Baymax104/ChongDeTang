@@ -28,6 +28,10 @@ axios.interceptors.response.use(res => {
   //   return Promise.reject(res)
   // }
   if (res.data.status !== 'success') {
+    if (res.data.status === 'not admin'){
+      router.push({ path: '/login' })
+      ElMessage.error('您还不是管理员！')
+    }
     if (res.data.message) ElMessage.error(res.data.message)
     if (res.data.resultCode === 419) {
       router.push({ path: '/login' })
