@@ -3,6 +3,7 @@ package com.cdtde.chongdetang.service.impl;
 import cn.hutool.core.codec.Base64;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.cdtde.chongdetang.mapper.FeedbackMapper;
 import com.cdtde.chongdetang.mapper.UserCollectMapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
 import com.cdtde.chongdetang.pojo.*;
@@ -51,6 +52,9 @@ public class UserServiceImpl implements UserService {
     private UserCollectMapper userCollectMapper;
     @Value("${cos.url}")
     private String urlFront;
+
+    @Autowired
+    private FeedbackMapper feedbackMapper;
 
     @Override
     public ResponseResult<User> login(String phone, String password) {
@@ -261,5 +265,20 @@ public class UserServiceImpl implements UserService {
         res.setStatus("success");
 
         return res;
+    }
+
+    @Override
+    public ResponseResult<Object> addFeedback(String content) {
+        LoginUser principal = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer userId = principal.getUser().getId();
+
+        Feedback feedback = new Feedback();
+        feedback.setUserId(userId).setContent(content);
+        int insert = feedbackMapper.insert(feedback);
+        if (insert!=1){
+            throw new RuntimeException("添加反馈失败");
+        }
+
+        return new ResponseResult<>("success",null, null);
     }
 }

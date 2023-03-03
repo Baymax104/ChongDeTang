@@ -116,4 +116,9 @@ public class UserController {
         return userService.getAllUser();
     }
 
+    @PostMapping("/feedback")
+    public ResponseResult<Object> addFeedback(@RequestBody String content) {
+        return userService.addFeedback(content);
+    }
+
 }
