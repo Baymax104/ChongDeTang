@@ -118,6 +118,7 @@ public class UserController {
 
     @PostMapping("/feedback")
     public ResponseResult<Object> addFeedback(@RequestBody String content) {
+        content = content.substring(1, content.length() - 1);
         return userService.addFeedback(content);
     }
 
