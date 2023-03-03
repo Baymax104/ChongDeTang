@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="viewModel"
-            type="com.cdtde.chongdetang.viewModel.my.FeedbackViewModel" />
+                name="viewModel"
+                type="com.cdtde.chongdetang.viewModel.my.FeedbackViewModel" />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:fitsSystemWindows="true">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/feedback_toolbar_layout"
                 android:fitsSystemWindows="true">
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/bar_color"
-                    android:id="@+id/settings_toolbar"
+                    android:id="@+id/toolbar"
                     android:fitsSystemWindows="true">
 
                 <TextView
@@ -60,7 +59,8 @@
                             android:fontFamily="@font/text_regular"
                             android:maxLines="12"
                             android:scrollbars="vertical"
-                            tools:ignore="SpeakableTextPresentCheck" />
+                            tools:ignore="SpeakableTextPresentCheck"
+                            android:afterTextChanged="@{s->viewModel.setFeedbackContent(s.toString())}"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
 

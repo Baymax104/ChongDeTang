@@ -12,12 +12,6 @@ public class FeedbackViewModel extends ViewModel {
 
     public FeedbackViewModel() {
         repo = MyRepository.getInstance();
-
-
-    }
-
-    public String getFeedbackContent() {
-        return feedbackContent;
     }
 
     public void setFeedbackContent(String feedbackContent) {
