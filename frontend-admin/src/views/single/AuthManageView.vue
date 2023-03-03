@@ -7,6 +7,14 @@
     </template>
     <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%">
       <el-table-column label="id" prop="id" sortable />
+      <el-table-column label="头像">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <el-avatar v-if="scope.row.photo" :src="scope.row.photo" />
+            <el-avatar v-else>用户</el-avatar>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="用户名" prop="username" />
       <el-table-column label="性别" prop="gender" />
       <el-table-column label="生日" prop="birthday" />
@@ -21,7 +29,11 @@
       </el-table-column>
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" size="small" placeholder="模糊查询（姓名，手机号）" />
+          <el-input v-model="search" placeholder="模糊查询" clearable>
+            <template #prefix="">
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
         </template>
         <template #default="scope">
         <!--          非管理员-->
