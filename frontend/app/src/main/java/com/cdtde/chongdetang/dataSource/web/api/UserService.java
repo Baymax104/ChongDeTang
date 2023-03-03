@@ -48,4 +48,8 @@ public interface UserService {
     @POST("/api/user/collect")
     Observable<ResponseResult<Object>> addUserCollect(@Header("Authorization") String token,
                                                       @Body UserCollect userCollect);
+
+    @POST("/api/user/feedback")
+    Observable<ResponseResult<Object>> addFeedback(@Header("Authorization") String token,
+                                                   @Body String feedbackContent);
 }

@@ -35,3 +35,4 @@ pnpm-debug.log*
 
 dist
 config/app-key.js
+deploy.sh

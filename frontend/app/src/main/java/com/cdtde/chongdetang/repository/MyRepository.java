@@ -55,6 +55,8 @@ public class MyRepository {
     private AddressService addressService;
     private AppointmentService appointmentService;
 
+    private String feedbackContent;
+
     private static MyRepository repository;
 
     private MyRepository() {
@@ -97,6 +99,28 @@ public class MyRepository {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public String getFeedbackContent() {
+        return feedbackContent;
+    }
+
+    public void requestFeedbackCommit(String feedbackContent) {
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            boolean isSuccess = result.getStatus().equals("success");
+            LiveEventBus.get("MyRepository-requestFeedbackCommit", WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
+        };
+        Consumer<Throwable> onError = e -> {
+            LiveEventBus.get("MyRepository-requestFeedbackCommit", WebException.class)
+                    .post(new WebException(false, e.getMessage()));
+        };
+        userService.addFeedback(token, feedbackContent)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNext, onError);
+
     }
 
     public void requestLogin(String phone, String password) {
