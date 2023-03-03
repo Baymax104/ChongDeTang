@@ -29,8 +29,6 @@ public class FeedbackActivity extends AppCompatActivity {
 
     private void setListener() {
         binding.feedbackCommit.setOnClickListener(v -> {
-            String content=binding.feedbackContent.getText().toString();//用户输入内容
-            Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
             finish();
         });
     }

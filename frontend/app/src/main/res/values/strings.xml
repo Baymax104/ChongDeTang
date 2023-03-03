@@ -6,7 +6,7 @@
     <string name="nav_menu_my">我的</string>
     <string name="toolbar_search">搜索</string>
     <string name="toolbar_settings">设置</string>
-    <string name="feedback_enter">请描述您在APP使用过程中的问题，以使我们更好的为您服务</string>
+    <string name="feedback_hint">请描述您在APP使用过程中的问题</string>
     <string name="name_hint">请输入新昵称……</string>
     <string name="new_phone_hint">请输入新手机号</string>
     <string name="phone_hint">请输入手机号</string>
@@ -128,4 +128,6 @@
     <string name="sum_tip">总计：</string>
     <string name="collection">藏品</string>
     <string name="product">商品</string>
+    <string name="user_feedback">意见反馈</string>
+    <string name="commit">提交</string>
 </resources>

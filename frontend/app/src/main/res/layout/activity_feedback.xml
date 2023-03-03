@@ -1,72 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:fitsSystemWindows="true">
-<!--    >-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/feedback_toolbar_layout"
-        android:fitsSystemWindows="true">
+    <data>
 
-        <androidx.appcompat.widget.Toolbar
+    </data>
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bar_color"
-            android:id="@+id/settings_toolbar"
-            android:fitsSystemWindows="true">
-            <TextView
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:fitsSystemWindows="true"
+            tools:ignore="autofill">
+
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="意见反馈"
-                android:gravity="center" />
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="问题/意见反馈"
-            android:textStyle="bold"
-            android:textSize="25sp"/>
-        <EditText
-            android:id="@+id/feedback_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/feedback_enter"
-            android:layout_marginTop="10dp"
-            android:singleLine="false"
-            android:inputType="textMultiLine"
-            android:lines="6"
-            android:minLines="4"
-            android:maxLines="12"
-            android:scrollbars="vertical"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center">
-        <Button
-            android:id="@+id/feedback_commit"
-            android:layout_width="250dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_bg"
-                style="@style/BigButtonTextStyle"
-            android:text="提交"
-            android:textSize="30sp" />
+                android:layout_height="wrap_content"
+                android:id="@+id/feedback_toolbar_layout"
+                android:fitsSystemWindows="true">
 
-    </LinearLayout>
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bar_color"
+                    android:id="@+id/settings_toolbar"
+                    android:fitsSystemWindows="true">
 
-</LinearLayout>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/user_feedback"
+                        style="@style/CommonToolbarTitleStyle" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="20dp">
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/feedback_hint"
+                        style="@style/TextInputEditStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/text_regular"
+                            android:maxLines="12"
+                            android:scrollbars="vertical"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </FrameLayout>
+
+            <Button
+                    android:id="@+id/feedback_commit"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_bg"
+                    style="@style/BigButtonTextStyle"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/commit" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
