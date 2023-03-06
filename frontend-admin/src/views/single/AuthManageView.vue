@@ -29,7 +29,7 @@
       </el-table-column>
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="模糊查询" clearable>
+          <el-input v-model="search" placeholder="查询" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
