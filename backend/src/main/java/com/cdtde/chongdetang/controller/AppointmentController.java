@@ -29,8 +29,8 @@ public class AppointmentController {
     }
 
     @GetMapping("/checklist")
-    public ResponseResult<List<Appointment>> getAppointmentCheckList(){
-        return appointmentService.getAppointmentCheckList();
+    public ResponseResult<List<Appointment>> getAppointmentCheckList(@RequestParam String filter){
+        return appointmentService.getAppointmentCheckList(filter);
     }
 
 

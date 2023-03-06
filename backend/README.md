@@ -192,10 +192,12 @@ return: {
 ##### getAppointmentCheckList
 
 ``` 
-获取需要审核列表（全部）
+获取需要审核列表（按类型）
 url: /api/user/appointment/checklist
 method: get
-data: null
+data: {
+	filter: type (type=['', 'SUCCESS', 'PROCESSING', 'FAIL'])	''为全部
+}
 return: {
 	List<Appointment>
 }

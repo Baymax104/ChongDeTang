@@ -21,6 +21,6 @@ public interface AppointmentService {
     ResponseResult<Object> changeStatus(String id,String status);
 
     // 获取审核列表
-    ResponseResult<List<Appointment>> getAppointmentCheckList();
+    ResponseResult<List<Appointment>> getAppointmentCheckList(String filter);
 
 }

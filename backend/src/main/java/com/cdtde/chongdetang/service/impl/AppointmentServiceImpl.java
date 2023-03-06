@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Description
@@ -78,7 +79,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public ResponseResult<List<Appointment>> getAppointmentCheckList() {
+    public ResponseResult<List<Appointment>> getAppointmentCheckList(String filter) {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
         // 查用户表, 是不是admin
@@ -87,9 +88,19 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .eq("admin", "1");
         User user = userMapper.selectOne(wrapper);
         ResponseResult<List<Appointment>> result = new ResponseResult<>();
+        // 是admin
         if(user != null){
-            // 返回审核列表
-            List<Appointment> appointments = appointmentMapper.selectList(null);
+            List<Appointment> appointments;
+            // 有请求参数，按类型查找
+            if (!Objects.equals(filter, "")){
+                QueryWrapper<Appointment> appointmentQueryWrapper = new QueryWrapper<>();
+                appointmentQueryWrapper.eq("status", filter);
+                appointments = appointmentMapper.selectList(appointmentQueryWrapper);
+            }
+            // select *
+            else {
+                appointments = appointmentMapper.selectList(null);
+            }
             result.setStatus("success").setData(appointments);
         }
         else {
