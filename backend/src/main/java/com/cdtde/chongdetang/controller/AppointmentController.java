@@ -28,6 +28,11 @@ public class AppointmentController {
         return appointmentService.getAllAppointment();
     }
 
+    @GetMapping("/checklist")
+    public ResponseResult<List<Appointment>> getAppointmentCheckList(){
+        return appointmentService.getAppointmentCheckList();
+    }
+
 
     @PostMapping
     public ResponseResult<Object> addAppointment(@RequestBody Appointment appointment) {

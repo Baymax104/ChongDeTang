@@ -189,6 +189,18 @@ return: {
 }
 ```
 
+##### getAppointmentCheckList
+
+``` 
+获取需要审核列表（全部）
+url: /api/user/appointment/checklist
+method: get
+data: null
+return: {
+	List<Appointment>
+}
+```
+
 #### CollectionController
 
 ##### download
@@ -258,7 +270,7 @@ return:{
     success
 }
 ```
-    
+
 #### NewsController
 
 ##### download
@@ -286,7 +298,7 @@ return:{
     success
 }
 ```
-    
+
 
 #### ProductController
 

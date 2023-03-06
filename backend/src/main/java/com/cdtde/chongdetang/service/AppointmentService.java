@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.service;
 
 import com.cdtde.chongdetang.pojo.Appointment;
 import com.cdtde.chongdetang.pojo.ResponseResult;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,5 +19,8 @@ public interface AppointmentService {
     ResponseResult<Object> addAppointment(Appointment appointment);
 
     ResponseResult<Object> changeStatus(String id,String status);
+
+    // 获取审核列表
+    ResponseResult<List<Appointment>> getAppointmentCheckList();
 
 }
