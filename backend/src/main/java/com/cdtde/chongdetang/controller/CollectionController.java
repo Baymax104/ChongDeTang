@@ -28,9 +28,13 @@ public class CollectionController {
     }
 
     @PostMapping("/select")
-    public ResponseResult<Object> setSelected(@RequestBody Map<String, String> map){
-        String id = map.get("id");
-        String status = map.get("status");
-        return collectionService.setSelected(id,status);
+    public ResponseResult<Object> setSelected(@RequestBody List<Collection> collectionList){
+        try {
+            // 批量更新
+            collectionService.updateBatchById(collectionList);
+        } catch (Exception e){
+            return new ResponseResult<>().setStatus("error").setMessage(e.getMessage());
+        }
+        return new ResponseResult<>().setStatus("success");
     }
 }

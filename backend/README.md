@@ -235,12 +235,16 @@ return: {
 url: /api/collection/select
 method: post
 data: {
-    String id  // 藏品id
-    String status  // 1为设置精选，0为取消精选
+	以	
+	{
+		String id  // 藏品id,
+    	String status  // 1为设置精选，0为取消精选
+    }
+	为元素的数组，批量更新
 }
 
 return: {
-	List<Collection>  // 热搜藏品列表
+	success
 }
 ```
 

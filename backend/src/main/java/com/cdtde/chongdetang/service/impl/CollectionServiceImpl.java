@@ -1,8 +1,7 @@
 package com.cdtde.chongdetang.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cdtde.chongdetang.mapper.CollectionMapper;
-import com.cdtde.chongdetang.pojo.Appointment;
 import com.cdtde.chongdetang.pojo.Collection;
 import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.service.CollectionService;
@@ -14,7 +13,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class CollectionServiceImpl implements CollectionService {
+public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collection> implements CollectionService {
     @Autowired
     private CollectionMapper collectionMapper;
 
@@ -45,15 +44,4 @@ public class CollectionServiceImpl implements CollectionService {
         result.setStatus("success").setData(selected);
         return result;
     }
-
-    @Override
-    public ResponseResult<Object> setSelected(String id,String status){
-        QueryWrapper<Collection> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-        Collection collection = collectionMapper.selectOne(wrapper);
-        collection.setSelected(status);
-        collectionMapper.update(collection,wrapper);
-        return new ResponseResult<>("success",null,null);
-    }
-
 }
