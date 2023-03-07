@@ -19,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -252,15 +253,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseResult<List<User>> getAllUser(){
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.ne("phone",-1);
-        List<User> users = userMapper.selectList(queryWrapper);
+        ResponseResult<List<User>> res = new ResponseResult<>();
+
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+
+        if(isAdmin.equals("0")){
+            res.setStatus("not admin");
+            return res;
+        }
+//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.ne("phone",-1);
+        List<User> users = userMapper.selectList(null);
         users.forEach(user -> {
             if(user.getPhoto() != null){
                 user.setPhoto(urlFront + user.getPhoto());
             }
         });
-        ResponseResult<List<User>> res = new ResponseResult<>();
         res.setData(users);
         res.setStatus("success");
 
@@ -281,4 +290,22 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseResult<>("success",null, null);
     }
+
+
+    @Override
+    public ResponseResult<Object> checkToken(String token){
+//        if(!JwtUtil.validateToken(token)){
+//            return new ResponseResult<Object>("error","invaild token",null);
+//        }
+        LoginUser principal = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = principal.getUser();
+        String admin = user.getAdmin();
+        if(admin.equals("1")){
+            return new ResponseResult<Object>("success","is admin",null);
+        }else{
+            return new ResponseResult<Object>("error","not admin",null);
+        }
+
+    }
+
 }

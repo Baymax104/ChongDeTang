@@ -7,6 +7,7 @@ import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.pojo.UserCollect;
 import com.cdtde.chongdetang.service.UserService;
+import com.cdtde.chongdetang.utils.JwtUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +122,11 @@ public class UserController {
         content = content.substring(1, content.length() - 1);
         return userService.addFeedback(content);
     }
+
+    @PostMapping("/checkToken")
+    public ResponseResult<Object> checkToken(@RequestHeader("Authorization") String token){
+        return userService.checkToken(token);
+    }
+
 
 }

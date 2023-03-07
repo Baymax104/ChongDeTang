@@ -94,6 +94,22 @@ return: {
 }
 ```
 
+##### checkToken
+``` 
+判断token是否有效，若有效则判断是否为管理员
+url: /api/user/checkToken
+method: post
+Authorization: Bearer {token}
+data: {
+	None
+}
+return: {
+    无效："status":"error"
+	管理员："status":"success","message":"is admin"
+	非管理员："status":"error","message":"not admin"
+}
+```
+
 ##### getAllUser
 ``` 
 获取用户列表

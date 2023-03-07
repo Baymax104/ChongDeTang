@@ -27,4 +27,5 @@ public interface UserService {
 
     ResponseResult<Object> addFeedback(String content);
 
+    ResponseResult<Object> checkToken(String token);
 }
