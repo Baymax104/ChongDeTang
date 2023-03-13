@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.ShopRepository;
 
 import java.util.List;
@@ -65,5 +66,13 @@ public class ShopViewModel extends ViewModel {
 
     public void setInit(boolean init) {
         isInit = init;
+    }
+
+    public void addUserCollect(UserCollect userCollect) {
+        repo.requestAddUserCollect(userCollect);
+    }
+
+    public void removeUserCollect(UserCollect userCollect) {
+        repo.requestRemoveUserCollect(userCollect);
     }
 }

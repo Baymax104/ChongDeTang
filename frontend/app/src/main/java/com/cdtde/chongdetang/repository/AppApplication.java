@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.cdtde.chongdetang.entity.User;
 import com.tencent.mmkv.MMKV;
-import com.xuexiang.xaop.XAOP;
 
 /**
  * @Description 使用Application存储全局数据，在应用的整个生命周期有效

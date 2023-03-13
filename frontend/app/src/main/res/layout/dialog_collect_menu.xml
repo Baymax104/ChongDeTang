@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="isCollect"
+                type="Boolean" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:bl_solid_color="@color/white"
+            app:bl_corners_radius="5dp"
+            android:padding="10dp"
+            tools:ignore="UseCompoundDrawables,ContentDescription">
+        <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:id="@+id/icon"
+                android:src="@{isCollect ? @drawable/collect_fill : @drawable/collect}" />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{isCollect ? @string/cancel_collect : @string/collect}"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="5dp"
+                android:id="@+id/tip"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/text_regular"/>
+
+    </LinearLayout>
+</layout>

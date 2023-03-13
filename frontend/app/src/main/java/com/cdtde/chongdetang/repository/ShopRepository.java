@@ -234,4 +234,26 @@ public class ShopRepository {
                 .subscribe(onNext, onError);
     }
 
+    public void requestRemoveUserCollect(UserCollect userCollect) {
+        String token = WebService.TOKEN_PREFIX + userRepo.getUser().getToken();
+        userCollect.setUserId(userRepo.getUser().getId());
+
+        String event = "ShopRepository-requestRemoveUserCollect";
+
+        Consumer<ResponseResult<Object>> onNext = result -> {
+            boolean isSuccess = result.getStatus().equals("success");
+            LiveEventBus.get(event, WebException.class)
+                    .post(new WebException(isSuccess, result.getMessage()));
+        };
+
+        Consumer<Throwable> onError = throwable ->
+                LiveEventBus.get(event, WebException.class)
+                        .post(new WebException(false, throwable.getMessage()));
+
+        userService.removeUserCollect(token, userCollect)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNext, onError);
+    }
+
 }

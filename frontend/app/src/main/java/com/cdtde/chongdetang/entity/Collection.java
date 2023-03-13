@@ -8,6 +8,7 @@ import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * @Description
@@ -23,6 +24,7 @@ public class Collection extends BaseObservable implements Serializable {
     private String photo;
     private String url;
     private String type;
+    private Boolean userCollect;
 
     public Collection() {
         title = "测试";
@@ -67,5 +69,15 @@ public class Collection extends BaseObservable implements Serializable {
     public void setType(String type) {
         this.type = type;
         notifyPropertyChanged(BR.type);
+    }
+
+    @Bindable
+    public boolean isUserCollect() {
+        return Optional.ofNullable(userCollect).orElse(false);
+    }
+
+    public void setUserCollect(boolean userCollect) {
+        this.userCollect = userCollect;
+        notifyPropertyChanged(BR.userCollect);
     }
 }
