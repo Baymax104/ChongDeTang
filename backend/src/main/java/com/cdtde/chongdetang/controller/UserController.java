@@ -7,7 +7,6 @@ import com.cdtde.chongdetang.pojo.ResponseResult;
 import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.pojo.UserCollect;
 import com.cdtde.chongdetang.service.UserService;
-import com.cdtde.chongdetang.utils.JwtUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,15 +104,20 @@ public class UserController {
         return userService.addUserCollect(userCollect);
     }
 
+    @DeleteMapping("/collect")
+    public ResponseResult<Object> removeUserCollect(@RequestBody UserCollect userCollect) {
+        return userService.removeUserCollect(userCollect);
+    }
+
     @PostMapping("/admin")
-    public ResponseResult<Object> setAdmin(@RequestBody Map<String,String> map){
+    public ResponseResult<Object> setAdmin(@RequestBody Map<String, String> map) {
         String phone = map.get("phone");
         String mode = map.get("mode");
-        return userService.setAdmin(phone,mode);
+        return userService.setAdmin(phone, mode);
     }
 
     @GetMapping("/admin")
-    public ResponseResult<List<User>> getAllUser(){
+    public ResponseResult<List<User>> getAllUser() {
         return userService.getAllUser();
     }
 
@@ -124,7 +128,7 @@ public class UserController {
     }
 
     @PostMapping("/checkToken")
-    public ResponseResult<Object> checkToken(@RequestHeader("Authorization") String token){
+    public ResponseResult<Object> checkToken(@RequestHeader("Authorization") String token) {
         return userService.checkToken(token);
     }
 

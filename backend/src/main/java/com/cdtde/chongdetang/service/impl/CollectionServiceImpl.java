@@ -18,7 +18,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     private CollectionMapper collectionMapper;
 
     @Override
-    public ResponseResult<List<Collection>> download(){
+    public ResponseResult<List<Collection>> download() {
         List<Collection> collectionList = collectionMapper.selectList(null);
         ResponseResult<List<Collection>> result = new ResponseResult<>();
         result.setStatus("success").setData(collectionList);

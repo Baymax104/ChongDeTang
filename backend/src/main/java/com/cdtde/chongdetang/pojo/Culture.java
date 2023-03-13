@@ -26,7 +26,7 @@ public class Culture {
     private String type;
     private String description;
 
-    public Culture(String date,String title, String photo,String url,String type,String description) {
+    public Culture(String date, String title, String photo, String url, String type, String description) {
 
         Date d = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

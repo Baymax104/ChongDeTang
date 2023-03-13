@@ -35,8 +35,8 @@ public class ProductController {
 
     @PostMapping("/shopping/{shoppingId}/{productId}")
     public ResponseResult<Integer> updateShoppingNumber(@PathVariable("shoppingId") Integer shoppingId,
-                                                       @PathVariable("productId") Integer productId,
-                                                       @RequestParam("number") Integer number) {
+                                                        @PathVariable("productId") Integer productId,
+                                                        @RequestParam("number") Integer number) {
         return productService.updateShoppingNumber(shoppingId, productId, number);
     }
 

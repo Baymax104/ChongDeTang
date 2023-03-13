@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.FeedbackMapper;
 import com.cdtde.chongdetang.mapper.UserCollectMapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
-import com.cdtde.chongdetang.pojo.*;
+import com.cdtde.chongdetang.pojo.Feedback;
+import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.User;
+import com.cdtde.chongdetang.pojo.UserCollect;
 import com.cdtde.chongdetang.service.CosService;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.UserService;
@@ -19,7 +22,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseResult<User> login(String phone, String password) {
         ResponseResult<User> result = new ResponseResult<>();
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(phone,password);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(phone, password);
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);    //登陆失败会自动处理
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         User user = loginUser.getUser();
@@ -146,9 +148,9 @@ public class UserServiceImpl implements UserService {
         ResponseResult<Object> result = new ResponseResult<>();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("phone",phone);
+        queryWrapper.eq("phone", phone);
         List<User> accounts = userMapper.selectList(queryWrapper);
-        if(!accounts.isEmpty()){
+        if (!accounts.isEmpty()) {
             throw new RuntimeException("手机号已被注册");
         }
 
@@ -238,27 +240,55 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseResult<>("success", null, null);
     }
+
     @Override
-    public ResponseResult<Object> setAdmin(String phone,String mode){
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("phone",phone);
-        User user = userMapper.selectOne(queryWrapper);
-        user.setAdmin(mode);
-        int i = userMapper.update(user, queryWrapper);
-        if(i != 1){
-            throw new RuntimeException("管理员设置错误");
+    public ResponseResult<Object> removeUserCollect(UserCollect userCollect) {
+        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = loginUser.getUser().getId();
+
+        if (userId != userCollect.getUserId()) {
+            throw new RuntimeException("用户信息错误");
         }
-        return new ResponseResult<>("success",null,null);
+
+        QueryWrapper<UserCollect> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        if (userCollect.getCollection() != null) {
+            wrapper.eq("collection_id", userCollect.getCollection().getId());
+        } else if (userCollect.getProduct() != null) {
+            wrapper.eq("product_id", userCollect.getProduct().getId());
+        } else {
+            throw new RuntimeException("收藏对象无效");
+        }
+
+        int delete = userCollectMapper.delete(wrapper);
+        if (delete != 1) {
+            throw new RuntimeException("取消收藏错误");
+        }
+
+        return new ResponseResult<>("success", null, null);
     }
 
     @Override
-    public ResponseResult<List<User>> getAllUser(){
+    public ResponseResult<Object> setAdmin(String phone, String mode) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone", phone);
+        User user = userMapper.selectOne(queryWrapper);
+        user.setAdmin(mode);
+        int i = userMapper.update(user, queryWrapper);
+        if (i != 1) {
+            throw new RuntimeException("管理员设置错误");
+        }
+        return new ResponseResult<>("success", null, null);
+    }
+
+    @Override
+    public ResponseResult<List<User>> getAllUser() {
         ResponseResult<List<User>> res = new ResponseResult<>();
 
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
 
-        if(isAdmin.equals("0")){
+        if (isAdmin.equals("0")) {
             res.setStatus("not admin");
             return res;
         }
@@ -266,7 +296,7 @@ public class UserServiceImpl implements UserService {
 //        queryWrapper.ne("phone",-1);
         List<User> users = userMapper.selectList(null);
         users.forEach(user -> {
-            if(user.getPhoto() != null){
+            if (user.getPhoto() != null) {
                 user.setPhoto(urlFront + user.getPhoto());
             }
         });
@@ -284,26 +314,26 @@ public class UserServiceImpl implements UserService {
         Feedback feedback = new Feedback();
         feedback.setUserId(userId).setContent(content);
         int insert = feedbackMapper.insert(feedback);
-        if (insert!=1){
+        if (insert != 1) {
             throw new RuntimeException("添加反馈失败");
         }
 
-        return new ResponseResult<>("success",null, null);
+        return new ResponseResult<>("success", null, null);
     }
 
 
     @Override
-    public ResponseResult<Object> checkToken(String token){
+    public ResponseResult<Object> checkToken(String token) {
 //        if(!JwtUtil.validateToken(token)){
 //            return new ResponseResult<Object>("error","invaild token",null);
 //        }
         LoginUser principal = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = principal.getUser();
         String admin = user.getAdmin();
-        if(admin.equals("1")){
-            return new ResponseResult<Object>("success","is admin",null);
-        }else{
-            return new ResponseResult<Object>("error","not admin",null);
+        if (admin.equals("1")) {
+            return new ResponseResult<>("success", "is admin", null);
+        } else {
+            return new ResponseResult<>("error", "not admin", null);
         }
 
     }

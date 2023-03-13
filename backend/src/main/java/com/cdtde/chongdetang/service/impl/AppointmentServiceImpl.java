@@ -63,15 +63,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public ResponseResult<Object> changeStatus(String id, String status){
+    public ResponseResult<Object> changeStatus(String id, String status) {
         ResponseResult<Object> result = new ResponseResult<>();
 
         QueryWrapper<Appointment> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
         Appointment appointment = appointmentMapper.selectOne(wrapper);
         appointment.setStatus(status);
-        int i = appointmentMapper.update(appointment,wrapper);
-        if (i != 1){
+        int i = appointmentMapper.update(appointment, wrapper);
+        if (i != 1) {
             throw new RuntimeException("预约状态更新失败");
         }
         result.setStatus("success");
@@ -89,10 +89,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         User user = userMapper.selectOne(wrapper);
         ResponseResult<List<Appointment>> result = new ResponseResult<>();
         // 是admin
-        if(user != null){
+        if (user != null) {
             List<Appointment> appointments;
             // 有请求参数，按类型查找
-            if (!Objects.equals(filter, "")){
+            if (!Objects.equals(filter, "")) {
                 QueryWrapper<Appointment> appointmentQueryWrapper = new QueryWrapper<>();
                 appointmentQueryWrapper.eq("status", filter);
                 appointments = appointmentMapper.selectList(appointmentQueryWrapper);
@@ -102,8 +102,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointments = appointmentMapper.selectList(null);
             }
             result.setStatus("success").setData(appointments);
-        }
-        else {
+        } else {
             result.setStatus("error").setMessage("没有管理员权限");
         }
 
