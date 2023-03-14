@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 
 /**
  * @Description
@@ -17,7 +18,7 @@ import retrofit2.http.GET;
  */
 public interface CollectionService {
     @GET("/api/collection")
-    Observable<ResponseResult<List<Collection>>> getAllCollection();
+    Observable<ResponseResult<List<Collection>>> getAllCollection(@Header("Authorization") String token);
 
     @GET("/api/collection/hot")
     Observable<ResponseResult<List<Collection>>> getHotCollection();

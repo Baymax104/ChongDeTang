@@ -225,7 +225,7 @@ public class ShopRepository {
         };
 
         Consumer<Throwable> onError = throwable ->
-                LiveEventBus.get("ShopRepository-requestDeleteShopping", WebException.class)
+                LiveEventBus.get(eventKey, WebException.class)
                         .post(new WebException(false, throwable.getMessage()));
 
         userService.addUserCollect(token, userCollect)
@@ -242,6 +242,9 @@ public class ShopRepository {
 
         Consumer<ResponseResult<Object>> onNext = result -> {
             boolean isSuccess = result.getStatus().equals("success");
+            if (isSuccess) {
+                userCollect.getProduct().setUserCollect(false);
+            }
             LiveEventBus.get(event, WebException.class)
                     .post(new WebException(isSuccess, result.getMessage()));
         };

@@ -41,7 +41,6 @@ public class ShopFragment extends Fragment {
     private MainViewModel mainViewModel;
     private XPopup.Builder attachBuilder;
     private ItemCollectDialog collectDialog;
-    private UserCollect userCollect;
 
     @Nullable
     @Override
@@ -71,9 +70,8 @@ public class ShopFragment extends Fragment {
             attachBuilder.atView(v);
             collectDialog = (ItemCollectDialog) DialogUtil.create(requireContext(), ItemCollectDialog.class, attachBuilder);
             collectDialog.show();
-            userCollect = new UserCollect(product);
             LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
-                    .post(userCollect);
+                    .post(new UserCollect(product));
         });
         binding.setProductAdapter(adapter);
 
@@ -105,20 +103,28 @@ public class ShopFragment extends Fragment {
                 });
         LiveEventBus.get("ItemCollectDialog-collect", UserCollect.class)
                 .observe(this, userCollect -> {
-                    if (vm.isLogin()) {
-                        vm.addUserCollect(userCollect);
-                    } else {
-                        collectDialog.dismissWith(() ->
-                                LoginActivity.actionStart(requireContext())
-                        );
+                    Integer page = mainViewModel.getPage().getValue();
+                    if (page != null && page == 2) {
+                        if (vm.isLogin()) {
+                            vm.addUserCollect(userCollect);
+                        } else {
+                            collectDialog.dismissWith(() ->
+                                    LoginActivity.actionStart(requireContext())
+                            );
+                        }
                     }
                 });
         LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
-                .observe(this, vm::removeUserCollect);
+                .observe(this, userCollect -> {
+                    Integer page = mainViewModel.getPage().getValue();
+                    if (page != null && page == 2) {
+                        vm.removeUserCollect(userCollect);
+                    }
+                });
+
         LiveEventBus.get("ShopRepository-requestAddUserCollect", WebException.class)
                 .observe(this, e -> {
                     if (e.isSuccess()) {
-                        userCollect.getProduct().setUserCollect(true);
                         LiveEventBus.get("ItemCollectDialog-refreshAddCollect", Boolean.class).post(true);
                     } else {
                         ToastUtils.showShort(e.getMessage());
@@ -127,7 +133,6 @@ public class ShopFragment extends Fragment {
         LiveEventBus.get("ShopRepository-requestRemoveUserCollect", WebException.class)
                 .observe(this, e -> {
                     if (e.isSuccess()) {
-                        userCollect.getProduct().setUserCollect(false);
                         LiveEventBus.get("ItemCollectDialog-refreshRemoveCollect", Boolean.class).post(true);
                     } else {
                         ToastUtils.showShort(e.getMessage());

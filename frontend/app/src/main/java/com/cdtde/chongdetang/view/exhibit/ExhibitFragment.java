@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.blankj.utilcode.util.ToastUtils;
@@ -76,6 +77,12 @@ public class ExhibitFragment extends Fragment {
 
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                vm.setCurrentPage(position + 1);
+            }
+        });
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();

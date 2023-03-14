@@ -1,10 +1,13 @@
 package com.cdtde.chongdetang.viewModel.exhibit;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.Collection;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.ExhibitRepository;
 import com.cdtde.chongdetang.view.exhibit.TabFragment;
 
@@ -28,6 +31,8 @@ public class ExhibitViewModel extends ViewModel {
     private MutableLiveData<List<Collection>> page2;
     private MutableLiveData<List<Collection>> page3;
 
+    private int currentPage;
+
     private boolean isInit;
 
     public ExhibitViewModel() {
@@ -43,6 +48,7 @@ public class ExhibitViewModel extends ViewModel {
         }
         tabFragments.setValue(fragments);
         isInit = false;
+        currentPage = 1;
     }
 
     public MutableLiveData<List<Collection>> getPageCollection(int page) {
@@ -58,6 +64,18 @@ public class ExhibitViewModel extends ViewModel {
 
     public MutableLiveData<List<Fragment>> getTabFragments() {
         return tabFragments;
+    }
+
+    public boolean isLogin() {
+        return repo.getUser().getToken() != null;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
     public void updateAllCollection() {
@@ -90,5 +108,13 @@ public class ExhibitViewModel extends ViewModel {
 
     public void setInit(boolean init) {
         isInit = init;
+    }
+
+    public void addUserCollect(UserCollect userCollect) {
+        repo.requestAddUserCollect(userCollect);
+    }
+
+    public void removeUserCollect(UserCollect userCollect) {
+        repo.requestRemoveUserCollect(userCollect);
     }
 }

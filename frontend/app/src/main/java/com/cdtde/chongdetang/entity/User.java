@@ -10,7 +10,7 @@ import androidx.databinding.Bindable;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.adapter.DateFormatAdapter;
+import com.cdtde.chongdetang.util.DateFormatAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 
