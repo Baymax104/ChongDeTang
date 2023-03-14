@@ -26,5 +26,5 @@ public class Product {
     private String introduction;
 
     @TableField(exist = false)
-    private boolean isUserCollect;
+    private String userCollect;
 }
