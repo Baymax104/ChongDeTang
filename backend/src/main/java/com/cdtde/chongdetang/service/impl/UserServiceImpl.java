@@ -221,6 +221,16 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("获取路径错误");
         }
 
+        if ("collection".equals(type)) {
+            userCollects.parallelStream()
+                    .map(UserCollect::getCollection)
+                    .forEach(collection -> collection.setUserCollect("1"));
+        } else {
+            userCollects.parallelStream()
+                    .map(UserCollect::getProduct)
+                    .forEach(product -> product.setUserCollect("1"));
+        }
+
         return new ResponseResult<>("success", null, userCollects);
     }
 
