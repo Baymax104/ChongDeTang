@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.viewModel.exhibit;
 
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.ExhibitRepository;
-import com.cdtde.chongdetang.view.exhibit.TabFragment;
+import com.cdtde.chongdetang.view.exhibit.ExhibitListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,7 @@ public class ExhibitViewModel extends ViewModel {
 
         List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            fragments.add(TabFragment.newInstance(i + 1));
+            fragments.add(ExhibitListFragment.newInstance(i + 1));
         }
         tabFragments.setValue(fragments);
         isInit = false;

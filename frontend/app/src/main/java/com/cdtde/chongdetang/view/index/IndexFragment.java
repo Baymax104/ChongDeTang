@@ -61,7 +61,7 @@ public class IndexFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         vm = new ViewModelProvider(requireActivity()).get(IndexViewModel.class);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setViewModel(vm);
 
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);

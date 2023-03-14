@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.aop;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.elvishew.xlog.Logger;
+import com.elvishew.xlog.XLog;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -16,6 +17,8 @@ import org.aspectj.lang.annotation.Aspect;
 @Aspect
 public class ViewModelAspect {
 
+    private Logger logger = XLog.tag("cdt-vm-log").build();
+
     private ViewModelAspect() {
     }
 
@@ -25,12 +28,8 @@ public class ViewModelAspect {
         String targetName = joinPoint.getTarget().getClass().getSimpleName();
         String functionName = joinPoint.getSignature().getName();
         String objTag = targetName + "-" + functionName;
-        String tag = "cdt-vm-" + objTag;
-        if (arg) {
-            LogUtils.iTag(tag, objTag + "：初始化完成");
-        } else {
-            LogUtils.iTag(tag, objTag + "：init = false");
-        }
+        String msg = arg ? objTag + "：初始化完成" : objTag + "：init = false";
+        logger.i(msg);
     }
 
     @After("execution(* com.cdtde.chongdetang.viewModel..*.refresh*())")
@@ -38,6 +37,6 @@ public class ViewModelAspect {
         String targetName = joinPoint.getTarget().getClass().getSimpleName();
         String functionName = joinPoint.getSignature().getName();
         String objTag = targetName + "-" + functionName;
-        LogUtils.iTag("cdt-vm-" + objTag, objTag + "：刷新数据完成");
+        logger.i(objTag + "：刷新数据完成");
     }
 }

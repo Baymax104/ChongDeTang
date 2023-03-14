@@ -57,7 +57,7 @@ public class ShopFragment extends Fragment {
         setHasOptionsMenu(true);
 
         vm = new ViewModelProvider(this).get(ShopViewModel.class);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setViewModel(vm);
 
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);

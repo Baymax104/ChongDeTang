@@ -13,10 +13,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.adapter.ExhibitCollectionAdapter;
 import com.cdtde.chongdetang.databinding.FragmentUserCollectionBinding;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.exception.WebException;
+import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
+import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
 import com.cdtde.chongdetang.viewModel.my.UserCollectViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.lxj.xpopup.XPopup;
 
 /**
  * @Description
@@ -30,6 +34,10 @@ public class UserCollectionFragment extends Fragment {
     private FragmentUserCollectionBinding binding;
 
     private UserCollectViewModel vm;
+
+    private XPopup.Builder attachBuilder;
+
+    private ItemCollectDialog dialog;
 
     public static UserCollectionFragment newInstance() {
         return new UserCollectionFragment();
@@ -45,14 +53,23 @@ public class UserCollectionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         vm = new ViewModelProvider(requireActivity()).get(UserCollectViewModel.class);
         binding.setViewModel(vm);
+
+        attachBuilder = new XPopup.Builder(requireContext()).hasShadowBg(false);
 
         ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
         adapter.setOnItemClickListener(data ->
                 CollectionActivity.actionStart(requireContext(), data)
         );
+        adapter.setOnMoreClickListener((v, collection) -> {
+            attachBuilder.atView(v);
+            dialog = (ItemCollectDialog) DialogUtil.create(requireContext(), ItemCollectDialog.class, attachBuilder);
+            dialog.show();
+            LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
+                    .post(new UserCollect(collection));
+        });
         binding.setAdapter(adapter);
 
         vm.updateUserCollection();
@@ -63,6 +80,24 @@ public class UserCollectionFragment extends Fragment {
                         vm.refreshUserCollection();
                     } else {
                         ToastUtils.showShort(exception.getMessage());
+                    }
+                });
+        LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
+                .observe(this, userCollect -> {
+                    if (vm.getCurrentPage() == 1) {
+                        vm.removeUserCollect(userCollect);
+                    }
+                });
+
+        LiveEventBus.get("MyRepository-requestRemoveUserCollect", WebException.class)
+                .observe(this, e -> {
+                    if (vm.getCurrentPage() == 1) {
+                        dialog.smartDismiss();
+                        if (e.isSuccess()) {
+                            vm.updateUserCollection();
+                        } else {
+                            ToastUtils.showShort(e.getMessage());
+                        }
                     }
                 });
     }

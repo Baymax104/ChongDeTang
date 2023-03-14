@@ -52,7 +52,7 @@ public class ExhibitFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 

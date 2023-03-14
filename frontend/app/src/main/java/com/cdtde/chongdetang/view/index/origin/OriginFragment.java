@@ -34,7 +34,7 @@ public class OriginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOriginBinding.inflate(inflater, container, false);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
     }
 
@@ -45,7 +45,7 @@ public class OriginFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt("page");
         }
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         vm = new ViewModelProvider(requireActivity()).get(OriginViewModel.class);
         WebViewUtil.configure(binding.webPage, true);
 

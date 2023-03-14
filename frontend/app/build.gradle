@@ -127,4 +127,7 @@ dependencies {
     implementation 'com.github.xuexiangjys.XAOP:xaop-runtime:1.1.0'
 
     implementation 'com.github.JavaNoober.BackgroundLibrary:libraryx:1.7.6'
+
+    // https://mvnrepository.com/artifact/com.elvishew/xlog
+    implementation 'com.elvishew:xlog:1.11.0'
 }

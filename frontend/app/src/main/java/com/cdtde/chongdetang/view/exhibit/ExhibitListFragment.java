@@ -22,7 +22,6 @@ import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.core.BasePopupView;
 
 /**
  * @Description
@@ -31,7 +30,7 @@ import com.lxj.xpopup.core.BasePopupView;
  * @Date 2022/12/26 22:57
  * @Version 1
  */
-public class TabFragment extends Fragment {
+public class ExhibitListFragment extends Fragment {
 
     private FragmentExhibitListBinding binding;
 
@@ -59,7 +58,7 @@ public class TabFragment extends Fragment {
         if (getArguments() != null) {
             page = getArguments().getInt("page");
         }
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         binding.setViewModel(vm);
@@ -121,8 +120,8 @@ public class TabFragment extends Fragment {
                 });
     }
 
-    public static TabFragment newInstance(int page) {
-        TabFragment fragment = new TabFragment();
+    public static ExhibitListFragment newInstance(int page) {
+        ExhibitListFragment fragment = new ExhibitListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("page", page);
         fragment.setArguments(bundle);
