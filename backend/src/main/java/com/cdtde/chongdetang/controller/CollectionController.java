@@ -27,6 +27,11 @@ public class CollectionController {
         return collectionService.getHot();
     }
 
+    @GetMapping("/not-hot")
+    public ResponseResult<List<Collection>> getNotHot() {
+        return collectionService.getNotHot();
+    }
+
     @PostMapping("/select")
     public ResponseResult<Object> setSelected(@RequestBody List<Collection> collectionList){
         try {

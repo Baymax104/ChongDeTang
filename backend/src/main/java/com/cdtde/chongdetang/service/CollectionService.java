@@ -10,4 +10,6 @@ public interface CollectionService extends IService<Collection> {
     ResponseResult<List<Collection>> download();
 
     ResponseResult<List<Collection>> getHot();
+
+    ResponseResult<List<Collection>> getNotHot();
 }

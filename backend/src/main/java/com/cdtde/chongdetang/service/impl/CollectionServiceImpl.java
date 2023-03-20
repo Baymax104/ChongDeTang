@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cdtde.chongdetang.mapper.CollectionMapper;
 import com.cdtde.chongdetang.pojo.Collection;
@@ -28,20 +29,20 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     @Override
     public ResponseResult<List<Collection>> getHot() {
         ResponseResult<List<Collection>> result = new ResponseResult<>();
-        List<Collection> all = collectionMapper.selectList(null);
-        List<Collection> selected;
-        // 大于等于4条时随机取4条，否则返回所有记录
-        if (all.size() >= 4) {
-            Set<Collection> set = new HashSet<>();
-            while (set.size() < 4) {
-                int index = new Random().nextInt(all.size());
-                set.add(all.get(index));
-            }
-            selected = new ArrayList<>(set);
-        } else {
-            selected = all;
-        }
-        result.setStatus("success").setData(selected);
+        QueryWrapper<Collection> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("selected", 1);
+        List<Collection> selectedList = collectionMapper.selectList(queryWrapper);
+        result.setStatus("success").setData(selectedList);
+        return result;
+    }
+
+    @Override
+    public ResponseResult<List<Collection>> getNotHot() {
+        ResponseResult<List<Collection>> result = new ResponseResult<>();
+        QueryWrapper<Collection> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("selected", 0);
+        List<Collection> selectedList = collectionMapper.selectList(queryWrapper);
+        result.setStatus("success").setData(selectedList);
         return result;
     }
 }
