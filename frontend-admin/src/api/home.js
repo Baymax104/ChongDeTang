@@ -18,3 +18,37 @@ export function auditEvent(id, status) {
         status: status
     })
 }
+
+// 获取热搜藏品
+export function getHotList() {
+    return axios.get('/api/collection/hot')
+}
+
+// 获取非热搜藏品
+export function getNotHotList() {
+    return axios.get('/api/collection/not-hot')
+}
+
+// 设置热搜商品
+export function setHotList(idList, dir) {
+
+    let dataList = []
+    if (dir === 'right'){
+        idList.forEach(i => {
+            dataList.push({
+                id: i,
+                selected: 1
+            })
+        })
+    }
+    else if (dir === 'left'){
+        idList.forEach(i => {
+            dataList.push({
+                id: i,
+                selected: 0
+            })
+        })
+    }
+
+    return axios.post('/api/collection/select', dataList)
+}
