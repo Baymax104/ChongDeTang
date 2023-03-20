@@ -244,6 +244,18 @@ return: {
 }
 ```
 
+##### getNotHot
+
+``` 
+获取热搜藏品
+url: /api/collection/not-hot
+method: get
+data: null
+return: {
+	List<Collection>  // 不热搜藏品列表
+}
+```
+
 ##### setSelected
 
 ``` 
@@ -254,7 +266,7 @@ data: {
 	以	
 	{
 		String id  // 藏品id,
-    	String status  // 1为设置精选，0为取消精选
+    	String selected  // 1为设置精选，0为取消精选
     }
 	为元素的数组，批量更新
 }
