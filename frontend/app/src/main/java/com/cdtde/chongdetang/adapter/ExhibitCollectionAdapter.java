@@ -20,6 +20,16 @@ import com.cdtde.chongdetang.entity.Collection;
  */
 public class ExhibitCollectionAdapter extends BaseAdapter<Collection> {
 
+    public interface OnMoreClickListener {
+        void onClick(View view, Collection collection);
+    }
+
+    private OnMoreClickListener onMoreClickListener = (view, collection) -> {
+    };
+
+    public void setOnMoreClickListener(OnMoreClickListener onMoreClickListener) {
+        this.onMoreClickListener = onMoreClickListener;
+    }
 
     @NonNull
     @Override
@@ -31,8 +41,10 @@ public class ExhibitCollectionAdapter extends BaseAdapter<Collection> {
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Collection collection = data.get(position);
-        ((ViewHolder) holder).binding.setCollection(collection);
+        ItemExhibitCollectionBinding binding = ((ViewHolder) holder).binding;
+        binding.setCollection(collection);
         holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(collection));
+        binding.more.setOnClickListener(v -> onMoreClickListener.onClick(v, collection));
     }
 
 

@@ -18,7 +18,7 @@
             android:layout_marginHorizontal="6dp">
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 tools:ignore="ContentDescription">
@@ -29,28 +29,41 @@
                     android:scaleType="centerCrop"
                     img_url="@{product.photo}"
                     img_cos="@{true}"/>
-
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="7dp">
-                <TextView
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        style="@style/ItemTitleStyle"
-                        android:text="@{product.name}"
-                        android:maxLines="1"
-                        android:ellipsize="end"/>
-                <TextView
-                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/ItemTitleStyle"
+                            android:text="@{product.name}"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/main_color"
+                            android:fontFamily="@font/text_regular"
+                            android:text="@{`￥` + (product.price ?? ``)}"/>
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/main_color"
-                        android:fontFamily="@font/text_regular"
-                        android:text="@{`￥` + (product.price ?? ``)}"/>
+                        android:id="@+id/more"
+                        android:src="@drawable/more"/>
             </LinearLayout>
+
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

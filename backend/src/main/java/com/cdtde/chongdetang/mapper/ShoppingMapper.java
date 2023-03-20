@@ -20,7 +20,9 @@ import java.util.List;
 public interface ShoppingMapper extends BaseMapper<Shopping> {
     List<Shopping> selectByOneKey(@Nullable @Param("userId") Integer userId,
                                   @Nullable @Param("productId") Integer productId);
+
     int insertShopping(@Param("shopping") Shopping shopping);
+
     Shopping selectByAllKey(@NonNull @Param("userId") Integer userId,
                             @NonNull @Param("productId") Integer productId);
 }

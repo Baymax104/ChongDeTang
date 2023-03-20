@@ -1,6 +1,8 @@
 package com.cdtde.chongdetang.service;
 
-import com.cdtde.chongdetang.pojo.*;
+import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.User;
+import com.cdtde.chongdetang.pojo.UserCollect;
 
 import java.util.List;
 
@@ -21,10 +23,13 @@ public interface UserService {
 
     ResponseResult<Object> addUserCollect(UserCollect userCollect);
 
-    ResponseResult<Object> setAdmin(String phone,String mode);
+    ResponseResult<Object> removeUserCollect(UserCollect userCollect);
+
+    ResponseResult<Object> setAdmin(String phone, String mode);
 
     ResponseResult<List<User>> getAllUser();
 
     ResponseResult<Object> addFeedback(String content);
 
+    ResponseResult<Object> checkToken(String token);
 }

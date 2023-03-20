@@ -130,4 +130,6 @@
     <string name="product">商品</string>
     <string name="user_feedback">意见反馈</string>
     <string name="commit">提交</string>
+    <string name="collect">收藏</string>
+    <string name="cancel_collect">取消收藏</string>
 </resources>

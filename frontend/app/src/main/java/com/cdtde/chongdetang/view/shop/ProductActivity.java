@@ -72,13 +72,23 @@ public class ProductActivity extends AppCompatActivity {
                 });
 
         LiveEventBus.get("ShopRepository-requestAddUserCollect", WebException.class)
-                        .observe(this, e -> {
-                            if (e.isSuccess()) {
-                                ToastUtils.showShort("收藏成功");
-                            } else {
-                                ToastUtils.showShort(e.getMessage());
-                            }
-                        });
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
+                        vm.refreshUserCollect(true);
+                        ToastUtils.showShort("收藏成功！");
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+                });
+        LiveEventBus.get("ShopRepository-requestRemoveUserCollect", WebException.class)
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
+                        vm.refreshUserCollect(false);
+                        ToastUtils.showShort("取消收藏成功！");
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+                });
 
         binding.shoppingEntry.setOnClickListener(v -> ShoppingActivity.actionStart(this));
 
@@ -89,7 +99,7 @@ public class ProductActivity extends AppCompatActivity {
 
         binding.collect.setOnClickListener(v -> {
             if (vm.isLogin()) {
-                vm.addUserCollect();
+                vm.updateUserCollect();
             } else {
                 LoginActivity.actionStart(this);
             }

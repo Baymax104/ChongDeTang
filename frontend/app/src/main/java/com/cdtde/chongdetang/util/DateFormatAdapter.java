@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.adapter;
+package com.cdtde.chongdetang.util;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

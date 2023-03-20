@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.cdtde.chongdetang.BR;
-import com.cdtde.chongdetang.adapter.DateFormatAdapter;
+import com.cdtde.chongdetang.util.DateFormatAdapter;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;

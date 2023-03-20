@@ -1,10 +1,8 @@
 // 用于创建、解析jwt-token
 package com.cdtde.chongdetang.utils;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -56,5 +54,18 @@ public class JwtUtil {
                 .parseClaimsJws(jwt)
                 .getBody();
     }
+
+    public static boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(JWT_KEY.getBytes()))
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
+    }
+
 }
 

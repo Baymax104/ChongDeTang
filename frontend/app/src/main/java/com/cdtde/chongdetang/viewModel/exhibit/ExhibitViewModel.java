@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.Collection;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.ExhibitRepository;
-import com.cdtde.chongdetang.view.exhibit.TabFragment;
+import com.cdtde.chongdetang.view.exhibit.ExhibitListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class ExhibitViewModel extends ViewModel {
     private MutableLiveData<List<Collection>> page2;
     private MutableLiveData<List<Collection>> page3;
 
+    private int currentPage;
+
     private boolean isInit;
 
     public ExhibitViewModel() {
@@ -39,10 +42,11 @@ public class ExhibitViewModel extends ViewModel {
 
         List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            fragments.add(TabFragment.newInstance(i + 1));
+            fragments.add(ExhibitListFragment.newInstance(i + 1));
         }
         tabFragments.setValue(fragments);
         isInit = false;
+        currentPage = 1;
     }
 
     public MutableLiveData<List<Collection>> getPageCollection(int page) {
@@ -58,6 +62,18 @@ public class ExhibitViewModel extends ViewModel {
 
     public MutableLiveData<List<Fragment>> getTabFragments() {
         return tabFragments;
+    }
+
+    public boolean isLogin() {
+        return repo.getUser().getToken() != null;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
     public void updateAllCollection() {
@@ -90,5 +106,13 @@ public class ExhibitViewModel extends ViewModel {
 
     public void setInit(boolean init) {
         isInit = init;
+    }
+
+    public void addUserCollect(UserCollect userCollect) {
+        repo.requestAddUserCollect(userCollect);
+    }
+
+    public void removeUserCollect(UserCollect userCollect) {
+        repo.requestRemoveUserCollect(userCollect);
     }
 }

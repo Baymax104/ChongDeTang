@@ -10,6 +10,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -48,6 +49,10 @@ public interface UserService {
     @POST("/api/user/collect")
     Observable<ResponseResult<Object>> addUserCollect(@Header("Authorization") String token,
                                                       @Body UserCollect userCollect);
+
+    @HTTP(path = "/api/user/collect", method = "DELETE", hasBody = true)
+    Observable<ResponseResult<Object>> removeUserCollect(@Header("Authorization") String token,
+                                                         @Body UserCollect userCollect);
 
     @POST("/api/user/feedback")
     Observable<ResponseResult<Object>> addFeedback(@Header("Authorization") String token,

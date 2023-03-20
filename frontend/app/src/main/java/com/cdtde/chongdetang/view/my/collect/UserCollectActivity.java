@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.cdtde.chongdetang.R;
@@ -35,6 +36,12 @@ public class UserCollectActivity extends AppCompatActivity {
         WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                vm.setCurrentPage(position + 1);
+            }
+        });
     }
 
     public static void actionStart(Context context) {

@@ -1,8 +1,7 @@
 package com.cdtde.chongdetang.dataSource.web;
 
-import android.util.Log;
-
 import com.cdtde.chongdetang.repository.AppKey;
+import com.elvishew.xlog.XLog;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +26,7 @@ public class WebService {
     public static final String TOKEN_PREFIX = "Bearer ";
 
     private WebService() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> Log.i("cdt-web-log", s))
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> XLog.tag("cdt-web-log").i(s))
                 .setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         OkHttpClient client = new OkHttpClient.Builder()

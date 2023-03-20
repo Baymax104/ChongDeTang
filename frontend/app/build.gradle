@@ -74,12 +74,12 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"
 
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation 'com.github.yalantis:ucrop:2.2.6'
 
-    implementation 'com.github.li-xiaojun:XPopup:2.9.17'
+    implementation 'com.github.li-xiaojun:XPopup:2.9.19'
 
     implementation 'com.github.clans:fab:1.6.4'
 
@@ -99,8 +99,6 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.8'
 
     implementation 'com.aliyun:dysmsapi20170525:2.0.23'
-
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava2
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
@@ -127,4 +125,9 @@ dependencies {
     runtimeOnly 'org.aspectj:aspectjrt:1.9.8'
 
     implementation 'com.github.xuexiangjys.XAOP:xaop-runtime:1.1.0'
+
+    implementation 'com.github.JavaNoober.BackgroundLibrary:libraryx:1.7.6'
+
+    // https://mvnrepository.com/artifact/com.elvishew/xlog
+    implementation 'com.elvishew:xlog:1.11.0'
 }

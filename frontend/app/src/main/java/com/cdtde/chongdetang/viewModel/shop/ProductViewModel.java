@@ -45,10 +45,21 @@ public class ProductViewModel extends ViewModel {
         return repo.getUser().getToken() != null;
     }
 
-    public void addUserCollect() {
+    public void updateUserCollect() {
         if (product.getValue() != null) {
+            boolean isCollect = product.getValue().isUserCollect();
             UserCollect userCollect = new UserCollect(product.getValue());
-            repo.requestAddUserCollect(userCollect);
+            if (isCollect) { // 取消收藏
+                repo.requestRemoveUserCollect(userCollect);
+            } else { // 添加收藏
+                repo.requestAddUserCollect(userCollect);
+            }
+        }
+    }
+
+    public void refreshUserCollect(boolean isCollect) {
+        if (product.getValue() != null) {
+            product.getValue().setUserCollect(isCollect);
         }
     }
 }

@@ -28,7 +28,7 @@ public class SceneFragment9_7 extends Fragment {
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         String url = AppKey.COS_URL +  "/img/scenes/img9_7.jpg";
         Glide.with(this)
                 .load(url)

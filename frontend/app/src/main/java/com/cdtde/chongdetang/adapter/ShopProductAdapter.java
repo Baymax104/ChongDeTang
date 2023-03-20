@@ -19,6 +19,17 @@ import com.cdtde.chongdetang.entity.Product;
  */
 public class ShopProductAdapter extends BaseAdapter<Product> {
 
+    public interface OnMoreClickListener {
+        void onClick(View view, Product product);
+    }
+
+    private OnMoreClickListener onMoreClickListener = (v, product) -> {
+    };
+
+    public void setOnMoreClickListener(OnMoreClickListener onMoreClickListener) {
+        this.onMoreClickListener = onMoreClickListener;
+    }
+
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,8 +40,10 @@ public class ShopProductAdapter extends BaseAdapter<Product> {
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         Product product = data.get(position);
-        ((ViewHolder) holder).binding.setProduct(product);
+        ItemShopProductBinding binding = ((ViewHolder) holder).binding;
+        binding.setProduct(product);
         holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(product));
+        binding.more.setOnClickListener(v -> onMoreClickListener.onClick(v, product));
     }
 
     @Override

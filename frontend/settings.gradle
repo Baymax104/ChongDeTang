@@ -16,14 +16,15 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
-        google()
-        jcenter()
-        mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google/'}
         maven { url "https://maven.google.com"}
         mavenCentral { url "https://jcenter.bintray.com/" }
+        google()
+        jcenter()
+        mavenCentral()
     }
 }
 rootProject.name = "ChongDeTang"

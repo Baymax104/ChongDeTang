@@ -3,9 +3,8 @@ package com.cdtde.chongdetang.entity;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
-import com.cdtde.chongdetang.R;
+import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
@@ -23,10 +22,9 @@ public class Collection extends BaseObservable implements Serializable {
     private String photo;
     private String url;
     private String type;
+    private String userCollect;
 
     public Collection() {
-        title = "测试";
-        photo = UriUtils.res2Uri(String.valueOf(R.drawable.test_picture)).toString();
     }
 
     @Bindable
@@ -67,5 +65,15 @@ public class Collection extends BaseObservable implements Serializable {
     public void setType(String type) {
         this.type = type;
         notifyPropertyChanged(BR.type);
+    }
+
+    @Bindable
+    public boolean isUserCollect() {
+        return "1".equals(userCollect);
+    }
+
+    public void setUserCollect(boolean userCollect) {
+        this.userCollect = userCollect ? "1" : "0";
+        notifyPropertyChanged(BR.userCollect);
     }
 }

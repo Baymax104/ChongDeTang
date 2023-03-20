@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -18,7 +17,7 @@ public class CollectionController {
     private CollectionService collectionService;
 
     @GetMapping
-    public ResponseResult<List<Collection>> download(){
+    public ResponseResult<List<Collection>> download() {
         return collectionService.download();
     }
 
@@ -33,11 +32,11 @@ public class CollectionController {
     }
 
     @PostMapping("/select")
-    public ResponseResult<Object> setSelected(@RequestBody List<Collection> collectionList){
+    public ResponseResult<Object> setSelected(@RequestBody List<Collection> collectionList) {
         try {
             // 批量更新
             collectionService.updateBatchById(collectionList);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseResult<>().setStatus("error").setMessage(e.getMessage());
         }
         return new ResponseResult<>().setStatus("success");

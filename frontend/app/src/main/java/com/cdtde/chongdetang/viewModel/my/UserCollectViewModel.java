@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.MyRepository;
 import com.cdtde.chongdetang.view.my.collect.UserCollectionFragment;
 import com.cdtde.chongdetang.view.my.collect.UserProductFragment;
@@ -30,6 +31,8 @@ public class UserCollectViewModel extends ViewModel {
 
     private MutableLiveData<List<Product>> userProduct;
 
+    private int currentPage;
+
     public UserCollectViewModel() {
         repo = MyRepository.getInstance();
 
@@ -39,6 +42,7 @@ public class UserCollectViewModel extends ViewModel {
 
         userCollection = new MutableLiveData<>();
         userProduct = new MutableLiveData<>();
+        currentPage = 1;
     }
 
     public List<Fragment> getFragments() {
@@ -51,6 +55,14 @@ public class UserCollectViewModel extends ViewModel {
 
     public MutableLiveData<List<Product>> getUserProduct() {
         return userProduct;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
     public void updateUserCollection() {
@@ -67,5 +79,9 @@ public class UserCollectViewModel extends ViewModel {
 
     public void refreshUserProduct() {
         userProduct.setValue(repo.getProducts());
+    }
+
+    public void removeUserCollect(UserCollect userCollect) {
+        repo.requestRemoveUserCollect(userCollect);
     }
 }

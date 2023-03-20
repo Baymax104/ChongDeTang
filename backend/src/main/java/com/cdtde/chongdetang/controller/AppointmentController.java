@@ -29,7 +29,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/checklist")
-    public ResponseResult<List<Appointment>> getAppointmentCheckList(@RequestParam String filter){
+    public ResponseResult<List<Appointment>> getAppointmentCheckList(@RequestParam String filter) {
         return appointmentService.getAppointmentCheckList(filter);
     }
 
@@ -40,10 +40,10 @@ public class AppointmentController {
     }
 
     @PostMapping("/status")
-    public ResponseResult<Object> changeStatus(@RequestBody Map<String, String> map){
+    public ResponseResult<Object> changeStatus(@RequestBody Map<String, String> map) {
         String id = map.get("id");
         String status = map.get("status");
-        return appointmentService.changeStatus(id,status);
+        return appointmentService.changeStatus(id, status);
     }
 
 }

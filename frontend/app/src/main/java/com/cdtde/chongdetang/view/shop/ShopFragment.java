@@ -15,13 +15,16 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.ShopProductAdapter;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.exception.WebException;
+import com.cdtde.chongdetang.util.DialogUtil;
 import com.cdtde.chongdetang.util.WindowUtil;
 import com.cdtde.chongdetang.view.index.SearchActivity;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.viewModel.MainViewModel;
 import com.cdtde.chongdetang.viewModel.shop.ShopViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.lxj.xpopup.XPopup;
 import com.youth.banner.indicator.CircleIndicator;
 
 /**
@@ -36,6 +39,8 @@ public class ShopFragment extends Fragment {
     private FragmentShopBinding binding;
     private ShopViewModel vm;
     private MainViewModel mainViewModel;
+    private XPopup.Builder attachBuilder;
+    private ItemCollectDialog collectDialog;
 
     @Nullable
     @Override
@@ -52,13 +57,22 @@ public class ShopFragment extends Fragment {
         setHasOptionsMenu(true);
 
         vm = new ViewModelProvider(this).get(ShopViewModel.class);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setViewModel(vm);
 
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
+        attachBuilder = new XPopup.Builder(requireContext()).hasShadowBg(false);
+
         ShopProductAdapter adapter = new ShopProductAdapter();
         adapter.setOnItemClickListener(this::clickItem);
+        adapter.setOnMoreClickListener((v, product) -> {
+            attachBuilder.atView(v);
+            collectDialog = (ItemCollectDialog) DialogUtil.create(requireContext(), ItemCollectDialog.class, attachBuilder);
+            collectDialog.show();
+            LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
+                    .post(new UserCollect(product));
+        });
         binding.setProductAdapter(adapter);
 
         mainViewModel.getPage().observe(this, page -> {
@@ -85,6 +99,43 @@ public class ShopFragment extends Fragment {
                         } else {
                             vm.setInit(false);
                         }
+                    }
+                });
+        LiveEventBus.get("ItemCollectDialog-collect", UserCollect.class)
+                .observe(this, userCollect -> {
+                    Integer page = mainViewModel.getPage().getValue();
+                    if (page != null && page == 2) {
+                        if (vm.isLogin()) {
+                            vm.addUserCollect(userCollect);
+                        } else {
+                            collectDialog.dismissWith(() ->
+                                    LoginActivity.actionStart(requireContext())
+                            );
+                        }
+                    }
+                });
+        LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
+                .observe(this, userCollect -> {
+                    Integer page = mainViewModel.getPage().getValue();
+                    if (page != null && page == 2) {
+                        vm.removeUserCollect(userCollect);
+                    }
+                });
+
+        LiveEventBus.get("ShopRepository-requestAddUserCollect", WebException.class)
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
+                        LiveEventBus.get("ItemCollectDialog-refreshAddCollect", Boolean.class).post(true);
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+                });
+        LiveEventBus.get("ShopRepository-requestRemoveUserCollect", WebException.class)
+                .observe(this, e -> {
+                    if (e.isSuccess()) {
+                        LiveEventBus.get("ItemCollectDialog-refreshRemoveCollect", Boolean.class).post(true);
+                    } else {
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
 

@@ -18,17 +18,17 @@ public class CultureController {
     private CultureService cultureService;
 
     @GetMapping
-    public ResponseResult<List<Culture>> download(){
+    public ResponseResult<List<Culture>> download() {
         return cultureService.download();
     }
 
     @PostMapping("/{type}")
-    public ResponseResult<Object> upload(@PathVariable("type") String type, @RequestBody Map<String,String> map){
+    public ResponseResult<Object> upload(@PathVariable("type") String type, @RequestBody Map<String, String> map) {
         String date = map.get("date");
         String title = map.get("title");
         String url = map.get("url");
         String description = map.get("description");
         String photo = map.get("photo");
-        return cultureService.upload(type,date,title,url,description,photo);
+        return cultureService.upload(type, date, title, url, description, photo);
     }
 }

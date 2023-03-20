@@ -18,10 +18,10 @@ public class NewsServiceImpl implements NewsService {
     private NewsMapper newsMapper;
 
     @Override
-    public ResponseResult<List<News>> download(String type){
+    public ResponseResult<List<News>> download(String type) {
 
         QueryWrapper<News> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("type",type);
+        queryWrapper.eq("type", type);
         List<News> newsList = newsMapper.selectList(queryWrapper);
 
         ResponseResult<List<News>> result = new ResponseResult<>();
@@ -30,9 +30,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public ResponseResult<Object> upload(String date,String title, String photo,String url,String type,String description){
-        News news  = new News(date,title,photo,url,type,description);
+    public ResponseResult<Object> upload(String date, String title, String photo, String url, String type, String description) {
+        News news = new News(date, title, photo, url, type, description);
         newsMapper.insert(news);
-        return new ResponseResult<Object>("success",null,null);
+        return new ResponseResult<>("success", null, null);
     }
 }
