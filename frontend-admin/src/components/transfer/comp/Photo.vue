@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click="onClickCheckBox(props.cardinfo.id)">
+  <div class="container" @click.prevent="onClickCheckBox(props.cardinfo.id)">
     <el-card :body-style="{ padding: '5px' }">
       <img
           :src="props.cardinfo.picSrc"
