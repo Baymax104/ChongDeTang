@@ -56,11 +56,13 @@ loadData()
 
 
 const changeStatus = (d, idl) => {
-  setHotList(idl, d).then(res=> {
-    console.log("change-ok")
-    loadData()
-  })
-  console.log(d, idl)
+  if (idl.length !== 0){
+    setHotList(idl, d).then(res=> {
+      console.log("change-ok")
+      loadData()
+    })
+    console.log(d, idl)
+  }
 }
 </script>
 

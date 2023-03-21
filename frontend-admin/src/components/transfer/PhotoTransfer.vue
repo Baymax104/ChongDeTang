@@ -67,12 +67,16 @@ const onClickBtn = (direction) => {
   if (direction === 'left') {
     // 触发左侧方法
     console.log("to-left")
+    console.log(rightListProps.value.selectedList)
     emit('handleBtnClick', 'left', getList('right'))
+    rightListProps.value.selectedList = []
   }
   else {
     // 触发右侧方法
     console.log("to-right")
     emit('handleBtnClick', 'right', getList('left'))
+    console.log(leftListProps.value.selectedList)
+    leftListProps.value.selectedList = []
   }
 }
 
