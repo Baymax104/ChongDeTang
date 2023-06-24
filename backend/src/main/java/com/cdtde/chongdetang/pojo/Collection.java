@@ -20,5 +20,5 @@ public class Collection {
     private String type;
     private String selected;
     @TableField(exist = false)
-    private String userCollect;
+    private String userCollect = "0";
 }

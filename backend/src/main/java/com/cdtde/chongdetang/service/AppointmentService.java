@@ -1,7 +1,7 @@
 package com.cdtde.chongdetang.service;
 
 import com.cdtde.chongdetang.pojo.Appointment;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 
 import java.util.List;
 
@@ -13,13 +13,13 @@ import java.util.List;
  * @Version 1
  */
 public interface AppointmentService {
-    ResponseResult<List<Appointment>> getAllAppointment();
+    Result<List<Appointment>> getAllAppointment();
 
-    ResponseResult<Object> addAppointment(Appointment appointment);
+    Result<Object> addAppointment(Appointment appointment);
 
-    ResponseResult<Object> changeStatus(String id, String status);
+    Result<Object> changeStatus(String id, String status);
 
     // 获取审核列表
-    ResponseResult<List<Appointment>> getAppointmentCheckList(String filter);
+    Result<List<Appointment>> getAppointmentCheckList(String filter);
 
 }

@@ -2,7 +2,7 @@ package com.cdtde.chongdetang.controller;
 
 
 import com.cdtde.chongdetang.pojo.News;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.service.NewsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping("/{type}")
-    public ResponseResult<List<News>> download(@PathVariable("type") String type) {
+    public Result<List<News>> download(@PathVariable("type") String type) {
         return newsService.download(type);
     }
 
     @PostMapping("/{type}")
-    public ResponseResult<Object> upload(@PathVariable("type") String type, @RequestBody Map<String, String> map) {
+    public Result<Object> upload(@PathVariable("type") String type, @RequestBody Map<String, String> map) {
         String date = map.get("date");
         String title = map.get("title");
         String photo = map.get("photo");

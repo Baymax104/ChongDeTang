@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.AddressMapper;
 import com.cdtde.chongdetang.pojo.Address;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.service.AddressService;
 import com.cdtde.chongdetang.service.LoginUser;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +30,8 @@ public class AddressServiceImpl implements AddressService {
     private AddressMapper addressMapper;
 
     @Override
-    public ResponseResult<List<Address>> getAllAddress() {
-        ResponseResult<List<Address>> result = new ResponseResult<>();
+    public Result<List<Address>> getAllAddress() {
+        Result<List<Address>> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
 
@@ -44,8 +44,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseResult<Address> updateAddress(Address address) {
-        ResponseResult<Address> result = new ResponseResult<>();
+    public Result<Address> updateAddress(Address address) {
+        Result<Address> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
 
@@ -83,8 +83,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseResult<Object> deleteAddress(Address address) {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Result<Object> deleteAddress(Address address) {
+        Result<Object> result = new Result<>();
 
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();

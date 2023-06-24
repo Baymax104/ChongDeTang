@@ -4,17 +4,12 @@ import cn.hutool.core.codec.Base64;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.FeedbackMapper;
-import com.cdtde.chongdetang.mapper.UserCollectMapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
-import com.cdtde.chongdetang.pojo.Feedback;
-import com.cdtde.chongdetang.pojo.ResponseResult;
-import com.cdtde.chongdetang.pojo.User;
-import com.cdtde.chongdetang.pojo.UserCollect;
+import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.CosService;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.UserService;
 import com.cdtde.chongdetang.utils.JwtUtil;
-import com.qcloud.cos.exception.CosClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,8 +46,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private CosService cosService;
 
-    @Autowired
-    private UserCollectMapper userCollectMapper;
     @Value("${cos.url}")
     private String urlFront;
 
@@ -60,8 +53,8 @@ public class UserServiceImpl implements UserService {
     private FeedbackMapper feedbackMapper;
 
     @Override
-    public ResponseResult<User> login(String phone, String password) {
-        ResponseResult<User> result = new ResponseResult<>();
+    public Result<User> login(String phone, String password) {
+        Result<User> result = new Result<>();
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(phone, password);
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);    //登陆失败会自动处理
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
@@ -70,82 +63,71 @@ public class UserServiceImpl implements UserService {
         user.setToken(jwt);
 
         // 用户头像转码
-        String objectKey = user.getPhoto();
-        if (objectKey != null) {
-            String filename = "user_" + user.getId() + ".jpg";
-            File file = new File("src/main/resources/static/imgs", filename);
-            try {
-                cosService.download(file, objectKey);
-            } catch (CosClientException | InterruptedException e) {
-                throw new RuntimeException("登录头像获取失败");
-            }
-            String encode = Base64.encode(file);
-            user.setPhoto(encode);
-        }
+//        String objectKey = user.getPhoto();
+//        if (objectKey != null) {
+//            String filename = "user_" + user.getId() + ".jpg";
+//            File file = new File("src/main/resources/static/imgs", filename);
+//            try {
+//                cosService.download(file, objectKey);
+//            } catch (CosClientException | InterruptedException e) {
+//                throw new RuntimeException("登录头像获取失败");
+//            }
+//            String encode = Base64.encode(file);
+//            user.setPhoto(encode);
+//        }
 
         result.setStatus("success").setData(user);
         return result;
     }
 
     @Override
-    public ResponseResult<User> updateInfo(User user, String newPhoto) {
-        ResponseResult<User> result = new ResponseResult<>();
+    public Result<User> updateInfo(User newUser) {
+        Result<User> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
 
         // 判断token与用户是否匹配
-        if (id != user.getId()) {
+        if (id != newUser.getId()) {
             throw new RuntimeException("用户信息错误");
         }
 
         // 头像有修改，进行上传
-        String objectKey = null;
-        if (newPhoto != null) {
+        if (!newUser.getPhoto().endsWith(".jpg")) {
             String filename = "user_" + id + ".jpg";
             File dest = new File("src/main/resources/static/imgs", filename);
-            File file = Base64.decodeToFile(newPhoto, dest);
-            objectKey = "img/user_photo/" + filename;
+            File file = Base64.decodeToFile(newUser.getPhoto(), dest);
+            String objectKey = "img/user_photo/" + filename;
             try {
                 cosService.upload(file, objectKey);
-            } catch (CosClientException | InterruptedException e) {
+                newUser.setPhoto(objectKey);
+            } catch (InterruptedException e) {
                 throw new RuntimeException("头像上传失败");
             }
         }
 
-        // 字段有变化时才修改，防止修改错误误判
-        String uriPhoto = user.getPhoto();
-        User dbUser = userMapper.selectById(user.getId());
-        user.setPhoto(objectKey);
-        if (dbUser != null && dbUser.infoEquals(user)) {
-            user.setPhoto(uriPhoto);
-            result.setStatus("success").setData(user);
-            return result;
-        } else if (dbUser == null) {
+        User dbUser = userMapper.selectById(newUser.getId());
+        if (dbUser == null) {
             throw new RuntimeException("用户不存在");
         }
-        user.setPhoto(uriPhoto);
 
-        // 用户字段有修改
+        // 只修改部分字段
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("id", user.getId())
-                .set("username", user.getUsername())
-                .set("gender", user.getGender())
-                .set("birthday", user.getBirthday())
-                .set("mail", user.getMail())
-                .set("photo", objectKey);
+        wrapper.eq("id", newUser.getId())
+                .set("username", newUser.getUsername())
+                .set("gender", newUser.getGender())
+                .set("birthday", newUser.getBirthday())
+                .set("mail", newUser.getMail())
+                .set("photo", newUser.getPhoto());
 
-        int row = userMapper.update(null, wrapper);
-        if (row != 1) {
-            throw new RuntimeException("用户信息修改失败");
-        }
+        userMapper.update(null, wrapper);
 
-        result.setStatus("success").setData(user);
+        result.setStatus("success").setData(newUser);
         return result;
     }
 
     @Override
-    public ResponseResult<Object> register(String phone, String password) {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Result<Object> register(String phone, String password) {
+        Result<Object> result = new Result<>();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone", phone);
@@ -168,8 +150,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseResult<String> updatePassword(String oldPassword, String newPassword) {
-        ResponseResult<String> result = new ResponseResult<>();
+    public Result<String> updatePassword(String oldPassword, String newPassword) {
+        Result<String> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = loginUser.getUser();
 
@@ -191,8 +173,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseResult<Object> updatePhone(String phone) {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Result<Object> updatePhone(String phone) {
+        Result<Object> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = loginUser.getUser();
 
@@ -208,78 +190,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseResult<List<UserCollect>> getUserCollect(String type) {
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = loginUser.getUser().getId();
-
-        List<UserCollect> userCollects;
-        if ("collection".equals(type)) {
-            userCollects = userCollectMapper.getUserCollection(userId);
-        } else if ("product".equals(type)) {
-            userCollects = userCollectMapper.getUserProduct(userId);
-        } else {
-            throw new RuntimeException("获取路径错误");
-        }
-
-        if ("collection".equals(type)) {
-            userCollects.parallelStream()
-                    .map(UserCollect::getCollection)
-                    .forEach(collection -> collection.setUserCollect("1"));
-        } else {
-            userCollects.parallelStream()
-                    .map(UserCollect::getProduct)
-                    .forEach(product -> product.setUserCollect("1"));
-        }
-
-        return new ResponseResult<>("success", null, userCollects);
-    }
-
-    @Override
-    public ResponseResult<Object> addUserCollect(UserCollect userCollect) {
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = loginUser.getUser().getId();
-
-        if (userId != userCollect.getUserId()) {
-            throw new RuntimeException("用户信息错误");
-        }
-
-        int i = userCollectMapper.insertUserCollect(userCollect);
-        if (i != 1) {
-            throw new RuntimeException("添加用户收藏错误");
-        }
-
-        return new ResponseResult<>("success", null, null);
-    }
-
-    @Override
-    public ResponseResult<Object> removeUserCollect(UserCollect userCollect) {
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = loginUser.getUser().getId();
-
-        if (userId != userCollect.getUserId()) {
-            throw new RuntimeException("用户信息错误");
-        }
-
-        QueryWrapper<UserCollect> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
-        if (userCollect.getCollection() != null) {
-            wrapper.eq("collection_id", userCollect.getCollection().getId());
-        } else if (userCollect.getProduct() != null) {
-            wrapper.eq("product_id", userCollect.getProduct().getId());
-        } else {
-            throw new RuntimeException("收藏对象无效");
-        }
-
-        int delete = userCollectMapper.delete(wrapper);
-        if (delete != 1) {
-            throw new RuntimeException("取消收藏错误");
-        }
-
-        return new ResponseResult<>("success", null, null);
-    }
-
-    @Override
-    public ResponseResult<Object> setAdmin(String phone, String mode) {
+    public Result<Object> setAdmin(String phone, String mode) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone", phone);
         User user = userMapper.selectOne(queryWrapper);
@@ -288,12 +199,12 @@ public class UserServiceImpl implements UserService {
         if (i != 1) {
             throw new RuntimeException("管理员设置错误");
         }
-        return new ResponseResult<>("success", null, null);
+        return new Result<>("success", null, null);
     }
 
     @Override
-    public ResponseResult<List<User>> getAllUser() {
-        ResponseResult<List<User>> res = new ResponseResult<>();
+    public Result<List<User>> getAllUser() {
+        Result<List<User>> res = new Result<>();
 
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
@@ -317,7 +228,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseResult<Object> addFeedback(String content) {
+    public Result<Object> addFeedback(String content) {
         LoginUser principal = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer userId = principal.getUser().getId();
 
@@ -328,12 +239,12 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("添加反馈失败");
         }
 
-        return new ResponseResult<>("success", null, null);
+        return new Result<>("success", null, null);
     }
 
 
     @Override
-    public ResponseResult<Object> checkToken(String token) {
+    public Result<Object> checkToken(String token) {
 //        if(!JwtUtil.validateToken(token)){
 //            return new ResponseResult<Object>("error","invaild token",null);
 //        }
@@ -341,9 +252,9 @@ public class UserServiceImpl implements UserService {
         User user = principal.getUser();
         String admin = user.getAdmin();
         if (admin.equals("1")) {
-            return new ResponseResult<>("success", "is admin", null);
+            return new Result<>("success", "is admin", null);
         } else {
-            return new ResponseResult<>("error", "not admin", null);
+            return new Result<>("error", "not admin", null);
         }
 
     }

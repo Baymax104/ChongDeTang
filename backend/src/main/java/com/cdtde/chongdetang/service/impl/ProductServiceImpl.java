@@ -3,11 +3,8 @@ package com.cdtde.chongdetang.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.ProductMapper;
 import com.cdtde.chongdetang.mapper.ShoppingMapper;
-import com.cdtde.chongdetang.mapper.UserCollectMapper;
-import com.cdtde.chongdetang.pojo.Product;
-import com.cdtde.chongdetang.pojo.ResponseResult;
-import com.cdtde.chongdetang.pojo.Shopping;
-import com.cdtde.chongdetang.pojo.UserCollect;
+import com.cdtde.chongdetang.mapper.UserProductMapper;
+import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,26 +32,26 @@ public class ProductServiceImpl implements ProductService {
     private ShoppingMapper shoppingMapper;
 
     @Autowired
-    private UserCollectMapper userCollectMapper;
+    private UserProductMapper userProductMapper;
 
     @Override
-    public ResponseResult<List<Product>> getAllProduct() {
+    public Result<List<Product>> getAllProduct() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Product> products = productMapper.selectList(null);
 
         // 未登录
         if (!(authentication.getPrincipal() instanceof LoginUser)) {
-            return new ResponseResult<>("success", null, products);
+            return new Result<>("success", null, products);
         }
 
         // 已登录，获取收藏状态
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         int userId = loginUser.getUser().getId();
-        List<UserCollect> userProducts = userCollectMapper.getUserProduct(userId);
+        List<UserProduct> userProducts = userProductMapper.getUserProduct(userId);
 
         // 将UserCollect的Product提取出来以id作为key，生成map
         Map<Integer, Product> collectMap = userProducts.parallelStream()
-                .map(UserCollect::getProduct)
+                .map(UserProduct::getProduct)
                 .collect(Collectors.toMap(
                         Product::getId,
                         product -> product
@@ -70,20 +66,37 @@ public class ProductServiceImpl implements ProductService {
             }
         });
 
-        return new ResponseResult<>("success", null, products);
+        return new Result<>("success", null, products);
     }
 
     @Override
-    public ResponseResult<List<Shopping>> getShoppingByUser() {
+    public Result<List<Product>> getHotProduct() {
+        List<Product> allProducts = productMapper.selectList(null);
+        List<Product> hotProducts;
+        if (allProducts.size() >= 3) {
+            Set<Product> set = new HashSet<>();
+            while (set.size() < 3) {
+                int index = new Random().nextInt(allProducts.size());
+                set.add(allProducts.get(index));
+            }
+            hotProducts = new ArrayList<>(set);
+        } else {
+            hotProducts = allProducts;
+        }
+        return new Result<>("success", null, hotProducts);
+    }
+
+    @Override
+    public Result<List<Shopping>> getShoppingByUser() {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
         List<Shopping> shopping = shoppingMapper.selectByOneKey(userId, null);
-        return new ResponseResult<>("success", null, shopping);
+        return new Result<>("success", null, shopping);
     }
 
     @Override
-    public ResponseResult<Integer> updateShoppingNumber(Integer shoppingId, Integer productId, Integer number) {
-        ResponseResult<Integer> result = new ResponseResult<>();
+    public Result<Integer> updateShoppingNumber(Integer shoppingId, Integer productId, Integer number) {
+        Result<Integer> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
 
@@ -101,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseResult<Object> addShopping(Shopping shopping) {
+    public Result<Object> addShopping(Shopping shopping) {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
         shopping.setUserId(userId);
@@ -124,11 +137,11 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("添加购物车失败");
         }
 
-        return new ResponseResult<>("success", null, null);
+        return new Result<>("success", null, null);
     }
 
     @Override
-    public ResponseResult<Object> deleteShopping(Shopping shopping) {
+    public Result<Object> deleteShopping(Shopping shopping) {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
 
@@ -141,6 +154,6 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("删除购物车失败");
         }
 
-        return new ResponseResult<>("success", null, null);
+        return new Result<>("success", null, null);
     }
 }

@@ -1,7 +1,7 @@
 package com.cdtde.chongdetang.controller;
 
 import com.cdtde.chongdetang.pojo.Address;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,17 +23,17 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping
-    public ResponseResult<List<Address>> getAllAddress() {
+    public Result<List<Address>> getAllAddress() {
         return addressService.getAllAddress();
     }
 
     @PostMapping
-    public ResponseResult<Address> updateAddress(@RequestBody Address address) {
+    public Result<Address> updateAddress(@RequestBody Address address) {
         return addressService.updateAddress(address);
     }
 
     @DeleteMapping
-    public ResponseResult<Object> deleteAddress(@RequestBody Address address) {
+    public Result<Object> deleteAddress(@RequestBody Address address) {
         return addressService.deleteAddress(address);
     }
 }

@@ -3,11 +3,8 @@ package com.cdtde.chongdetang.controller;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
-import com.cdtde.chongdetang.pojo.ResponseResult;
-import com.cdtde.chongdetang.pojo.User;
-import com.cdtde.chongdetang.pojo.UserCollect;
+import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.UserService;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +35,7 @@ public class UserController {
     private String passwordIv;
 
     @PostMapping("/login")
-    public ResponseResult<User> login(@RequestBody Map<String, String> map) {
+    public Result<User> login(@RequestBody Map<String, String> map) {
         String phone = map.get("phone");
         String aesPassword = map.get("password");
         byte[] key = passwordKey.getBytes(StandardCharsets.UTF_8);
@@ -50,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseResult<Object> register(@RequestBody Map<String, String> map) {
+    public Result<Object> register(@RequestBody Map<String, String> map) {
         String phone = map.get("phone");
         String aesPassword = map.get("password");
 
@@ -64,19 +61,19 @@ public class UserController {
     }
 
     @PostMapping("/update/info")
-    public ResponseResult<User> updateInfo(@RequestBody Map<String, Object> map) {
+    public Result<User> updateInfo(@RequestBody User newUser) {
         // Object接收json对象会转换为Map(LinkedHashMap)，手动转换为User对象
-        String userJson = new Gson().toJson(map.get("user"));
-        User user = new Gson().fromJson(userJson, User.class);
+//        String userJson = new Gson().toJson(map.get("user"));
+//        User user = new Gson().fromJson(userJson, User.class);
 
         // user中的photo字段已经是新头像的URI路径，只需要将文件上传COS即可
         // 数据库中保存文件在COS中的ObjectKey
-        String newPhoto = (String) map.get("newPhoto");
-        return userService.updateInfo(user, newPhoto);
+//        String newPhoto = (String) map.get("newPhoto");
+        return userService.updateInfo(newUser);
     }
 
     @PostMapping("/update/password")
-    public ResponseResult<String> updatePassword(@RequestBody Map<String, String> map) {
+    public Result<String> updatePassword(@RequestBody Map<String, String> map) {
         String oldPassword = map.get("oldPassword");
         String newPassword = map.get("newPassword");
 
@@ -90,45 +87,31 @@ public class UserController {
     }
 
     @PostMapping("/update/phone")
-    public ResponseResult<Object> updatePhone(@RequestBody String phone) {
+    public Result<Object> updatePhone(@RequestBody String phone) {
         return userService.updatePhone(phone);
     }
 
-    @GetMapping("/collect/{type}")
-    public ResponseResult<List<UserCollect>> getUserCollect(@PathVariable("type") String type) {
-        return userService.getUserCollect(type);
-    }
-
-    @PostMapping("/collect")
-    public ResponseResult<Object> addUserCollect(@RequestBody UserCollect userCollect) {
-        return userService.addUserCollect(userCollect);
-    }
-
-    @DeleteMapping("/collect")
-    public ResponseResult<Object> removeUserCollect(@RequestBody UserCollect userCollect) {
-        return userService.removeUserCollect(userCollect);
-    }
 
     @PostMapping("/admin")
-    public ResponseResult<Object> setAdmin(@RequestBody Map<String, String> map) {
+    public Result<Object> setAdmin(@RequestBody Map<String, String> map) {
         String phone = map.get("phone");
         String mode = map.get("mode");
         return userService.setAdmin(phone, mode);
     }
 
     @GetMapping("/admin")
-    public ResponseResult<List<User>> getAllUser() {
+    public Result<List<User>> getAllUser() {
         return userService.getAllUser();
     }
 
     @PostMapping("/feedback")
-    public ResponseResult<Object> addFeedback(@RequestBody String content) {
+    public Result<Object> addFeedback(@RequestBody String content) {
         content = content.substring(1, content.length() - 1);
         return userService.addFeedback(content);
     }
 
     @PostMapping("/checkToken")
-    public ResponseResult<Object> checkToken(@RequestHeader("Authorization") String token) {
+    public Result<Object> checkToken(@RequestHeader("Authorization") String token) {
         return userService.checkToken(token);
     }
 

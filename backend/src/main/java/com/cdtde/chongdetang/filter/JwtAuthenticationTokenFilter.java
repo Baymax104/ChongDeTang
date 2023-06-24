@@ -43,6 +43,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         token = token.substring(7);
+        if ("null".equals(token)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         Claims claims;
         try {
             claims = JwtUtil.parseJWT(token);

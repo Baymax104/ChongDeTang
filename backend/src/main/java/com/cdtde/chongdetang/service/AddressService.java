@@ -1,7 +1,7 @@
 package com.cdtde.chongdetang.service;
 
 import com.cdtde.chongdetang.pojo.Address;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import java.util.List;
  * @Version 1
  */
 public interface AddressService {
-    ResponseResult<List<Address>> getAllAddress();
+    Result<List<Address>> getAllAddress();
 
-    ResponseResult<Address> updateAddress(Address address);
+    Result<Address> updateAddress(Address address);
 
-    ResponseResult<Object> deleteAddress(Address address);
+    Result<Object> deleteAddress(Address address);
 }

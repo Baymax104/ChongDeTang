@@ -1,6 +1,6 @@
 package com.cdtde.chongdetang.controller;
 
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
-    public ResponseResult<Object> exceptionHandle(Exception e) {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Result<Object> exceptionHandle(Exception e) {
+        Result<Object> result = new Result<>();
         result.setStatus("error").setMessage(e.getMessage());
         log.error("Catch Exception: {}", e.getMessage());
         return result;

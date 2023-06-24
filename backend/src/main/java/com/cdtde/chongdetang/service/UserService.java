@@ -1,35 +1,27 @@
 package com.cdtde.chongdetang.service;
 
-import com.cdtde.chongdetang.pojo.ResponseResult;
-import com.cdtde.chongdetang.pojo.User;
-import com.cdtde.chongdetang.pojo.UserCollect;
+import com.cdtde.chongdetang.pojo.*;
 
 import java.util.List;
 
 
 public interface UserService {
 
-    ResponseResult<User> login(String phone, String password);
+    Result<User> login(String phone, String password);
 
-    ResponseResult<Object> register(String phone, String password);
+    Result<Object> register(String phone, String password);
 
-    ResponseResult<User> updateInfo(User user, String objectKey);
+    Result<User> updateInfo(User newUser);
 
-    ResponseResult<String> updatePassword(String oldPassword, String newPassword);
+    Result<String> updatePassword(String oldPassword, String newPassword);
 
-    ResponseResult<Object> updatePhone(String phone);
+    Result<Object> updatePhone(String phone);
 
-    ResponseResult<List<UserCollect>> getUserCollect(String type);
+    Result<Object> setAdmin(String phone, String mode);
 
-    ResponseResult<Object> addUserCollect(UserCollect userCollect);
+    Result<List<User>> getAllUser();
 
-    ResponseResult<Object> removeUserCollect(UserCollect userCollect);
+    Result<Object> addFeedback(String content);
 
-    ResponseResult<Object> setAdmin(String phone, String mode);
-
-    ResponseResult<List<User>> getAllUser();
-
-    ResponseResult<Object> addFeedback(String content);
-
-    ResponseResult<Object> checkToken(String token);
+    Result<Object> checkToken(String token);
 }

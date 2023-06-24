@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cdtde.chongdetang.mapper.AppointmentMapper;
 import com.cdtde.chongdetang.mapper.UserMapper;
 import com.cdtde.chongdetang.pojo.Appointment;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.pojo.User;
 import com.cdtde.chongdetang.service.AppointmentService;
 import com.cdtde.chongdetang.service.LoginUser;
@@ -33,7 +33,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private UserMapper userMapper;
 
     @Override
-    public ResponseResult<List<Appointment>> getAllAppointment() {
+    public Result<List<Appointment>> getAllAppointment() {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
 
@@ -41,14 +41,14 @@ public class AppointmentServiceImpl implements AppointmentService {
         wrapper.eq("user_id", id);
         List<Appointment> appointments = appointmentMapper.selectList(wrapper);
 
-        ResponseResult<List<Appointment>> result = new ResponseResult<>();
+        Result<List<Appointment>> result = new Result<>();
         result.setStatus("success").setData(appointments);
         return result;
     }
 
     @Override
-    public ResponseResult<Object> addAppointment(Appointment appointment) {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Result<Object> addAppointment(Appointment appointment) {
+        Result<Object> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
         appointment.setUserId(id);
@@ -63,8 +63,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public ResponseResult<Object> changeStatus(String id, String status) {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Result<Object> changeStatus(String id, String status) {
+        Result<Object> result = new Result<>();
 
         QueryWrapper<Appointment> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
@@ -79,7 +79,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public ResponseResult<List<Appointment>> getAppointmentCheckList(String filter) {
+    public Result<List<Appointment>> getAppointmentCheckList(String filter) {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = loginUser.getUser().getId();
         // 查用户表, 是不是admin
@@ -87,7 +87,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         wrapper.eq("id", id)
                 .eq("admin", "1");
         User user = userMapper.selectOne(wrapper);
-        ResponseResult<List<Appointment>> result = new ResponseResult<>();
+        Result<List<Appointment>> result = new Result<>();
         // 是admin
         if (user != null) {
             List<Appointment> appointments;

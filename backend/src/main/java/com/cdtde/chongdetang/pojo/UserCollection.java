@@ -11,20 +11,16 @@ import lombok.experimental.Accessors;
  * @Description
  * @Author John
  * @email
- * @Date 2023/2/24 23:13
+ * @Date 2023/6/19 21:41
  * @Version 1
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class UserCollect {
+public class UserCollection {
     @TableId(type = IdType.AUTO)
     private Integer id;
-
     private Integer userId;
-
     private Collection collection;
-
-    private Product product;
 }

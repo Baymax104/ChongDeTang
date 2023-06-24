@@ -1,7 +1,7 @@
 package com.cdtde.chongdetang.controller;
 
 import com.cdtde.chongdetang.pojo.Culture;
-import com.cdtde.chongdetang.pojo.ResponseResult;
+import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.service.CultureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ public class CultureController {
     private CultureService cultureService;
 
     @GetMapping
-    public ResponseResult<List<Culture>> download() {
+    public Result<List<Culture>> download() {
         return cultureService.download();
     }
 
     @PostMapping("/{type}")
-    public ResponseResult<Object> upload(@PathVariable("type") String type, @RequestBody Map<String, String> map) {
+    public Result<Object> upload(@PathVariable("type") String type, @RequestBody Map<String, String> map) {
         String date = map.get("date");
         String title = map.get("title");
         String url = map.get("url");
