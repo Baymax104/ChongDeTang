@@ -18,16 +18,18 @@ import com.cdtde.chongdetang.repository.AppKey;
 
 public class SceneFragment1_1 extends Fragment {
     private FragmentScene11Binding binding;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene11Binding.inflate(inflater, container, false);
+        binding = FragmentScene11Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        String url = AppKey.COS_URL +  "/img/scenes/img1_1.jpg";
+        String url = AppKey.COS_URL + "/img/scenes/img1_1.jpg";
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.loading)

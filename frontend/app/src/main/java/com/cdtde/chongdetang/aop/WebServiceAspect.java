@@ -1,6 +1,6 @@
 package com.cdtde.chongdetang.aop;
 
-import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Result;
 import com.elvishew.xlog.Logger;
 import com.elvishew.xlog.XLog;
 
@@ -32,10 +32,10 @@ public class WebServiceAspect {
     }
 
     @SuppressWarnings("rawtypes")
-    @Before("execution(void com.cdtde..*.lambda$request*(com.cdtde..*.ResponseResult))")
+    @Before("execution(void com.cdtde..*.lambda$request*(com.cdtde..*.Result))")
     public void beforeNext(JoinPoint joinPoint) {
         Object arg = joinPoint.getArgs()[0];
-        ResponseResult result = (ResponseResult) arg;
+        Result result = (Result) arg;
         String name = joinPoint.getSignature().getName();
         String msg = "success".equals(result.getStatus()) ? name + "：请求结果成功" : name + "：请求结果失败";
         logger.i(msg);

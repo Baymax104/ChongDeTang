@@ -5,11 +5,11 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.AppointViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.appoint.UserAppointActivity.States" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.AppointmentAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.AppointmentAdapter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -48,7 +48,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 recycler_adapter="@{adapter}"
-                recycler_data="@{viewModel.appointments}"
+                recycler_data="@{state.appointments}"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

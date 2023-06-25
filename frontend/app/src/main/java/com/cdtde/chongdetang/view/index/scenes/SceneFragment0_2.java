@@ -22,14 +22,15 @@ public class SceneFragment0_2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene02Binding.inflate(inflater, container, false);
+        binding = FragmentScene02Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        String url = AppKey.COS_URL +  "/img/scenes/img0_2.jpg";
+        String url = AppKey.COS_URL + "/img/scenes/img0_2.jpg";
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.loading)

@@ -123,7 +123,7 @@
                 android:id="@+id/history_flow"
                 android:visibility="@{viewModel.historyTags.size()==0 ? View.GONE : View.VISIBLE}"
                 tag_data="@{viewModel.historyTags}"
-                relate="@{searchEdit}"/>
+                tag_bind="@{searchEdit}"/>
 
 
         <TextView
@@ -138,7 +138,7 @@
                 android:padding="15dp"
                 android:id="@+id/collection_flow"
                 tag_data="@{viewModel.collectionTags}"
-                relate="@{searchEdit}"/>
+                tag_bind="@{searchEdit}"/>
 
 
         <TextView
@@ -153,7 +153,7 @@
                 android:padding="15dp"
                 android:id="@+id/product_flow"
                 tag_data="@{viewModel.productTags}"
-                relate="@{searchEdit}"/>
+                tag_bind="@{searchEdit}"/>
 
     </LinearLayout>
 </layout>

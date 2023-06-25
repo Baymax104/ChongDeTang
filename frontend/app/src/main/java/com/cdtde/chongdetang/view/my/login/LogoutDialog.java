@@ -3,11 +3,16 @@ package com.cdtde.chongdetang.view.my.login;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.DialogLogoutBinding;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.DialogBinder;
+import com.cdtde.chongdetang.base.vm.DialogScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.lxj.xpopup.core.CenterPopupView;
+
+import kotlin.Unit;
 
 /**
  * @Description
@@ -18,6 +23,12 @@ import com.lxj.xpopup.core.CenterPopupView;
  */
 public class LogoutDialog extends CenterPopupView {
 
+    private Messenger messenger = DialogScope.getFromApplication(Messenger.class);
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Unit, Unit> logout = new Event<>();
+    }
+
     public LogoutDialog(@NonNull Context context) {
         super(context);
     }
@@ -27,17 +38,18 @@ public class LogoutDialog extends CenterPopupView {
         return R.layout.dialog_logout;
     }
 
+    public class Handler {
+        public OnClickListener confirm = v -> {
+            messenger.logout.send(Unit.INSTANCE);
+            dismiss();
+        };
+
+        public OnClickListener cancel = v -> dismiss();
+    }
+
     @Override
     protected void onCreate() {
         super.onCreate();
-        DialogLogoutBinding binding = DialogLogoutBinding.bind(getPopupImplView());
-        binding.setLifecycleOwner(this);
-
-        binding.cancel.setOnClickListener(v -> dismiss());
-
-        binding.confirm.setOnClickListener(v -> {
-            LiveEventBus.get("LogoutDialog-logout", Boolean.class).post(true);
-            dismiss();
-        });
+        DialogBinder.bind(this, new BindingConfig().add(BR.handler, new Handler()));
     }
 }

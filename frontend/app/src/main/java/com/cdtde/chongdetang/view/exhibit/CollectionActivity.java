@@ -1,57 +1,57 @@
 package com.cdtde.chongdetang.view.exhibit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCollectionBinding;
 import com.cdtde.chongdetang.entity.Collection;
-import com.cdtde.chongdetang.util.WebViewUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.exhibit.CollectionViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.cdtde.chongdetang.utils.WebViewUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
 
-public class CollectionActivity extends AppCompatActivity {
+import kotlin.Unit;
 
-    private ActivityCollectionBinding binding;
+public class CollectionActivity extends BaseActivity<ActivityCollectionBinding> {
 
-    private CollectionViewModel vm;
+
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
+
+    @InjectScope(Scopes.APPLICATION)
+    private Messenger messenger;
+
+    public static class States extends StateHolder {
+        public final State<Collection> collection = new State<>(new Collection());
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Collection, Unit> showEvent = new Event<>();
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.activity_collection)
+                .add(BR.state, states);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityCollectionBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+        WebViewUtil.configure(binding.webPage, false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_collection);
-        binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        vm = new ViewModelProvider(this).get(CollectionViewModel.class);
-        binding.setViewModel(vm);
-
-        WebViewUtil.configure(binding.webPage, false);
-
-        LiveEventBus.get("CollectionActivity-getData", Collection.class)
-                .observeSticky(this, vm::setCollection);
+        messenger.showEvent.observeSend(this, true, states.collection::setValue);
     }
-
-    public static void actionStart(Context context, Collection collection) {
-        LiveEventBus.get("CollectionActivity-getData", Collection.class).post(collection);
-        context.startActivity(new Intent(context, CollectionActivity.class));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
-
 }

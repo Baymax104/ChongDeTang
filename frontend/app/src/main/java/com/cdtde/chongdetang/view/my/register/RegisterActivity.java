@@ -1,83 +1,106 @@
 package com.cdtde.chongdetang.view.my.register;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.library.baseAdapters.BR;
+import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityRegisterBinding;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.RegisterViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
+import com.cdtde.chongdetang.viewModel.my.RegisterRequester;
+import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
 
-public class RegisterActivity extends AppCompatActivity {
+import java.util.Arrays;
+import java.util.List;
 
-    private ActivityRegisterBinding binding;
+import kotlin.Unit;
 
-    private RegisterViewModel vm;
+public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
-    private LoadingPopupView loading;
+    @InjectScope(Scopes.ACTIVITY)
+    private RegisterRequester registerRequester;
 
+    @InjectScope(Scopes.ACTIVITY)
+    private ValidateUseCase validateUseCase;
+
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
+
+    @InjectScope(Scopes.ACTIVITY)
+    private Messenger messenger;
+
+
+    public static class States extends StateHolder {
+        public State<Integer> page = new State<>(0);
+        public List<Fragment> fragments = Arrays.asList(
+                new RegisterFragment(),
+                new ValidateFragment()
+        );
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Integer, Unit> pageEvent = new Event<>();
+    }
+
+    public class Handler {
+        public OnClickListener confirm = v -> validateUseCase.validateEvent.send(Unit.INSTANCE);
+    }
+
+
+    @Override
+    protected ViewConfig configBinding() {
+        registerRequester.registerObserver(DialogUtil.createNetLoading(this), this);
+
+        return new ViewConfig(R.layout.activity_register)
+                .add(BR.state, states)
+                .add(BR.fragmentAdapter, new FragmentAdapter(this));
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityRegisterBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+        binding.viewPager.setUserInputEnabled(false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
-        binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-        vm = new ViewModelProvider(this).get(RegisterViewModel.class);
-        binding.setViewModel(vm);
-        binding.setFragmentAdapter(new FragmentAdapter(this));
 
-        binding.viewPager.setUserInputEnabled(false);
+        messenger.pageEvent.observeSend(this, states.page::setValue);
 
-        XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
-
-        LiveEventBus.get("MyRepository-requestRegister", WebException.class)
-                        .observe(this, e -> {
-                            loading.smartDismiss();
-                            if (e.isSuccess()) {
-                                ToastUtils.showShort("注册成功！");
-                                finish();
-                            } else {
-                                ToastUtils.showShort(e.getMessage());
-                            }
-                        });
-
-        binding.confirm.setOnClickListener(v -> {
-            if (vm.validate()) {
-                vm.register();
-                loading.show();
+        validateUseCase.validateEvent.observeReply(this, value -> {
+            if (value) {
+                registerRequester.register(o -> {
+                    ToastUtils.showShort("注册成功！");
+                    finish();
+                }, ToastUtils::showShort);
             } else {
                 ToastUtils.showShort("验证码错误！");
             }
         });
-    }
 
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, RegisterActivity.class);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
+//        LiveEventBus.get("UserRepository-requestRegister", WebException.class)
+//                        .observe(this, e -> {
+//                            if (e.isSuccess()) {
+//                                ToastUtils.showShort("注册成功！");
+//                                finish();
+//                            } else {
+//                                ToastUtils.showShort(e.getMessage());
+//                            }
+//                        });
     }
 }

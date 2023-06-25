@@ -3,10 +3,12 @@ package com.cdtde.chongdetang.view.my.setting.userInfo;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.DialogUserIconBinding;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.DialogBinder;
+import com.cdtde.chongdetang.base.vm.DialogScope;
 import com.lxj.xpopup.core.BottomPopupView;
 
 /**
@@ -18,6 +20,9 @@ import com.lxj.xpopup.core.BottomPopupView;
  */
 public class PhotoDialog extends BottomPopupView {
 
+    private UserInfoActivity.Messenger messenger =
+            DialogScope.getFromApplication(UserInfoActivity.Messenger.class);
+
     public PhotoDialog(@NonNull Context context) {
         super(context);
     }
@@ -27,24 +32,23 @@ public class PhotoDialog extends BottomPopupView {
         return R.layout.dialog_user_icon;
     }
 
+    public class Handler {
+        public OnClickListener takePhoto = v -> {
+            messenger.photoAction.send(1);
+            dismiss();
+        };
+
+        public OnClickListener openAlbum = v -> {
+            messenger.photoAction.send(2);
+            dismiss();
+        };
+
+        public OnClickListener cancel = v -> dismiss();
+    }
+
     @Override
     protected void onCreate() {
         super.onCreate();
-        DialogUserIconBinding binding = DialogUserIconBinding.bind(getPopupImplView());
-        binding.setLifecycleOwner(this);
-
-        binding.takePhoto.setOnClickListener(v -> {
-            LiveEventBus.get("PhotoDialog-action", Integer.class)
-                    .post(1);
-            dismiss();
-        });
-
-        binding.openAlbum.setOnClickListener(v -> {
-            LiveEventBus.get("PhotoDialog-action", Integer.class)
-                    .post(2);
-            dismiss();
-        });
-
-        binding.cancel.setOnClickListener(v -> dismiss());
+        DialogBinder.bind(this, new BindingConfig().add(BR.handler, new Handler()));
     }
 }

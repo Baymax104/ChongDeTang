@@ -4,12 +4,11 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-import com.cdtde.chongdetang.util.DateFormatAdapter;
+import com.cdtde.chongdetang.utils.DateFormatSerializer;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * @Description
@@ -24,7 +23,7 @@ public class Product extends BaseObservable implements Serializable {
     private String name;
     private String photo;
     private Double price;
-    @JsonAdapter(DateFormatAdapter.class)
+    @JsonAdapter(DateFormatSerializer.class)
     private Date launchTime;
     private String introduction;
     private String userCollect;

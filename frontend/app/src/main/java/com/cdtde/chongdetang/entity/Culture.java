@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.cdtde.chongdetang.BR;
-import com.cdtde.chongdetang.util.DateFormatAdapter;
+import com.cdtde.chongdetang.utils.DateFormatSerializer;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.util.Date;
@@ -15,7 +15,7 @@ public class Culture extends BaseObservable {
     private String type;
     private String title;
     private String description;
-    @JsonAdapter(DateFormatAdapter.class)
+    @JsonAdapter(DateFormatSerializer.class)
     private Date date;
     private String url;
     private String photo;

@@ -5,8 +5,11 @@
 
     <data>
         <variable
-                name="isCollect"
-                type="Boolean" />
+                name="state"
+                type="com.cdtde.chongdetang.view.shop.ItemCollectDialog.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.shop.ItemCollectDialog.Handler" />
     </data>
 
     <LinearLayout
@@ -17,16 +20,17 @@
             app:bl_solid_color="@color/white"
             app:bl_corners_radius="5dp"
             android:padding="10dp"
+            android:onClick="@{handler.collect}"
             tools:ignore="UseCompoundDrawables,ContentDescription">
         <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:id="@+id/icon"
-                android:src="@{isCollect ? @drawable/collect_fill : @drawable/collect}" />
+                android:src="@{state.isCollected ? @drawable/collect_fill : @drawable/collect}" />
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@{isCollect ? @string/cancel_collect : @string/collect}"
+                android:text="@{state.isCollected ? @string/cancel_collect : @string/collect}"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
                 android:id="@+id/tip"

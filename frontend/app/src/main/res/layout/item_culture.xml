@@ -35,7 +35,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        sub_day="@{culture.date}"
+                        text_day="@{culture.date}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -45,7 +45,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        sub_date="@{culture.date}"
+                        text_year_month="@{culture.date}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="12sp"

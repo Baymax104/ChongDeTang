@@ -5,14 +5,18 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.LoginViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.login.LoginActivity.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.login.LoginActivity.Handler" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="@color/white"
             tools:context=".view.my.login.LoginActivity"
             tools:ignore="ContentDescription">
 
@@ -63,7 +67,8 @@
                     tools:ignore="SpeakableTextPresentCheck"
                     android:drawableStart="@drawable/default_photo"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->viewModel.setPhone(s.toString())}"/>
+                    android:text="@{state.phone}"
+                    android:afterTextChanged="@{handler::setPhone}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -86,7 +91,8 @@
                     tools:ignore="SpeakableTextPresentCheck"
                     android:drawableStart="@drawable/password2"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->viewModel.setPassword(s.toString())}"/>
+                    android:text="@{state.password}"
+                    android:afterTextChanged="@{handler::setPassword}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -97,7 +103,8 @@
                 android:background="@drawable/button_bg"
                 android:text="@string/login"
                 style="@style/BigButtonTextStyle"
-                android:id="@+id/login"/>
+                android:id="@+id/login"
+                android:onClick="@{handler.login}"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,6 +115,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/gray_1"
                 android:fontFamily="@font/regular"
-                android:id="@+id/register_entry"/>
+                android:id="@+id/register_entry"
+                android:onClick="@{handler.register}"/>
     </LinearLayout>
 </layout>

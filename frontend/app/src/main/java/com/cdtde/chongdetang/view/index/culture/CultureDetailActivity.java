@@ -3,25 +3,40 @@ package com.cdtde.chongdetang.view.index.culture;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCultureDetailBinding;
 import com.cdtde.chongdetang.entity.Culture;
-import com.cdtde.chongdetang.util.WebViewUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.utils.WebViewUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.viewModel.index.CultureDetailViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
-import io.reactivex.annotations.NonNull;
-
-public class CultureDetailActivity extends AppCompatActivity {
+public class CultureDetailActivity extends BaseActivity<ActivityCultureDetailBinding> {
     private ActivityCultureDetailBinding binding;
     private CultureDetailViewModel vm;
+
+
+    public static class States extends StateHolder {
+        public final State<Culture> culture = new State<>(new Culture());
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        return null;
+    }
+
+    @Override
+    protected void initUIComponent(@androidx.annotation.NonNull ActivityCultureDetailBinding binding) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +47,7 @@ public class CultureDetailActivity extends AppCompatActivity {
 
         binding.setViewModel(vm);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
         WebViewUtil.configure(binding.webPage, false);
 
         LiveEventBus.get("CultureDetailActivity-getData", Culture.class)
@@ -45,12 +60,4 @@ public class CultureDetailActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
 }

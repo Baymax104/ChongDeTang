@@ -1,17 +1,26 @@
 package com.cdtde.chongdetang.view.my.setting.userPhone;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.CountDownTimer;
+import android.text.Editable;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserPhoneBinding;
-import com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel;
+import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.viewModel.my.PhoneValidateUseCase;
+import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
 
 /**
  * @Description
@@ -20,34 +29,82 @@ import com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel;
  * @Date 2023/1/15 19:49
  * @Version 1
  */
-public class UserPhoneFragment extends Fragment {
+public class UserPhoneFragment extends BaseFragment<FragmentUserPhoneBinding> {
 
-    private FragmentUserPhoneBinding binding;
+    @InjectScope(Scopes.ACTIVITY)
+    private PhoneValidateUseCase phoneValidateUseCase;
 
-    private UserPhoneViewModel vm;
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
 
-    @Nullable
+    @InjectScope(Scopes.FRAGMENT)
+    private ValidateUseCase validateUseCase;
+
+
+    public static class States extends StateHolder {
+        public final State<Boolean> enabled = new State<>(true);
+        public final State<String> tip = new State<>("");
+        public final String originPhone = UserStore.getPhone();
+        public final State<String> inputPhone = new State<>("");
+        public String finalPhone;
+        public final State<String> code = new State<>("");
+    }
+
+    public class Handler {
+        public final OnClickListener sendSms = v -> {
+            Timer timer = new Timer();
+            timer.start();
+            validateUseCase.sendSms(states.inputPhone.getValue());
+            states.finalPhone = states.inputPhone.getValue();
+        };
+
+        public void setCode(Editable s) {
+            states.code.setValue(s.toString());
+        }
+
+        public void setInputPhone(Editable s) {
+            states.inputPhone.setValue(s.toString());
+        }
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentUserPhoneBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.fragment_user_phone)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(requireActivity()).get(UserPhoneViewModel.class);
-        binding.setViewModel(vm);
+
+        phoneValidateUseCase.validateEvent.observeSend(this, value -> {
+            phoneValidateUseCase.setCode(states.code.getValue());
+            phoneValidateUseCase.setValidCode(validateUseCase.getValidCode());
+            phoneValidateUseCase.setFinalPhone(states.finalPhone);
+            phoneValidateUseCase.validateEvent.reply(phoneValidateUseCase.validateCode());
+        });
     }
 
-    public static UserPhoneFragment newInstance() {
-        return new UserPhoneFragment();
+    private class Timer extends CountDownTimer {
+        public Timer() {
+            super(60000, 1000);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            states.enabled.setValue(false);
+            String content = millisUntilFinished / 1000 + "秒后可重新发送";
+            states.tip.setValue(content);
+        }
+
+        @Override
+        public void onFinish() {
+            states.enabled.setValue(true);
+            states.tip.setValue("重新获取验证码");
+        }
+
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+
 }

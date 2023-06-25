@@ -7,6 +7,12 @@
         <variable
                 name="product"
                 type="com.cdtde.chongdetang.entity.Product" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="moreClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -15,7 +21,8 @@
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             android:layout_marginVertical="5dp"
-            android:layout_marginHorizontal="6dp">
+            android:layout_marginHorizontal="6dp"
+            android:onClick="@{v->itemClick.onClick(product, v)}">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +68,8 @@
                         android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/more"
-                        android:src="@drawable/more"/>
+                        android:src="@drawable/more"
+                        android:onClick="@{v->moreClick.onClick(product, v)}"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -4,7 +4,6 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.cdtde.chongdetang.BR;
-import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 

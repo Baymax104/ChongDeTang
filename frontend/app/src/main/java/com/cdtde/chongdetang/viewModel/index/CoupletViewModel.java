@@ -33,7 +33,7 @@ public class CoupletViewModel extends ViewModel {
     }
 
     public void updateAllCouplet() {
-        repo.requestNews("mryl");
+//        repo.requestNews("mryl");
     }
 
     public void refreshAllCouplet() {

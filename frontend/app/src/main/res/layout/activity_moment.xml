@@ -4,14 +4,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="java.util.List"/>
-        <import type="com.cdtde.chongdetang.entity.News"/>
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.NewsAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.MomentsAdapter" />
         <variable
-                name="moments"
-                type="List&lt;News>" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.moment.MomentActivity.States" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -50,7 +48,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 recycler_adapter="@{adapter}"
-                recycler_data="@{moments}"/>
+                recycler_data="@{state.moments}"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

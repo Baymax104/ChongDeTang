@@ -55,4 +55,9 @@ public class UserCollect {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public boolean isCollected() {
+        return (product != null && product.isUserCollect()) ||
+                (collection != null && collection.isUserCollect());
+    }
 }

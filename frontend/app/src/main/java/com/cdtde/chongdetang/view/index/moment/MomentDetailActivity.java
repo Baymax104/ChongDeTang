@@ -1,51 +1,57 @@
 package com.cdtde.chongdetang.view.index.moment;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityMomentDetailBinding;
-import com.cdtde.chongdetang.entity.News;
-import com.cdtde.chongdetang.util.WebViewUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.cdtde.chongdetang.entity.Moment;
+import com.cdtde.chongdetang.utils.WebViewUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
 
-public class MomentDetailActivity extends AppCompatActivity {
+import kotlin.Unit;
 
-    private ActivityMomentDetailBinding binding;
+public class MomentDetailActivity extends BaseActivity<ActivityMomentDetailBinding> {
+
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
+    @InjectScope(Scopes.APPLICATION)
+    private Messenger messenger;
+
+
+    public static class States extends StateHolder {
+        public final State<Moment> moment = new State<>(new Moment());
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Moment, Unit> showEvent = new Event<>();
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.activity_moment_detail)
+                .add(BR.state, states);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityMomentDetailBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+        WebViewUtil.configure(binding.webPage, false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_moment_detail);
-        binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        WebViewUtil.configure(binding.webPage, false);
-
-        LiveEventBus.get("MomentDetailActivity-getData", News.class)
-                        .observeSticky(this, binding::setMoment);
-    }
-
-    public static void actionStart(Context context, News moment) {
-        LiveEventBus.get("MomentDetailActivity-getData", News.class).post(moment);
-        Intent intent = new Intent(context, MomentDetailActivity.class);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
+        messenger.showEvent.observeSend(this, true, states.moment::setValue);
     }
 
 }

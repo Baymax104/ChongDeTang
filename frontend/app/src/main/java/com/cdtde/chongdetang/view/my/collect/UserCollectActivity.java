@@ -1,60 +1,61 @@
 package com.cdtde.chongdetang.view.my.collect;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.annotation.Nullable;
+import androidx.databinding.library.baseAdapters.BR;
+import androidx.fragment.app.Fragment;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityUserCollectBinding;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.UserCollectViewModel;
+import com.cdtde.chongdetang.utils.WindowUtil;
 
-public class UserCollectActivity extends AppCompatActivity {
+import java.util.Arrays;
+import java.util.List;
 
-    private ActivityUserCollectBinding binding;
+public class UserCollectActivity extends BaseActivity<ActivityUserCollectBinding> {
 
-    private UserCollectViewModel vm;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_collect);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(UserCollectViewModel.class);
-        binding.setViewModel(vm);
-        binding.setAdapter(new FragmentAdapter(this));
-
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                vm.setCurrentPage(position + 1);
-            }
-        });
+    public static class States extends StateHolder {
+        public final State<Integer> page = new State<>(0);
+        public final List<Fragment> fragments = Arrays.asList(
+                new UserCollectionFragment(),
+                new UserProductFragment()
+        );
     }
 
-    public static void actionStart(Context context) {
-        Intent starter = new Intent(context, UserCollectActivity.class);
-        context.startActivity(starter);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
+    public class Handler {
+        public void setPage(int page) {
+            states.page.setValue(page);
         }
-        return true;
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.activity_user_collect)
+                .add(BR.adapter, new FragmentAdapter(this))
+                .add(BR.state, states);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityUserCollectBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+        ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

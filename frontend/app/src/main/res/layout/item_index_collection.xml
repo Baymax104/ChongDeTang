@@ -7,6 +7,9 @@
         <variable
                 name="collection"
                 type="com.cdtde.chongdetang.entity.Collection" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -14,7 +17,8 @@
             android:layout_height="150dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            android:onClick="@{v->itemClick.onClick(collection, v)}">
 
         <LinearLayout
                 android:layout_width="match_parent"

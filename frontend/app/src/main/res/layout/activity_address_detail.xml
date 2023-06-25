@@ -4,9 +4,12 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.AddressDetailViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.address.AddressDetailActivity.States" />
         <import type="android.view.View"/>
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.address.AddressDetailActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -42,8 +45,9 @@
                             android:id="@+id/delete"
                             android:text="@string/delete"
                             android:layout_alignParentEnd="true"
-                            android:visibility="@{viewModel.address != null ? View.VISIBLE : View.INVISIBLE}"
-                            style="@style/ToolbarOptionTextStyle"/>
+                            android:visibility="@{state.address != null ? View.VISIBLE : View.INVISIBLE}"
+                            style="@style/ToolbarOptionTextStyle"
+                            android:onClick="@{handler.delete}"/>
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -65,8 +69,7 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/text_regular"
                     tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
-                    android:text="@{viewModel.address != null ? viewModel.address.consignee : null}"
-                    android:afterTextChanged="@{s->viewModel.setConsignee(s.toString())}"/>
+                    android:text="@{state.address.consignee}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -86,8 +89,7 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/text_regular"
                     tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
-                    android:text="@{viewModel.address != null ? viewModel.address.phone : null}"
-                    android:afterTextChanged="@{s->viewModel.setPhone(s.toString())}"/>
+                    android:text="@{state.address.phone}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -112,7 +114,7 @@
                         android:textColor="@color/black"
                         android:fontFamily="@font/text_regular"
                         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
-                        android:text="@{viewModel.address != null ? viewModel.address.province + ` ` + viewModel.address.city : viewModel.area}"
+                        android:text="@{state.address.province + ` ` + state.address.city}"
                         android:enabled="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,7 +124,8 @@
                     android:src="@drawable/address_fill"
                     android:id="@+id/select_address"
                     android:layout_marginStart="7dp"
-                    android:contentDescription="@string/select_address"/>
+                    android:contentDescription="@string/select_address"
+                    android:onClick="@{handler.selectAddress}"/>
 
         </LinearLayout>
 
@@ -144,8 +147,7 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/text_regular"
                     tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
-                    android:text="@{viewModel.address != null ? viewModel.address.detail : null}"
-                    android:afterTextChanged="@{s->viewModel.setDetail(s.toString())}"/>
+                    android:text="@{state.address.detail}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -157,7 +159,8 @@
                 android:background="@drawable/button_bg"
                 android:text="@string/save"
                 style="@style/BigButtonTextStyle"
-                android:id="@+id/save"/>
+                android:id="@+id/save"
+                android:onClick="@{handler.save}"/>
 
     </LinearLayout>
 </layout>

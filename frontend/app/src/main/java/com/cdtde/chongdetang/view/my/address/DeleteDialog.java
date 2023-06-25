@@ -4,10 +4,14 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.DialogAddressDeleteBinding;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.DialogBinder;
+import com.cdtde.chongdetang.base.vm.DialogScope;
 import com.lxj.xpopup.core.CenterPopupView;
+
+import kotlin.Unit;
 
 /**
  * @Description
@@ -18,6 +22,8 @@ import com.lxj.xpopup.core.CenterPopupView;
  */
 public class DeleteDialog extends CenterPopupView {
 
+    private AddressDetailActivity.Messenger messenger = DialogScope.getFromApplication(AddressDetailActivity.Messenger.class);
+
     public DeleteDialog(@NonNull Context context) {
         super(context);
     }
@@ -27,17 +33,18 @@ public class DeleteDialog extends CenterPopupView {
         return R.layout.dialog_address_delete;
     }
 
+    public class Handler {
+        public OnClickListener confirm = v -> {
+            messenger.deleteEvent.send(Unit.INSTANCE);
+            dismiss();
+        };
+
+        public OnClickListener cancel = v -> dismiss();
+    }
+
     @Override
     protected void onCreate() {
         super.onCreate();
-        DialogAddressDeleteBinding binding = DialogAddressDeleteBinding.bind(getPopupImplView());
-        binding.setLifecycleOwner(this);
-
-        binding.cancel.setOnClickListener(v -> dismiss());
-
-        binding.confirm.setOnClickListener(v -> {
-            LiveEventBus.get("DeleteDialog-delete", Boolean.class).post(true);
-            dismiss();
-        });
+        DialogBinder.bind(this, new BindingConfig().add(BR.handler, new Handler()));
     }
 }

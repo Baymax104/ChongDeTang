@@ -1,11 +1,11 @@
 package com.cdtde.chongdetang.dataSource.web.api;
 
 import com.cdtde.chongdetang.entity.Appointment;
-import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Result;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -21,9 +21,9 @@ import retrofit2.http.POST;
 public interface AppointmentService {
 
     @GET("/api/user/appointment")
-    Observable<ResponseResult<List<Appointment>>> getAllAppointment(@Header("Authorization") String token);
+    Single<Result<List<Appointment>>> getAllAppointment(@Header("Authorization") String token);
 
     @POST("/api/user/appointment")
-    Observable<ResponseResult<Object>> addAppointment(@Header("Authorization") String token,
-                                                      @Body Appointment appointment);
+    Single<Result<Object>> addAppointment(@Header("Authorization") String token,
+                                          @Body Appointment appointment);
 }

@@ -1,26 +1,34 @@
 package com.cdtde.chongdetang.view.my.collect;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.cdtde.chongdetang.adapter.ExhibitCollectionAdapter;
+import com.cdtde.chongdetang.BR;
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.recycler.UserCollectionAdapter;
+import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserCollectionBinding;
+import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.UserCollect;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
-import com.cdtde.chongdetang.viewModel.my.UserCollectViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
+import com.cdtde.chongdetang.viewModel.my.UserCollectRequester;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description
@@ -29,76 +37,95 @@ import com.lxj.xpopup.XPopup;
  * @Date 2023/2/24 20:35
  * @Version 1
  */
-public class UserCollectionFragment extends Fragment {
+public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionBinding> {
 
-    private FragmentUserCollectionBinding binding;
 
-    private UserCollectViewModel vm;
-
-    private XPopup.Builder attachBuilder;
+    @InjectScope(Scopes.ACTIVITY)
+    private UserCollectRequester requester;
 
     private ItemCollectDialog dialog;
 
-    public static UserCollectionFragment newInstance() {
-        return new UserCollectionFragment();
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
+
+    @InjectScope(Scopes.APPLICATION)
+    private ItemCollectDialog.Messenger messenger;
+
+    @InjectScope(Scopes.APPLICATION)
+    private CollectionActivity.Messenger collectionMessenger;
+
+    public static class States extends StateHolder {
+        public final State<List<Collection>> collections = new State<>(new ArrayList<>());
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentUserCollectionBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    public class ListHandler extends ListHandlerFactory {
+
+        public OnItemClickListener<Collection> itemClick = (data, view) -> {
+            collectionMessenger.showEvent.send(data);
+            Starter.actionStart(activity, CollectionActivity.class);
+        };
+
+        public OnItemClickListener<Collection> moreClick = (data, view) -> {
+            dialog = DialogUtil.createAttachDialog(activity, ItemCollectDialog.class, view);
+            dialog.show();
+            messenger.clickEvent.send(new UserCollect(data), "UserCollectionFragment");
+//            LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
+//                    .post(new UserCollect(data));
+        };
+
+        @Override
+        public BindingConfig getBindingConfig() {
+            return new BindingConfig()
+                    .add(BR.allClick, itemClick)
+                    .add(BR.more, moreClick);
+        }
     }
+
+    @Override
+    protected ViewConfig configBinding() {
+        UserCollectionAdapter adapter = new UserCollectionAdapter();
+        adapter.setFactory(new ListHandler());
+        return new ViewConfig(R.layout.fragment_user_collection)
+                .add(BR.state, states)
+                .add(BR.adapter, adapter);
+    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-        vm = new ViewModelProvider(requireActivity()).get(UserCollectViewModel.class);
-        binding.setViewModel(vm);
 
-        attachBuilder = new XPopup.Builder(requireContext()).hasShadowBg(false);
 
-        ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
-        adapter.setOnItemClickListener(data ->
-                CollectionActivity.actionStart(requireContext(), data)
+//        LiveEventBus.get("UserRepository-requestUserCollection", WebException.class)
+//                .observe(this, exception -> {
+//                    if (exception.isSuccess()) {
+//                        states.collections.setValue(requester.refreshUserCollection());
+//                    } else {
+//                        ToastUtils.showShort(exception.getMessage());
+//                    }
+//                });
+
+        messenger.cancelEvent.observeSend(getViewLifecycleOwner(), "UserCollectionFragment",
+                (value, key) -> requester.removeUserCollection(
+                        value.getCollection(),
+                        states.collections::setValue,
+                        ToastUtils::showShort
+                )
         );
-        adapter.setOnMoreClickListener((v, collection) -> {
-            attachBuilder.atView(v);
-            dialog = (ItemCollectDialog) DialogUtil.create(requireContext(), ItemCollectDialog.class, attachBuilder);
-            dialog.show();
-            LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
-                    .post(new UserCollect(collection));
-        });
-        binding.setAdapter(adapter);
 
-        vm.updateUserCollection();
 
-        LiveEventBus.get("MyRepository-requestUserCollection", WebException.class)
-                .observe(this, exception -> {
-                    if (exception.isSuccess()) {
-                        vm.refreshUserCollection();
-                    } else {
-                        ToastUtils.showShort(exception.getMessage());
-                    }
-                });
-        LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
-                .observe(this, userCollect -> {
-                    if (vm.getCurrentPage() == 1) {
-                        vm.removeUserCollect(userCollect);
-                    }
-                });
+//        LiveEventBus.get("UserRepository-requestRemoveUserCollect", WebException.class)
+//                .observe(this, e -> {
+//                    if (requester.getCurrentPage() == 1) {
+//                        dialog.smartDismiss();
+//                        if (e.isSuccess()) {
+//                            requester.updateUserCollection();
+//                        } else {
+//                            ToastUtils.showShort(e.getMessage());
+//                        }
+//                    }
+//                });
 
-        LiveEventBus.get("MyRepository-requestRemoveUserCollect", WebException.class)
-                .observe(this, e -> {
-                    if (vm.getCurrentPage() == 1) {
-                        dialog.smartDismiss();
-                        if (e.isSuccess()) {
-                            vm.updateUserCollection();
-                        } else {
-                            ToastUtils.showShort(e.getMessage());
-                        }
-                    }
-                });
+        requester.updateUserCollection(states.collections::setValue, ToastUtils::showShort);
     }
 }

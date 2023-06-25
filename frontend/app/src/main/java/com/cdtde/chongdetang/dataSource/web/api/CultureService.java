@@ -1,11 +1,11 @@
 package com.cdtde.chongdetang.dataSource.web.api;
 
 import com.cdtde.chongdetang.entity.Culture;
-import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Result;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 
 /**
@@ -18,5 +18,5 @@ import retrofit2.http.GET;
 public interface CultureService {
 
     @GET("/api/culture")
-    Observable<ResponseResult<List<Culture>>> getAllCulture();
+    Single<Result<List<Culture>>> getAllCulture();
 }

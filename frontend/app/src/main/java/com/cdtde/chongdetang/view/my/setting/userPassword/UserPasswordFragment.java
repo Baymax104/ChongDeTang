@@ -1,17 +1,24 @@
 package com.cdtde.chongdetang.view.my.setting.userPassword;
 
+
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.Editable;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserPasswordBinding;
-import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
+import com.cdtde.chongdetang.viewModel.my.PasswordValidateUseCase;
+
 
 /**
  * @Description
@@ -20,34 +27,50 @@ import com.cdtde.chongdetang.viewModel.my.UserPasswordViewModel;
  * @Date 2023/1/15 0:09
  * @Version 1
  */
-public class UserPasswordFragment extends Fragment {
+public class UserPasswordFragment extends BaseFragment<FragmentUserPasswordBinding> {
 
-    private FragmentUserPasswordBinding binding;
+    @InjectScope(Scopes.ACTIVITY)
+    private PasswordValidateUseCase useCase;
 
-    private UserPasswordViewModel vm;
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
 
-    @Nullable
+    public static class States extends StateHolder {
+        public State<String> oldPwd = new State<>("");
+        public State<String> newPwd = new State<>("");
+        public State<String> repeatPwd = new State<>("");
+    }
+
+    public class Handler {
+        public void setOldPwd(@NonNull Editable s) {
+            states.oldPwd.setValue(s.toString());
+        }
+
+        public void setNewPwd(@NonNull Editable s) {
+            states.newPwd.setValue(s.toString());
+        }
+
+        public void setRepeatPwd(@NonNull Editable s) {
+            states.repeatPwd.setValue(s.toString());
+        }
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentUserPasswordBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.fragment_user_password)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(requireActivity()).get(UserPasswordViewModel.class);
-        binding.setViewModel(vm);
-    }
 
-    public static UserPasswordFragment newInstance() {
-        return new UserPasswordFragment();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+        useCase.validateEvent.observeSend(this, value -> {
+            useCase.setOldPassword(states.oldPwd.getValue());
+            useCase.setNewPassword(states.newPwd.getValue());
+            useCase.setRepeatPassword(states.repeatPwd.getValue());
+            useCase.validateEvent.reply(useCase.validatePassword());
+        });
     }
 }

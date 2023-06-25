@@ -6,13 +6,10 @@
     <data>
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.ExhibitCollectionAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.ExhibitCollectionAdapter" />
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel" />
-        <variable
-                name="page"
-                type="Integer" />
+                name="state"
+                type="com.cdtde.chongdetang.view.exhibit.ExhibitListFragment.States" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,5 +22,5 @@
             app:spanCount="2"
             android:orientation="vertical"
             recycler_adapter="@{adapter}"
-            recycler_data="@{viewModel.getPageCollection(page)}"/>
+            recycler_data="@{state.collections}"/>
 </layout>

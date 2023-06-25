@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="moment"
+                type="com.cdtde.chongdetang.entity.Moment" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:onClick="@{v->itemClick.onClick(moment, v)}">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                tools:ignore="ContentDescription">
+
+            <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/main_color" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        text_day="@{moment.date}"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/regular" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        text_year_month="@{moment.date}"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/regular" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="5dp">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{moment.title}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/regular"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{moment.description}"
+                        android:textColor="@color/gray_1"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/text_regular"
+                        android:layout_marginTop="5dp"
+                        android:maxLines="2"
+                        android:ellipsize="end" />
+
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    img_url="@{moment.photo}"
+                    img_cos="@{false}"/>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_4"
+                android:layout_marginHorizontal="15dp" />
+    </LinearLayout>
+</layout>

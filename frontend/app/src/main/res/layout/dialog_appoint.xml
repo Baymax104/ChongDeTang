@@ -3,8 +3,11 @@
 
     <data>
         <variable
-                name="appointment"
-                type="com.cdtde.chongdetang.entity.Appointment" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.appoint.AppointDialog.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.index.appoint.AppointDialog.Handler" />
     </data>
 
     <LinearLayout
@@ -46,7 +49,7 @@
                     android:fontFamily="@font/text_regular"
                     android:drawableStart="@drawable/default_photo"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->appointment.setSubscriber(s.toString())}"/>
+                    android:text="@={state.appointment.subscriber}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -68,7 +71,7 @@
                     android:fontFamily="@font/text_regular"
                     android:drawableStart="@drawable/phone_fill"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->appointment.setPhone(s.toString())}"/>
+                    android:text="@={state.appointment.phone}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -90,7 +93,7 @@
                     android:fontFamily="@font/text_regular"
                     android:drawableStart="@drawable/appoint_number"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->appointment.setNumber(s.toString())}"/>
+                    android:text="@={state.appointment.number}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -115,7 +118,8 @@
                         android:id="@+id/date_edit"
                         android:textColor="@color/black"
                         android:fontFamily="@font/text_regular"
-                        android:enabled="false"/>
+                        android:enabled="false"
+                        text_date="@{state.appointment.orderTime}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -124,7 +128,8 @@
                     android:src="@drawable/appoint_date"
                     android:layout_marginStart="7dp"
                     android:contentDescription="@string/select_date"
-                    android:id="@+id/select_date"/>
+                    android:id="@+id/select_date"
+                    android:onClick="@{handler.selectDate}"/>
         </LinearLayout>
 
         <View
@@ -142,7 +147,8 @@
                     android:text="@string/cancel"
                     android:id="@+id/cancel"
                     android:background="?attr/selectableItemBackground"
-                    style="@style/DialogButtonTextStyle"/>
+                    style="@style/DialogButtonTextStyle"
+                    android:onClick="@{handler.cancel}"/>
             <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
@@ -155,7 +161,8 @@
                     android:text="@string/confirm"
                     android:id="@+id/confirm"
                     android:background="?attr/selectableItemBackground"
-                    style="@style/DialogButtonTextStyle"/>
+                    style="@style/DialogButtonTextStyle"
+                    android:onClick="@{handler.confirm}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

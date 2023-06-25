@@ -16,8 +16,7 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.databinding.ActivityCultureBinding;
 import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.viewModel.index.CultureViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -36,10 +35,10 @@ public class CultureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_culture);
         vm = new ViewModelProvider(this).get(CultureViewModel.class);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
+//        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         binding.setLifecycleOwner(this);
 
-        binding.setViewModel(vm);
+//        binding.setViewModel(vm);
         binding.setFragmentAdapter(new FragmentAdapter(this));
 
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
@@ -67,6 +66,7 @@ public class CultureActivity extends AppCompatActivity {
         }
         return true;
     }
+
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, CultureActivity.class);
         context.startActivity(intent);

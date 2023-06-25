@@ -6,11 +6,14 @@
 
     <data>
         <variable
-                name="collectionAdapter"
-                type="com.cdtde.chongdetang.adapter.IndexCollectionAdapter" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.IndexFragment.States" />
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.IndexViewModel" />
+                name="collectionAdapter"
+                type="com.cdtde.chongdetang.adapter.recycler.IndexCollectionAdapter" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.index.IndexFragment.Handler" />
     </data>
 
     <LinearLayout
@@ -28,7 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/bar_color"
-                    android:id="@+id/toolbar">
+                    android:id="@+id/toolbar"
+                    toolbar_onMenuItemClick="@{handler.onMenuItemClick}">
 
                 <ImageView
                         android:layout_width="wrap_content"
@@ -56,7 +60,7 @@
                         app:banner_radius="10dp"
                         app:banner_indicator_normal_color="@color/white"
                         app:banner_indicator_selected_color="@color/main_color"
-                        banner_data="@{viewModel.bannerImg}"/>
+                        banner_data="@{state.banner}"/>
 
                 <GridLayout
                         android:layout_width="match_parent"
@@ -74,7 +78,8 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry1"
                             bind:title="@{@string/index_entry1}"
-                            bind:img="@{@drawable/index_entry1}" />
+                            bind:img="@{@drawable/index_entry1}"
+                            android:onClick="@{handler.entry}"/>
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -83,7 +88,8 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry2"
                             bind:title="@{@string/index_entry2}"
-                            bind:img="@{@drawable/index_entry2}" />
+                            bind:img="@{@drawable/index_entry2}"
+                            android:onClick="@{handler.entry}"/>
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -92,7 +98,8 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry3"
                             bind:title="@{@string/index_entry3}"
-                            bind:img="@{@drawable/index_entry3}" />
+                            bind:img="@{@drawable/index_entry3}"
+                            android:onClick="@{handler.entry}"/>
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -101,7 +108,8 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry4"
                             bind:title="@{@string/index_entry4}"
-                            bind:img="@{@drawable/index_entry4}" />
+                            bind:img="@{@drawable/index_entry4}"
+                            android:onClick="@{handler.entry}"/>
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -110,7 +118,8 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry5"
                             bind:title="@{@string/index_entry5}"
-                            bind:img="@{@drawable/index_entry5}" />
+                            bind:img="@{@drawable/index_entry5}"
+                            android:onClick="@{handler.entry}"/>
                     <include
                             layout="@layout/item_index_entry"
                             android:layout_columnWeight="1"
@@ -119,7 +128,8 @@
                             android:layout_height="0dp"
                             android:id="@+id/entry6"
                             bind:title="@{@string/index_entry6}"
-                            bind:img="@{@drawable/index_entry6}" />
+                            bind:img="@{@drawable/index_entry6}"
+                            android:onClick="@{handler.entry}"/>
 
                 </GridLayout>
 
@@ -127,7 +137,8 @@
                         layout="@layout/item_block_label"
                         android:id="@+id/collection_label"
                         bind:text="@{@string/search_collection}"
-                        bind:requireAll="@{true}"/>
+                        bind:requireAll="@{true}"
+                        bind:click="@{handler.collectionEntry}"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -138,7 +149,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="horizontal"
                         recycler_adapter="@{collectionAdapter}"
-                        recycler_data="@{viewModel.hotCollections}"/>
+                        recycler_data="@{state.hotCollections}"/>
 
                 <View
                         android:layout_width="match_parent"
@@ -149,13 +160,15 @@
                         layout="@layout/item_block_label"
                         android:id="@+id/moment_label"
                         bind:text="@{@string/index_moment}"
-                        bind:requireAll="@{true}"/>
+                        bind:requireAll="@{true}"
+                        bind:click="@{handler.momentEntry}"/>
 
 
                 <include
-                        layout="@layout/item_news"
+                        layout="@layout/item_moment"
                         android:id="@+id/first_moment"
-                        bind:news="@{viewModel.moments[0]}"/>
+                        bind:moment="@{state.showMoment}"
+                        android:onClick="@{handler.showMoment}"/>
 
                 <View
                         android:layout_width="match_parent"
@@ -165,12 +178,14 @@
                         layout="@layout/item_block_label"
                         android:id="@+id/info_label"
                         bind:text="@{@string/index_info}"
-                        bind:requireAll="@{true}"/>
+                        bind:requireAll="@{true}"
+                        bind:click="@{handler.infoEntry}"/>
 
                 <include
-                        layout="@layout/item_news"
+                        layout="@layout/item_info"
                         android:id="@+id/first_info"
-                        bind:news="@{viewModel.infos[0]}"/>
+                        bind:info="@{state.showInfo}"
+                        android:onClick="@{handler.showInfo}"/>
 
             </LinearLayout>
 

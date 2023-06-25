@@ -4,8 +4,8 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.exhibit.CollectionViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.exhibit.CollectionActivity.States" />
     </data>
 
     <LinearLayout
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/web_page"
-                web_url="@{viewModel.collection != null ? viewModel.collection.url : null}"/>
+                web_url="@{state.collection.url}"/>
 
     </LinearLayout>
 </layout>

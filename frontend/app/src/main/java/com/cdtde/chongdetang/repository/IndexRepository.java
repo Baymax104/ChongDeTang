@@ -9,17 +9,9 @@ import com.cdtde.chongdetang.dataSource.web.api.NewsService;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.Culture;
 import com.cdtde.chongdetang.entity.News;
-import com.cdtde.chongdetang.entity.ResponseResult;
-import com.cdtde.chongdetang.entity.User;
-import com.cdtde.chongdetang.exception.WebException;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @Description
@@ -31,7 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 @SuppressLint("CheckResult")
 public class IndexRepository {
 
-    private UserRepository userRepo;
+    private UserStore userRepo;
     private static IndexRepository repository;
 
     private List<News> couplet;
@@ -46,7 +38,7 @@ public class IndexRepository {
 
 
     private IndexRepository() {
-        userRepo = UserRepository.getInstance();
+//        userRepo = UserStore.getInstance();
         couplet = new ArrayList<>();
         cultures = new ArrayList<>();
         moments = new ArrayList<>();
@@ -65,9 +57,6 @@ public class IndexRepository {
         return repository;
     }
 
-    public User getUser() {
-        return userRepo.getUser();
-    }
 
     public List<Culture> getCultures() {
         return cultures;
@@ -89,69 +78,69 @@ public class IndexRepository {
         return hotCollection;
     }
 
-    public void requestAllCulture() {
-        Consumer<ResponseResult<List<Culture>>> onNext = result -> {
-            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
-            if (isSuccess) {
-                cultures = result.getData();
-            }
-            LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
-                    .post(new WebException(isSuccess, result.getMessage()));
-        };
+//    public void requestAllCulture() {
+//        Consumer<Result<List<Culture>>> onNext = result -> {
+//            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+//            if (isSuccess) {
+//                cultures = result.getData();
+//            }
+//            LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
+//                    .post(new WebException(isSuccess, result.getMessage()));
+//        };
+//
+//        Consumer<Throwable> onError = throwable ->
+//                LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
+//                        .post(new WebException(false, throwable.getMessage()));
+//
+//        cultureService.getAllCulture()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(onNext, onError);
+//    }
 
-        Consumer<Throwable> onError = throwable ->
-                LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
-                        .post(new WebException(false, throwable.getMessage()));
+//    public void requestNews(String type) {
+//        Consumer<Result<List<News>>> onNext = result -> {
+//            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+//            if (isSuccess) {
+//                if ("mryl".equals(type)) {
+//                    couplet = result.getData();
+//                } else if ("zgdt".equals(type)) {
+//                    moments = result.getData();
+//                } else if ("hyzx".equals(type)) {
+//                    infos = result.getData();
+//                }
+//            }
+//            LiveEventBus.get("IndexRepository-requestNews-" + type, WebException.class)
+//                    .post(new WebException(isSuccess, result.getMessage()));
+//        };
+//
+//        Consumer<Throwable> onError = throwable ->
+//                LiveEventBus.get("IndexRepository-requestNews-" + type, WebException.class)
+//                        .post(new WebException(false, throwable.getMessage()));
+//
+//        newsService.getNews(type)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(onNext, onError);
+//    }
 
-        cultureService.getAllCulture()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
-    }
-
-    public void requestNews(String type) {
-        Consumer<ResponseResult<List<News>>> onNext = result -> {
-            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
-            if (isSuccess) {
-                if ("mryl".equals(type)) {
-                    couplet = result.getData();
-                } else if ("zgdt".equals(type)) {
-                    moments = result.getData();
-                } else if ("hyzx".equals(type)) {
-                    infos = result.getData();
-                }
-            }
-            LiveEventBus.get("IndexRepository-requestNews-" + type, WebException.class)
-                    .post(new WebException(isSuccess, result.getMessage()));
-        };
-
-        Consumer<Throwable> onError = throwable ->
-                LiveEventBus.get("IndexRepository-requestNews-" + type, WebException.class)
-                        .post(new WebException(false, throwable.getMessage()));
-
-        newsService.getNews(type)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
-    }
-
-    public void requestHotCollection() {
-        Consumer<ResponseResult<List<Collection>>> onNext = result -> {
-            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
-            if (isSuccess) {
-                hotCollection = result.getData();
-            }
-            LiveEventBus.get("IndexRepository-requestHotCollection", WebException.class)
-                    .post(new WebException(isSuccess, result.getMessage()));
-        };
-
-        Consumer<Throwable> onError = throwable ->
-                LiveEventBus.get("IndexRepository-requestHotCollection", WebException.class)
-                        .post(new WebException(false, throwable.getMessage()));
-
-        collectionService.getHotCollection()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
-    }
+//    public void requestHotCollection() {
+//        Consumer<Result<List<Collection>>> onNext = result -> {
+//            boolean isSuccess = result.getStatus().equals("success") && result.getData() != null;
+//            if (isSuccess) {
+//                hotCollection = result.getData();
+//            }
+//            LiveEventBus.get("IndexRepository-requestHotCollection", WebException.class)
+//                    .post(new WebException(isSuccess, result.getMessage()));
+//        };
+//
+//        Consumer<Throwable> onError = throwable ->
+//                LiveEventBus.get("IndexRepository-requestHotCollection", WebException.class)
+//                        .post(new WebException(false, throwable.getMessage()));
+//
+//        collectionService.getHotCollection()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(onNext, onError);
+//    }
 }

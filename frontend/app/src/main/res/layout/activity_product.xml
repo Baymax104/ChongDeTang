@@ -5,8 +5,12 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.shop.ProductViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.shop.ProductActivity.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.shop.ProductActivity.Handler" />
+
     </data>
 
     <LinearLayout
@@ -56,7 +60,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="350dp"
                             android:scaleType="centerCrop"
-                            android:id="@+id/img" />
+                            android:id="@+id/img"
+                            img_cos="@{true}"
+                            img_url="@{state.product.photo}"
+                            img_size="@{350}" />
 
                     <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
@@ -74,7 +81,7 @@
                             <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{`￥`+(viewModel.product != null ? viewModel.product.price : ``)}"
+                                    android:text="@{`￥`+(state.product != null ? state.product.price : ``)}"
                                     android:textSize="19sp"
                                     android:textColor="@color/main_color"
                                     android:fontFamily="@font/regular"
@@ -83,7 +90,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
-                                    android:text="@{viewModel.product != null ? viewModel.product.name : ``}"
+                                    android:text="@{state.product != null ? state.product.name : ``}"
                                     android:textColor="@color/black"
                                     android:fontFamily="@font/regular"
                                     android:textSize="17sp"
@@ -106,7 +113,7 @@
                                 <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@{viewModel.product != null ? viewModel.product.launchTime : null}"
+                                        text_date="@{state.product != null ? state.product.launchTime : null}"
                                         android:textSize="15sp"
                                         android:textColor="@color/gray_1"
                                         android:fontFamily="@font/text_regular"/>
@@ -139,7 +146,7 @@
                             <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{viewModel.product != null ? viewModel.product.introduction : ``}"
+                                    android:text="@{state.product != null ? state.product.introduction : ``}"
                                     android:layout_marginTop="10dp"
                                     android:textSize="15sp"
                                     android:textColor="@color/black"
@@ -166,7 +173,8 @@
                     app:fab_shadowRadius="10dp"
                     app:fab_shadowXOffset="2dp"
                     app:fab_shadowYOffset="2dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:onClick="@{handler.shoppingEntry}"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -181,8 +189,9 @@
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
                     android:id="@+id/collect"
-                    android:src="@{viewModel.product.userCollect ? @drawable/collect_fill : @drawable/collect}"
-                    android:layout_alignParentStart="true"/>
+                    android:src="@{state.product.userCollect ? @drawable/collect_fill : @drawable/collect}"
+                    android:layout_alignParentStart="true"
+                    android:onClick="@{handler.collect}"/>
             <Button
                     android:layout_width="100dp"
                     android:layout_height="45dp"
@@ -202,7 +211,8 @@
                     android:layout_marginEnd="10dp"
                     android:id="@+id/addShopping"
                     android:text="@string/add_shopping"
-                    style="@style/ButtonTextStyle"/>
+                    style="@style/ButtonTextStyle"
+                    android:onClick="@{handler.addShopping}"/>
         </RelativeLayout>
 
     </LinearLayout>

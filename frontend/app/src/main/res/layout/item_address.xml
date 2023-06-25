@@ -7,6 +7,9 @@
         <variable
                 name="address"
                 type="com.cdtde.chongdetang.entity.Address" />
+        <variable
+                name="modify"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -92,7 +95,8 @@
                     android:src="@drawable/modify"
                     android:id="@+id/modify"
                     android:layout_marginStart="10dp"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{v->modify.onClick(address, v)}"/>
 
         </RelativeLayout>
 

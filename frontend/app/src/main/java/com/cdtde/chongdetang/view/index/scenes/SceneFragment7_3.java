@@ -22,13 +22,14 @@ public class SceneFragment7_3 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene73Binding.inflate(inflater, container, false);
+        binding = FragmentScene73Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        String url = AppKey.COS_URL +  "/img/scenes/img7_3.jpg";
+        String url = AppKey.COS_URL + "/img/scenes/img7_3.jpg";
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.loading)
@@ -43,6 +44,7 @@ public class SceneFragment7_3 extends Fragment {
             controller.navigate(R.id.action_sceneFragment7_3_to_sceneFragment7_2);
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

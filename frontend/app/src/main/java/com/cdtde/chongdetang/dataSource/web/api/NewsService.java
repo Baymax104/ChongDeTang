@@ -1,11 +1,11 @@
 package com.cdtde.chongdetang.dataSource.web.api;
 
 import com.cdtde.chongdetang.entity.News;
-import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Result;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -19,5 +19,5 @@ import retrofit2.http.Path;
 public interface NewsService {
 
     @GET("/api/news/{type}")
-    Observable<ResponseResult<List<News>>> getNews(@Path("type") String type);
+    Single<Result<List<News>>> getNews(@Path("type") String type);
 }

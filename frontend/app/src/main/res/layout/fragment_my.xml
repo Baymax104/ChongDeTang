@@ -5,9 +5,11 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.MyViewModel" />
-        <import type="com.cdtde.chongdetang.entity.User"/>
+                name="state"
+                type="com.cdtde.chongdetang.view.my.MyFragment.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.MyFragment.Handler" />
     </data>
 
     <LinearLayout
@@ -25,7 +27,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:id="@+id/toolbar">
+                    android:id="@+id/toolbar"
+                    toolbar_onMenuItemClick="@{handler.onMenuItemClick}">
 
                 <TextView
                         android:layout_width="match_parent"
@@ -47,19 +50,20 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:id="@+id/user_icon"
-                    img_uri="@{viewModel.userPhoto ?? User.DEFAULT_PHOTO}"
+                    img_user_photo="@{state.userPhoto}"
                     android:layout_gravity="center"
                     app:riv_corner_radius="50dp"
                     app:riv_border_width="0.2dp"
                     app:riv_border_color="@color/white"
                     android:scaleType="centerCrop"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:onClick="@{handler.entryListener}"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@{viewModel.username ?? `未登录`}"
+                    android:text="@{state.username}"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/regular"
@@ -82,7 +86,8 @@
                     android:id="@+id/appointment_entry"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -114,7 +119,8 @@
                     android:id="@+id/collection_entry"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -151,7 +157,8 @@
             <RelativeLayout
                     android:id="@+id/shopping_entry"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp">
+                    android:layout_height="40dp"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -184,7 +191,8 @@
                     android:id="@+id/order_entry"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -217,7 +225,8 @@
                     android:id="@+id/address_entry"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -254,7 +263,8 @@
             <RelativeLayout
                     android:id="@+id/notice_entry"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp">
+                    android:layout_height="40dp"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -287,7 +297,8 @@
                     android:id="@+id/feedback_entry"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entryListener}">
 
                 <ImageView
                         android:layout_width="25dp"

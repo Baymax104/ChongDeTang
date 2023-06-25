@@ -10,6 +10,9 @@
                 name="requireAll"
                 type="Boolean" />
         <import type="android.view.View"/>
+        <variable
+                name="click"
+                type="android.view.View.OnClickListener" />
     </data>
 
     <RelativeLayout
@@ -36,7 +39,8 @@
                 android:gravity="center_vertical|end"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:id="@+id/all_entry" />
+                android:id="@+id/all_entry"
+                android:onClick="@{click}"/>
 
     </RelativeLayout>
 </layout>

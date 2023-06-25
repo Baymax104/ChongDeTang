@@ -5,11 +5,11 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.UserCollectViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.collect.UserCollectionFragment.States" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.ExhibitCollectionAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.UserCollectionAdapter" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,7 +20,7 @@
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             android:orientation="vertical"
-            recycler_data="@{viewModel.userCollection}"
+            recycler_data="@{state.collections}"
             recycler_adapter="@{adapter}">
 
     </androidx.recyclerview.widget.RecyclerView>

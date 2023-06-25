@@ -6,10 +6,13 @@
     <data>
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.AddressAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.AddressAdapter" />
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.AddressViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.address.AddressActivity.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.address.AddressActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -55,7 +58,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
                     recycler_adapter="@{adapter}"
-                    recycler_data="@{viewModel.addresses}"
+                    recycler_data="@{state.addresses}"
                     android:background="@color/gray_5"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -74,7 +77,8 @@
                     android:background="@drawable/button_bg"
                     android:text="@string/add_address"
                     style="@style/BigButtonTextStyle"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:onClick="@{handler.add}"/>
 
         </FrameLayout>
 

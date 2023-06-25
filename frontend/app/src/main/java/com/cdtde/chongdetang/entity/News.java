@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-import com.cdtde.chongdetang.util.DateFormatAdapter;
+import com.cdtde.chongdetang.utils.DateFormatSerializer;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
@@ -20,7 +20,7 @@ import java.util.Date;
 public class News extends BaseObservable implements Serializable {
     private Integer id;
     private String title;
-    @JsonAdapter(DateFormatAdapter.class)
+    @JsonAdapter(DateFormatSerializer.class)
     private Date date;
     private String description;
     private String photo;
@@ -28,8 +28,6 @@ public class News extends BaseObservable implements Serializable {
     private String type;
 
     public News() {
-        title = "测试";
-        date = new Date();
     }
 
     public Integer getId() {

@@ -1,27 +1,29 @@
 package com.cdtde.chongdetang.view.exhibit;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.view.index.SearchActivity;
-import com.cdtde.chongdetang.viewModel.MainViewModel;
-import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.cdtde.chongdetang.utils.WindowUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Description
@@ -30,73 +32,59 @@ import com.jeremyliao.liveeventbus.LiveEventBus;
  * @Date 2022/12/21 22:02
  * @Version 1
  */
-public class ExhibitFragment extends Fragment {
+public class ExhibitFragment extends BaseFragment<FragmentExhibitBinding> {
 
-    private FragmentExhibitBinding binding;
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
 
-    private ExhibitViewModel vm;
+    public static class States extends StateHolder {
 
-    private MainViewModel mainViewModel;
+        public final State<Integer> page = new State<>(0);
 
-    @Nullable
+        public final List<Fragment> fragments = Arrays.asList(
+                ExhibitListFragment.newInstance(0),
+                ExhibitListFragment.newInstance(1),
+                ExhibitListFragment.newInstance(2)
+        );
+
+    }
+
+    public class Handler {
+        public void setPage(int page) {
+            states.page.setValue(page);
+        }
+
+        public final OnMenuItemClickListener onMenuItemClick = item -> {
+            int id = item.getItemId();
+            if (id == R.id.index_search) {
+                ToastUtils.showShort("点击");
+//                Starter.actionStart(activity, SearchActivity.class);
+            }
+            return true;
+        };
+
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentExhibitBinding.inflate(inflater, container, false);
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.fragment_exhibit)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler())
+                .add(BR.tabAdapter, new FragmentAdapter(activity));
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull FragmentExhibitBinding binding) {
         binding.toolbar.inflateMenu(R.menu.index_toolbar);
-        WindowUtil.initFragmentWindow(binding.toolbarLayout, this);
-        return binding.getRoot();
+        WindowUtil.initWindowPadding(binding.toolbarLayout);
+        binding.viewPager.setOffscreenPageLimit(3);
+        ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-
-        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-
-        binding.setViewModel(vm);
-        binding.setTabAdapter(new FragmentAdapter(requireActivity()));
-
-        mainViewModel.getPage().observe(this, page -> {
-            if (page == 1 && !vm.isInit()) {
-                vm.updateAllCollection();
-            }
-        });
-
-        LiveEventBus.get("ExhibitRepository-requestAllCollection", WebException.class)
-                        .observe(this, exception -> {
-                            if (exception.isSuccess()) {
-                                vm.refreshAllCollection();
-                                vm.setInit(true);
-                            } else {
-                                ToastUtils.showShort(exception.getMessage());
-                            }
-                        });
-
-        binding.viewPager.setOffscreenPageLimit(2);
-        ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                vm.setCurrentPage(position + 1);
-            }
-        });
-
-        binding.toolbar.setOnMenuItemClickListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.index_search) {
-                SearchActivity.actionStart(getContext());
-            }
-            return true;
-        });
-
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

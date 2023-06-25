@@ -5,9 +5,12 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.UserInfoViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity.States" />
         <import type="com.cdtde.chongdetang.entity.User"/>
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -44,7 +47,8 @@
                             android:text="@string/confirm"
                             style="@style/ToolbarOptionTextStyle"
                             android:id="@+id/confirm"
-                            android:layout_alignParentEnd="true"/>
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{handler.confirm}"/>
 
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
@@ -59,7 +63,8 @@
                     android:id="@+id/icon_entry"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:onClick="@{handler.iconEntry}">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -74,7 +79,7 @@
                         android:id="@+id/user_icon"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@{viewModel.user.photo ?? User.DEFAULT_PHOTO}"
+                        img_user_photo="@{state.user.photo ?? User.DEFAULT_PHOTO}"
                         android:scaleType="centerCrop"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/icon_arrow"
@@ -100,7 +105,8 @@
                     android:id="@+id/name_entry"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:onClick="@{handler.nameEntry}">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -115,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{viewModel.user.username ?? `未登录`}"
+                        android:text="@{state.user.username ?? `未登录`}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/name_arrow"/>
 
@@ -152,7 +158,7 @@
                         android:id="@+id/user_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.user.phone}"
+                        android:text="@{state.user.phone}"
                         android:layout_centerVertical="true"
                         style="@style/UserInfoTextStyle"
                         android:layout_alignParentEnd="true"
@@ -170,7 +176,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:onClick="@{handler.genderEntry}">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -185,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@{viewModel.user.gender ?? `未填写`}"
+                        android:text="@{state.user.gender ?? `未填写`}"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/gender_arrow"/>
 
@@ -210,7 +217,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:onClick="@{handler.birthEntry}">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -223,7 +231,7 @@
                         android:id="@+id/user_birthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.user.birthday}"
+                        text_date="@{state.user.birthday}"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/birth_arrow"
                         style="@style/UserInfoTextStyle"/>
@@ -262,7 +270,7 @@
                         android:id="@+id/user_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.user.mail ?? `未填写`}"
+                        android:text="@{state.user.mail ?? `未填写`}"
                         android:layout_centerVertical="true"
                         style="@style/UserInfoTextStyle"
                         android:layout_toStartOf="@id/mail_arrow"

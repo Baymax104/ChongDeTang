@@ -1,83 +1,75 @@
 package com.cdtde.chongdetang.view.my.login;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
+import android.text.Editable;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityLoginBinding;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.Starter;
+import com.cdtde.chongdetang.utils.ValidateUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.register.RegisterActivity;
-import com.cdtde.chongdetang.viewModel.my.LoginViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.viewModel.my.LoginRequester;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
-    private ActivityLoginBinding binding;
 
-    private LoginViewModel vm;
+    @InjectScope(Scopes.APPLICATION)
+    private LoginRequester loginRequester;
 
-    private LoadingPopupView loadingView;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(LoginViewModel.class);
-        binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
+    public static class States extends StateHolder {
+        public final State<String> phone = new State<>("");
+        public final State<String> password = new State<>("");
+    }
 
-        XPopup.Builder builder = new XPopup.Builder(this)
-                .dismissOnTouchOutside(false);
-        loadingView = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder);
-
-        LiveEventBus.get("MyRepository-requestLogin", WebException.class)
-                        .observe(this, e -> {
-                            loadingView.smartDismiss();
-                            if (e.isSuccess()) {
-                                LiveEventBus.get("User-isLogin", Boolean.class).post(true);
-                                finish();
-                            } else {
-                                ToastUtils.showShort(e.getMessage());
-                            }
-                        });
-
-        binding.login.setOnClickListener(v -> {
-            boolean isValid = vm.validate();
-            if (!isValid) {
+    public class Handler {
+        public OnClickListener login = v -> {
+            String phone = states.phone.getValue();
+            String pwd = states.password.getValue();
+            if (!ValidateUtil.validatePhone(phone) || !ValidateUtil.validatePassword(pwd)) {
                 ToastUtils.showShort("手机号或密码错误！");
                 return;
             }
-            vm.login();
-            loadingView.show();
-        });
+            loginRequester.login(phone, pwd,
+                    o -> finish(), ToastUtils::showShort);
+        };
 
-        binding.registerEntry.setOnClickListener(v -> RegisterActivity.actionStart(this));
-    }
+        public OnClickListener register = v ->
+                Starter.actionStart(LoginActivity.this, RegisterActivity.class);
 
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
+        public void setPhone(Editable s) {
+            states.phone.setValue(s.toString());
+        }
+
+        public void setPassword(Editable s) {
+            states.password.setValue(s.toString());
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
+    protected ViewConfig configBinding() {
+        loginRequester.registerObserver(DialogUtil.createNetLoading(this), this);
+        return new ViewConfig(R.layout.activity_login)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler());
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityLoginBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
     }
 }

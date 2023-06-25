@@ -1,92 +1,125 @@
 package com.cdtde.chongdetang.view.my.address;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.adapter.AddressAdapter;
+import com.cdtde.chongdetang.adapter.recycler.AddressAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityAddressBinding;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.AddressViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.Starter;
+import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.viewModel.my.AddressRequester;
 
-public class AddressActivity extends AppCompatActivity {
-    private ActivityAddressBinding binding;
-    private AddressViewModel vm;
+import java.util.ArrayList;
+import java.util.List;
 
-    private LoadingPopupView loading;
+import kotlin.Unit;
 
+public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
+
+    @InjectScope(Scopes.APPLICATION)
+    private AddressRequester requester;
+
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
+
+    @InjectScope(Scopes.APPLICATION)
+    private Messenger messenger;
+
+    @InjectScope(Scopes.APPLICATION)
+    private AddressDetailActivity.Messenger detailMessenger;
+
+    public static class States extends StateHolder {
+        public final State<List<Address>> addresses = new State<>(new ArrayList<>());
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Address, Unit> detailEvent = new Event<>();
+    }
+
+    public class Handler {
+        public OnClickListener add = v -> {
+            messenger.detailEvent.send(new Address());
+            Starter.actionStart(AddressActivity.this, AddressDetailActivity.class);
+        };
+    }
+
+    public class ListHandler extends ListHandlerFactory {
+
+        public OnItemClickListener<Address> modify = (data, view) -> {
+            messenger.detailEvent.send(data);
+            Starter.actionStart(AddressActivity.this, AddressDetailActivity.class);
+        };
+
+        @Override
+        public BindingConfig getBindingConfig() {
+            return new BindingConfig().add(BR.modify, modify);
+        }
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        AddressAdapter adapter = new AddressAdapter();
+        adapter.setFactory(new ListHandler());
+        requester.registerObserver(DialogUtil.createNetLoading(this), this);
+
+        return new ViewConfig(R.layout.activity_address)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler())
+                .add(BR.adapter, adapter);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityAddressBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_address);
-        vm = new ViewModelProvider(this).get(AddressViewModel.class);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
-                .dismissOnTouchOutside(false)).show();
+        detailMessenger.updateAllEvent.observeSend(this, value ->
+                requester.updateAllAddress(states.addresses::setValue, ToastUtils::showShort));
 
-        LiveEventBus.get("MyRepository-requestAllAddress", WebException.class)
-                .observe(this, e -> {
-                    loading.smartDismiss();
-                    if (e.isSuccess()) {
-                        vm.refreshAllAddress();
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
 
-        LiveEventBus.get("AddressDetailActivity-requestUpdateAddress", Boolean.class)
-                .observe(this, aBoolean -> {
-                            if (aBoolean) {
-                                loading.show();
-                                vm.updateAllAddress();
-                            }
-                        });
+//        LiveEventBus.get("UserRepository-requestAllAddress", WebException.class)
+//                .observe(this, e -> {
+//                    if (e.isSuccess()) {
+//                        states.addresses.setValue(requester.refreshAllAddress());
+//                    } else {
+//                        ToastUtils.showShort(e.getMessage());
+//                    }
+//                });
 
-        LiveEventBus.get("AddressDetailActivity-requestDeleteAddress", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
-                                loading.show();
-                                vm.updateAllAddress();
-                            }
-                        });
-
-        binding.setLifecycleOwner(this);
-        binding.setViewModel(vm);
-
-        AddressAdapter adapter = new AddressAdapter();
-        adapter.setOnItemClickListener(data -> AddressDetailActivity.actionStart(this, data));
-        binding.setAdapter(adapter);
-
-        binding.addEntry.setOnClickListener(v -> AddressDetailActivity.actionStart(this, null));
+//        LiveEventBus.get("AddressDetailActivity-requestUpdateAddress", Boolean.class)
+//                .observe(this, aBoolean -> {
+//                            if (aBoolean) {
+//                                requester.updateAllAddress();
+//                            }
+//                        });
+//
+//        LiveEventBus.get("AddressDetailActivity-requestRemoveAddress", Boolean.class)
+//                        .observe(this, aBoolean -> {
+//                            if (aBoolean) {
+//                                requester.updateAllAddress();
+//                            }
+//                        });
+        requester.updateAllAddress(states.addresses::setValue, ToastUtils::showShort);
     }
 
-
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, AddressActivity.class);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
 }

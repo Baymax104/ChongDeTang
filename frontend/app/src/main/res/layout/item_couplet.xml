@@ -4,8 +4,8 @@
 
     <data>
         <variable
-                name="news"
-                type="com.cdtde.chongdetang.entity.News" />
+                name="couplet"
+                type="com.cdtde.chongdetang.entity.Couplet" />
     </data>
 
     <LinearLayout
@@ -35,7 +35,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        sub_day="@{news.date}"
+                        text_day="@{couplet.date}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -45,7 +45,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        sub_date="@{news.date}"
+                        text_year_month="@{couplet.date}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -64,7 +64,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{news.title}"
+                        android:text="@{couplet.title}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:fontFamily="@font/regular"
@@ -74,7 +74,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{news.description}"
+                        android:text="@{couplet.description}"
                         android:textColor="@color/gray_1"
                         android:textSize="14sp"
                         android:fontFamily="@font/text_regular"

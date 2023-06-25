@@ -5,11 +5,8 @@
     <data>
 
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.OriginViewModel" />
-        <variable
-                name="page"
-                type="Integer" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.origin.OriginFragment.States" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/web_page"
-                web_url="@{viewModel.getPageUrl(page)}" />
+                web_url="@{state.url}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:id="@+id/banner"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                img_res="@{@drawable/contact_banner}"/>
         <include
                 layout="@layout/item_block_label"
                 bind:text="@{`联系我们`}"

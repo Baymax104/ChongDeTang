@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SearchRepository {
 
-    private UserRepository userRepository;
+    private UserStore userStore;
     private static SearchRepository repository;
 
     private List<String> histories;
@@ -22,7 +22,7 @@ public class SearchRepository {
     private List<String> products;
 
     private SearchRepository() {
-        userRepository = UserRepository.getInstance();
+//        userStore = UserStore.getInstance();
 
         histories = new ArrayList<>();
         collections = new ArrayList<>();

@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.cdtde.chongdetang.BR;
-import com.cdtde.chongdetang.util.DateFormatAdapter;
+import com.cdtde.chongdetang.utils.DateFormatSerializer;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
@@ -16,9 +16,9 @@ public class Appointment extends BaseObservable implements Serializable {
     private String subscriber;
     private String phone;
     private String number;
-    @JsonAdapter(DateFormatAdapter.class)
+    @JsonAdapter(DateFormatSerializer.class)
     private Date date;
-    @JsonAdapter(DateFormatAdapter.class)
+    @JsonAdapter(DateFormatSerializer.class)
     private Date orderTime;
     private Double orderMoney;
 

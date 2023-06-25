@@ -5,11 +5,11 @@
 
     <data>
         <variable
-                name="fragmentAdapter"
+                name="adapter"
                 type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.OriginViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.origin.OriginActivity.States" />
     </data>
 
     <LinearLayout
@@ -69,8 +69,8 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                fragments="@{viewModel.fragments}"
-                fragment_adapter="@{fragmentAdapter}"
+                viewPager_fragments="@{state.fragments}"
+                viewPager_adapter="@{adapter}"
                 tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>

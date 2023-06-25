@@ -18,16 +18,18 @@ import com.cdtde.chongdetang.repository.AppKey;
 
 public class SceneFragment6_8 extends Fragment {
     private FragmentScene68Binding binding;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene68Binding.inflate(inflater, container, false);
+        binding = FragmentScene68Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        String url = AppKey.COS_URL +  "/img/scenes/img6_8.jpg";
+        String url = AppKey.COS_URL + "/img/scenes/img6_8.jpg";
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.loading)
@@ -42,6 +44,7 @@ public class SceneFragment6_8 extends Fragment {
             controller.navigate(R.id.action_sceneFragment6_8_to_sceneFragment6_7);
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

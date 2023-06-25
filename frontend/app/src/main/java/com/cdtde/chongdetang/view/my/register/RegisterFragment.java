@@ -1,17 +1,22 @@
 package com.cdtde.chongdetang.view.my.register;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.Editable;
+import android.view.View.OnClickListener;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentRegisterBinding;
-import com.cdtde.chongdetang.viewModel.my.RegisterViewModel;
+import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.utils.ValidateUtil;
 
 /**
  * @Description
@@ -20,40 +25,61 @@ import com.cdtde.chongdetang.viewModel.my.RegisterViewModel;
  * @Date 2023/2/5 2:20
  * @Version 1
  */
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
 
-    private FragmentRegisterBinding binding;
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
 
-    private RegisterViewModel vm;
+    @InjectScope(Scopes.ACTIVITY)
+    private RegisterActivity.Messenger messenger;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentRegisterBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    public static class States extends StateHolder {
+        public State<String> phone = new State<>("");
+        public State<String> pwd = new State<>("");
+        public State<String> repeat = new State<>("");
+
+        public State<Boolean> isPhoneValid = new State<>(true);
+        public State<Boolean> isPwdValid = new State<>(true);
+        public State<Boolean> isRepeatValid = new State<>(true);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(requireActivity()).get(RegisterViewModel.class);
-        binding.setViewModel(vm);
+    public class Handler {
+        public void setPhone(Editable s) {
+            states.phone.setValue(s.toString());
+        }
 
-        binding.register.setOnClickListener(v -> {
-            if (vm.validateRegister()) {
-                vm.setPage(2);
+        public void setPassword(Editable s) {
+            states.pwd.setValue(s.toString());
+        }
+
+        public void setRepeat(Editable s) {
+            states.repeat.setValue(s.toString());
+        }
+
+        public OnClickListener register = v -> {
+            boolean isPhoneValid = ValidateUtil.validatePhone(states.phone.getValue());
+            boolean isPwdValid = ValidateUtil.validatePassword(states.pwd.getValue());
+            boolean isRepeatValid = ValidateUtil.validatePassword(states.pwd.getValue());
+            states.isPhoneValid.setValue(isPhoneValid);
+            states.isPwdValid.setValue(isPwdValid);
+            states.isRepeatValid.setValue(isRepeatValid);
+            if (isPhoneValid && isPwdValid && isRepeatValid) {
+                messenger.pageEvent.send(1);
+                UserStore.setPhone(states.phone.getValue());
+                UserStore.setPassword(states.pwd.getValue());
             }
-        });
-    }
-
-    public static RegisterFragment newInstance() {
-        return new RegisterFragment();
+        };
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.fragment_register)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler());
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

@@ -5,11 +5,14 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.shop.ShoppingViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.shop.ShoppingActivity.States" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.ShoppingAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.ShoppingAdapter" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.shop.ShoppingActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -63,7 +66,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="@{viewModel.selectNumber + `件`}"
+                            android:text="@{state.selected + `件`}"
                             android:layout_toEndOf="@id/select_tip"
                             android:textColor="@color/black"
                             android:textSize="16sp"
@@ -77,7 +80,8 @@
                             android:layout_alignParentEnd="true"
                             android:text="@string/edit"
                             style="@style/ButtonTextStyle"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            tools:ignore="TouchTargetSizeCheck"
+                            android:onClick="@{handler.edit}"/>
                 </RelativeLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -90,7 +94,7 @@
                     android:orientation="vertical"
                     tools:listitem="@layout/item_shopping_product"
                     recycler_adapter="@{adapter}"
-                    recycler_data="@{viewModel.checkedShoppings}"/>
+                    recycler_data="@{state.checkedShoppings}"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -110,8 +114,10 @@
                     android:textColor="@color/black"
                     android:layout_alignParentStart="true"
                     android:id="@+id/all_select"
-                    android:checked="@{viewModel.allSelect}"
-                    style="@style/Widget.Material3.CompoundButton.RadioButton"/>
+                    style="@style/Widget.Material3.CompoundButton.RadioButton"
+                    checkBox_list="@{state.checkedShoppings}"
+                    checkBox_selected="@{state.selected}"
+                    checkBox_onClick="@{handler.onCheckBoxClick}"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -127,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@{String.format(`%.2f元`, viewModel.selectPrice)}"
+                    android:text="@{String.format(`%.2f元`, state.priceSum)}"
                     android:layout_toEndOf="@id/sum_tip"
                     android:textSize="16sp"
                     android:textColor="@color/black"

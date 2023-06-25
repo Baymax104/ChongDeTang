@@ -10,7 +10,7 @@ import androidx.databinding.Bindable;
 import com.blankj.utilcode.util.UriUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.util.DateFormatAdapter;
+import com.cdtde.chongdetang.utils.DateFormatSerializer;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 
@@ -34,13 +34,12 @@ public class User extends BaseObservable implements Parcelable {
     private Integer id;
     @Expose
     private String username;
-    // 在Android端photo字段存储本地file目录下的uri路径
     @Expose
-    private String photo;
+    private String photo;  // 存储文件服务器相对路径
     @Expose
     private String gender;
     @Expose
-    @JsonAdapter(DateFormatAdapter.class)
+    @JsonAdapter(DateFormatSerializer.class)
     private Date birthday;
     @Expose
     private String phone;

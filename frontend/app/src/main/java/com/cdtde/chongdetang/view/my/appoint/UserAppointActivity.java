@@ -1,86 +1,94 @@
 package com.cdtde.chongdetang.view.my.appoint;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.adapter.AppointmentAdapter;
+import com.cdtde.chongdetang.adapter.recycler.AppointmentAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityUserAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.AppointViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.viewModel.my.AppointRequester;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import kotlin.Unit;
 
 
-public class UserAppointActivity extends AppCompatActivity {
-    private ActivityUserAppointBinding binding;
+public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding> {
 
-    private AppointViewModel vm;
+    @InjectScope(Scopes.APPLICATION)
+    private AppointRequester appointRequester;
 
-    private LoadingPopupView loading;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
 
-    private AppointInfoDialog dialog;
+    @InjectScope(Scopes.ACTIVITY)
+    private Messenger messenger;
+
+    public static class States extends StateHolder {
+        public final State<List<Appointment>> appointments = new State<>(new ArrayList<>());
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Appointment, Unit> infoEvent = new Event<>();
+    }
+
+    public class ListHandler extends ListHandlerFactory {
+        public OnItemClickListener<Appointment> detail = (data, view) -> {
+            messenger.infoEvent.send(data);
+            DialogUtil.create(UserAppointActivity.this, AppointInfoDialog.class).show();
+        };
+
+        @Override
+        public BindingConfig getBindingConfig() {
+            return new BindingConfig().add(BR.detail, detail);
+        }
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        AppointmentAdapter adapter = new AppointmentAdapter();
+        adapter.setFactory(new ListHandler());
+
+        appointRequester.registerObserver(DialogUtil.createNetLoading(this), this);
+        return new ViewConfig(R.layout.activity_user_appoint)
+                .add(BR.state, states)
+                .add(BR.adapter, adapter);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityUserAppointBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_appoint);
-        vm = new ViewModelProvider(this).get(AppointViewModel.class);
-        binding.setLifecycleOwner(this);
-        binding.setViewModel(vm);
+//        LiveEventBus.get("UserRepository-requestAllAppointment", WebException.class)
+//                .observe(this, e -> {
+//                    if (e.isSuccess()) {
+//                        states.appointments.setValue(appointRequester.refreshAllAppointment());
+//                    } else {
+//                        ToastUtils.showShort(e.getMessage());
+//                    }
+//                });
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        XPopup.Builder builder = new XPopup.Builder(this).dismissOnTouchOutside(false);
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, builder).show();
-        dialog = (AppointInfoDialog) DialogUtil.create(this, AppointInfoDialog.class, null);
-
-        AppointmentAdapter adapter = new AppointmentAdapter();
-        adapter.setOnItemClickListener(data -> {
-            dialog.show();
-            LiveEventBus.get("UserAppointmentActivity-onItemClick", Appointment.class)
-                    .post(data);
-        });
-
-        binding.setAdapter(adapter);
-
-        LiveEventBus.get("MyRepository-requestAllAppointment", WebException.class)
-                .observe(this, e -> {
-                    loading.smartDismiss();
-                    if (e.isSuccess()) {
-                        vm.refreshAllAppointment();
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-
-
+        appointRequester.updateAllAppointment(states.appointments::setValue, ToastUtils::showShort);
     }
 
-
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, UserAppointActivity.class);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
 }

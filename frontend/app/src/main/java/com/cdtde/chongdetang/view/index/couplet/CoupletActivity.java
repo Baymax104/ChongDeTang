@@ -13,11 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.adapter.CoupletAdapter;
+import com.cdtde.chongdetang.adapter.recycler.CoupletAdapter;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
 import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.viewModel.index.CoupletViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.XPopup;
@@ -36,7 +35,7 @@ public class CoupletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_couplet);
         binding.setLifecycleOwner(this);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, false);
+//        WindowUtil.initActivityWindow(binding.toolbar, this, true, false);
 
         Glide.with(this)
                 .asBitmap()
@@ -45,13 +44,13 @@ public class CoupletActivity extends AppCompatActivity {
                 .into(binding.banner);
 
         vm = new ViewModelProvider(this).get(CoupletViewModel.class);
-        binding.setViewModel(vm);
+//        binding.setViewModel(vm);
 
         CoupletAdapter adapter = new CoupletAdapter();
-        adapter.setOnItemClickListener(data ->
-                CoupletDetailActivity.actionStart(this, data)
-        );
-        binding.setAdapter(adapter);
+//        adapter.setOnItemClickListener(data ->
+//                CoupletDetailActivity.actionStart(this, data)
+//        );
+//        binding.setAdapter(adapter);
 
         loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)).show();

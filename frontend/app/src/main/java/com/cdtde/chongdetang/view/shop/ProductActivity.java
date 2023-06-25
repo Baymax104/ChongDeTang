@@ -1,123 +1,95 @@
 package com.cdtde.chongdetang.view.shop;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityProductBinding;
 import com.cdtde.chongdetang.entity.Product;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.repository.AppKey;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.Starter;
+import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
-import com.cdtde.chongdetang.viewModel.shop.ProductViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.viewModel.shop.ProductRequester;
 
-public class ProductActivity extends AppCompatActivity {
+import kotlin.Unit;
 
-    private ActivityProductBinding binding;
+public class ProductActivity extends BaseActivity<ActivityProductBinding> {
 
-    private ProductViewModel vm;
+    @InjectScope(Scopes.APPLICATION)
+    private ProductRequester requester;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
+    @InjectScope(Scopes.APPLICATION)
+    private Messenger messenger;
 
-    private LoadingPopupView loading;
+    public static class States extends StateHolder {
+        public final State<Product> product = new State<>(new Product());
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Product, Unit> showEvent = new Event<>();
+    }
+
+    public class Handler {
+        public final OnClickListener shoppingEntry = v -> {
+            if (UserStore.isLogin()) {
+                Starter.actionStart(ProductActivity.this, ShoppingActivity.class);
+            } else {
+                Starter.actionStart(ProductActivity.this, LoginActivity.class);
+            }
+        };
+
+        public final OnClickListener addShopping = v -> {
+            if (UserStore.isLogin()) {
+                requester.addShopping(states.product.getValue(),
+                        o -> ToastUtils.showShort("添加成功"),
+                        ToastUtils::showShort);
+            } else {
+                Starter.actionStart(ProductActivity.this, LoginActivity.class);
+            }
+        };
+
+        public final OnClickListener collect = v -> {
+            boolean collected = !states.product.getValue().isUserCollect();
+            if (UserStore.isLogin()) {
+                requester.updateUserProduct(states.product.getValue(),
+                        product -> product.setUserCollect(collected),
+                        ToastUtils::showShort);
+            } else {
+                Starter.actionStart(ProductActivity.this, LoginActivity.class);
+            }
+        };
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        requester.registerObserver(DialogUtil.createNetLoading(this), this);
+        return new ViewConfig(R.layout.activity_product)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler());
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityProductBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_product);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(ProductViewModel.class);
-        binding.setViewModel(vm);
-
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
-                .dismissOnTouchOutside(false));
-
-        LiveEventBus.get("ProductActivity-getData", Product.class)
-                .observeSticky(this, product -> {
-                    vm.setProduct(product);
-                    // 加载图片
-                    String path = AppKey.COS_URL + "/" + product.getPhoto();
-                    Glide.with(this)
-                            .asBitmap()
-                            .load(path)
-                            .skipMemoryCache(true)
-                            .placeholder(R.drawable.loading)
-                            .override(ConvertUtils.dp2px(350))
-                            .into(binding.img);
-                });
-
-        LiveEventBus.get("ShopRepository-requestAddShopping", WebException.class)
-                .observe(this, e -> {
-                    loading.smartDismiss();
-                    if (e.isSuccess()) {
-                        ToastUtils.showShort("添加成功！");
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-
-        LiveEventBus.get("ShopRepository-requestAddUserCollect", WebException.class)
-                .observe(this, e -> {
-                    if (e.isSuccess()) {
-                        vm.refreshUserCollect(true);
-                        ToastUtils.showShort("收藏成功！");
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-        LiveEventBus.get("ShopRepository-requestRemoveUserCollect", WebException.class)
-                .observe(this, e -> {
-                    if (e.isSuccess()) {
-                        vm.refreshUserCollect(false);
-                        ToastUtils.showShort("取消收藏成功！");
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-
-        binding.shoppingEntry.setOnClickListener(v -> ShoppingActivity.actionStart(this));
-
-        binding.addShopping.setOnClickListener(v -> {
-            loading.show();
-            vm.addShopping();
-        });
-
-        binding.collect.setOnClickListener(v -> {
-            if (vm.isLogin()) {
-                vm.updateUserCollect();
-            } else {
-                LoginActivity.actionStart(this);
-            }
-        });
-    }
-
-    public static void actionStart(Context context, Product product) {
-        LiveEventBus.get("ProductActivity-getData", Product.class).post(product);
-        Intent intent = new Intent(context, ProductActivity.class);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
+        messenger.showEvent.observeSend(this, true, states.product::setValue);
     }
 }

@@ -13,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivityCoupletDetailBinding;
 import com.cdtde.chongdetang.entity.News;
-import com.cdtde.chongdetang.util.WebViewUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.utils.WebViewUtil;
 import com.cdtde.chongdetang.viewModel.index.CoupletDetailViewModel;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
@@ -38,7 +37,7 @@ public class CoupletDetailActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(CoupletDetailViewModel.class);
         binding.setViewModel(vm);
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
+//        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
         WebViewUtil.configure(binding.webPage, false);
 
         LiveEventBus.get("CoupletDetailActivity-getData", News.class)

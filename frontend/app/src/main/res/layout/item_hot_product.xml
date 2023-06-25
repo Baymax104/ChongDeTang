@@ -10,7 +10,7 @@
                 type="Product" />
         <variable
                 name="clickHandler"
-                type="com.cdtde.chongdetang.adapter.BaseAdapter.OnItemClickListener&lt;Product>" />
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
 
@@ -18,7 +18,7 @@
             android:layout_width="105dp"
             android:layout_height="170dp"
             android:orientation="vertical"
-            android:onClick="@{()->clickHandler.onClick(product)}"
+            android:onClick="@{v->clickHandler.onClick(product, v)}"
             tools:ignore="ContentDescription">
 
         <com.makeramen.roundedimageview.RoundedImageView

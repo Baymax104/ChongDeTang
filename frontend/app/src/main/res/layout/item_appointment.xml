@@ -8,6 +8,9 @@
                 name="appointment"
                 type="com.cdtde.chongdetang.entity.Appointment" />
         <import type="com.cdtde.chongdetang.entity.Appointment.State"/>
+        <variable
+                name="detail"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -51,7 +54,7 @@
                             android:layout_alignParentEnd="true"
                             android:id="@+id/appoint_state"
                             android:gravity="center"
-                            android:text="@{appointment.state}"
+                            text_appoint_state="@{appointment.state}"
                             android:textStyle="bold"
                             android:textColor="@{appointment.state==State.FAIL ? @color/black : @color/main_color}"
                             android:fontFamily="@font/text_regular"/>
@@ -63,7 +66,7 @@
                         android:layout_weight="1"
                         android:id="@+id/appointment_date"
                         android:gravity="center"
-                        android:text="@{appointment.orderTime}"
+                        text_date="@{appointment.orderTime}"
                         android:textSize="23sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/regular"/>
@@ -146,7 +149,8 @@
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             android:fontFamily="@font/text_regular"
-                            android:layout_alignParentEnd="true"/>
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{v->detail.onClick(appointment, v)}"/>
 
                 </RelativeLayout>
 

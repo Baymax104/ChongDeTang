@@ -5,11 +5,14 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.UserCollectViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.collect.UserCollectActivity.States" />
         <variable
                 name="adapter"
                 type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.collect.UserCollectActivity.Handler" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -64,8 +67,9 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 android:id="@+id/view_pager"
-                fragments="@{viewModel.fragments}"
-                fragment_adapter="@{adapter}"/>
+                viewPager_fragments="@{state.fragments}"
+                viewPager_adapter="@{adapter}"
+                viewPager_onPageChange="@{handler::setPage}"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

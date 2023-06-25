@@ -1,74 +1,68 @@
 package com.cdtde.chongdetang.view.my;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
+import android.text.Editable;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityFeedbackBinding;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.FeedbackViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.viewModel.my.FeedbackRequester;
 
-public class FeedbackActivity extends AppCompatActivity {
-    private ActivityFeedbackBinding binding;
-    private FeedbackViewModel vm;
+public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding> {
 
-    private LoadingPopupView loading;
+    @InjectScope(Scopes.ACTIVITY)
+    private FeedbackRequester requester;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_feedback);
-        vm = new ViewModelProvider(this).get(FeedbackViewModel.class);
-        binding.setViewModel(vm);
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
 
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
-                .dismissOnTouchOutside(false));
-
-        LiveEventBus.get("MyRepository-requestFeedbackCommit", WebException.class)
-                .observe(this, e -> {
-                    loading.smartDismiss();
-                    if (e.isSuccess()) {
-                        ToastUtils.showShort("反馈成功");
-                        finish();
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-
-        binding.feedbackCommit.setOnClickListener(v -> {
-            loading.show();
-            vm.updateFeedback();
-        });
-    }
-
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, FeedbackActivity.class);
-        context.startActivity(intent);
+    public static class States extends StateHolder {
+        public State<String> content = new State<>("");
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
+    protected ViewConfig configBinding() {
+        requester.registerObserver(DialogUtil.createNetLoading(this), this);
+
+        return new ViewConfig(R.layout.activity_feedback)
+                .add(BR.state, states)
+                .add(BR.handler, new Handler());
+    }
+
+    public class Handler {
+        public OnClickListener commit = v ->
+                requester.updateFeedback(states.content.getValue(),
+                        o -> {
+                            ToastUtils.showShort("反馈成功");
+                            finish();
+                        },
+                        ToastUtils::showShort);
+
+        public void setContent(Editable s) {
+            states.content.setValue(s.toString());
         }
-        return true;
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityFeedbackBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

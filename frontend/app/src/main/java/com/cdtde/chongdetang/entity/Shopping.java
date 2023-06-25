@@ -23,6 +23,10 @@ public class Shopping extends BaseObservable implements Serializable {
     public Shopping() {
     }
 
+    public Shopping(Product product) {
+        this(1, product);
+    }
+
     public Shopping(Integer number, Product product) {
         this.number = number;
         this.product = product;

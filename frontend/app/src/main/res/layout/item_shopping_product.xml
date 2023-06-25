@@ -5,18 +5,36 @@
     <data>
         <variable
                 name="checkedShopping"
-                type="com.cdtde.chongdetang.viewModel.shop.ShoppingViewModel.CheckedShopping" />
+                type="com.cdtde.chongdetang.entity.CheckedShopping" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="subtract"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="add"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="check"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="delete"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+
     </data>
 
     <com.mcxtzhang.swipemenulib.SwipeMenuLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp">
+            android:layout_height="110dp"
+            swipeMenu_enable="@{checkedShopping.editEnabled}">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/item"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:onClick="@{v->itemClick.onClick(checkedShopping, v)}">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -30,8 +48,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
                         android:id="@+id/check"
-                        android:checked="@={checkedShopping.checked}"
-                        style="@style/Widget.Material3.CompoundButton.RadioButton"/>
+                        android:checked="@{checkedShopping.checked}"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:onClick="@{v->check.onClick(checkedShopping, v)}"/>
 
                 <ImageView
                         android:layout_width="120dp"
@@ -84,7 +103,8 @@
                                 android:id="@+id/add"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="5dp"/>
+                                android:layout_marginEnd="5dp"
+                                android:onClick="@{v->add.onClick(checkedShopping, v)}"/>
                         <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="match_parent"
@@ -101,7 +121,8 @@
                                 android:src="@drawable/subtract"
                                 android:id="@+id/subtract"
                                 android:layout_toStartOf="@id/number"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:onClick="@{v->subtract.onClick(checkedShopping, v)}"/>
 
                     </RelativeLayout>
 

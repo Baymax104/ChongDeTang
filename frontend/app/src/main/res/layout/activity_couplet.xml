@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.CoupletAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.CoupletAdapter" />
         <variable
                 name="viewModel"
                 type="com.cdtde.chongdetang.viewModel.index.CoupletViewModel" />
@@ -59,8 +59,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 tools:listitem="@layout/item_couplet"
-                recycler_adapter="@{adapter}"
-                recycler_data="@{viewModel.couplets}"/>
+                />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

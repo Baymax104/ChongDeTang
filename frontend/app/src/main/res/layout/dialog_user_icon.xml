@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.userInfo.PhotoDialog.Handler" />
     </data>
 
     <LinearLayout
@@ -18,7 +20,8 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/take_photo"
-                style="@style/DialogButtonTextStyle" />
+                style="@style/DialogButtonTextStyle"
+                android:onClick="@{handler.takePhoto}"/>
 
         <View
                 android:layout_width="match_parent"
@@ -32,7 +35,8 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/album"
-                style="@style/DialogButtonTextStyle" />
+                style="@style/DialogButtonTextStyle"
+                android:onClick="@{handler.openAlbum}"/>
 
         <View
                 android:layout_width="match_parent"
@@ -46,7 +50,8 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/cancel"
-                style="@style/DialogButtonTextStyle" />
+                style="@style/DialogButtonTextStyle"
+                android:onClick="@{handler.cancel}"/>
 
 
     </LinearLayout>

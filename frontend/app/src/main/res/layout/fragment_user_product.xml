@@ -5,11 +5,11 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.UserCollectViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.collect.UserProductFragment.States" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.ShopProductAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.UserProductAdapter" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,7 +21,7 @@
             app:spanCount="2"
             android:orientation="vertical"
             recycler_adapter="@{adapter}"
-            recycler_data="@{viewModel.userProduct}">
+            recycler_data="@{state.products}">
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

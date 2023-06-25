@@ -1,61 +1,72 @@
 package com.cdtde.chongdetang.view.index.origin;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.cdtde.chongdetang.BR;
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentOriginBinding;
-import com.cdtde.chongdetang.util.WebViewUtil;
-import com.cdtde.chongdetang.viewModel.index.OriginViewModel;
+import com.cdtde.chongdetang.utils.WebViewUtil;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class OriginFragment extends Fragment {
+public class OriginFragment extends BaseFragment<FragmentOriginBinding> {
 
-    private OriginViewModel vm;
-    private FragmentOriginBinding binding;
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
 
-    public static OriginFragment newInstance(int index) {
+    public static OriginFragment newInstance(int page) {
         OriginFragment fragment = new OriginFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("page", index);
+        bundle.putInt("page", page);
         fragment.setArguments(bundle);
         return fragment;
     }
 
+    public static class States extends StateHolder {
+        public final State<String> url = new State<>("");
+        public int page = 0;
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentOriginBinding.inflate(inflater, container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-        return binding.getRoot();
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.fragment_origin)
+                .add(BR.state, states);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull FragmentOriginBinding binding) {
+        WebViewUtil.configure(binding.webPage, true);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int index = 1;
         if (getArguments() != null) {
-            index = getArguments().getInt("page");
+            states.page = getArguments().getInt("page");
+            switch (states.page) {
+                case 0:
+                    states.url.setValue("http://www.cdtde.com/gywm/zjcdt");
+                    break;
+                case 1:
+                    states.url.setValue("http://www.cdtde.com/gywm/cdtyq");
+                    break;
+                case 2:
+                    states.url.setValue("http://www.cdtde.com/gywm/cdtz");
+                    break;
+            }
         }
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-        vm = new ViewModelProvider(requireActivity()).get(OriginViewModel.class);
-        WebViewUtil.configure(binding.webPage, true);
-
-        binding.setViewModel(vm);
-        binding.setPage(index);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

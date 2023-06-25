@@ -1,12 +1,12 @@
 package com.cdtde.chongdetang.dataSource.web.api;
 
 import com.cdtde.chongdetang.entity.Product;
-import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Result;
 import com.cdtde.chongdetang.entity.Shopping;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
@@ -25,21 +25,25 @@ import retrofit2.http.Query;
 public interface ProductService {
 
     @GET("/api/product")
-    Observable<ResponseResult<List<Product>>> getAllProduct(@Header("Authorization") String token);
+    Single<Result<List<Product>>> getAllProduct(@Header("Authorization") String token);
+
+    @GET("/api/product/hot")
+    Single<Result<List<Product>>> getHotProduct();
 
     @GET("/api/product/shopping")
-    Observable<ResponseResult<List<Shopping>>> getShoppingByUser(@Header("Authorization") String token);
+    Single<Result<List<Shopping>>> getShoppingByUser(@Header("Authorization") String token);
 
     @POST("/api/product/shopping/{shoppingId}/{productId}")
-    Observable<ResponseResult<Integer>> updateShoppingNumber(@Header("Authorization") String token,
-                                                            @Path("shoppingId") Integer shoppingId,
-                                                            @Path("productId") Integer productId,
-                                                            @Query("number") Integer number);
+    Single<Result<Integer>> updateShoppingNumber(@Header("Authorization") String token,
+                                                 @Path("shoppingId") Integer shoppingId,
+                                                 @Path("productId") Integer productId,
+                                                 @Query("number") Integer number);
+
     @POST("/api/product/shopping")
-    Observable<ResponseResult<Object>> addShopping(@Header("Authorization") String token,
-                                                   @Body Shopping shopping);
+    Single<Result<Object>> addShopping(@Header("Authorization") String token,
+                                       @Body Shopping shopping);
 
     @HTTP(path = "/api/product/shopping", method = "DELETE", hasBody = true)
-    Observable<ResponseResult<Object>> deleteShopping(@Header("Authorization") String token,
-                                                      @Body Shopping shopping);
+    Single<Result<Object>> deleteShopping(@Header("Authorization") String token,
+                                          @Body Shopping shopping);
 }

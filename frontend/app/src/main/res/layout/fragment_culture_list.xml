@@ -7,7 +7,7 @@
 
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.CultureAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.CultureAdapter" />
 
         <variable
                 name="viewModel"

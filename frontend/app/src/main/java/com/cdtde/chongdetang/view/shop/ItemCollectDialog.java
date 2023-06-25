@@ -1,15 +1,22 @@
 package com.cdtde.chongdetang.view.shop;
 
 import android.content.Context;
-import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.DialogCollectMenuBinding;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.DialogBinder;
+import com.cdtde.chongdetang.base.vm.DialogScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.entity.UserCollect;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.core.AttachPopupView;
+
+import kotlin.Unit;
+
 
 /**
  * @Description
@@ -20,9 +27,23 @@ import com.lxj.xpopup.core.AttachPopupView;
  */
 public class ItemCollectDialog extends AttachPopupView {
 
-    private UserCollect userCollect;
+    private States states = DialogScope.getFromActivity(this, States.class);
 
-    private boolean isCollect;
+    private Messenger messenger = DialogScope.getFromApplication(Messenger.class);
+
+
+    public static class States extends StateHolder {
+        public final State<UserCollect> userCollect = new State<>(new UserCollect());
+        public final State<Boolean> isCollected = new State<>(false);
+    }
+
+    public static class Messenger extends MessageHolder {
+        public String key;
+        public final EventWithKey<UserCollect, Unit> clickEvent = new EventWithKey<>();
+        public final EventWithKey<UserCollect, String> collectEvent = new EventWithKey<>();
+        public final EventWithKey<UserCollect, String> cancelEvent = new EventWithKey<>();
+    }
+
 
     public ItemCollectDialog(@NonNull Context context) {
         super(context);
@@ -33,46 +54,49 @@ public class ItemCollectDialog extends AttachPopupView {
         return R.layout.dialog_collect_menu;
     }
 
+    public class Handler {
+        public OnClickListener collect = v -> {
+            if (states.isCollected.getValue()) { // 已收藏，取消
+                messenger.cancelEvent.send(states.userCollect.getValue(), messenger.key);
+            } else { // 未收藏，收藏
+                messenger.collectEvent.send(states.userCollect.getValue(), messenger.key);
+            }
+        };
+    }
+
     @Override
     protected void onCreate() {
         super.onCreate();
-        View view = getPopupImplView();
-        DialogCollectMenuBinding binding = DialogCollectMenuBinding.bind(view);
-        binding.setLifecycleOwner(this);
-        binding.setIsCollect(isCollect);
 
-        LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
-                .observeSticky(this, userCollect -> {
-                    this.userCollect = userCollect;
-                    isCollect =
-                            (userCollect.getProduct() != null && userCollect.getProduct().isUserCollect()) ||
-                                    (userCollect.getCollection() != null && userCollect.getCollection().isUserCollect());
-                    binding.setIsCollect(isCollect);
-                });
+        DialogBinder.bind(this, new BindingConfig()
+                .add(BR.state, states)
+                .add(BR.handler, new Handler()));
 
-        LiveEventBus.get("ItemCollectDialog-refreshAddCollect", Boolean.class)
-                .observe(this, refresh -> {
-                    if (refresh) {
-                        isCollect = true;
-                        binding.setIsCollect(true);
-                    }
-                });
-        LiveEventBus.get("ItemCollectDialog-refreshRemoveCollect", Boolean.class)
-                .observe(this, refresh -> {
-                    if (refresh) {
-                        isCollect = false;
-                        binding.setIsCollect(false);
-                    }
-                });
-
-        view.setOnClickListener(v -> {
-            if (isCollect) { // 已收藏，取消
-                LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
-                        .post(userCollect);
-            } else { // 未收藏，收藏
-                LiveEventBus.get("ItemCollectDialog-collect", UserCollect.class)
-                        .post(userCollect);
-            }
+        messenger.clickEvent.observeSend(this, true, "./", (value, key) -> {
+            states.userCollect.setValue(value);
+            states.isCollected.setValue(value.isCollected());
+            messenger.key = key;
         });
+
+        messenger.collectEvent.observeReply(this, true, messenger.key,
+                (value, key) -> {
+                    if ("collection".equals(value)) {
+                        states.userCollect.getValue().getCollection().setUserCollect(true);
+                    } else {
+                        states.userCollect.getValue().getProduct().setUserCollect(true);
+                    }
+                    states.isCollected.setValue(true);
+                });
+
+        messenger.cancelEvent.observeReply(this, true, messenger.key,
+                (value, key) -> {
+                    if ("collection".equals(value)) {
+                        states.userCollect.getValue().getCollection().setUserCollect(false);
+                    } else {
+                        states.userCollect.getValue().getProduct().setUserCollect(false);
+                    }
+                    states.isCollected.setValue(false);
+                });
+
     }
 }

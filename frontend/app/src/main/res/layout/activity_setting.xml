@@ -3,10 +3,11 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.SettingViewModel" />
         <import type="android.view.View"/>
+        <import type="com.cdtde.chongdetang.repository.UserStore"/>
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.SettingActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -45,7 +46,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entry}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -79,7 +81,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@id/data_entry"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entry}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -112,7 +115,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@id/password_entry"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.entry}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -148,7 +152,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@id/phone_entry"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.copyrightClick}">
 
                 <ImageView
                         android:layout_width="25dp"
@@ -183,7 +188,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_below="@id/copyright_entry"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{handler.versionClick}">
 
                 <ImageView
                         android:layout_width="30dp"
@@ -223,7 +229,8 @@
                     style="@style/BigButtonTextStyle"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:visibility="@{viewModel.user.token != null ? View.VISIBLE : View.INVISIBLE}"/>
+                    android:onClick="@{handler.entry}"
+                    android:visibility="@{UserStore.isLogin() ? View.VISIBLE : View.INVISIBLE}"/>
         </RelativeLayout>
 
     </LinearLayout>

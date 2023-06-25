@@ -5,8 +5,11 @@
     <data>
         <import type="android.view.View"/>
         <variable
-                name="validity"
-                type="Boolean" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.setting.userInfo.UsernameActivity.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.userInfo.UsernameActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -45,7 +48,8 @@
                             android:id="@+id/confirm"
                             android:text="@string/confirm"
                             android:layout_alignParentEnd="true"
-                            style="@style/ToolbarOptionTextStyle"/>
+                            style="@style/ToolbarOptionTextStyle"
+                            android:onClick="@{handler.confirm}"/>
                 </RelativeLayout>
 
             </androidx.appcompat.widget.Toolbar>
@@ -68,7 +72,9 @@
                     android:singleLine="true"
                     android:autofillHints="no"
                     android:inputType="text"
-                    android:fontFamily="@font/text_regular"/>
+                    android:fontFamily="@font/text_regular"
+                    android:text="@{state.content}"
+                    android:afterTextChanged="@{handler::setContent}"/>
 
             <ImageView
                     android:layout_width="22dp"
@@ -83,11 +89,11 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{validity ? @string/update_name_tip : @string/update_name_wrong_tip}"
+                android:text="@{state.validity ? @string/update_name_tip : @string/update_name_wrong_tip}"
                 android:paddingStart="15dp"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
                 android:fontFamily="@font/text_regular"
-                android:textColor="@{validity ? @color/gray_1 : @color/main_variant_color}"/>
+                android:textColor="@{state.validity ? @color/gray_1 : @color/main_variant_color}"/>
     </LinearLayout>
 </layout>

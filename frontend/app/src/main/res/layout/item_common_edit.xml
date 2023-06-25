@@ -5,7 +5,7 @@
     <data>
         <import type="android.view.View"/>
         <import type="android.text.InputType"/>
-        <import type="com.cdtde.chongdetang.util.BindingUtil"/>
+        <import type="com.cdtde.chongdetang.utils.binding.CommonAdapter"/>
         <variable
                 name="text"
                 type="String" />
@@ -73,7 +73,7 @@
                     android:layout_marginStart="10dp"
                     android:src="@drawable/visible"
                     android:visibility="@{isPassword ? View.VISIBLE : View.GONE}"
-                    android:onClick="@{v -> BindingUtil.bindPasswordEdit(v, edit)}"
+                    android:onClick="@{v -> CommonAdapter.bindPwdEdit(v, edit)}"
                     tools:ignore="ImageContrastCheck" />
 
         </LinearLayout>

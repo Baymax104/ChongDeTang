@@ -55,7 +55,7 @@ public class CultureViewModel extends ViewModel {
     }
 
     public void updateAllCulture() {
-        repo.requestAllCulture();
+//        repo.requestAllCulture();
     }
 
     public void refreshAllCulture() {

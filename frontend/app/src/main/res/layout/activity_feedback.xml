@@ -4,8 +4,11 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.FeedbackViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.FeedbackActivity.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.FeedbackActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -60,7 +63,8 @@
                             android:maxLines="12"
                             android:scrollbars="vertical"
                             tools:ignore="SpeakableTextPresentCheck"
-                            android:afterTextChanged="@{s->viewModel.setFeedbackContent(s.toString())}"/>
+                            android:text="@{state.content}"
+                            android:afterTextChanged="@{handler::setContent}"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
 
@@ -73,7 +77,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
-                    android:text="@string/commit" />
+                    android:text="@string/commit"
+                    android:onClick="@{handler.commit}"/>
         </RelativeLayout>
     </LinearLayout>
 </layout>

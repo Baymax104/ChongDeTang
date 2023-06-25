@@ -5,8 +5,8 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.RegisterViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.register.RegisterActivity.States" />
         <variable
                 name="fragmentAdapter"
                 type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
@@ -45,7 +45,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/confirm"
-                            android:visibility="@{viewModel.page == 2 ? View.VISIBLE : View.INVISIBLE}"
+                            android:visibility="@{state.page == 1 ? View.VISIBLE : View.INVISIBLE}"
                             android:text="@string/confirm"
                             android:layout_alignParentEnd="true"
                             style="@style/ToolbarOptionTextStyle"/>
@@ -59,8 +59,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/view_pager"
-                fragments="@{viewModel.flowFragments}"
-                fragment_adapter="@{fragmentAdapter}"
-                fragment_page="@{viewModel.page}"/>
+                viewPager_fragments="@{state.fragments}"
+                viewPager_adapter="@{fragmentAdapter}"
+                viewPager_page="@{state.page}"
+                viewPager_smooth="@{true}"/>
     </LinearLayout>
 </layout>

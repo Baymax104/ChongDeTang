@@ -3,28 +3,37 @@ import org.gradle.api.initialization.resolve.RepositoriesMode
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        google()
-        mavenCentral()
-        jcenter()
-        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.aliyun.com/repository/public/'}
+        maven { url 'https://maven.aliyun.com/repository/spring/'}
+        maven { url 'https://maven.aliyun.com/repository/central/'}
+        maven { url 'https://maven.aliyun.com/repository/google/'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/'}
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin/'}
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        maven { url "https://maven.google.com"}
-        mavenCentral { url "https://jcenter.bintray.com/" }
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        mavenLocal()
+        google()
+        jcenter()
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.aliyun.com/repository/public/'}
+        maven { url 'https://maven.aliyun.com/repository/spring/'}
+        maven { url 'https://maven.aliyun.com/repository/central/'}
+        maven { url 'https://maven.aliyun.com/repository/google/'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/'}
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin/'}
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        maven { url 'https://maven.aliyun.com/repository/google/'}
-        maven { url "https://maven.google.com"}
-        mavenCentral { url "https://jcenter.bintray.com/" }
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        mavenLocal()
         google()
         jcenter()
-        mavenCentral()
     }
 }
 rootProject.name = "ChongDeTang"

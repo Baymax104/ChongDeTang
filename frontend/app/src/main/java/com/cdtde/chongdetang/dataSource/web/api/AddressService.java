@@ -1,11 +1,11 @@
 package com.cdtde.chongdetang.dataSource.web.api;
 
 import com.cdtde.chongdetang.entity.Address;
-import com.cdtde.chongdetang.entity.ResponseResult;
+import com.cdtde.chongdetang.entity.Result;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
@@ -22,13 +22,13 @@ import retrofit2.http.POST;
 public interface AddressService {
 
     @GET("/api/user/address")
-    Observable<ResponseResult<List<Address>>> getAllAddress(@Header("Authorization") String token);
+    Single<Result<List<Address>>> getAllAddress(@Header("Authorization") String token);
 
     @POST("/api/user/address")
-    Observable<ResponseResult<Object>> updateAddress(@Header("Authorization") String token,
-                                                      @Body Address address);
+    Single<Result<Object>> updateAddress(@Header("Authorization") String token,
+                                         @Body Address address);
 
     @HTTP(path = "/api/user/address", method = "DELETE", hasBody = true)
-    Observable<ResponseResult<Object>> deleteAddress(@Header("Authorization") String token,
-                                                     @Body Address address);
+    Single<Result<Object>> deleteAddress(@Header("Authorization") String token,
+                                         @Body Address address);
 }

@@ -5,9 +5,12 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.RegisterViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.register.RegisterFragment.States" />
         <import type="android.view.View"/>
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.register.RegisterFragment.Handler" />
     </data>
 
     <LinearLayout
@@ -40,7 +43,8 @@
                     tools:ignore="SpeakableTextPresentCheck"
                     android:drawableStart="@drawable/default_photo"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->viewModel.setPhone(s.toString())}"/>
+                    android:text="@{state.phone}"
+                    android:afterTextChanged="@{handler::setPhone}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -53,7 +57,7 @@
                 android:fontFamily="@font/text_regular"
                 android:textColor="@color/main_variant_color"
                 android:layout_marginBottom="10dp"
-                android:visibility="@{viewModel.phoneValidity ? View.INVISIBLE : View.VISIBLE}"/>
+                android:visibility="@{state.isPhoneValid ? View.INVISIBLE : View.VISIBLE}"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -76,7 +80,8 @@
                     tools:ignore="SpeakableTextPresentCheck"
                     android:drawableStart="@drawable/password2"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->viewModel.setPassword(s.toString())}"/>
+                    android:text="@{state.pwd}"
+                    android:afterTextChanged="@{handler::setPassword}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -88,7 +93,7 @@
                 android:layout_marginHorizontal="30dp"
                 android:fontFamily="@font/text_regular"
                 android:layout_marginBottom="5dp"
-                android:textColor="@{viewModel.passwordValidity ? @color/gray_1 : @color/main_variant_color}"/>
+                android:textColor="@{state.isPwdValid ? @color/gray_1 : @color/main_variant_color}"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -109,7 +114,8 @@
                     tools:ignore="SpeakableTextPresentCheck"
                     android:drawableStart="@drawable/password2"
                     android:drawablePadding="10dp"
-                    android:afterTextChanged="@{s->viewModel.setRepeatPassword(s.toString())}"/>
+                    android:text="@{state.repeat}"
+                    android:afterTextChanged="@{handler::setRepeat}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -122,7 +128,7 @@
                 android:fontFamily="@font/text_regular"
                 android:textColor="@color/main_variant_color"
                 android:layout_marginBottom="10dp"
-                android:visibility="@{viewModel.repeatValidity ? View.INVISIBLE : View.VISIBLE}"/>
+                android:visibility="@{state.isRepeatValid ? View.INVISIBLE : View.VISIBLE}"/>
 
         <Button
                 android:layout_width="match_parent"
@@ -132,7 +138,8 @@
                 android:background="@drawable/button_bg"
                 android:text="@string/register"
                 style="@style/BigButtonTextStyle"
-                android:id="@+id/register"/>
+                android:id="@+id/register"
+                android:onClick="@{handler.register}"/>
 
     </LinearLayout>
 </layout>

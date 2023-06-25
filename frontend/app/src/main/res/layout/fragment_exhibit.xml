@@ -5,11 +5,14 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.exhibit.ExhibitFragment.States" />
         <variable
                 name="tabAdapter"
                 type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.exhibit.ExhibitFragment.Handler" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -29,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:id="@+id/toolbar"
+                    toolbar_onMenuItemClick="@{handler.onMenuItemClick}"
                     app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <TextView
@@ -86,8 +90,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/view_pager"
-                    fragment_adapter="@{tabAdapter}"
-                    fragments="@{viewModel.tabFragments}" />
+                    viewPager_adapter="@{tabAdapter}"
+                    viewPager_fragments="@{state.fragments}"
+                    viewPager_onPageChange="@{handler::setPage}"/>
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

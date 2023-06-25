@@ -7,8 +7,11 @@
         <import type="android.view.View"/>
         <import type="android.text.InputType"/>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.UserPhoneViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneFragment.Handler" />
     </data>
 
     <LinearLayout
@@ -31,7 +34,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.user.phone}"
+                android:text="@{state.originPhone}"
                 android:textColor="@color/main_color"
                 android:textSize="23sp"
                 android:fontFamily="@font/regular"
@@ -42,7 +45,7 @@
                 layout="@layout/item_common_edit"
                 bind:text="@{@string/new_phone_hint}"
                 bind:hint="@{@string/new_phone_hint}"
-                bind:editHandler="@{(content)->viewModel.setPhone(content.toString())}"
+                bind:editHandler="@{handler::setInputPhone}"
                 bind:isPassword="@{false}"
                 bind:inputType="@{InputType.TYPE_CLASS_PHONE}"/>
 
@@ -85,7 +88,8 @@
                         android:inputType="number"
                         android:fontFamily="@font/text_regular"
                         android:layout_marginHorizontal="10dp"
-                        android:afterTextChanged="@{()->viewModel.setCode(validateEdit.getText().toString())}"/>
+                        android:text="@{state.code}"
+                        android:afterTextChanged="@{handler::setCode}"/>
 
                 <Button
                         android:layout_width="wrap_content"
@@ -93,10 +97,10 @@
                         android:layout_marginVertical="5dp"
                         android:background="@drawable/button_bg"
                         style="@style/SmallButtonTextStyle"
-                        android:text="@{viewModel.tip}"
-                        android:enabled="@{viewModel.enabled}"
+                        android:text="@{state.tip}"
+                        android:enabled="@{state.enabled}"
                         tools:ignore="TouchTargetSizeCheck"
-                        android:onClick="@{()->viewModel.sendSms()}"/>
+                        android:onClick="@{handler.sendSms}"/>
 
             </LinearLayout>
         </LinearLayout>

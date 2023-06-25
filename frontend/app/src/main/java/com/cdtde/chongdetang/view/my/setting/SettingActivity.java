@@ -1,93 +1,80 @@
 package com.cdtde.chongdetang.view.my.setting;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.databinding.ActivitySettingBinding;
-import com.cdtde.chongdetang.util.DialogUtil;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.Starter;
+import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.my.login.LogoutDialog;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordActivity;
 import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneActivity;
-import com.cdtde.chongdetang.viewModel.my.SettingViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
-public class SettingActivity extends AppCompatActivity {
-    private ActivitySettingBinding binding;
+public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
 
-    private SettingViewModel vm;
+    @InjectScope(Scopes.APPLICATION)
+    private LogoutDialog.Messenger messenger;
+
+    public class Handler {
+        public OnClickListener entry = v -> {
+            if (UserStore.isLogin()) {
+                if (v.getId() == R.id.data_entry) {
+                    Starter.actionStart(SettingActivity.this, UserInfoActivity.class);
+                } else if (v.getId() == R.id.password_entry) {
+                    Starter.actionStart(SettingActivity.this, UserPasswordActivity.class);
+                } else if (v.getId() == R.id.phone_entry) {
+                    Starter.actionStart(SettingActivity.this, UserPhoneActivity.class);
+                } else if (v.getId() == R.id.logout) {
+                    DialogUtil.create(SettingActivity.this, LogoutDialog.class).show();
+                }
+            } else {
+                Starter.actionStart(SettingActivity.this, LoginActivity.class);
+            }
+        };
+
+        public final OnClickListener versionClick = v ->
+                ToastUtils.showShort("当前已经是最高版本");
+
+        public final OnClickListener copyrightClick = v ->
+                ToastUtils.showShort("版权声明");
+    }
+
+    @Override
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.activity_setting)
+                .add(BR.handler, new Handler());
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivitySettingBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
-        binding.setLifecycleOwner(this);
-        vm = new ViewModelProvider(this).get(SettingViewModel.class);
-        binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
-        LiveEventBus.get("LogoutDialog-logout", Boolean.class)
-                        .observe(this, aBoolean -> {
-                            if (aBoolean) {
-                                finish();
-                            }
-                        });
 
 
-        binding.dataEntry.setOnClickListener(v -> {
-            if (vm.getUser().getToken() != null) {
-                UserInfoActivity.actionStart(this);
-            } else {
-                LoginActivity.actionStart(this);
-            }
-        });
-
-        binding.passwordEntry.setOnClickListener(v -> {
-            if (vm.getUser().getToken() != null) {
-                UserPasswordActivity.actionStart(this);
-            } else {
-                LoginActivity.actionStart(this);
-            }
-        });
-
-        binding.phoneEntry.setOnClickListener(v -> {
-            if (vm.getUser().getToken() != null) {
-                UserPhoneActivity.actionStart(this);
-            } else {
-                LoginActivity.actionStart(this);
-            }
-        });
-
-        binding.copyrightEntry.setOnClickListener(v -> Toast.makeText(this, "版权声明", Toast.LENGTH_SHORT).show());
-
-        binding.versionEntry.setOnClickListener(v -> Toast.makeText(this, "当前已经是最高版本", Toast.LENGTH_SHORT).show());
-
-        binding.logout.setOnClickListener(v -> DialogUtil.create(this, LogoutDialog.class, null).show());
-
+        messenger.logout.observeSend(this, value -> finish());
+//        LiveEventBus.get("LogoutDialog-logout", Boolean.class)
+//                        .observe(this, aBoolean -> {
+//                            if (aBoolean) {
+//                                finish();
+//                            }
+//                        });
     }
 
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, SettingActivity.class);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
 }

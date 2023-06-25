@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySearchBinding;
-import com.cdtde.chongdetang.util.WindowUtil;
+import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.viewModel.index.SearchViewModel;
 
 public class SearchActivity extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class SearchActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         vm = new ViewModelProvider(this).get(SearchViewModel.class);
         binding.setViewModel(vm);
-        WindowUtil.initActivityWindow(binding.toolbar, this, false, true);
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
 
     }
 

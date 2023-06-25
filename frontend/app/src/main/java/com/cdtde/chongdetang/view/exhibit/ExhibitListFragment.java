@@ -1,27 +1,35 @@
 package com.cdtde.chongdetang.view.exhibit;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.cdtde.chongdetang.adapter.ExhibitCollectionAdapter;
+import com.cdtde.chongdetang.BR;
+import com.cdtde.chongdetang.R;
+import com.cdtde.chongdetang.adapter.recycler.ExhibitCollectionAdapter;
+import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory;
+import com.cdtde.chongdetang.base.view.BaseFragment;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
+import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.UserCollect;
-import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.util.DialogUtil;
+import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
-import com.cdtde.chongdetang.viewModel.MainViewModel;
-import com.cdtde.chongdetang.viewModel.exhibit.ExhibitViewModel;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
+import com.cdtde.chongdetang.viewModel.exhibit.ExhibitRequester;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description
@@ -30,94 +38,151 @@ import com.lxj.xpopup.XPopup;
  * @Date 2022/12/26 22:57
  * @Version 1
  */
-public class ExhibitListFragment extends Fragment {
+public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding> {
 
-    private FragmentExhibitListBinding binding;
+    @InjectScope(Scopes.APPLICATION)
+    private ExhibitRequester requester;
 
-    // TabFragment与ExhibitFragment的ViewModel是共享的，都属于MainActivity
-    private ExhibitViewModel vm;
+    @InjectScope(Scopes.APPLICATION)
+    private ItemCollectDialog.Messenger messenger;
 
-    private MainViewModel mainViewModel;
+    @InjectScope(Scopes.FRAGMENT)
+    private States states;
 
-    private XPopup.Builder attachBuilder;
+    private ItemCollectDialog collectDialog;
 
-    private ItemCollectDialog dialog;
+    @InjectScope(Scopes.APPLICATION)
+    private CollectionActivity.Messenger collectionMessenger;
 
-    private int page;
+    public static class States extends StateHolder {
+        public final State<List<Collection>> collections = new State<>(new ArrayList<>());
+        public int page = 0;
+        public String key = "";
+        public String type = "";
+    }
 
-    @Nullable
+
+    public class ListHandler extends ListHandlerFactory {
+
+        public final OnItemClickListener<Collection> allClick = (data, view) -> {
+            collectionMessenger.showEvent.send(data);
+            Starter.actionStart(activity, CollectionActivity.class);
+        };
+
+        public final OnItemClickListener<Collection> more = (data, view) -> {
+            collectDialog = DialogUtil.createAttachDialog(activity, ItemCollectDialog.class, view);
+            collectDialog.show();
+            messenger.clickEvent.send(new UserCollect(data), states.key);
+        };
+
+        @Override
+        public BindingConfig getBindingConfig() {
+            return new BindingConfig()
+                    .add(BR.allClick, allClick)
+                    .add(BR.more, more);
+        }
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentExhibitListBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    protected ViewConfig configBinding() {
+        ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
+        adapter.setFactory(new ListHandler());
+
+        return new ViewConfig(R.layout.fragment_exhibit_list)
+                .add(BR.state, states)
+                .add(BR.adapter, adapter);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        page = 1;
+        super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
-            page = getArguments().getInt("page");
+            states.page = getArguments().getInt("page");
+            states.key = "ExhibitList" + states.page;
+            switch (states.page) {
+                case 0:
+                    states.type = "sf";
+                    break;
+                case 1:
+                    states.type = "zk";
+                    break;
+                case 2:
+                    states.type = "pb";
+                    break;
+                default:
+                    break;
+            }
         }
-        binding.setLifecycleOwner(getViewLifecycleOwner());
-        vm = new ViewModelProvider(requireActivity()).get(ExhibitViewModel.class);
-        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        binding.setViewModel(vm);
 
-        attachBuilder = new XPopup.Builder(requireContext()).hasShadowBg(false);
-
-        ExhibitCollectionAdapter adapter = new ExhibitCollectionAdapter();
-        adapter.setOnItemClickListener(data ->
-            CollectionActivity.actionStart(requireContext(), data)
-        );
-        adapter.setOnMoreClickListener((v, collection) -> {
-            attachBuilder.atView(v);
-            dialog = (ItemCollectDialog) DialogUtil.create(requireContext(), ItemCollectDialog.class, attachBuilder);
-            dialog.show();
-            LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
-                    .post(new UserCollect(collection));
-        });
-        binding.setAdapter(adapter);
-        binding.setPage(page);
+        messenger.collectEvent.observeSend(getViewLifecycleOwner(), states.key,
+                (value, key) -> {
+                    if (UserStore.isLogin()) {
+                        requester.addUserCollection(
+                                value.getCollection(),
+                                collection ->
+                                        messenger.collectEvent.reply("collection", states.key),
+                                ToastUtils::showShort
+                        );
+                    } else {
+                        collectDialog.dismissWith(() ->
+                                Starter.actionStart(activity, LoginActivity.class)
+                        );
+                    }
+                });
 
         // 由于ItemCollectDialog发送消息是全局发送，因此每个页面需要判断当前操作的页面是否是自己
         // 当前页面的ViewModel记录页面内的子页面页数状态，MainViewModel记录四个主页面的页数状态
-        LiveEventBus.get("ItemCollectDialog-collect", UserCollect.class)
-                .observe(this, userCollect -> {
-                    Integer mainPage = mainViewModel.getPage().getValue();
-                    if (mainPage != null && mainPage == 1 && page == vm.getCurrentPage()) {
-                        if (vm.isLogin()) {
-                            vm.addUserCollect(userCollect);
-                        } else {
-                            dialog.dismissWith(() ->
-                                    LoginActivity.actionStart(requireContext())
-                            );
-                        }
-                    }
-                });
-        LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
-                .observe(this, userCollect -> {
-                    Integer mainPage = mainViewModel.getPage().getValue();
-                    if (mainPage != null && mainPage == 1 && page == vm.getCurrentPage()) {
-                        vm.removeUserCollect(userCollect);
-                    }
-                });
+//        LiveEventBus.get("ItemCollectDialog-collect", UserCollect.class)
+//                .observe(this, userCollect -> {
+//                    Integer mainPage = mainViewModel.getPage().getValue();
+//                    if (mainPage != null && mainPage == 1 && states.page == vm.getCurrentPage()) {
+//                        if (vm.isLogin()) {
+//                            vm.addUserCollection(userCollect);
+//                        } else {
+//                            collectDialog.dismissWith(() ->
+//                                    Starter.actionStart(activity, LoginActivity.class)
+//                            );
+//                        }
+//                    }
+//                });
 
-        LiveEventBus.get("ExhibitRepository-requestAddUserCollect", WebException.class)
-                .observe(this, e -> {
-                    if (e.isSuccess()) {
-                        LiveEventBus.get("ItemCollectDialog-refreshAddCollect", Boolean.class).post(true);
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-        LiveEventBus.get("ExhibitRepository-requestRemoveUserCollect", WebException.class)
-                .observe(this, e -> {
-                    if (e.isSuccess()) {
-                        LiveEventBus.get("ItemCollectDialog-refreshRemoveCollect", Boolean.class).post(true);
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
+        messenger.cancelEvent.observeSend(getViewLifecycleOwner(), states.key,
+                (value, key) ->
+                        requester.removeUserCollection(
+                                value.getCollection(),
+                                collection -> messenger.cancelEvent.reply("collection", states.key),
+                                ToastUtils::showShort));
+
+
+//        LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
+//                .observe(this, userCollect -> {
+//                    Integer mainPage = mainViewModel.getPage().getValue();
+//                    if (mainPage != null && mainPage == 1 && states.page == vm.getCurrentPage()) {
+//                        vm.removeUserProduct(userCollect);
+//                    }
+//                });
+
+//        LiveEventBus.get("CollectionRepository-requestAddUserCollect", WebException.class)
+//                .observe(this, e -> {
+//                    if (e.isSuccess()) {
+//                        messenger.collectEvent.reply("collection", states.key);
+////                        LiveEventBus.get("ItemCollectDialog-refreshAddCollect", Boolean.class).post(true);
+//                    } else {
+//                        ToastUtils.showShort(e.getMessage());
+//                    }
+//                });
+//        LiveEventBus.get("CollectionRepository-requestRemoveUserCollect", WebException.class)
+//                .observe(this, e -> {
+//                    if (e.isSuccess()) {
+//                        messenger.cancelEvent.reply("collection", states.key);
+////                        LiveEventBus.get("ItemCollectDialog-refreshRemoveCollect", Boolean.class).post(true);
+//                    } else {
+//                        ToastUtils.showShort(e.getMessage());
+//                    }
+//                });
+
+        requester.updateAllCollectionByType(states.type, states.collections::setValue, ToastUtils::showShort);
+
     }
 
     public static ExhibitListFragment newInstance(int page) {
@@ -128,9 +193,4 @@ public class ExhibitListFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

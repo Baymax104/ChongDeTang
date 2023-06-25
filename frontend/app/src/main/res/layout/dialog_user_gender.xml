@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.userInfo.GenderDialog.Handler" />
     </data>
 
     <LinearLayout
@@ -18,7 +20,8 @@
                 android:text="@string/male"
                 android:id="@+id/male"
                 style="@style/DialogButtonTextStyle"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{handler.maleClick}"/>
 
         <View
                 android:layout_width="match_parent"
@@ -32,7 +35,8 @@
                 android:text="@string/female"
                 android:id="@+id/female"
                 style="@style/DialogButtonTextStyle"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{handler.femaleClick}"/>
 
         <View
                 android:layout_width="match_parent"
@@ -46,6 +50,7 @@
                 android:text="@string/cancel"
                 android:id="@+id/cancel"
                 style="@style/DialogButtonTextStyle"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{handler.cancel}"/>
     </LinearLayout>
 </layout>

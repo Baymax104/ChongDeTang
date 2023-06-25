@@ -24,13 +24,14 @@ public class SceneFragment10_6 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentScene106Binding.inflate(inflater, container, false);
+        binding = FragmentScene106Binding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        String url = AppKey.COS_URL +  "/img/scenes/img10_6.jpg";
+        String url = AppKey.COS_URL + "/img/scenes/img10_6.jpg";
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.loading)
@@ -45,6 +46,7 @@ public class SceneFragment10_6 extends Fragment {
             controller.navigate(R.id.action_sceneFragment10_6_to_sceneFragment10_5);
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

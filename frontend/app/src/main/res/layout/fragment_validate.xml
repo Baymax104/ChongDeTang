@@ -4,9 +4,12 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.my.ValidateViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.my.setting.ValidateFragment.States" />
         <import type="android.view.View"/>
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.my.setting.ValidateFragment.Handler" />
     </data>
 
     <LinearLayout
@@ -32,7 +35,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.phone}"
+                android:text="@{state.phone}"
                 android:gravity="center"
                 android:textColor="@color/main_variant_color"
                 android:textSize="17sp"
@@ -66,18 +69,19 @@
                     android:inputType="number"
                     android:fontFamily="@font/text_regular"
                     android:layout_marginHorizontal="10dp"
-                    android:afterTextChanged="@{()->viewModel.setCode(validateEdit.getText().toString())}"/>
+                    android:text="@{state.code}"
+                    android:afterTextChanged="@{handler::setCode}"/>
 
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_bg"
                     android:layout_marginVertical="5dp"
-                    android:text="@{viewModel.tip}"
+                    android:text="@{state.tip}"
                     style="@style/SmallButtonTextStyle"
                     tools:ignore="TouchTargetSizeCheck"
-                    android:enabled="@{viewModel.enabled}"
-                    android:onClick="@{()->viewModel.sendSms()}"/>
+                    android:enabled="@{state.enabled}"
+                    android:onClick="@{handler.sendSms}"/>
 
         </LinearLayout>
 

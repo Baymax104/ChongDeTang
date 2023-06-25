@@ -30,11 +30,10 @@ public class WebService {
                 .setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
-                .retryOnConnectionFailure(true)
                 .build();
 
         retrofit = new Retrofit.Builder()
@@ -52,8 +51,8 @@ public class WebService {
         return instance;
     }
 
-    public <T> T create(Class<T> cl) {
-        return retrofit.create(cl);
+    public static <T> T create(Class<T> cl) {
+        return getInstance().retrofit.create(cl);
     }
 
 }

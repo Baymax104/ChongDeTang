@@ -6,7 +6,7 @@
     <data>
 
         <variable
-                name="viewModel"
+                name="state"
                 type="com.cdtde.chongdetang.viewModel.index.CultureViewModel" />
 
         <variable
@@ -82,8 +82,8 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                fragments="@{viewModel.tabFragments}"
-                fragment_adapter="@{fragmentAdapter}"
+                viewPager_fragments="@{state.tabFragments}"
+                viewPager_adapter="@{fragmentAdapter}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,8 +4,8 @@
 
     <data>
         <variable
-                name="info"
-                type="com.cdtde.chongdetang.entity.News" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.info.InfoDetailActivity.States" />
     </data>
 
     <LinearLayout
@@ -29,7 +29,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{info.title}"
+                        android:text="@{state.info.title}"
                         style="@style/CommonToolbarTitleStyle"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/web_page"
-                web_url="@{info.url}"/>
+                web_url="@{state.info.url}"/>
 
     </LinearLayout>
 </layout>

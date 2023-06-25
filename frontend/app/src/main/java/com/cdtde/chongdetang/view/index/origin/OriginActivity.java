@@ -1,57 +1,56 @@
 package com.cdtde.chongdetang.view.index.origin;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityOriginBinding;
-import com.cdtde.chongdetang.util.WindowUtil;
-import com.cdtde.chongdetang.viewModel.index.OriginViewModel;
+import com.cdtde.chongdetang.utils.WindowUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 
-public class OriginActivity extends AppCompatActivity {
+public class OriginActivity extends BaseActivity<ActivityOriginBinding> {
 
-    private ActivityOriginBinding binding;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
 
-    private OriginViewModel vm;
+    public static class States extends StateHolder {
+        public final List<Fragment> fragments = Arrays.asList(
+                OriginFragment.newInstance(0),
+                OriginFragment.newInstance(1),
+                OriginFragment.newInstance(2)
+        );
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_origin);
-        binding.setLifecycleOwner(this);
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.activity_origin)
+                .add(BR.state, states)
+                .add(BR.adapter, new FragmentAdapter(this));
+    }
 
-        vm = new ViewModelProvider(this).get(OriginViewModel.class);
-
-        binding.setFragmentAdapter(new FragmentAdapter(this));
-        binding.setViewModel(vm);
-
-        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-
+    @Override
+    protected void initUIComponent(@NonNull ActivityOriginBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
-
-    }
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, OriginActivity.class);
-        context.startActivity(intent);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

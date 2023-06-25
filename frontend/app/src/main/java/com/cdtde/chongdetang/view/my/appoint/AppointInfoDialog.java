@@ -1,14 +1,17 @@
 package com.cdtde.chongdetang.view.my.appoint;
 
 import android.content.Context;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
-import com.cdtde.chongdetang.databinding.DialogAppointInfoBinding;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.DialogBinder;
+import com.cdtde.chongdetang.base.vm.DialogScope;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.entity.Appointment;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.lxj.xpopup.core.CenterPopupView;
 
 /**
@@ -20,7 +23,15 @@ import com.lxj.xpopup.core.CenterPopupView;
  */
 public class AppointInfoDialog extends CenterPopupView {
 
-    private DialogAppointInfoBinding binding;
+
+    private UserAppointActivity.Messenger messenger =
+            DialogScope.getFromActivity(this, UserAppointActivity.Messenger.class);
+
+    private States states = DialogScope.getFromActivity(this, States.class);
+
+    public static class States extends StateHolder {
+        public State<Appointment> appointment = new State<>(new Appointment());
+    }
 
     public AppointInfoDialog(@NonNull Context context) {
         super(context);
@@ -34,11 +45,7 @@ public class AppointInfoDialog extends CenterPopupView {
     @Override
     protected void onCreate() {
         super.onCreate();
-        View view = getPopupImplView();
-        view.setTag("layout/dialog_appoint_info_0");
-        binding = DialogAppointInfoBinding.bind(view);
-        binding.setLifecycleOwner(this);
-        LiveEventBus.get("UserAppointmentActivity-onItemClick", Appointment.class)
-                .observeSticky(this, binding::setAppointment);
+        messenger.infoEvent.observeSend(this, true, states.appointment::setValue);
+        DialogBinder.bind(this, new BindingConfig().add(BR.state, states));
     }
 }

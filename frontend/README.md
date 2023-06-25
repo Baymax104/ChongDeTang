@@ -277,13 +277,11 @@ public class IndexCollectionAdapter extends BaseAdapter<Collection> {
 将data集合放在ViewModel中，xml布局的data标签中声明viewModel和adapter
 
 ```xml
+
 <data>
-    <variable
-            name="collectionAdapter"
-            type="com.cdtde.chongdetang.util.adapter.IndexCollectionAdapter" />
-    <variable
-            name="viewModel"
-            type="com.cdtde.chongdetang.viewModel.index.IndexViewModel" />
+    <variable name="collectionAdapter"
+            type="com.cdtde.chongdetang.utils.adapter.IndexCollectionAdapter" />
+    <variable name="viewModel" type="com.cdtde.chongdetang.viewModel.index.IndexRequester" />
 </data>
 ```
 
