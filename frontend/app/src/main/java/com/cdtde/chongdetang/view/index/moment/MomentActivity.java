@@ -43,7 +43,7 @@ public class MomentActivity extends BaseActivity<ActivityMomentBinding> {
     public class ListHandler extends ListHandlerFactory {
         public final OnItemClickListener<Moment> onItemClick = (data, view) -> {
             messenger.showEvent.send(data);
-            Starter.actionStart(MomentActivity.this, MomentDetailActivity.class);
+            Starter.actionStart(activity, MomentDetailActivity.class);
         };
 
         @Override

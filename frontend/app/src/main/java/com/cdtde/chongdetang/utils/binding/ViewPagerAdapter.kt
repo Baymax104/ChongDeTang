@@ -33,10 +33,10 @@ object ViewPagerAdapter {
 
     @JvmStatic
     @BindingAdapter("viewPager_onPageChange")
-    fun ViewPager2.registerPageChangeCallback(callback: PageChangeCallback) {
+    fun ViewPager2.registerPageChangeCallback(callback: PageChangeCallback?) {
         registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                callback.onPageChange(position)
+                callback?.onPageChange(position)
             }
         })
     }

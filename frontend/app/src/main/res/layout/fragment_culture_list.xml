@@ -10,12 +10,9 @@
                 type="com.cdtde.chongdetang.adapter.recycler.CultureAdapter" />
 
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.CultureViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.culture.CultureListFragment.States" />
 
-        <variable
-                name="page"
-                type="Integer" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -27,5 +24,5 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             recycler_adapter="@{adapter}"
-            recycler_data="@{viewModel.getCulturePage(page)}" />
+            recycler_data="@{state.cultures}" />
 </layout>

@@ -1,6 +1,7 @@
 package com.cdtde.chongdetang.view.index.appoint;
 
 import android.content.Context;
+import android.text.Editable;
 
 import androidx.annotation.NonNull;
 
@@ -49,13 +50,11 @@ public class AppointDialog extends BottomPopupView {
             Appointment appoint = states.appointment.getValue();
             if (StringUtils.isEmpty(appoint.getSubscriber()) ||
                     StringUtils.isEmpty(appoint.getNumber()) ||
-                    StringUtils.isEmpty(appoint.getPhone()) || appoint.getDate() == null) {
+                    StringUtils.isEmpty(appoint.getPhone()) || appoint.getOrderTime() == null) {
                 ToastUtils.showShort("输入不能为空");
             } else if (!ValidateUtil.validatePhone(appoint.getPhone())) {
                 ToastUtils.showShort("手机号格式错误");
             } else {
-                appoint.setDate(new Date());
-                appoint.setState(Appointment.State.PROCESSING);
                 requester.addAppointment(appoint,
                         a -> {
                             ToastUtils.showShort("预约成功");

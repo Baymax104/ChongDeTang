@@ -38,7 +38,7 @@
                         android:scaleType="centerCrop"
                         android:fitsSystemWindows="true"
                         bind:layout_collapseMode="parallax"
-                        img_res="@drawable/contact_banner"/>
+                        img_res="@{@drawable/contact_banner}"/>
                 <androidx.appcompat.widget.Toolbar
                         android:layout_width="match_parent"
                         android:layout_height="?actionBarSize"

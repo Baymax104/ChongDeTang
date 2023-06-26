@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         };
 
         public OnClickListener register = v ->
-                Starter.actionStart(LoginActivity.this, RegisterActivity.class);
+                Starter.actionStart(activity, RegisterActivity.class);
 
         public void setPhone(Editable s) {
             states.phone.setValue(s.toString());

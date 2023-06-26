@@ -55,7 +55,7 @@ public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
     public class Handler {
         public OnClickListener add = v -> {
             messenger.detailEvent.send(new Address());
-            Starter.actionStart(AddressActivity.this, AddressDetailActivity.class);
+            Starter.actionStart(activity, AddressDetailActivity.class);
         };
     }
 
@@ -63,7 +63,7 @@ public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
 
         public OnItemClickListener<Address> modify = (data, view) -> {
             messenger.detailEvent.send(data);
-            Starter.actionStart(AddressActivity.this, AddressDetailActivity.class);
+            Starter.actionStart(activity, AddressDetailActivity.class);
         };
 
         @Override
@@ -96,29 +96,6 @@ public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
         detailMessenger.updateAllEvent.observeSend(this, value ->
                 requester.updateAllAddress(states.addresses::setValue, ToastUtils::showShort));
 
-
-//        LiveEventBus.get("UserRepository-requestAllAddress", WebException.class)
-//                .observe(this, e -> {
-//                    if (e.isSuccess()) {
-//                        states.addresses.setValue(requester.refreshAllAddress());
-//                    } else {
-//                        ToastUtils.showShort(e.getMessage());
-//                    }
-//                });
-
-//        LiveEventBus.get("AddressDetailActivity-requestUpdateAddress", Boolean.class)
-//                .observe(this, aBoolean -> {
-//                            if (aBoolean) {
-//                                requester.updateAllAddress();
-//                            }
-//                        });
-//
-//        LiveEventBus.get("AddressDetailActivity-requestRemoveAddress", Boolean.class)
-//                        .observe(this, aBoolean -> {
-//                            if (aBoolean) {
-//                                requester.updateAllAddress();
-//                            }
-//                        });
         requester.updateAllAddress(states.addresses::setValue, ToastUtils::showShort);
     }
 

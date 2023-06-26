@@ -15,7 +15,7 @@ import com.cdtde.chongdetang.entity.CheckedShopping;
 public class ShoppingAdapter extends BaseAdapter<CheckedShopping, ItemShoppingProductBinding> {
 
     public ShoppingAdapter() {
-        super(R.layout.item_shop_product);
+        super(R.layout.item_shopping_product);
     }
 
     @Override

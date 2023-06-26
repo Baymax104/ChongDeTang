@@ -45,7 +45,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
         public final OnItemClickListener<Info> onItemClickListener = (data, view) -> {
             messenger.showEvent.send(data);
-            Starter.actionStart(InfoActivity.this, InfoDetailActivity.class);
+            Starter.actionStart(activity, InfoDetailActivity.class);
         };
 
         @Override

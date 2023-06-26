@@ -46,9 +46,9 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
     public class Handler {
         public final OnClickListener shoppingEntry = v -> {
             if (UserStore.isLogin()) {
-                Starter.actionStart(ProductActivity.this, ShoppingActivity.class);
+                Starter.actionStart(activity, ShoppingActivity.class);
             } else {
-                Starter.actionStart(ProductActivity.this, LoginActivity.class);
+                Starter.actionStart(activity, LoginActivity.class);
             }
         };
 
@@ -58,7 +58,7 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
                         o -> ToastUtils.showShort("添加成功"),
                         ToastUtils::showShort);
             } else {
-                Starter.actionStart(ProductActivity.this, LoginActivity.class);
+                Starter.actionStart(activity, LoginActivity.class);
             }
         };
 
@@ -69,7 +69,7 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
                         product -> product.setUserCollect(collected),
                         ToastUtils::showShort);
             } else {
-                Starter.actionStart(ProductActivity.this, LoginActivity.class);
+                Starter.actionStart(activity, LoginActivity.class);
             }
         };
     }

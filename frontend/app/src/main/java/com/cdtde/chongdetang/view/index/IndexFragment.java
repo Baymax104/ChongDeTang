@@ -13,6 +13,7 @@ import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.recycler.IndexCollectionAdapter;
 import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory;
+import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener;
 import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.ViewConfig;
@@ -29,6 +30,7 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.MainActivity;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
+import com.cdtde.chongdetang.view.index.culture.CultureActivity;
 import com.cdtde.chongdetang.view.index.info.InfoActivity;
 import com.cdtde.chongdetang.view.index.info.InfoDetailActivity;
 import com.cdtde.chongdetang.view.index.moment.MomentActivity;
@@ -96,7 +98,7 @@ public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
             } else if (v.getId() == R.id.entry3) {
 //                Starter.actionStart(activity, CoupletActivity.class);
             } else if (v.getId() == R.id.entry4) {
-//                Starter.actionStart(activity, CultureActivity.class);
+                Starter.actionStart(activity, CultureActivity.class);
             } else if (v.getId() == R.id.entry5) {
                 Starter.actionStart(activity, OriginActivity.class);
             } else if (v.getId() == R.id.entry6) {
@@ -113,13 +115,13 @@ public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
         public final OnClickListener collectionEntry = v ->
                 mainMessenger.requestPage.send(1);
 
-        public final OnClickListener showMoment = v -> {
-            momentDetailMessenger.showEvent.send(states.showMoment.getValue());
+        public final OnItemClickListener<Moment> showMoment = (data, view) -> {
+            momentDetailMessenger.showEvent.send(data);
             Starter.actionStart(activity, MomentDetailActivity.class);
         };
 
-        public final OnClickListener showInfo = v -> {
-            infoDetailMessenger.showEvent.send(states.showInfo.getValue());
+        public final OnItemClickListener<Info> showInfo = (data, view) -> {
+            infoDetailMessenger.showEvent.send(data);
             Starter.actionStart(activity, InfoDetailActivity.class);
         };
     }

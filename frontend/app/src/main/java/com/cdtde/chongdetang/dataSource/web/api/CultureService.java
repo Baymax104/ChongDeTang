@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * @Description
@@ -17,6 +18,6 @@ import retrofit2.http.GET;
  */
 public interface CultureService {
 
-    @GET("/api/culture")
-    Single<Result<List<Culture>>> getAllCulture();
+    @GET("/api/culture/{type}")
+    Single<Result<List<Culture>>> getAllCulture(@Path("type") String type);
 }

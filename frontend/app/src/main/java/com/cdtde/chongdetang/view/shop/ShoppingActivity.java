@@ -65,14 +65,17 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
             }
         };
 
-        public final OnClickListener edit = v ->
-                states.editEnabled.setValue(!states.editEnabled.getValue());
+        public final OnClickListener edit = v -> {
+            states.editEnabled.setValue(!states.editEnabled.getValue());
+            states.checkedShoppings.getValue()
+                    .forEach(item -> item.setEditEnabled(states.editEnabled.getValue()));
+        };
     }
 
     public class ListHandler extends ListHandlerFactory {
         public final OnItemClickListener<CheckedShopping> itemClick = (data, view) -> {
             messenger.showEvent.send(data.getShopping().getProduct());
-            Starter.actionStart(ShoppingActivity.this, ProductActivity.class);
+            Starter.actionStart(activity, ProductActivity.class);
         };
 
         public final OnItemClickListener<CheckedShopping> subtract = (data, view) -> {

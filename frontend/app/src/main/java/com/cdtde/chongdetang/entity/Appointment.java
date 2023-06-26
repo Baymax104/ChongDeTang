@@ -21,8 +21,7 @@ public class Appointment extends BaseObservable implements Serializable {
     @JsonAdapter(DateFormatSerializer.class)
     private Date orderTime;
     private Double orderMoney;
-
-    private State state;
+    private String status;
 
     public Appointment() {
     }
@@ -105,17 +104,13 @@ public class Appointment extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public State getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
         notifyPropertyChanged(BR.state);
     }
 
-
-    public enum State {
-        SUCCESS, PROCESSING, FAIL
-    }
 }

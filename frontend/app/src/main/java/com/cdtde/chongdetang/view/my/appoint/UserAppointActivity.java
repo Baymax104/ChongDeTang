@@ -51,7 +51,7 @@ public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding
     public class ListHandler extends ListHandlerFactory {
         public OnItemClickListener<Appointment> detail = (data, view) -> {
             messenger.infoEvent.send(data);
-            DialogUtil.create(UserAppointActivity.this, AppointInfoDialog.class).show();
+            DialogUtil.create(activity, AppointInfoDialog.class).show();
         };
 
         @Override
@@ -79,15 +79,6 @@ public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        LiveEventBus.get("UserRepository-requestAllAppointment", WebException.class)
-//                .observe(this, e -> {
-//                    if (e.isSuccess()) {
-//                        states.appointments.setValue(appointRequester.refreshAllAppointment());
-//                    } else {
-//                        ToastUtils.showShort(e.getMessage());
-//                    }
-//                });
-
         appointRequester.updateAllAppointment(states.appointments::setValue, ToastUtils::showShort);
     }
 

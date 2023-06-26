@@ -49,7 +49,7 @@ public class UserRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
-                        Single.just(res.getData()) :
+                        Single.just(new Object()) :
                         Single.error(new Exception(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
@@ -134,7 +134,7 @@ public class UserRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
-                        Single.just(res.getData()) :
+                        Single.just(new Object()) :
                         Single.error(new Exception(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)

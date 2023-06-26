@@ -28,6 +28,8 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 
     private ActivityViewModelScope viewModelScope;
 
+    protected AppCompatActivity activity;
+
     protected abstract ViewConfig configBinding();
 
     protected abstract void initUIComponent(@NonNull B binding);
@@ -40,6 +42,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
 
         viewModelScope = new ActivityViewModelScope(this);
         Injector.inject(this, viewModelScope);

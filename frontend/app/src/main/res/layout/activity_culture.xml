@@ -7,7 +7,7 @@
 
         <variable
                 name="state"
-                type="com.cdtde.chongdetang.viewModel.index.CultureViewModel" />
+                type="com.cdtde.chongdetang.view.index.culture.CultureActivity.States" />
 
         <variable
                 name="fragmentAdapter"
@@ -82,7 +82,7 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                viewPager_fragments="@{state.tabFragments}"
+                viewPager_fragments="@{state.fragments}"
                 viewPager_adapter="@{fragmentAdapter}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

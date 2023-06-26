@@ -100,17 +100,17 @@ public class UserInfoActivity extends BaseActivity<ActivityUserInfoBinding> {
     public class Handler {
         public OnClickListener iconEntry = v -> {
             messenger.userEvent.send(states.user.getValue());
-            DialogUtil.create(UserInfoActivity.this, PhotoDialog.class, null).show();
+            DialogUtil.create(activity, PhotoDialog.class, null).show();
         };
         public OnClickListener nameEntry = v -> {
             messenger.userEvent.send(states.user.getValue());
-            Starter.actionStart(UserInfoActivity.this, UsernameActivity.class);
+            Starter.actionStart(activity, UsernameActivity.class);
         };
         public OnClickListener birthEntry = v ->
-                DialogUtil.createTimePicker(UserInfoActivity.this, states.user.getValue()::setBirthday).show();
+                DialogUtil.createTimePicker(activity, states.user.getValue()::setBirthday).show();
         public OnClickListener genderEntry = v -> {
             messenger.userEvent.send(states.user.getValue());
-            DialogUtil.create(UserInfoActivity.this, GenderDialog.class, null).show();
+            DialogUtil.create(activity, GenderDialog.class, null).show();
         };
 
         public OnClickListener confirm = v ->

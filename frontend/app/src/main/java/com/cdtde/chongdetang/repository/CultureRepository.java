@@ -35,8 +35,8 @@ public class CultureRepository {
         return instance;
     }
 
-    public void requestAllCulture(ReqCallback<List<Culture>> callback) {
-        service.getAllCulture()
+    public void requestAllCulture(String type, ReqCallback<List<Culture>> callback) {
+        service.getAllCulture(type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())

@@ -168,7 +168,7 @@
                         layout="@layout/item_moment"
                         android:id="@+id/first_moment"
                         bind:moment="@{state.showMoment}"
-                        android:onClick="@{handler.showMoment}"/>
+                        bind:itemClick="@{handler.showMoment}"/>
 
                 <View
                         android:layout_width="match_parent"
@@ -185,7 +185,7 @@
                         layout="@layout/item_info"
                         android:id="@+id/first_info"
                         bind:info="@{state.showInfo}"
-                        android:onClick="@{handler.showInfo}"/>
+                        bind:itemClick="@{handler.showInfo}"/>
 
             </LinearLayout>
 

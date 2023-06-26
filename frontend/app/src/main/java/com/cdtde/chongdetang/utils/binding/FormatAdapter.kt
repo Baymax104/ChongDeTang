@@ -2,7 +2,6 @@ package com.cdtde.chongdetang.utils.binding
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.cdtde.chongdetang.entity.Appointment
 import com.cdtde.chongdetang.utils.DateFormatter
 import java.util.*
 
@@ -41,11 +40,12 @@ object FormatAdapter {
 
     @JvmStatic
     @BindingAdapter("text_appoint_state")
-    fun TextView.appointState(state: Appointment.State) {
+    fun TextView.appointState(state: String?) {
         text = when (state) {
-            Appointment.State.SUCCESS -> "预约成功"
-            Appointment.State.PROCESSING -> "预约中"
-            Appointment.State.FAIL -> "预约失败"
+            "SUCCESS" -> "预约成功"
+            "PROCESSING" -> "预约中"
+            "FAIL" -> "预约失败"
+            else -> ""
         }
     }
 }

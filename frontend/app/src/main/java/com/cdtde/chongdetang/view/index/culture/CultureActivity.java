@@ -1,75 +1,56 @@
 package com.cdtde.chongdetang.view.index.culture;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.Fragment;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
 import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCultureBinding;
 import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.utils.DialogUtil;
-import com.cdtde.chongdetang.viewModel.index.CultureViewModel;
+import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.viewModel.index.CultureRequester;
 import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.LoadingPopupView;
+
+import java.util.Arrays;
+import java.util.List;
 
 
-public class CultureActivity extends AppCompatActivity {
+public class CultureActivity extends BaseActivity<ActivityCultureBinding> {
 
-    private ActivityCultureBinding binding;
-    private CultureViewModel vm;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
 
-    private LoadingPopupView loading;
+    public static class States extends StateHolder {
+        public final List<Fragment> fragments = Arrays.asList(
+                CultureListFragment.newInstance(0),
+                CultureListFragment.newInstance(1),
+                CultureListFragment.newInstance(2),
+                CultureListFragment.newInstance(3)
+        );
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_culture);
-        vm = new ViewModelProvider(this).get(CultureViewModel.class);
-//        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-        binding.setLifecycleOwner(this);
+    protected ViewConfig configBinding() {
+        return new ViewConfig(R.layout.activity_culture)
+                .add(BR.state, states)
+                .add(BR.fragmentAdapter, new FragmentAdapter(this));
+    }
 
-//        binding.setViewModel(vm);
-        binding.setFragmentAdapter(new FragmentAdapter(this));
-
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
-                .dismissOnTouchOutside(false)).show();
-
+    @Override
+    protected void initUIComponent(@NonNull ActivityCultureBinding binding) {
+        WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
         binding.viewPager.setOffscreenPageLimit(2);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
-
-        LiveEventBus.get("IndexRepository-requestAllCulture", WebException.class)
-                .observe(this, e -> {
-                    loading.smartDismiss();
-                    if (e.isSuccess()) {
-                        vm.refreshAllCulture();
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
-
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, CultureActivity.class);
-        context.startActivity(intent);
     }
 
 }

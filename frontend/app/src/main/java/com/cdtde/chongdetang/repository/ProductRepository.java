@@ -105,7 +105,7 @@ public class ProductRepository {
                 .doOnSubscribe(d -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
-                        Single.just(res.getData()) :
+                        Single.just(new Object()) :
                         Single.error(new Exception(res.getMessage())))
                 .subscribe(callback.onSuccess,
                         throwable -> callback.onFail.accept(throwable.getMessage()));

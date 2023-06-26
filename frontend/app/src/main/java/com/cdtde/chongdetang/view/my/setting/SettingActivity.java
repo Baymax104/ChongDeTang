@@ -32,16 +32,16 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         public OnClickListener entry = v -> {
             if (UserStore.isLogin()) {
                 if (v.getId() == R.id.data_entry) {
-                    Starter.actionStart(SettingActivity.this, UserInfoActivity.class);
+                    Starter.actionStart(activity, UserInfoActivity.class);
                 } else if (v.getId() == R.id.password_entry) {
-                    Starter.actionStart(SettingActivity.this, UserPasswordActivity.class);
+                    Starter.actionStart(activity, UserPasswordActivity.class);
                 } else if (v.getId() == R.id.phone_entry) {
-                    Starter.actionStart(SettingActivity.this, UserPhoneActivity.class);
+                    Starter.actionStart(activity, UserPhoneActivity.class);
                 } else if (v.getId() == R.id.logout) {
-                    DialogUtil.create(SettingActivity.this, LogoutDialog.class).show();
+                    DialogUtil.create(activity, LogoutDialog.class).show();
                 }
             } else {
-                Starter.actionStart(SettingActivity.this, LoginActivity.class);
+                Starter.actionStart(activity, LoginActivity.class);
             }
         };
 

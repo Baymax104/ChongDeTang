@@ -7,12 +7,17 @@
         <variable
                 name="culture"
                 type="com.cdtde.chongdetang.entity.Culture" />
+
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:onClick="@{v->itemClick.onClick(culture, v)}">
 
         <LinearLayout
                 android:layout_width="match_parent"

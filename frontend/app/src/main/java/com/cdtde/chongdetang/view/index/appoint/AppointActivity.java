@@ -20,9 +20,9 @@ public class AppointActivity extends BaseActivity<ActivityAppointBinding> {
     public class Handler {
         public final OnClickListener appointClick = v -> {
             if (UserStore.isLogin()) {
-                DialogUtil.create(AppointActivity.this, AppointDialog.class).show();
+                DialogUtil.create(activity, AppointDialog.class).show();
             } else {
-                Starter.actionStart(AppointActivity.this, LoginActivity.class);
+                Starter.actionStart(activity, LoginActivity.class);
             }
         };
     }

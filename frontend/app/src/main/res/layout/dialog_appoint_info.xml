@@ -7,7 +7,6 @@
         <variable
                 name="state"
                 type="com.cdtde.chongdetang.view.my.appoint.AppointInfoDialog.States" />
-        <import type="com.cdtde.chongdetang.entity.Appointment.State"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -47,9 +46,9 @@
                             android:layout_alignParentEnd="true"
                             android:gravity="center"
                             android:id="@+id/appoint_state"
-                            text_appoint_state="@{state.appointment.state}"
+                            text_appoint_state="@{state.appointment.status}"
                             android:textStyle="bold"
-                            android:textColor="@{state.appointment.state==State.FAIL ? @color/black : @color/main_color}"
+                            android:textColor="@{state.appointment.status==`FAIL` ? @color/black : @color/main_color}"
                             android:fontFamily="@font/text_regular"/>
                 </RelativeLayout>
 

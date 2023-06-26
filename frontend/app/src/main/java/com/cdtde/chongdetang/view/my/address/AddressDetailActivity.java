@@ -1,10 +1,12 @@
 package com.cdtde.chongdetang.view.my.address;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
@@ -51,24 +53,35 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
     public class Handler {
         public OnClickListener selectAddress = v ->
                 DialogUtil.createAddressPicker(
-                        AddressDetailActivity.this,
+                        activity,
                         (province, city, county) -> {
                             states.address.getValue().setProvince(province.getName());
                             states.address.getValue().setCity(city.getName());
                         }
-                );
+                ).show();
 
         public OnClickListener delete = v ->
-                DialogUtil.create(AddressDetailActivity.this, DeleteDialog.class).show();
+                DialogUtil.create(activity, DeleteDialog.class).show();
 
-        public OnClickListener save = v -> requester.updateAddress(
-                states.address.getValue(),
-                address -> {
-                    messenger.updateAllEvent.send(Unit.INSTANCE);
-                    finish();
-                },
-                ToastUtils::showShort
-        );
+        public OnClickListener save = v -> {
+            Address address = states.address.getValue();
+            if (StringUtils.isEmpty(address.getConsignee()) ||
+                    StringUtils.isEmpty(address.getPhone()) ||
+                    StringUtils.isEmpty(address.getProvince()) ||
+                    StringUtils.isEmpty(address.getCity()) ||
+                    StringUtils.isEmpty(address.getDetail())) {
+                ToastUtils.showShort("地址未填写完整");
+            } else {
+                requester.updateAddress(
+                        states.address.getValue(),
+                        a -> {
+                            messenger.updateAllEvent.send(Unit.INSTANCE);
+                            finish();
+                        },
+                        ToastUtils::showShort
+                );
+            }
+        };
     }
 
     @Override
@@ -99,28 +112,6 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
                 },
                 ToastUtils::showShort
         ));
-
-
-//        LiveEventBus.get("UserRepository-requestUpdateAddress", WebException.class)
-//                .observe(this, e -> {
-//                    if (e.isSuccess()) {
-//                        LiveEventBus.get("AddressDetailActivity-requestUpdateAddress", Boolean.class).post(true);
-//                        finish();
-//                    } else {
-//                        ToastUtils.showShort(e.getMessage());
-//                    }
-//                });
-
-
-//        LiveEventBus.get("UserRepository-requestRemoveAddress", WebException.class)
-//                .observe(this, e -> {
-//                    if (e.isSuccess()) {
-//                        LiveEventBus.get("AddressDetailActivity-requestRemoveAddress", Boolean.class).post(true);
-//                        finish();
-//                    } else {
-//                        ToastUtils.showShort(e.getMessage());
-//                    }
-//                });
 
     }
 }

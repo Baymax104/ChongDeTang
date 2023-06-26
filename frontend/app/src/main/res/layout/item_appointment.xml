@@ -7,7 +7,6 @@
         <variable
                 name="appointment"
                 type="com.cdtde.chongdetang.entity.Appointment" />
-        <import type="com.cdtde.chongdetang.entity.Appointment.State"/>
         <variable
                 name="detail"
                 type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
@@ -54,9 +53,9 @@
                             android:layout_alignParentEnd="true"
                             android:id="@+id/appoint_state"
                             android:gravity="center"
-                            text_appoint_state="@{appointment.state}"
+                            text_appoint_state="@{appointment.status}"
                             android:textStyle="bold"
-                            android:textColor="@{appointment.state==State.FAIL ? @color/black : @color/main_color}"
+                            android:textColor="@{appointment.status==`FAIL` ? @color/black : @color/main_color}"
                             android:fontFamily="@font/text_regular"/>
                 </RelativeLayout>
 
