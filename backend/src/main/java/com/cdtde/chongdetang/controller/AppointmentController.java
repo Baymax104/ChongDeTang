@@ -6,6 +6,7 @@ import com.cdtde.chongdetang.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class AppointmentController {
 
     @PostMapping
     public Result<Object> addAppointment(@RequestBody Appointment appointment) {
+        appointment.setDate(new Date()).setStatus("PROCESSING");
         return appointmentService.addAppointment(appointment);
     }
 

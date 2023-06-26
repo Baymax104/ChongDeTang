@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cdtde.chongdetang.mapper.CulturalMapper;
 import com.cdtde.chongdetang.pojo.Culture;
 import com.cdtde.chongdetang.pojo.Result;
@@ -17,11 +18,11 @@ public class CultureServiceImpl implements CultureService {
     private CulturalMapper culturalMapper;
 
     @Override
-    public Result<List<Culture>> download() {
-        List<Culture> cultureList = culturalMapper.selectList(null);
-        Result<List<Culture>> result = new Result<>();
-        result.setStatus("success").setData(cultureList);
-        return result;
+    public Result<List<Culture>> download(String type) {
+        QueryWrapper<Culture> query = new QueryWrapper<>();
+        query.eq("type", type);
+        List<Culture> cultureList = culturalMapper.selectList(query);
+        return new Result<>("success", null, cultureList);
     }
 
     @Override

@@ -17,9 +17,9 @@ public class CultureController {
     @Autowired
     private CultureService cultureService;
 
-    @GetMapping
-    public Result<List<Culture>> download() {
-        return cultureService.download();
+    @GetMapping("/{type}")
+    public Result<List<Culture>> download(@PathVariable("type") String type) {
+        return cultureService.download(type);
     }
 
     @PostMapping("/{type}")
