@@ -1,12 +1,9 @@
 package com.cdtde.chongdetang.view.index.couplet;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.library.baseAdapters.BR;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
@@ -16,24 +13,17 @@ import com.cdtde.chongdetang.base.view.BaseAdapter;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
-import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
 import com.cdtde.chongdetang.entity.Couplet;
-import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.viewModel.index.CoupletRequester;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.impl.LoadingPopupView;
 
-import java.io.PipedReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.functions.Consumer;
 
 public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
 
@@ -46,11 +36,9 @@ public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
 
     public static class States extends StateHolder{
         public final State<List<Couplet>> couplets = new State<>(new ArrayList<>());
-
     }
     public class ListHandler extends BaseAdapter.ListHandlerFactory{
         public final OnItemClickListener<Couplet> onItemClickListener = (data, view) -> {
-            // TODO
             messenger.showEvent.send(data);
             Starter.actionStart(activity, CoupletDetailActivity.class);
         };
@@ -66,12 +54,12 @@ public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
         adapter.setFactory(new ListHandler());
         return new ViewConfig(R.layout.activity_couplet)
                 .add(BR.adapter, adapter)
-                .add(BR.status,states);
+                .add(BR.state, states);
     }
 
     @Override
     protected void initUIComponent(@NonNull ActivityCoupletBinding binding) {
-        WindowUtil.initActivityWindow(this,binding.toolbar,binding.toolbar);
+        WindowUtil.initActivityWindow(this, binding.toolbar);
     }
 
     @Override

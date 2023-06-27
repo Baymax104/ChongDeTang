@@ -8,7 +8,7 @@
                 name="adapter"
                 type="com.cdtde.chongdetang.adapter.recycler.CoupletAdapter" />
         <variable
-                name="states"
+                name="state"
                 type="com.cdtde.chongdetang.view.index.couplet.CoupletActivity.States" />
     </data>
 
@@ -61,8 +61,7 @@
                 android:orientation="vertical"
                 tools:listitem="@layout/item_couplet"
                 recycler_adapter="@{adapter}"
-                recycler_data="@{states.couplets}"
-                />
+                recycler_data="@{state.couplets}" />
 
 
 
