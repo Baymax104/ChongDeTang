@@ -4,8 +4,8 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.viewModel.index.CoupletDetailViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.couplet.CoupletDetailActivity.States" />
     </data>
 
     <LinearLayout
@@ -28,7 +28,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.couplet != null ? viewModel.couplet.title : ``}"
+                        android:text="@{state.data.title}"
                         style="@style/CommonToolbarTitleStyle"
                         android:maxLines="1"
                         android:ellipsize="end"/>
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/web_page"
-                web_url="@{viewModel.couplet != null ? viewModel.couplet.url : null}" />
+                web_url="@{state.data.url}" />
 
     </LinearLayout>
 </layout>

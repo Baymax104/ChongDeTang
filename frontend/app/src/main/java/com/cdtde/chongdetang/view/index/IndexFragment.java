@@ -30,6 +30,7 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.MainActivity;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
+import com.cdtde.chongdetang.view.index.couplet.CoupletActivity;
 import com.cdtde.chongdetang.view.index.culture.CultureActivity;
 import com.cdtde.chongdetang.view.index.info.InfoActivity;
 import com.cdtde.chongdetang.view.index.info.InfoDetailActivity;
@@ -96,7 +97,7 @@ public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
             } else if (v.getId() == R.id.entry2) {
                 Starter.actionStart(activity, AppointActivity.class);
             } else if (v.getId() == R.id.entry3) {
-//                Starter.actionStart(activity, CoupletActivity.class);
+                Starter.actionStart(activity, CoupletActivity.class);
             } else if (v.getId() == R.id.entry4) {
                 Starter.actionStart(activity, CultureActivity.class);
             } else if (v.getId() == R.id.entry5) {

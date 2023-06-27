@@ -6,12 +6,16 @@
         <variable
                 name="couplet"
                 type="com.cdtde.chongdetang.entity.Couplet" />
+        <variable
+            name="itemClick"
+            type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{v->itemClick.onClick(couplet, v)}">
 
         <LinearLayout
                 android:layout_width="match_parent"

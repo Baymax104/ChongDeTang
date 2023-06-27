@@ -1,82 +1,113 @@
 package com.cdtde.chongdetang.view.index.couplet;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.recycler.CoupletAdapter;
+import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.BaseAdapter;
+import com.cdtde.chongdetang.base.view.BindingConfig;
+import com.cdtde.chongdetang.base.view.ViewConfig;
+import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.base.vm.Scopes;
+import com.cdtde.chongdetang.base.vm.State;
+import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
+import com.cdtde.chongdetang.entity.Couplet;
 import com.cdtde.chongdetang.exception.WebException;
-import com.cdtde.chongdetang.utils.DialogUtil;
-import com.cdtde.chongdetang.viewModel.index.CoupletViewModel;
+import com.cdtde.chongdetang.utils.Starter;
+import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.viewModel.index.CoupletRequester;
 import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
 
-public class CoupletActivity extends AppCompatActivity {
+import java.io.PipedReader;
+import java.util.ArrayList;
+import java.util.List;
 
-    private ActivityCoupletBinding binding;
+import io.reactivex.functions.Consumer;
 
-    private CoupletViewModel vm;
+public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
 
-    private LoadingPopupView loading;
+    @InjectScope(Scopes.APPLICATION)
+    private CoupletRequester requester;
+    @InjectScope(Scopes.ACTIVITY)
+    private States states;
+    @InjectScope(Scopes.APPLICATION)
+    private CoupletDetailActivity.Messenger messenger;
+
+    public static class States extends StateHolder{
+        public final State<List<Couplet>> couplets = new State<>(new ArrayList<>());
+
+    }
+    public class ListHandler extends BaseAdapter.ListHandlerFactory{
+        public final OnItemClickListener<Couplet> onItemClickListener = (data, view) -> {
+            // TODO
+            messenger.showEvent.send(data);
+            Starter.actionStart(activity, CoupletDetailActivity.class);
+        };
+
+        @Override
+        public BindingConfig getBindingConfig() {
+            return new BindingConfig().add(BR.itemClick, onItemClickListener);
+        }
+    }
+    @Override
+    protected ViewConfig configBinding() {
+        CoupletAdapter adapter = new CoupletAdapter();
+        adapter.setFactory(new ListHandler());
+        return new ViewConfig(R.layout.activity_couplet)
+                .add(BR.adapter, adapter)
+                .add(BR.status,states);
+    }
+
+    @Override
+    protected void initUIComponent(@NonNull ActivityCoupletBinding binding) {
+        WindowUtil.initActivityWindow(this,binding.toolbar,binding.toolbar);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_couplet);
-        binding.setLifecycleOwner(this);
-//        WindowUtil.initActivityWindow(binding.toolbar, this, true, false);
+        // 网络请求-方法回调
+        requester.updateAllCouplet(states.couplets::setValue, ToastUtils::showShort);
+        // 请求结果监听
+        //        LiveEventBus.get("IndexRepository-requestNews-mryl", WebException.class)
+//                .observe(this, e -> {
+//                    loading.smartDismiss();
+//                    if (e.isSuccess()) {
+//                        vm.refreshAllCouplet();
+//                    } else {
+//                        ToastUtils.showShort(e.getMessage());
+//                    }
+//                });
 
-        Glide.with(this)
-                .asBitmap()
-                .load(R.drawable.couplet_banner)
-                .placeholder(R.drawable.loading)
-                .into(binding.banner);
+//        Glide.with(this)
+//                .asBitmap()
+//                .load(R.drawable.couplet_banner)
+//                .placeholder(R.drawable.loading)
+//                .into(binding.banner);
 
-        vm = new ViewModelProvider(this).get(CoupletViewModel.class);
+
 //        binding.setViewModel(vm);
 
-        CoupletAdapter adapter = new CoupletAdapter();
+
 //        adapter.setOnItemClickListener(data ->
 //                CoupletDetailActivity.actionStart(this, data)
 //        );
 //        binding.setAdapter(adapter);
 
-        loading = (LoadingPopupView) DialogUtil.create(this, LoadingPopupView.class, new XPopup.Builder(this)
-                .dismissOnTouchOutside(false)).show();
 
-        LiveEventBus.get("IndexRepository-requestNews-mryl", WebException.class)
-                .observe(this, e -> {
-                    loading.smartDismiss();
-                    if (e.isSuccess()) {
-                        vm.refreshAllCouplet();
-                    } else {
-                        ToastUtils.showShort(e.getMessage());
-                    }
-                });
+
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
-
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, CoupletActivity.class);
-        context.startActivity(intent);
-    }
 }
