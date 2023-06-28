@@ -15,7 +15,7 @@ import com.cdtde.chongdetang.entity.Info;
 public class InfosAdapter extends BaseAdapter<Info, ItemInfoBinding> {
 
     public InfosAdapter() {
-        super(R.layout.item_moment);
+        super(R.layout.item_info);
     }
 
     @Override

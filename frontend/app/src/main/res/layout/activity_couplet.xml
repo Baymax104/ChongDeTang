@@ -61,7 +61,8 @@
                 android:orientation="vertical"
                 tools:listitem="@layout/item_couplet"
                 recycler_adapter="@{adapter}"
-                recycler_data="@{state.couplets}" />
+                recycler_data="@{state.couplets}"
+                />
 
 
 
