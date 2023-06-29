@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.cdtde.chongdetang.view.exhibit.ExhibitFragment;
 import com.cdtde.chongdetang.view.index.IndexFragment;
 import com.cdtde.chongdetang.view.my.MyFragment;
 import com.cdtde.chongdetang.view.shop.ShopFragment;
+import com.drake.statusbar.StatusBarKt;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,7 +85,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void initUIComponent(@NonNull ActivityMainBinding binding) {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        StatusBarKt.immersive(this, Color.parseColor("#f5f5f5"), true);
         binding.viewPager.setUserInputEnabled(false);
         binding.viewPager.setOffscreenPageLimit(3);
     }

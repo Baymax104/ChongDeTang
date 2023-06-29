@@ -120,7 +120,6 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     @Override
     protected void initUIComponent(@NonNull FragmentMyBinding binding) {
         binding.toolbar.inflateMenu(R.menu.my_toolbar);
-        WindowUtil.initWindowPadding(binding.toolbarLayout);
     }
 
 }

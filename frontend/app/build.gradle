@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id "org.jetbrains.dokka"
 }
 
 apply plugin: 'android-aspectjx'
@@ -47,17 +48,18 @@ android {
         }
     }
 
-    viewBinding {
-        enabled = true
-    }
-    dataBinding {
-        enabled = true
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    kapt {
-        correctErrorTypes true
+    viewBinding { enabled = true }
+    dataBinding { enabled = true }
+    kotlinOptions { jvmTarget = '1.8' }
+    kapt { correctErrorTypes true }
+    dokkaHtml {
+        dokkaSourceSets {
+            configureEach {
+                noStdlibLink.set(false)
+                noJdkLink.set(false)
+                noAndroidSdkLink.set(false)
+            }
+        }
     }
 }
 

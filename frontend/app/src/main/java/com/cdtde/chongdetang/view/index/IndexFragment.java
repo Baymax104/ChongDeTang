@@ -154,7 +154,6 @@ public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
     @Override
     protected void initUIComponent(@NonNull FragmentIndexBinding binding) {
         binding.toolbar.inflateMenu(R.menu.index_toolbar);
-        WindowUtil.initWindowPadding(binding.toolbarLayout);
         binding.banner.setIndicator(new CircleIndicator(activity));
     }
 

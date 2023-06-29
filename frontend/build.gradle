@@ -3,6 +3,8 @@ buildscript {
     dependencies {
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
         classpath 'com.github.xuexiangjys.XAOP:xaop-plugin:1.1.0'
+        //noinspection GradleDependency
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.8.10'
     }
 }
 

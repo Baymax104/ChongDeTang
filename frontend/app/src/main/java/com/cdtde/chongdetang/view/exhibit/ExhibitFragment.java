@@ -76,7 +76,6 @@ public class ExhibitFragment extends BaseFragment<FragmentExhibitBinding> {
     @Override
     protected void initUIComponent(@NonNull FragmentExhibitBinding binding) {
         binding.toolbar.inflateMenu(R.menu.index_toolbar);
-        WindowUtil.initWindowPadding(binding.toolbarLayout);
         binding.viewPager.setOffscreenPageLimit(3);
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
     }

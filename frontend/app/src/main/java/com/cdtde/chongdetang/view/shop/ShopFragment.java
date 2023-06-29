@@ -129,7 +129,6 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
     @Override
     protected void initUIComponent(@NonNull FragmentShopBinding binding) {
         binding.toolbar.inflateMenu(R.menu.index_toolbar);
-        WindowUtil.initWindowPadding(binding.toolbarLayout);
         binding.banner.setIndicator(new CircleIndicator(getContext()));
     }
 
