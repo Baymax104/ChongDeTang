@@ -62,13 +62,6 @@ public class UserController {
 
     @PostMapping("/update/info")
     public Result<User> updateInfo(@RequestBody User newUser) {
-        // Object接收json对象会转换为Map(LinkedHashMap)，手动转换为User对象
-//        String userJson = new Gson().toJson(map.get("user"));
-//        User user = new Gson().fromJson(userJson, User.class);
-
-        // user中的photo字段已经是新头像的URI路径，只需要将文件上传COS即可
-        // 数据库中保存文件在COS中的ObjectKey
-//        String newPhoto = (String) map.get("newPhoto");
         return userService.updateInfo(newUser);
     }
 

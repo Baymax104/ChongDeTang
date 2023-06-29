@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ImageUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -69,18 +70,17 @@ object ImageAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("img_uri")
-    fun ImageView.imgUri(uri: String) = setImageURI(Uri.parse(uri))
-
-    @JvmStatic
     @BindingAdapter("img_user_photo")
     fun ImageView.userPhoto(photo: String) {
         if (ValidateUtil.validateUri(photo)) {
             setImageURI(Uri.parse(photo))
         } else if (photo.endsWith(".jpg")) {
+            // 对于相同URL的图片，每次都进行下载，保证使用最新的图片
             val path = "${AppKey.COS_URL}/$photo"
             Glide.with(this)
                 .load(path)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(this)
         }
     }

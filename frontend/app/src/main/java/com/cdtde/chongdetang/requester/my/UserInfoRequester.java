@@ -23,7 +23,7 @@ public class UserInfoRequester extends Requester {
             return;
         }
         ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
-        repo.requestUpdateInfo(user, UserStore.getPhoto(), callback);
+        repo.requestUpdateInfo(user, callback);
     }
 
     public void updatePassword(String oldPwd, String newPwd,

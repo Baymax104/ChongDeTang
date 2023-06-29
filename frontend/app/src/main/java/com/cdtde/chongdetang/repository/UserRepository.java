@@ -69,14 +69,7 @@ public class UserRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> {
                     if (res.isSuccess()) {
-                        User user = res.getData();
-                        String base64 = user.getPhoto();
-                        if (base64 != null) {
-                            File file = CameraUtil.base64ToFile(base64);
-                            String uri = Uri.fromFile(file).toString();
-                            user.setPhoto(uri);
-                        }
-                        UserStore.setUser(user);
+                        UserStore.setUser(res.getData());
                         return Single.just(new Object());
                     } else {
                         return Single.error(new Exception(res.getMessage()));
@@ -88,7 +81,7 @@ public class UserRepository {
                         throwable -> callback.onFail.accept(throwable.getMessage()));
     }
 
-    public void requestUpdateInfo(User newUser, String originPhoto, ReqCallback<Object> callback) {
+    public void requestUpdateInfo(User newUser, ReqCallback<Object> callback) {
         String token = WebService.TOKEN_PREFIX + UserStore.getToken();
 
         if (!User.DEFAULT_PHOTO.equals(newUser.getPhoto())) {
@@ -96,14 +89,6 @@ public class UserRepository {
             String base64 = CameraUtil.file2Base64(file);
             newUser.setPhoto(base64);
         }
-
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("user", newUser);
-//        if (newUser.getPhoto() != null && !newUser.getPhoto().equals(originPhoto)) {
-//            File file = UriUtils.uri2File(Uri.parse(newUser.getPhoto()));
-//            String base64 = CameraUtil.file2Base64(file);
-//            map.put("newPhoto", base64);
-//        }
 
         userService.updateInfo(token, newUser)
                 .subscribeOn(Schedulers.io())

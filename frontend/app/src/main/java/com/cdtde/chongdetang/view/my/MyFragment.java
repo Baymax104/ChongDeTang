@@ -65,7 +65,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        messenger.logout.observeSend(this, value -> UserStore.initUser());
+        messenger.logout.observeSend(getViewLifecycleOwner(), value -> UserStore.initUser());
 
 
         UserStore.getUserLoginEvent().observeSend(getViewLifecycleOwner(), value -> {
