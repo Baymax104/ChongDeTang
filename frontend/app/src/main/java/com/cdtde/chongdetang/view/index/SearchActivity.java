@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.databinding.ActivitySearchBinding;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.index.SearchViewModel;
+import com.cdtde.chongdetang.requester.index.SearchViewModel;
 
 public class SearchActivity extends AppCompatActivity {
 

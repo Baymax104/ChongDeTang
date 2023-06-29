@@ -22,7 +22,7 @@ import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
-import com.cdtde.chongdetang.viewModel.shop.ProductRequester;
+import com.cdtde.chongdetang.requester.shop.ProductRequester;
 
 import kotlin.Unit;
 

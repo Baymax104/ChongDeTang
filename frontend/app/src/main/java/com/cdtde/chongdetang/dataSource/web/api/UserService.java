@@ -7,8 +7,11 @@ import java.util.Map;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @Description
@@ -33,9 +36,10 @@ public interface UserService {
     Single<Result<String>> updatePassword(@Header("Authorization") String token,
                                           @Body Map<String, String> map);
 
+    @FormUrlEncoded
     @POST("/api/user/update/phone")
     Single<Result<Object>> updatePhone(@Header("Authorization") String token,
-                                       @Body String phone);
+                                       @Field("phone") String phone);
 
     @POST("/api/user/feedback")
     Single<Result<Object>> addFeedback(@Header("Authorization") String token,

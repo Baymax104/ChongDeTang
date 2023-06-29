@@ -1,7 +1,6 @@
 package com.cdtde.chongdetang.view.my.address;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,7 @@ import com.cdtde.chongdetang.databinding.ActivityAddressDetailBinding;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.AddressRequester;
+import com.cdtde.chongdetang.requester.my.AddressRequester;
 
 import kotlin.Unit;
 

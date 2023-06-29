@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.my;
+package com.cdtde.chongdetang.requester.my;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.cdtde.chongdetang.base.vm.Requester;
@@ -24,5 +24,16 @@ public class UserInfoRequester extends Requester {
         }
         ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
         repo.requestUpdateInfo(user, UserStore.getPhoto(), callback);
+    }
+
+    public void updatePassword(String oldPwd, String newPwd,
+                               Consumer<Object> onSuccess, Consumer<String> onFail) {
+        ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
+        repo.requestUpdatePassword(oldPwd, newPwd, callback);
+    }
+
+    public void updatePhone(String phone, Consumer<Object> onSuccess, Consumer<String> onFail) {
+        ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
+        repo.requestUpdatePhone(phone, callback);
     }
 }

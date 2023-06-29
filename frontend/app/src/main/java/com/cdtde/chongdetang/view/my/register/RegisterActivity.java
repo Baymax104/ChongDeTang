@@ -21,8 +21,8 @@ import com.cdtde.chongdetang.databinding.ActivityRegisterBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
-import com.cdtde.chongdetang.viewModel.my.RegisterRequester;
-import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
+import com.cdtde.chongdetang.requester.my.UserRequester;
+import com.cdtde.chongdetang.requester.my.ValidateUseCase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,7 @@ import kotlin.Unit;
 public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
     @InjectScope(Scopes.ACTIVITY)
-    private RegisterRequester registerRequester;
+    private UserRequester userRequester;
 
     @InjectScope(Scopes.ACTIVITY)
     private ValidateUseCase validateUseCase;
@@ -63,7 +63,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
     @Override
     protected ViewConfig configBinding() {
-        registerRequester.registerObserver(DialogUtil.createNetLoading(this), this);
+        userRequester.registerObserver(DialogUtil.createNetLoading(this), this);
 
         return new ViewConfig(R.layout.activity_register)
                 .add(BR.state, states)
@@ -85,7 +85,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
         validateUseCase.validateEvent.observeReply(this, value -> {
             if (value) {
-                registerRequester.register(o -> {
+                userRequester.register(o -> {
                     ToastUtils.showShort("注册成功！");
                     finish();
                 }, ToastUtils::showShort);

@@ -67,6 +67,7 @@
                     android:singleLine="true"
                     android:autofillHints="no"
                     android:inputType="number"
+                    android:maxLength="4"
                     android:fontFamily="@font/text_regular"
                     android:layout_marginHorizontal="10dp"
                     android:text="@{state.code}"

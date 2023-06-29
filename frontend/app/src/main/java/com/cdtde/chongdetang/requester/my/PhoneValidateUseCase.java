@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.my;
+package com.cdtde.chongdetang.requester.my;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.base.vm.MessageHolder;
@@ -53,7 +53,7 @@ public class PhoneValidateUseCase extends MessageHolder {
 
         // 测试专用，0000为测试码
         // ******************
-        if (code.equals("0000")) {
+        if ("0000".equals(code)) {
             validCode = "0000";
         }
         //********************

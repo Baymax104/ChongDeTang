@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.index;
+package com.cdtde.chongdetang.requester.index;
 
 import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.entity.Couplet;

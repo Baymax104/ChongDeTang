@@ -20,9 +20,9 @@ import com.cdtde.chongdetang.databinding.ActivityUserPasswordBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
-import com.cdtde.chongdetang.viewModel.my.PasswordValidateUseCase;
-import com.cdtde.chongdetang.viewModel.my.UserPasswordRequester;
-import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
+import com.cdtde.chongdetang.requester.my.PasswordValidateUseCase;
+import com.cdtde.chongdetang.requester.my.UserInfoRequester;
+import com.cdtde.chongdetang.requester.my.ValidateUseCase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,7 @@ public class UserPasswordActivity extends BaseActivity<ActivityUserPasswordBindi
     private ValidateUseCase validUseCase;
 
     @InjectScope(Scopes.ACTIVITY)
-    private UserPasswordRequester requester;
+    private UserInfoRequester requester;
 
     public static class States extends StateHolder {
         public State<Integer> page = new State<>(0);
@@ -67,7 +67,8 @@ public class UserPasswordActivity extends BaseActivity<ActivityUserPasswordBindi
         requester.registerObserver(DialogUtil.createNetLoading(this), this);
         return new ViewConfig(R.layout.activity_user_password)
                 .add(BR.state, states)
-                .add(BR.fragmentAdapter, new FragmentAdapter(this));
+                .add(BR.fragmentAdapter, new FragmentAdapter(this))
+                .add(BR.handler, new Handler());
     }
 
     @Override
@@ -96,15 +97,6 @@ public class UserPasswordActivity extends BaseActivity<ActivityUserPasswordBindi
                 ToastUtils.showShort(value);
             }
         });
-
-//        LiveEventBus.get("UserRepository-requestUpdatePassword", WebException.class)
-//                        .observe(this, e -> {
-//                            if (e.isSuccess()) {
-//                                finish();
-//                            } else {
-//                                ToastUtils.showShort(e.getMessage());
-//                            }
-//                        });
 
     }
 }

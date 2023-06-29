@@ -20,13 +20,13 @@ import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.register.RegisterActivity;
-import com.cdtde.chongdetang.viewModel.my.LoginRequester;
+import com.cdtde.chongdetang.requester.my.UserRequester;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
 
     @InjectScope(Scopes.APPLICATION)
-    private LoginRequester loginRequester;
+    private UserRequester loginRequester;
 
     @InjectScope(Scopes.ACTIVITY)
     private States states;

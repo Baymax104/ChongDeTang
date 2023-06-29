@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.shop;
+package com.cdtde.chongdetang.requester.shop;
 
 import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.entity.Product;

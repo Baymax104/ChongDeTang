@@ -1,7 +1,6 @@
 package com.cdtde.chongdetang.view.index.appoint;
 
 import android.content.Context;
-import android.text.Editable;
 
 import androidx.annotation.NonNull;
 
@@ -17,11 +16,9 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.ValidateUtil;
-import com.cdtde.chongdetang.viewModel.my.AppointRequester;
+import com.cdtde.chongdetang.requester.my.AppointRequester;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopupext.popup.TimePickerPopup;
-
-import java.util.Date;
 
 /**
  * @Description

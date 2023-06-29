@@ -26,7 +26,6 @@ import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.Info;
 import com.cdtde.chongdetang.entity.Moment;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.MainActivity;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
 import com.cdtde.chongdetang.view.index.appoint.AppointActivity;
@@ -38,7 +37,7 @@ import com.cdtde.chongdetang.view.index.moment.MomentActivity;
 import com.cdtde.chongdetang.view.index.moment.MomentDetailActivity;
 import com.cdtde.chongdetang.view.index.origin.OriginActivity;
 import com.cdtde.chongdetang.view.index.scenes.ScenesActivity;
-import com.cdtde.chongdetang.viewModel.index.IndexRequester;
+import com.cdtde.chongdetang.requester.index.IndexRequester;
 import com.youth.banner.indicator.CircleIndicator;
 
 import java.util.ArrayList;

@@ -19,8 +19,8 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserPhoneBinding;
 import com.cdtde.chongdetang.repository.UserStore;
-import com.cdtde.chongdetang.viewModel.my.PhoneValidateUseCase;
-import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
+import com.cdtde.chongdetang.requester.my.PhoneValidateUseCase;
+import com.cdtde.chongdetang.requester.my.ValidateUseCase;
 
 /**
  * @Description
@@ -43,7 +43,7 @@ public class UserPhoneFragment extends BaseFragment<FragmentUserPhoneBinding> {
 
     public static class States extends StateHolder {
         public final State<Boolean> enabled = new State<>(true);
-        public final State<String> tip = new State<>("");
+        public final State<String> tip = new State<>("获取验证码");
         public final String originPhone = UserStore.getPhone();
         public final State<String> inputPhone = new State<>("");
         public String finalPhone;
@@ -81,6 +81,9 @@ public class UserPhoneFragment extends BaseFragment<FragmentUserPhoneBinding> {
         phoneValidateUseCase.validateEvent.observeSend(this, value -> {
             phoneValidateUseCase.setCode(states.code.getValue());
             phoneValidateUseCase.setValidCode(validateUseCase.getValidCode());
+            if ("0000".equals(states.code.getValue())) {
+                states.finalPhone = states.inputPhone.getValue();
+            }
             phoneValidateUseCase.setFinalPhone(states.finalPhone);
             phoneValidateUseCase.validateEvent.reply(phoneValidateUseCase.validateCode());
         });

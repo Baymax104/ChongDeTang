@@ -20,7 +20,7 @@ import com.cdtde.chongdetang.databinding.ActivityInfoBinding;
 import com.cdtde.chongdetang.entity.Info;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.index.IndexRequester;
+import com.cdtde.chongdetang.requester.index.IndexRequester;
 
 import java.util.ArrayList;
 import java.util.List;

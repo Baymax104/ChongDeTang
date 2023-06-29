@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.my;
+package com.cdtde.chongdetang.requester.my;
 
 import android.annotation.SuppressLint;
 

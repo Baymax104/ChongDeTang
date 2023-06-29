@@ -1,12 +1,9 @@
 package com.cdtde.chongdetang.view.index.culture;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
-import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
@@ -16,10 +13,7 @@ import com.cdtde.chongdetang.base.vm.InjectScope;
 import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCultureBinding;
-import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.index.CultureRequester;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import java.util.Arrays;
 import java.util.List;

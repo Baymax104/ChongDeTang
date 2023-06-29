@@ -26,7 +26,7 @@ import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
-import com.cdtde.chongdetang.viewModel.exhibit.ExhibitRequester;
+import com.cdtde.chongdetang.requester.exhibit.ExhibitRequester;
 
 import java.util.ArrayList;
 import java.util.List;

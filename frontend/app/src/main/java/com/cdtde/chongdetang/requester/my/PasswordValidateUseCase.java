@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.my;
+package com.cdtde.chongdetang.requester.my;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.base.vm.MessageHolder;

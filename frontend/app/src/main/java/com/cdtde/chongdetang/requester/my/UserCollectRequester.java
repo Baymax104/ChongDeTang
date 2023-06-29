@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.viewModel.my;
+package com.cdtde.chongdetang.requester.my;
 
 import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.entity.Collection;

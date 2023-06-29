@@ -19,12 +19,12 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityFeedbackBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.FeedbackRequester;
+import com.cdtde.chongdetang.requester.my.UserRequester;
 
 public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding> {
 
     @InjectScope(Scopes.ACTIVITY)
-    private FeedbackRequester requester;
+    private UserRequester requester;
 
     @InjectScope(Scopes.ACTIVITY)
     private States states;

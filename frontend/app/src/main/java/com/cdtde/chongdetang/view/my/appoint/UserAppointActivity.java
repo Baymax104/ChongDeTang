@@ -21,7 +21,7 @@ import com.cdtde.chongdetang.databinding.ActivityUserAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.my.AppointRequester;
+import com.cdtde.chongdetang.requester.my.AppointRequester;
 
 import java.util.ArrayList;
 import java.util.List;

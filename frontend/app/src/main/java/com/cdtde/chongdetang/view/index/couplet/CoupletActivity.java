@@ -1,12 +1,9 @@
 package com.cdtde.chongdetang.view.index.couplet;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.library.baseAdapters.BR;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
@@ -16,24 +13,17 @@ import com.cdtde.chongdetang.base.view.BaseAdapter;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
-import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
 import com.cdtde.chongdetang.entity.Couplet;
-import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.viewModel.index.CoupletRequester;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.lxj.xpopup.impl.LoadingPopupView;
+import com.cdtde.chongdetang.requester.index.CoupletRequester;
 
-import java.io.PipedReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.functions.Consumer;
 
 public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
 

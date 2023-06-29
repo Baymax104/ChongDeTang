@@ -19,7 +19,7 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentValidateBinding;
 import com.cdtde.chongdetang.repository.UserStore;
-import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
+import com.cdtde.chongdetang.requester.my.ValidateUseCase;
 
 /**
  * @Description

@@ -20,9 +20,9 @@ import com.cdtde.chongdetang.databinding.ActivityUserPhoneBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
-import com.cdtde.chongdetang.viewModel.my.PhoneValidateUseCase;
-import com.cdtde.chongdetang.viewModel.my.UserPhoneRequester;
-import com.cdtde.chongdetang.viewModel.my.ValidateUseCase;
+import com.cdtde.chongdetang.requester.my.PhoneValidateUseCase;
+import com.cdtde.chongdetang.requester.my.UserInfoRequester;
+import com.cdtde.chongdetang.requester.my.ValidateUseCase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,7 @@ public class UserPhoneActivity extends BaseActivity<ActivityUserPhoneBinding> {
     private ValidateUseCase validateUseCase;
 
     @InjectScope(Scopes.ACTIVITY)
-    private UserPhoneRequester requester;
+    private UserInfoRequester requester;
 
     public static class States extends StateHolder {
         public State<Integer> page = new State<>(0);
@@ -97,15 +97,5 @@ public class UserPhoneActivity extends BaseActivity<ActivityUserPhoneBinding> {
                 ToastUtils.showShort("验证码错误！");
             }
         });
-
-
-//        LiveEventBus.get("UserRepository-requestUpdatePhone", WebException.class)
-//                        .observe(this, e -> {
-//                            if (e.isSuccess()) {
-//                                finish();
-//                            } else {
-//                                ToastUtils.showShort(e.getMessage());
-//                            }
-//                        });
     }
 }
