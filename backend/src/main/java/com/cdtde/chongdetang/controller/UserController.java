@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @PostMapping("/update/phone")
-    public Result<Object> updatePhone(@RequestBody String phone) {
+    public Result<Object> updatePhone(@RequestParam("phone") String phone) {
         return userService.updatePhone(phone);
     }
 

@@ -178,6 +178,12 @@ public class UserServiceImpl implements UserService {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = loginUser.getUser();
 
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("phone", phone);
+        List<User> users = userMapper.selectList(query);
+        if (!users.isEmpty()) {
+            throw new RuntimeException("手机号已存在");
+        }
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
         wrapper.eq("id", user.getId()).set("phone", phone);
         int update = userMapper.update(user, wrapper);
