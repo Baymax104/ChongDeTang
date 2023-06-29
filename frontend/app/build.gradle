@@ -2,11 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id "org.jetbrains.dokka"
+    id 'org.jetbrains.dokka'
+    id 'android-aspectjx'
 }
-
-apply plugin: 'android-aspectjx'
-apply plugin: 'com.xuexiang.xaop'
 
 aspectjx {
     include 'com.cdtde.chongdetang', 'io.reactivex', 'java.lang'
@@ -52,12 +50,33 @@ android {
     dataBinding { enabled = true }
     kotlinOptions { jvmTarget = '1.8' }
     kapt { correctErrorTypes true }
+
     dokkaHtml {
+        moduleName.set('ChongDeTang')
+        outputDirectory.set(new File('./doc', 'html'))
+        suppressInheritedMembers.set(true)
+
         dokkaSourceSets {
             configureEach {
-                noStdlibLink.set(false)
-                noJdkLink.set(false)
-                noAndroidSdkLink.set(false)
+                skipDeprecated.set(true)
+                noStdlibLink.set(true)
+                noJdkLink.set(true)
+                noAndroidSdkLink.set(true)
+            }
+        }
+    }
+
+    dokkaGfm {
+        moduleName.set('ChongDeTang')
+        outputDirectory.set(new File('./doc', 'md'))
+        suppressInheritedMembers.set(true)
+
+        dokkaSourceSets {
+            configureEach {
+                skipDeprecated.set(true)
+                noStdlibLink.set(true)
+                noJdkLink.set(true)
+                noAndroidSdkLink.set(true)
             }
         }
     }

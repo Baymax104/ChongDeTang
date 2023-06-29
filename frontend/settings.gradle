@@ -21,6 +21,10 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
+        mavenCentral()
+        mavenLocal()
+        google()
+        jcenter()
         maven { url 'https://maven.aliyun.com/repository/public/'}
         maven { url 'https://maven.aliyun.com/repository/spring/'}
         maven { url 'https://maven.aliyun.com/repository/central/'}
@@ -30,10 +34,6 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url "https://jitpack.io" }
-        mavenCentral()
-        mavenLocal()
-        google()
-        jcenter()
     }
 }
 rootProject.name = "ChongDeTang"
