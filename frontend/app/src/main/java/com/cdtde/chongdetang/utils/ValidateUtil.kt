@@ -34,6 +34,18 @@ object ValidateUtil {
     }
 
     @JvmStatic
+    fun validateRepeat(password: String?,repeat: String?): Boolean {
+        if (password == null || repeat == null) {
+            return false
+        }
+//        // 判断是否为密码格式
+//        val isPwd = validatePassword(password)
+        // 判断重复密码是否与原密码相等
+        val isEqual = repeat.equals(password)
+        return isEqual
+    }
+
+    @JvmStatic
     fun validateUsername(username: String?): Boolean {
         if (username == null) {
             return false

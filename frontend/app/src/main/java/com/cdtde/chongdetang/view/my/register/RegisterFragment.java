@@ -59,7 +59,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
         public OnClickListener register = v -> {
             boolean isPhoneValid = ValidateUtil.validatePhone(states.phone.getValue());
             boolean isPwdValid = ValidateUtil.validatePassword(states.pwd.getValue());
-            boolean isRepeatValid = ValidateUtil.validatePassword(states.pwd.getValue());
+            boolean isRepeatValid = ValidateUtil.validateRepeat(states.pwd.getValue(),states.repeat.getValue());
             states.isPhoneValid.setValue(isPhoneValid);
             states.isPwdValid.setValue(isPwdValid);
             states.isRepeatValid.setValue(isRepeatValid);

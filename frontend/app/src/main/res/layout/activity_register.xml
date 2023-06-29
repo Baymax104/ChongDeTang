@@ -11,6 +11,9 @@
                 name="fragmentAdapter"
                 type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
         <import type="android.view.View"/>
+        <variable
+            name="handler"
+            type="com.cdtde.chongdetang.view.my.register.RegisterActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -48,7 +51,9 @@
                             android:visibility="@{state.page == 1 ? View.VISIBLE : View.INVISIBLE}"
                             android:text="@string/confirm"
                             android:layout_alignParentEnd="true"
-                            style="@style/ToolbarOptionTextStyle"/>
+                            style="@style/ToolbarOptionTextStyle"
+                            android:onClick="@{handler.confirm}"
+                        />
                 </RelativeLayout>
 
             </androidx.appcompat.widget.Toolbar>

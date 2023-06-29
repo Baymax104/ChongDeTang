@@ -67,7 +67,8 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
         return new ViewConfig(R.layout.activity_register)
                 .add(BR.state, states)
-                .add(BR.fragmentAdapter, new FragmentAdapter(this));
+                .add(BR.fragmentAdapter, new FragmentAdapter(this))
+                .add(BR.handler,new Handler());
     }
 
     @Override
