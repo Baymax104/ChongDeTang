@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Description
@@ -49,22 +49,14 @@ public class ProductServiceImpl implements ProductService {
         int userId = loginUser.getUser().getId();
         List<UserProduct> userProducts = userProductMapper.getUserProduct(userId);
 
-        // 将UserCollect的Product提取出来以id作为key，生成map
-        Map<Integer, Product> collectMap = userProducts.parallelStream()
-                .map(UserProduct::getProduct)
-                .collect(Collectors.toMap(
-                        Product::getId,
-                        product -> product
-                ));
-
-        // 若map中存在，则设置userCollect=true
-        products.forEach(product -> {
-            if (collectMap.get(product.getId()) != null) {
-                product.setUserCollect("1");
-            } else {
-                product.setUserCollect("0");
+        for (UserProduct up : userProducts) {
+            for (Product p : products) {
+                if (ObjectUtils.nullSafeEquals(up.getProduct().getId(), p.getId())) {
+                    p.setUserCollect("1");
+                    break;
+                }
             }
-        });
+        }
 
         return new Result<>("success", null, products);
     }

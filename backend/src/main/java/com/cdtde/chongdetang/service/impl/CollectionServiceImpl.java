@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -44,20 +44,14 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         int userId = loginUser.getUser().getId();
         List<UserCollection> userCollection = userCollectionMapper.getUserCollection(userId);
 
-        Map<Integer, Collection> collectMap = userCollection.parallelStream()
-                .map(UserCollection::getCollection)
-                .collect(Collectors.toMap(
-                        Collection::getId,
-                        collection -> collection
-                ));
-
-        collections.forEach(collection -> {
-            if (collectMap.get(collection.getId()) != null) {
-                collection.setUserCollect("1");
-            } else {
-                collection.setUserCollect("0");
+        for (UserCollection uc : userCollection) {
+            for (Collection c : collections) {
+                if (ObjectUtils.nullSafeEquals(uc.getCollection().getId(), c.getId())) {
+                    c.setUserCollect("1");
+                    break;
+                }
             }
-        });
+        }
 
         return new Result<>("success", null, collections);
     }

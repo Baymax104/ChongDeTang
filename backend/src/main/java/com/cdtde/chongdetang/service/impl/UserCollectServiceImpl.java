@@ -36,11 +36,10 @@ public class UserCollectServiceImpl implements UserCollectService {
 
         List<UserCollection> userCollects = collectionMapper.getUserCollection(userId);
 
-        List<Collection> collections = userCollects.parallelStream()
+        List<Collection> collections = userCollects.stream()
                 .map(UserCollection::getCollection)
                 .collect(Collectors.toList());
-        collections.parallelStream()
-                .forEach(collection -> collection.setUserCollect("1"));
+        collections.forEach(collection -> collection.setUserCollect("1"));
 
         return new Result<>("success", null, collections);
     }
@@ -52,11 +51,11 @@ public class UserCollectServiceImpl implements UserCollectService {
 
         List<UserProduct> userProducts = productMapper.getUserProduct(userId);
 
-        List<Product> products = userProducts.parallelStream()
+        List<Product> products = userProducts.stream()
                 .map(UserProduct::getProduct)
                 .collect(Collectors.toList());
 
-        products.parallelStream().forEach(product -> product.setUserCollect("1"));
+        products.forEach(product -> product.setUserCollect("1"));
 
         return new Result<>("success", null, products);
     }
