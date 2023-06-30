@@ -78,7 +78,7 @@
                             android:layout_marginVertical="7dp"
                             android:background="@drawable/button_bg"
                             android:layout_alignParentEnd="true"
-                            android:text="@string/edit"
+                            android:text="@{state.editEnabled ? @string/exit_edit : @string/edit}"
                             style="@style/ButtonTextStyle"
                             tools:ignore="TouchTargetSizeCheck"
                             android:onClick="@{handler.edit}"/>

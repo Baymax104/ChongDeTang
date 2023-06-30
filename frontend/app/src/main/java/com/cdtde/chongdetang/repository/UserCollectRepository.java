@@ -108,9 +108,9 @@ public class UserCollectRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .flatMap(result -> result.isSuccess() ?
-                        service.getUserCollection(token) :
+                        service.getUserCollection(token)
+                                .subscribeOn(Schedulers.io()):
                         Single.error(new Exception(result.getMessage())))
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
@@ -146,9 +146,9 @@ public class UserCollectRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .flatMap(result -> result.isSuccess() ?
-                        service.getUserProduct(token) :
+                        service.getUserProduct(token)
+                                .subscribeOn(Schedulers.io()):
                         Single.error(new Exception(result.getMessage())))
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(result -> result.isSuccess() ?

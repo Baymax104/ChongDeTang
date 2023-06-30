@@ -119,9 +119,9 @@ public class ProductRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .flatMap(result -> result.isSuccess() ?
-                        productService.getShoppingByUser(token) :
+                        productService.getShoppingByUser(token)
+                                .subscribeOn(Schedulers.io()):
                         Single.error(new Exception(result.getMessage())))
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?

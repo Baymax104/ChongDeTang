@@ -147,7 +147,8 @@
                 android:gravity="center"
                 android:fontFamily="@font/regular"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:onClick="@{v->delete.onClick(checkedShopping, v)}"/>
     </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
 
 </layout>
