@@ -79,7 +79,11 @@ object DialogUtil {
     @JvmStatic
     @Suppress("Unchecked_Cast")
     fun <T : AttachPopupView> createAttachDialog(context: Context, cl: Class<T>, view: View): T {
-        val builder = XPopup.Builder(context).hasBlurBg(false).atView(view)
+        val builder = XPopup.Builder(context)
+            .hasShadowBg(false)
+            .isDestroyOnDismiss(true)
+            .isLightStatusBar(true)
+            .atView(view)
         val constructor = cl.getConstructor(Context::class.java)
         val dialog = constructor.newInstance(context)
         return builder.asCustom(dialog) as T

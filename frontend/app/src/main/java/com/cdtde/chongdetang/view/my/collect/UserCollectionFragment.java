@@ -15,20 +15,22 @@ import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserCollectionBinding;
 import com.cdtde.chongdetang.entity.Collection;
-import com.cdtde.chongdetang.entity.UserCollect;
+import com.cdtde.chongdetang.requester.my.UserCollectRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
-import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
-import com.cdtde.chongdetang.requester.my.UserCollectRequester;
+import com.cdtde.chongdetang.view.exhibit.UserCollectionDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.Unit;
 
 /**
  * @Description
@@ -43,41 +45,34 @@ public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionB
     @InjectScope(Scopes.ACTIVITY)
     private UserCollectRequester requester;
 
-    private ItemCollectDialog dialog;
-
     @InjectScope(Scopes.FRAGMENT)
     private States states;
 
     @InjectScope(Scopes.APPLICATION)
-    private ItemCollectDialog.Messenger messenger;
+    private CollectionActivity.Messenger collectionMessenger;
 
     @InjectScope(Scopes.APPLICATION)
-    private CollectionActivity.Messenger collectionMessenger;
+    private Messenger messenger;
 
     public static class States extends StateHolder {
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
     }
 
+    public static class Messenger extends MessageHolder {
+        public final Event<Collection, Unit> updateUserCollect = new Event<>();
+    }
+
     public class ListHandler extends ListHandlerFactory {
 
         public OnItemClickListener<Collection> itemClick = (data, view) -> {
-            collectionMessenger.showEvent.send(data);
             Starter.actionStart(activity, CollectionActivity.class);
-        };
-
-        public OnItemClickListener<Collection> moreClick = (data, view) -> {
-            dialog = DialogUtil.createAttachDialog(activity, ItemCollectDialog.class, view);
-            dialog.show();
-            messenger.clickEvent.send(new UserCollect(data), "UserCollectionFragment");
-//            LiveEventBus.get("ItemCollectDialog-show", UserCollect.class)
-//                    .post(new UserCollect(data));
+            collectionMessenger.showEvent.send(data);
         };
 
         @Override
         public BindingConfig getBindingConfig() {
             return new BindingConfig()
-                    .add(BR.allClick, itemClick)
-                    .add(BR.more, moreClick);
+                    .add(BR.allClick, itemClick);
         }
     }
 
@@ -94,38 +89,8 @@ public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionB
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        LiveEventBus.get("UserRepository-requestUserCollection", WebException.class)
-//                .observe(this, exception -> {
-//                    if (exception.isSuccess()) {
-//                        states.collections.setValue(requester.refreshUserCollection());
-//                    } else {
-//                        ToastUtils.showShort(exception.getMessage());
-//                    }
-//                });
-
-        messenger.cancelEvent.observeSend(getViewLifecycleOwner(), "UserCollectionFragment",
-                (value, key) -> requester.removeUserCollection(
-                        value.getCollection(),
-                        states.collections::setValue,
-                        ToastUtils::showShort
-                )
-        );
-
-
-//        LiveEventBus.get("UserRepository-requestRemoveUserCollect", WebException.class)
-//                .observe(this, e -> {
-//                    if (requester.getCurrentPage() == 1) {
-//                        dialog.smartDismiss();
-//                        if (e.isSuccess()) {
-//                            requester.updateUserCollection();
-//                        } else {
-//                            ToastUtils.showShort(e.getMessage());
-//                        }
-//                    }
-//                });
-
         requester.updateUserCollection(states.collections::setValue, ToastUtils::showShort);
+
+        // TODO 批量编辑
     }
 }

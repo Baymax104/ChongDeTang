@@ -23,13 +23,12 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 import com.cdtde.chongdetang.entity.Product;
-import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.requester.shop.ShopRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.index.SearchActivity;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
-import com.cdtde.chongdetang.requester.shop.ShopRequester;
 import com.youth.banner.indicator.CircleIndicator;
 
 import java.util.ArrayList;
@@ -47,12 +46,10 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
 
     @InjectScope(Scopes.APPLICATION)
     private ShopRequester requester;
-    private ItemCollectDialog collectDialog;
-
     @InjectScope(Scopes.FRAGMENT)
     private States states;
     @InjectScope(Scopes.APPLICATION)
-    private ItemCollectDialog.Messenger collectMessenger;
+    private UserProductDialog.Messenger collectMessenger;
     @InjectScope(Scopes.APPLICATION)
     private ProductActivity.Messenger productMessenger;
 
@@ -102,9 +99,8 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
         };
 
         public final OnItemClickListener<Product> moreClick = (data, view) -> {
-            collectMessenger.clickEvent.send(new UserCollect(data), "ShopFragment");
-            collectDialog = DialogUtil.createAttachDialog(activity, ItemCollectDialog.class, view);
-            collectDialog.show();
+            DialogUtil.createAttachDialog(activity, UserProductDialog.class, view).show();
+            collectMessenger.clickEvent.send(data);
         };
 
         @Override
@@ -137,6 +133,7 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
         setHasOptionsMenu(true);
 
         requester.updateAllProduct(states.products::setValue, ToastUtils::showShort);
+
         requester.updateHotProduct(products -> {
             states.hotProducts.setValue(products);
             states.showHot1.setValue(products.get(0));
@@ -146,23 +143,6 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
 
         UserStore.getUserLoginEvent().observeSend(getViewLifecycleOwner(), true, value ->
                 requester.updateAllProduct(states.products::setValue, ToastUtils::showShort));
-
-        collectMessenger.collectEvent.observeSend(getViewLifecycleOwner(), "ShopFragment", (value, key) -> {
-            if (UserStore.isLogin()) {
-                requester.addUserProduct(value.getProduct(),
-                        product -> collectMessenger.collectEvent.reply("product", "ShopFragment"),
-                        ToastUtils::showShort);
-            } else {
-                collectDialog.dismissWith(() ->
-                        Starter.actionStart(activity, LoginActivity.class)
-                );
-            }
-        });
-
-        collectMessenger.cancelEvent.observeSend(getViewLifecycleOwner(), "ShopFragment", (value, key) ->
-                requester.removeUserProduct(value.getProduct(),
-                        product -> collectMessenger.cancelEvent.reply("product", "ShopFragment"),
-                        ToastUtils::showShort));
     }
 
 }

@@ -6,14 +6,14 @@
     <data>
         <variable
                 name="state"
-                type="com.cdtde.chongdetang.view.shop.ItemCollectDialog.States" />
+                type="com.cdtde.chongdetang.view.exhibit.UserCollectionDialog.States" />
         <variable
                 name="handler"
-                type="com.cdtde.chongdetang.view.shop.ItemCollectDialog.Handler" />
+                type="com.cdtde.chongdetang.view.exhibit.UserCollectionDialog.Handler" />
     </data>
 
     <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:gravity="center"
@@ -26,15 +26,15 @@
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:id="@+id/icon"
-                android:src="@{state.isCollected ? @drawable/collect_fill : @drawable/collect}" />
+                android:src="@{state.collection.userCollect ? @drawable/collect_fill : @drawable/collect}" />
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@{state.isCollected ? @string/cancel_collect : @string/collect}"
+                android:text="@{state.collection.userCollect ? @string/cancel_collect : @string/collect}"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
                 android:id="@+id/tip"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/text_regular"/>
 

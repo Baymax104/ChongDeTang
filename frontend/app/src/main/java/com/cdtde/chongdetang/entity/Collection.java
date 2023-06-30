@@ -26,6 +26,14 @@ public class Collection extends BaseObservable implements Serializable {
     public Collection() {
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Bindable
     public String getTitle() {
         return title;

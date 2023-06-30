@@ -55,13 +55,14 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="120dp"
                             android:inputType="textMultiLine"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/text_regular"
                             android:maxLines="12"
                             android:scrollbars="vertical"
+                            android:gravity="top"
                             tools:ignore="SpeakableTextPresentCheck"
                             android:text="@{state.content}"
                             android:afterTextChanged="@{handler::setContent}"/>

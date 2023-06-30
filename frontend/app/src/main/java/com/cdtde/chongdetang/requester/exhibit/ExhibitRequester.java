@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.requester.exhibit;
 
 import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.entity.Collection;
+import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.CollectionRepository;
 import com.cdtde.chongdetang.repository.UserCollectRepository;
 
@@ -29,15 +30,14 @@ public class ExhibitRequester extends Requester {
         repo.requestCollectionByType(type, callback);
     }
 
-    public void addUserCollection(Collection collection,
-                                  Consumer<Collection> onSuccess, Consumer<String> onFail) {
-        ReqCallback<Collection> callback = new ReqCallback<>(onSuccess, onFail, this);
-        userCollectRepo.requestAddUserCollection(collection, callback);
-    }
-
-    public void removeUserCollection(Collection collection,
+    public void updateUserCollection(Collection collection,
                                      Consumer<Collection> onSuccess, Consumer<String> onFail) {
+        boolean isCollect = collection.isUserCollect();
         ReqCallback<Collection> callback = new ReqCallback<>(onSuccess, onFail, this);
-        userCollectRepo.requestRemoveUserCollectionWithoutList(collection, callback);
+        if (isCollect) { // 取消收藏
+            userCollectRepo.requestRemoveUserCollectionWithoutList(collection, callback);
+        } else { // 添加收藏
+            userCollectRepo.requestAddUserCollection(collection, callback);
+        }
     }
 }

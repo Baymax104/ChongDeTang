@@ -261,39 +261,6 @@
                     android:background="@color/gray_4" />
 
             <RelativeLayout
-                    android:id="@+id/notice_entry"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:onClick="@{handler.entryListener}">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/notice_icon"
-                        android:src="@drawable/notice"
-                        android:layout_marginStart="10dp" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/notice_icon"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/notice"
-                        style="@style/EntryTextStyle" />
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/arrow_right"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
                     android:id="@+id/feedback_entry"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"

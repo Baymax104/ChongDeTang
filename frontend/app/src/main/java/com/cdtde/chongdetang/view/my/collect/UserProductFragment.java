@@ -20,12 +20,11 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserProductBinding;
 import com.cdtde.chongdetang.entity.Product;
-import com.cdtde.chongdetang.entity.UserCollect;
+import com.cdtde.chongdetang.requester.my.UserCollectRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
 import com.cdtde.chongdetang.view.shop.ProductActivity;
-import com.cdtde.chongdetang.requester.my.UserCollectRequester;
+import com.cdtde.chongdetang.view.shop.UserProductDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +40,8 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
 
     @InjectScope(Scopes.ACTIVITY)
     private UserCollectRequester requester;
-
-    private ItemCollectDialog dialog;
-
     @InjectScope(Scopes.FRAGMENT)
     private States states;
-
-    @InjectScope(Scopes.APPLICATION)
-    private ItemCollectDialog.Messenger messenger;
     @InjectScope(Scopes.APPLICATION)
     private ProductActivity.Messenger productMessenger;
 
@@ -62,20 +55,12 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
             Starter.actionStart(activity, ProductActivity.class);
         };
 
-        public OnItemClickListener<Product> moreClick = (data, view) -> {
-            dialog = DialogUtil.createAttachDialog(activity, ItemCollectDialog.class, view);
-            dialog.show();
-            messenger.clickEvent.send(new UserCollect(data), "UserProductFragment");
-        };
-
         @Override
         public BindingConfig getBindingConfig() {
             return new BindingConfig()
-                    .add(BR.allClick, itemClick)
-                    .add(BR.more, moreClick);
+                    .add(BR.allClick, itemClick);
         }
     }
-
 
     @Override
     protected ViewConfig configBinding() {
@@ -86,18 +71,9 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
                 .add(BR.adapter, adapter);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        messenger.cancelEvent.observeSend(getViewLifecycleOwner(), "UserProductFragment",
-                (value, key) -> requester.removeUserProduct(
-                        value.getProduct(),
-                        states.products::setValue,
-                        ToastUtils::showShort
-                )
-        );
 
         requester.updateUserProduct(states.products::setValue, ToastUtils::showShort);
     }

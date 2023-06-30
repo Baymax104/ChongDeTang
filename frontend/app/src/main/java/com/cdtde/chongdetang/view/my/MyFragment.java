@@ -105,8 +105,6 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
                     ToastUtils.showShort("进入订单");
                 } else if (v.getId() == R.id.address_entry) {
                     Starter.actionStart(activity, AddressActivity.class);
-                } else if (v.getId() == R.id.notice_entry) {
-                    ToastUtils.showShort("进入通知");
                 } else if (v.getId() == R.id.feedback_entry) {
                     Starter.actionStart(activity, FeedbackActivity.class);
                 }

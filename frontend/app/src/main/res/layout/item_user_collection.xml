@@ -10,9 +10,6 @@
         <variable
                 name="allClick"
                 type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
-        <variable
-                name="more"
-                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -50,13 +47,6 @@
                         android:gravity="center"
                         style="@style/ItemTitleStyle"
                         android:text="@{collection.title}" />
-
-                <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/more"
-                        android:src="@drawable/more"
-                        android:onClick="@{v->more.onClick(collection, v)}"/>
             </LinearLayout>
         </LinearLayout>
 

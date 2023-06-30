@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
@@ -22,11 +23,11 @@ import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.requester.exhibit.ExhibitRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
+import com.cdtde.chongdetang.view.my.collect.UserCollectionFragment;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
-import com.cdtde.chongdetang.view.shop.ItemCollectDialog;
-import com.cdtde.chongdetang.requester.exhibit.ExhibitRequester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +45,16 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
     private ExhibitRequester requester;
 
     @InjectScope(Scopes.APPLICATION)
-    private ItemCollectDialog.Messenger messenger;
+    private UserCollectionDialog.Messenger messenger;
 
     @InjectScope(Scopes.FRAGMENT)
     private States states;
 
-    private ItemCollectDialog collectDialog;
-
     @InjectScope(Scopes.APPLICATION)
     private CollectionActivity.Messenger collectionMessenger;
+
+    @InjectScope(Scopes.APPLICATION)
+    private UserCollectionFragment.Messenger userCollectionMessenger;
 
     public static class States extends StateHolder {
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
@@ -70,9 +72,8 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
         };
 
         public final OnItemClickListener<Collection> more = (data, view) -> {
-            collectDialog = DialogUtil.createAttachDialog(activity, ItemCollectDialog.class, view);
-            collectDialog.show();
-            messenger.clickEvent.send(new UserCollect(data), states.key);
+            DialogUtil.createAttachDialog(activity, UserCollectionDialog.class, view).show();
+            messenger.clickEvent.send(data);
         };
 
         @Override
@@ -114,72 +115,18 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
             }
         }
 
-        messenger.collectEvent.observeSend(getViewLifecycleOwner(), states.key,
-                (value, key) -> {
-                    if (UserStore.isLogin()) {
-                        requester.addUserCollection(
-                                value.getCollection(),
-                                collection ->
-                                        messenger.collectEvent.reply("collection", states.key),
-                                ToastUtils::showShort
-                        );
-                    } else {
-                        collectDialog.dismissWith(() ->
-                                Starter.actionStart(activity, LoginActivity.class)
-                        );
+        UserStore.getUserLoginEvent().observeSend(getViewLifecycleOwner(), true, value ->
+                requester.updateAllCollectionByType(states.type,
+                states.collections::setValue, ToastUtils::showShort));
+
+        userCollectionMessenger.updateUserCollect.observeSend(getViewLifecycleOwner(), value ->
+                states.collections.getValue().stream()
+                .filter(collection -> ObjectUtils.equals(collection.getType(), value.getType()))
+                .forEach(collection -> {
+                    if (ObjectUtils.equals(collection.getId(), value.getId())) {
+                        collection.setUserCollect(value.isUserCollect());
                     }
-                });
-
-        // 由于ItemCollectDialog发送消息是全局发送，因此每个页面需要判断当前操作的页面是否是自己
-        // 当前页面的ViewModel记录页面内的子页面页数状态，MainViewModel记录四个主页面的页数状态
-//        LiveEventBus.get("ItemCollectDialog-collect", UserCollect.class)
-//                .observe(this, userCollect -> {
-//                    Integer mainPage = mainViewModel.getPage().getValue();
-//                    if (mainPage != null && mainPage == 1 && states.page == vm.getCurrentPage()) {
-//                        if (vm.isLogin()) {
-//                            vm.addUserCollection(userCollect);
-//                        } else {
-//                            collectDialog.dismissWith(() ->
-//                                    Starter.actionStart(activity, LoginActivity.class)
-//                            );
-//                        }
-//                    }
-//                });
-
-        messenger.cancelEvent.observeSend(getViewLifecycleOwner(), states.key,
-                (value, key) ->
-                        requester.removeUserCollection(
-                                value.getCollection(),
-                                collection -> messenger.cancelEvent.reply("collection", states.key),
-                                ToastUtils::showShort));
-
-
-//        LiveEventBus.get("ItemCollectDialog-cancelCollect", UserCollect.class)
-//                .observe(this, userCollect -> {
-//                    Integer mainPage = mainViewModel.getPage().getValue();
-//                    if (mainPage != null && mainPage == 1 && states.page == vm.getCurrentPage()) {
-//                        vm.removeUserProduct(userCollect);
-//                    }
-//                });
-
-//        LiveEventBus.get("CollectionRepository-requestAddUserCollect", WebException.class)
-//                .observe(this, e -> {
-//                    if (e.isSuccess()) {
-//                        messenger.collectEvent.reply("collection", states.key);
-////                        LiveEventBus.get("ItemCollectDialog-refreshAddCollect", Boolean.class).post(true);
-//                    } else {
-//                        ToastUtils.showShort(e.getMessage());
-//                    }
-//                });
-//        LiveEventBus.get("CollectionRepository-requestRemoveUserCollect", WebException.class)
-//                .observe(this, e -> {
-//                    if (e.isSuccess()) {
-//                        messenger.cancelEvent.reply("collection", states.key);
-////                        LiveEventBus.get("ItemCollectDialog-refreshRemoveCollect", Boolean.class).post(true);
-//                    } else {
-//                        ToastUtils.showShort(e.getMessage());
-//                    }
-//                });
+                }));
 
         requester.updateAllCollectionByType(states.type, states.collections::setValue, ToastUtils::showShort);
 
