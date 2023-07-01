@@ -8,15 +8,16 @@ import androidx.lifecycle.LifecycleEventObserver
 import com.lxj.xpopup.core.BasePopupView
 
 /**
- *@Description
- *@Author John
- *@email
- *@Date 2023/4/3 18:42
- *@Version 1
+ * 基于 XPopup 库构建对话框的视图绑定工具类.
+ * @author John
  */
-
 object DialogBinder {
 
+    /**
+     * 绑定方法.
+     * @param dialog 对话框实例对象
+     * @param config 视图绑定参数 [BindingConfig] ，默认为 null
+     */
     @JvmOverloads
     @JvmStatic
     fun bind(dialog: BasePopupView, config: BindingConfig? = null) {

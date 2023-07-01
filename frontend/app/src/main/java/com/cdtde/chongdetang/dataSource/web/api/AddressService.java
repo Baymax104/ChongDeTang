@@ -13,14 +13,16 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/5 23:38
- * @Version 1
+ * 收货地址服务API
+ * @author John
  */
 public interface AddressService {
 
+    /**
+     * 获取所有地址信息
+     * @param token 用户token
+     * @return {@link Address} 列表
+     */
     @GET("/api/user/address")
     Single<Result<List<Address>>> getAllAddress(@Header("Authorization") String token);
 

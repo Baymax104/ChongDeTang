@@ -16,7 +16,7 @@ object CameraUtil {
     /**
      * 启动相机
      * @param file 照片文件File对象
-     * @return intent
+     * @return 相机启动intent
      */
     @JvmStatic
     fun startCamera(file: File?): Intent? {
@@ -32,7 +32,7 @@ object CameraUtil {
     /**
      * 在/storage/emulated/0/Android/data/package/files目录下新建文件
      * @param fileDir 是否在files目录下，默认在cache目录下
-     * @return file
+     * @return 新建文件
      */
     @JvmStatic
     fun createNewFile(fileDir: Boolean): File? {
@@ -49,7 +49,7 @@ object CameraUtil {
 
     /**
      * 启动相册
-     * @return intent
+     * @return 启动相册Intent
      */
     @JvmStatic
     fun startPhotoPicker(): Intent {
@@ -58,12 +58,23 @@ object CameraUtil {
         return intent
     }
 
+    /**
+     * 将File对象编码为Base64编码字符串
+     * @param file File对象
+     * @return Base64字符串
+     */
     @JvmStatic
     fun file2Base64(file: File?): String? {
         val bytes = FileIOUtils.readFile2BytesByStream(file) ?: return null
         return EncodeUtils.base64Encode2String(bytes)
     }
 
+    /**
+     * 将Base64转换为文件，文件将在files目录下创建，见[createNewFile]
+     * @see base64ToFile
+     * @param base64
+     * @return File对象
+     */
     @JvmStatic
     fun base64ToFile(base64: String?): File? {
         val bytes = EncodeUtils.base64Decode(base64)

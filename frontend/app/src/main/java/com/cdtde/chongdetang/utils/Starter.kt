@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/1/10 17:27
- * @Version 1
+ * Activity启动器
  */
 object Starter {
+
+    /**
+     * 启动Activity
+     * @param context 当前页面Context
+     * @param cl 目的Activity的Class对象
+     */
     @JvmStatic
     fun actionStart(context: Context, cl: Class<*>) {
         context.startActivity(Intent(context, cl))

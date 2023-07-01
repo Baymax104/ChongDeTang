@@ -7,19 +7,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/1/13 23:18
- * @Version 1
+ * WebView控件配置工具类.
  */
-
-
 object WebViewUtil {
 
     /**
-     * 配置WebView的HTML页面，删除其中的部分元素
-     * @param isListPage html页面是否是列表页面
+     * 配置WebView的HTML页面，删除其中的部分元素.
+     * @param webView [WebView]控件
+     * @param isListPage html页面是否是列表页面(包含class=flc的元素)
      */
     @SuppressLint("SetJavaScriptEnabled")
     @JvmStatic

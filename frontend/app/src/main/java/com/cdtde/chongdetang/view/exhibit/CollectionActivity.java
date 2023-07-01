@@ -20,6 +20,9 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 
 import kotlin.Unit;
 
+/**
+ * 藏品详情页
+ */
 public class CollectionActivity extends BaseActivity<ActivityCollectionBinding> {
 
 
@@ -30,10 +33,16 @@ public class CollectionActivity extends BaseActivity<ActivityCollectionBinding> 
     private Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * 当前展示藏品状态
+         */
         public final State<Collection> collection = new State<>(new Collection());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Collection, Unit> showEvent = new Event<>();
     }
 

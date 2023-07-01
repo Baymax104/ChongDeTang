@@ -8,14 +8,17 @@ import com.cdtde.chongdetang.base.view.BaseFragment
 import java.util.*
 
 /**
- *@Description
- *@Author John
- *@email
- *@Date 2023/6/23 17:52
- *@Version 1
+ * 依赖注入工具类，使用IoC原理.
+ *@author John
  */
 object Injector {
 
+    /**
+     * 对[BaseActivity]子类中的ViewModel组件进行依赖注入.
+     * @param B [ViewDataBinding]子类类型
+     * @param activity [BaseActivity]子类对象
+     * @param viewModelScope [ActivityViewModelScope]对象
+     */
     @JvmStatic
     fun <B : ViewDataBinding> inject(
         activity: BaseActivity<B>,
@@ -45,6 +48,12 @@ object Injector {
         }
     }
 
+    /**
+     * 对[BaseFragment]子类中的ViewModel组件进行依赖注入.
+     * @param B [ViewDataBinding]子类类型
+     * @param fragment [BaseFragment]子类对象
+     * @param viewModelScope [FragmentViewModelScope]对象
+     */
     @JvmStatic
     fun <B : ViewDataBinding> inject(
         fragment: BaseFragment<B>,

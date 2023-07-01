@@ -7,17 +7,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/12 21:46
- * @Version 1
+ * 日期-字符串转换器，日期格式为yyyy-MM-dd
  */
-
 val DateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
+
+/**
+ * 日期-字符串转换器，日期格式为yyyyMMdd_HHmmss
+ */
 val DateDetailFormatter = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA)
 
 
+/**
+ * JSON序列化与反序列化的日期对象转换器
+ */
 class DateFormatSerializer : JsonSerializer<Date?>, JsonDeserializer<Date?> {
     override fun serialize(
         src: Date?,

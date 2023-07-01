@@ -4,19 +4,24 @@ import android.util.SparseArray;
 
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/6/8 18:46
- * @Version 1
+ * {@link BaseAdapter} 和 {@link DialogBinder} 的绑定参数封装类.
+ * @author John
  */
 public class BindingConfig {
 
+    /**
+     * 参数映射.
+     * @see ViewConfig#params
+     */
     public final SparseArray<Object> params = new SparseArray<>();
 
     public BindingConfig() {
     }
 
+    /**
+     * 参数添加方法.
+     * @see ViewConfig#add(Integer, Object)
+     */
     public BindingConfig add(Integer id, Object param) {
         if (params.get(id) == null) {
             params.put(id, param);

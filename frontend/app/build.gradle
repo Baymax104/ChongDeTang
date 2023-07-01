@@ -55,31 +55,39 @@ android {
         moduleName.set('ChongDeTang')
         outputDirectory.set(new File('./doc', 'html'))
         suppressInheritedMembers.set(true)
+        suppressObviousFunctions.set(true)
 
         dokkaSourceSets {
             configureEach {
+                skipEmptyPackages.set(true)
                 skipDeprecated.set(true)
+                platform.set(org.jetbrains.dokka.Platform.jvm)
                 noStdlibLink.set(true)
                 noJdkLink.set(true)
                 noAndroidSdkLink.set(true)
+                sourceRoots.from(file("src/main/com/cdtde/chongdetang"))
+
+                sourceLink {
+                    localDirectory.set(file("src/main/com/cdtde/chongdetang/"))
+                    remoteUrl.set(new URL("https://github.com/Baymax104/ChongDeTang/tree/main/frontend/app/src/main/java/com/cdtde/chongdetang"))
+                    remoteLineSuffix.set("#L")
+                }
+
+                // suppress packages
+                perPackageOption {
+                    matchingRegex.set("com.cdtde.chongdetang.[adapter|aop|entity|exception].*")
+                    suppress.set(true)
+                }
+
+                // suppress packages
+                perPackageOption {
+                    matchingRegex.set("com.cdtde.chongdetang.utils.binding.*")
+                    suppress.set(true)
+                }
             }
         }
     }
 
-    dokkaGfm {
-        moduleName.set('ChongDeTang')
-        outputDirectory.set(new File('./doc', 'md'))
-        suppressInheritedMembers.set(true)
-
-        dokkaSourceSets {
-            configureEach {
-                skipDeprecated.set(true)
-                noStdlibLink.set(true)
-                noJdkLink.set(true)
-                noAndroidSdkLink.set(true)
-            }
-        }
-    }
 }
 
 dependencies {
@@ -163,4 +171,6 @@ dependencies {
     implementation 'com.github.liangjingkanji:StatusBar:2.0.5'
 
     implementation 'com.kunminx.arch:unpeek-livedata:7.8.0'
+
+    dokkaPlugin 'org.jetbrains.dokka:android-documentation-plugin:1.8.20'
 }

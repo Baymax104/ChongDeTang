@@ -1,11 +1,7 @@
 package com.cdtde.chongdetang.base.web
 
 /**
- *@Description
- *@Author John
- *@email
- *@Date 2023/6/20 11:28
- *@Version 1
+ * 网络生命周期接口，具有Start和Finish两个周期
  */
 interface NetLifeCycle {
 

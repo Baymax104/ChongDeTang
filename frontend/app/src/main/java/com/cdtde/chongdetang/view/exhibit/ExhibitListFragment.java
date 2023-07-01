@@ -21,7 +21,6 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.entity.Collection;
-import com.cdtde.chongdetang.entity.UserCollect;
 import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.requester.exhibit.ExhibitRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
@@ -33,11 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2022/12/26 22:57
- * @Version 1
+ * 藏品列表页
  */
 public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding> {
 
@@ -57,9 +52,17 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
     private UserCollectionFragment.Messenger userCollectionMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 当前类别藏品列表状态
+         */
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
+        /**
+         * 当前列表页所在页数
+         */
         public int page = 0;
-        public String key = "";
+        /**
+         * 当前列表页请求的藏品类别
+         */
         public String type = "";
     }
 
@@ -99,7 +102,6 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
             states.page = getArguments().getInt("page");
-            states.key = "ExhibitList" + states.page;
             switch (states.page) {
                 case 0:
                     states.type = "sf";

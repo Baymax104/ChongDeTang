@@ -7,11 +7,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/6/23 15:28
- * @Version 1
+ * @hide
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

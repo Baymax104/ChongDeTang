@@ -17,11 +17,10 @@ import com.cdtde.chongdetang.base.vm.FragmentViewModelScope;
 import com.cdtde.chongdetang.base.vm.Injector;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/6/16 16:57
- * @Version 1
+ * 该类为项目中的所有 Activity 父类，包含了通用的初始化流程，同时重写了一些原生通用方法.
+ * @see BaseActivity
+ * @param <B> Fragment 子类的 DataBinding 类型
+ * @author John
  */
 public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
 
@@ -31,8 +30,15 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
 
     private FragmentViewModelScope viewModelScope;
 
+    /**
+     * @see BaseActivity#configBinding()
+     */
     protected abstract ViewConfig configBinding();
 
+    /**
+     * 对于 Fragment ，需要设置的控件较少，子类可选择性重写.
+     * @see BaseActivity#initUIComponent(ViewDataBinding)
+     */
     protected void initUIComponent(@NonNull B binding) {
     }
 
