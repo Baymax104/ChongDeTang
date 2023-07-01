@@ -20,10 +20,11 @@ public class Product {
     private Integer id;
     private String name;
     private Double price;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date launchTime;
     private String photo;
     private String introduction;
+    private Integer storage;
 
     @TableField(exist = false)
     private String userCollect = "0";

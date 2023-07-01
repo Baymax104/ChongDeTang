@@ -18,7 +18,7 @@ import java.util.Date;
 public class Culture {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date;
     private String title;
     private String photo;
