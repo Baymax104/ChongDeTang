@@ -75,8 +75,6 @@ public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding
     protected void initUIComponent(@NonNull ActivityUserAppointBinding binding) {
         WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
     }
-    // TODO：查看预约bug
-    //  下单时间、预约时间与后端数据库不一致
 
 
     @Override

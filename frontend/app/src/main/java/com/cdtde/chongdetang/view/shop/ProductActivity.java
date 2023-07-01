@@ -18,11 +18,11 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityProductBinding;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.requester.shop.ProductRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
-import com.cdtde.chongdetang.requester.shop.ProductRequester;
 
 import kotlin.Unit;
 
@@ -41,6 +41,7 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
 
     public static class Messenger extends MessageHolder {
         public final Event<Product, Unit> showEvent = new Event<>();
+        public final Event<Product, Unit> updateCollectEvent = new Event<>();
     }
 
     public class Handler {
@@ -66,7 +67,10 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
             boolean collected = !states.product.getValue().isUserCollect();
             if (UserStore.isLogin()) {
                 requester.updateUserProduct(states.product.getValue(),
-                        product -> product.setUserCollect(collected),
+                        product -> {
+                            product.setUserCollect(collected);
+                            messenger.updateCollectEvent.send(product);
+                        },
                         ToastUtils::showShort);
             } else {
                 Starter.actionStart(activity, LoginActivity.class);

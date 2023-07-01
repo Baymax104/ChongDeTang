@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
@@ -86,7 +87,7 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
         public final OnMenuItemClickListener onMenuItemClick = item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
-                SearchActivity.actionStart(getContext());
+                Starter.actionStart(activity, SearchActivity.class);
             }
             return true;
         };
@@ -143,6 +144,12 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
 
         UserStore.getUserLoginEvent().observeSend(getViewLifecycleOwner(), true, value ->
                 requester.updateAllProduct(states.products::setValue, ToastUtils::showShort));
+
+        productMessenger.updateCollectEvent.observeSend(getViewLifecycleOwner(),
+                value -> states.products.getValue().stream()
+                        .filter(product -> ObjectUtils.equals(product.getId(), value.getId()))
+                        .forEach(product -> product.setUserCollect(value.isUserCollect()))
+        );
     }
 
 }

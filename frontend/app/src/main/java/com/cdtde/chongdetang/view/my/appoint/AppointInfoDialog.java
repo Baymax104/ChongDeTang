@@ -45,7 +45,7 @@ public class AppointInfoDialog extends CenterPopupView {
     @Override
     protected void onCreate() {
         super.onCreate();
-        messenger.infoEvent.observeSend(this, true, states.appointment::setValue);
         DialogBinder.bind(this, new BindingConfig().add(BR.state, states));
+        messenger.infoEvent.observeSend(this, true, states.appointment::setValue);
     }
 }

@@ -76,5 +76,11 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
         super.onViewCreated(view, savedInstanceState);
 
         requester.updateUserProduct(states.products::setValue, ToastUtils::showShort);
+
+        productMessenger.updateCollectEvent.observeSend(getViewLifecycleOwner(),
+                value -> requester.updateUserProduct(
+                        states.products::setValue,
+                        ToastUtils::showShort)
+        );
     }
 }

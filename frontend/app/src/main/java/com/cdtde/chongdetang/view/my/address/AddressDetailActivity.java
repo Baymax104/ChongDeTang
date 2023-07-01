@@ -19,6 +19,7 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityAddressDetailBinding;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.requester.my.AddressRequester;
 
@@ -61,12 +62,6 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
 
         public OnClickListener delete = v ->
                 DialogUtil.create(activity, DeleteDialog.class).show();
-        // TODO：--添加新地址bug
-        /*  1 缺少对手机号的验证，比如输入12345678901，会被算作合法手机号
-            2 输入框缺少对文字输入个数的限定。如收货人输入30个汉字，会从数据库发出发出"给程序员看的"错误提示，这个提示不该被用户看见
-            3 建议详细地址输入框可以随输入行数增多扩展。向"反馈的那个输入框一样"
-        */
-
         public OnClickListener save = v -> {
             Address address = states.address.getValue();
             if (StringUtils.isEmpty(address.getConsignee()) ||
@@ -75,6 +70,8 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
                     StringUtils.isEmpty(address.getCity()) ||
                     StringUtils.isEmpty(address.getDetail())) {
                 ToastUtils.showShort("地址未填写完整");
+            } else if (!ValidateUtil.validatePhone(address.getPhone())) {
+                ToastUtils.showShort("手机号错误！");
             } else {
                 requester.updateAddress(
                         states.address.getValue(),

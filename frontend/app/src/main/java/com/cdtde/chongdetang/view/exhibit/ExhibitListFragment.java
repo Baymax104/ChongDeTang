@@ -48,9 +48,6 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
     @InjectScope(Scopes.APPLICATION)
     private CollectionActivity.Messenger collectionMessenger;
 
-    @InjectScope(Scopes.APPLICATION)
-    private UserCollectionFragment.Messenger userCollectionMessenger;
-
     public static class States extends StateHolder {
         /**
          * 当前类别藏品列表状态
@@ -120,15 +117,6 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
         UserStore.getUserLoginEvent().observeSend(getViewLifecycleOwner(), true, value ->
                 requester.updateAllCollectionByType(states.type,
                 states.collections::setValue, ToastUtils::showShort));
-
-        userCollectionMessenger.updateUserCollect.observeSend(getViewLifecycleOwner(), value ->
-                states.collections.getValue().stream()
-                .filter(collection -> ObjectUtils.equals(collection.getType(), value.getType()))
-                .forEach(collection -> {
-                    if (ObjectUtils.equals(collection.getId(), value.getId())) {
-                        collection.setUserCollect(value.isUserCollect());
-                    }
-                }));
 
         requester.updateAllCollectionByType(states.type, states.collections::setValue, ToastUtils::showShort);
 

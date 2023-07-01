@@ -41,9 +41,7 @@ public class AppointDialog extends BottomPopupView {
         public final State<Appointment> appointment = new State<>(new Appointment());
     }
 
-    // TODO： 参观预约bug
-    //  1 缺少对限定人数的判断。咱们做一个限制吧，人数只能为1～20
-    //  2 缺少对“姓名过长”的判断。比如名字输入30个汉字，会从数据库发出发出"给程序员看的"错误提示，这个提示不该被用户看见
+
     public class Handler {
         public final OnClickListener cancel = v -> dismiss();
         public final OnClickListener confirm = v -> {
@@ -54,6 +52,8 @@ public class AppointDialog extends BottomPopupView {
                 ToastUtils.showShort("输入不能为空");
             } else if (!ValidateUtil.validatePhone(appoint.getPhone())) {
                 ToastUtils.showShort("手机号格式错误");
+            } else if (!ValidateUtil.validateAppointNumber(appoint.getNumber())) {
+                ToastUtils.showShort("人数超过限制");
             } else {
                 requester.addAppointment(appoint,
                         a -> {
@@ -64,8 +64,6 @@ public class AppointDialog extends BottomPopupView {
             }
         };
 
-        // TODO： 日期选择器bug
-        //  当前日期选择器只能选择当天以前的日期。按理来说应该只能选择当天以后的日期
         public final OnClickListener selectDate = v -> timePicker.show();
     }
 

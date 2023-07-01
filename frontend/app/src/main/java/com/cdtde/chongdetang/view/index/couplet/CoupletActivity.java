@@ -40,7 +40,6 @@ public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
     }
     public class ListHandler extends BaseAdapter.ListHandlerFactory{
         public final OnItemClickListener<Couplet> onItemClickListener = (data, view) -> {
-            // TODO
             messenger.showEvent.send(data);
             Starter.actionStart(activity, CoupletDetailActivity.class);
         };

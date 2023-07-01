@@ -65,18 +65,18 @@ object DialogUtil {
         start[Calendar.YEAR] = 1900
         start[Calendar.MONTH] = 0
         start[Calendar.DAY_OF_MONTH] = 1
+        val now = Calendar.getInstance()
         val end = Calendar.getInstance()
+        end[Calendar.YEAR] = now[Calendar.YEAR] + 20
         val dialog = TimePickerPopup(context)
-            .setDefaultDate(end)
+            .setDefaultDate(now)
             .setDateRange(start, end)
             .setTimePickerListener(object : TimePickerListener {
                 override fun onTimeChanged(date: Date?) {
                 }
-
                 override fun onTimeConfirm(date: Date?, view: View?) {
                     onConfirm.onConfirm(date)
                 }
-
                 override fun onCancel() {
                 }
             })

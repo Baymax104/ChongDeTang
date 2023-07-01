@@ -20,7 +20,9 @@ import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
+import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
+import com.cdtde.chongdetang.view.index.SearchActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,8 +59,7 @@ public class ExhibitFragment extends BaseFragment<FragmentExhibitBinding> {
         public final OnMenuItemClickListener onMenuItemClick = item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
-                ToastUtils.showShort("点击");
-//                Starter.actionStart(activity, SearchActivity.class);
+                Starter.actionStart(activity, SearchActivity.class);
             }
             return true;
         };

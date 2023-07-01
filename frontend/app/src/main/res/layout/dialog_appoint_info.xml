@@ -169,7 +169,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            text_date="@{state.appointment.orderTime}"
+                            text_date="@{state.appointment.date}"
                             style="@style/AppointmentInfoTextStyle"/>
 
                 </LinearLayout>

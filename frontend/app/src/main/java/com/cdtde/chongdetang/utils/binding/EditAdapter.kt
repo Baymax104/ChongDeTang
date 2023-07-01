@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.utils.binding
 
+import android.text.InputFilter
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
@@ -46,6 +47,18 @@ object EditAdapter {
     @BindingAdapter("edit_textAttrChanged")
     fun EditText.inverseListener(attrChanged: InverseBindingListener) {
         addTextChangedListener { attrChanged.onChange() }
+    }
+
+    @JvmStatic
+    @BindingAdapter("edit_length")
+    fun EditText.filterLength(num: Int) {
+        filters = arrayOf(InputFilter.LengthFilter(num))
+    }
+
+    @JvmStatic
+    @BindingAdapter("edit_length")
+    fun TextInputEditText.filterLength(num: Int) {
+        filters = arrayOf(InputFilter.LengthFilter(num))
     }
 
 }

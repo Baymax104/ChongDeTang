@@ -55,6 +55,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:fontFamily="@font/text_regular"
+                        android:ellipsize="end"
                         android:text="@{address.detail}"
                         android:maxLines="2"/>
 

@@ -112,8 +112,6 @@ public class UserInfoActivity extends BaseActivity<ActivityUserInfoBinding> {
             messenger.userEvent.send(states.user.getValue());
             DialogUtil.create(activity, GenderDialog.class, null).show();
         };
-        // TODO: --个人信息修改bug
-        //  修改邮箱的窗口不能被点击，因此无法修改
 
         public OnClickListener confirm = v ->
                 requester.update(states.user.getValue(),

@@ -51,15 +51,8 @@ public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionB
     @InjectScope(Scopes.APPLICATION)
     private CollectionActivity.Messenger collectionMessenger;
 
-    @InjectScope(Scopes.APPLICATION)
-    private Messenger messenger;
-
     public static class States extends StateHolder {
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
-    }
-
-    public static class Messenger extends MessageHolder {
-        public final Event<Collection, Unit> updateUserCollect = new Event<>();
     }
 
     public class ListHandler extends ListHandlerFactory {

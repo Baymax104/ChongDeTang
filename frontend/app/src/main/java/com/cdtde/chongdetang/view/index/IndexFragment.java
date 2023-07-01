@@ -85,7 +85,7 @@ public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
         public final OnMenuItemClickListener onMenuItemClick = item -> {
             int id = item.getItemId();
             if (id == R.id.index_search) {
-                ToastUtils.showShort("点击");
+                Starter.actionStart(activity, SearchActivity.class);
             }
             return true;
         };
