@@ -2,7 +2,7 @@
   <div class="login-body">
     <div class="login-container">
       <div class="head">
-        <img class="logo" src="https://s.yezgea02.com/1582958061265/mlogo.png" />
+        <img class="logo" src="/src/assets/logo.png" />
         <div class="name">
           <div class="title">崇德堂</div>
           <div class="tips">后台管理系统</div>
@@ -17,8 +17,8 @@
         </el-form-item>
         <el-form-item>
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
-          <el-button style="width: 100%" type="primary" @click="submitForm">立即登录</el-button>
-          <el-checkbox v-model="state.checked" @change="!state.checked">下次自动登录</el-checkbox>
+          <el-button style="width: 100%; background-color: #ac2c28; border-color: #ac2c28" type="primary" @click="submitForm">立即登录</el-button>
+<!--          <el-checkbox v-model="state.checked" @change="!state.checked" >下次自动登录</el-checkbox>-->
         </el-form-item>
       </el-form>
     </div>
@@ -100,7 +100,7 @@ const resetForm = () => {
   }
   .head .title {
     font-size: 28px;
-    color: #1BAEAE;
+    color: #ac2c28;
     font-weight: bold;
   }
   .head .tips {

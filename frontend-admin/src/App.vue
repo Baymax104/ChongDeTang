@@ -4,7 +4,7 @@
             <el-aside class="aside">
                 <div class="head">
                     <div>
-                        <img src="//s.weituibao.com/1582958061265/mlogo.png" alt="logo">
+                        <img src="/src/assets/logo.png" alt="logo">
                         <span>崇德堂</span>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ router.beforeEach((to, from, next) => {
 
 .head img {
     width: 50px;
-    height: 50px;
+    height: 46px;
     margin-right: 10px;
 }
 
