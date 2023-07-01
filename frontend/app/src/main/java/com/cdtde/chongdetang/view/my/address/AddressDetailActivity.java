@@ -61,6 +61,11 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
 
         public OnClickListener delete = v ->
                 DialogUtil.create(activity, DeleteDialog.class).show();
+        // TODO：--添加新地址bug
+        /*  1 缺少对手机号的验证，比如输入12345678901，会被算作合法手机号
+            2 输入框缺少对文字输入个数的限定。如收货人输入30个汉字，会从数据库发出发出"给程序员看的"错误提示，这个提示不该被用户看见
+            3 建议详细地址输入框可以随输入行数增多扩展。向"反馈的那个输入框一样"
+        */
 
         public OnClickListener save = v -> {
             Address address = states.address.getValue();

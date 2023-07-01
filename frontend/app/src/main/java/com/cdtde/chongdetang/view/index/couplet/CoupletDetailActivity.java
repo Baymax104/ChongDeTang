@@ -63,7 +63,7 @@ public class CoupletDetailActivity extends BaseActivity<ActivityCoupletDetailBin
 //        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
 //        WebViewUtil.configure(binding.webPage, false);
 
-        // TODO
+
         messenger.showEvent.observeSend(this, true, states.data::setValue);
 //        LiveEventBus.get("CoupletDetailActivity-getData", News.class)
 //                .observeSticky(this, vm::setCouplet);
