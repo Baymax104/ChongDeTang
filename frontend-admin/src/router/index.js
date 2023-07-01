@@ -32,18 +32,30 @@ const router = createRouter({
       name: 'collection_filtrate',
       component: () => import('../views/home/CollectionFiltrateView.vue')
     },
-    //  消息推送配置
-    {
-      path: '/message_configuration',
-      name: 'message_configuration',
-      component: () => import('../views/home/MessageConfigurationView.vue')
-    },
       // 权限管理
     {
       path: '/auth_manage',
       name: 'auth_manage',
       component: () => import('../views/single/AuthManageView.vue')
-    }
+    },
+      // 藏品管理
+    {
+      path: '/collection_manage',
+      name: 'collection_manage',
+      component: () => import('../views/single/CollectionManageView.vue')
+    },
+      // 商品管理
+    {
+      path: '/product_manage',
+      name: 'product_manage',
+      component: () => import('../views/single/ProductManageView.vue')
+    },
+      // 订单管理
+    {
+      path: '/order_manage',
+      name: 'order_manage',
+      component: () => import('../views/single/OrderManageView.vue')
+    },
   ]
 })
 
