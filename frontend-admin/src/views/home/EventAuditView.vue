@@ -12,7 +12,7 @@
         </el-select>
       </div>
     </template>
-    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%">
+    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading">
       <el-table-column label="用户id" prop="userId" sortable />
       <el-table-column label="预约人" prop="subscriber" />
       <el-table-column label="预约时间" prop="date" />
@@ -190,11 +190,12 @@ const rolePadTag = ref({
 
 // 表格数据
 const tableData = ref([])
-
+const tableLoading = ref(true)
 // 后端获取用户列表
 const handleGetUserList = () => {
   getAuditEventList(filterOption.value).then( res => {
     tableData.value = res;
+    tableLoading.value = false
   })
 }
 // 页面加载时刷新
