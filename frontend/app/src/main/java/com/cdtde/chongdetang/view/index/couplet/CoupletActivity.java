@@ -20,7 +20,7 @@ import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
 import com.cdtde.chongdetang.entity.Couplet;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.index.CoupletRequester;
+import com.cdtde.chongdetang.requester.CoupletRequester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,6 @@ public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
     }
     public class ListHandler extends BaseAdapter.ListHandlerFactory{
         public final OnItemClickListener<Couplet> onItemClickListener = (data, view) -> {
-            // TODO
             messenger.showEvent.send(data);
             Starter.actionStart(activity, CoupletDetailActivity.class);
         };

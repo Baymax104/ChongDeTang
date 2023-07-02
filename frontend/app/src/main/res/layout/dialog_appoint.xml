@@ -49,6 +49,7 @@
                     android:fontFamily="@font/text_regular"
                     android:drawableStart="@drawable/default_photo"
                     android:drawablePadding="10dp"
+                    edit_length="@{15}"
                     android:text="@={state.appointment.subscriber}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,6 +72,7 @@
                     android:fontFamily="@font/text_regular"
                     android:drawableStart="@drawable/phone_fill"
                     android:drawablePadding="10dp"
+                    edit_length="@{15}"
                     android:text="@={state.appointment.phone}" />
         </com.google.android.material.textfield.TextInputLayout>
 

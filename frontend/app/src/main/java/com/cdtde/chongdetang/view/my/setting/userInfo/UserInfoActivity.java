@@ -32,7 +32,7 @@ import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Permission;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.my.UserInfoRequester;
+import com.cdtde.chongdetang.requester.UserInfoRequester;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -112,8 +112,6 @@ public class UserInfoActivity extends BaseActivity<ActivityUserInfoBinding> {
             messenger.userEvent.send(states.user.getValue());
             DialogUtil.create(activity, GenderDialog.class, null).show();
         };
-        // TODO: --个人信息修改bug
-        //  修改邮箱的窗口不能被点击，因此无法修改
 
         public OnClickListener confirm = v ->
                 requester.update(states.user.getValue(),

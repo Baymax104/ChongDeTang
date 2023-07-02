@@ -25,9 +25,9 @@ public class Appointment {
     private String subscriber;
     private String phone;
     private String number;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date orderTime;
     private Double orderMoney;
     private String status;

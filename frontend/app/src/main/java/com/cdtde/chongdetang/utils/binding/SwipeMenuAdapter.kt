@@ -15,6 +15,9 @@ object SwipeMenuAdapter {
     @JvmStatic
     @BindingAdapter("swipeMenu_enable")
     fun SwipeMenuLayout.swipeEnable(enabled: Boolean) {
+        if (!enabled) {
+            smoothClose()
+        }
         isSwipeEnable = enabled
     }
 }

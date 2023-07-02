@@ -17,7 +17,7 @@ import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserPasswordBinding;
-import com.cdtde.chongdetang.requester.my.PasswordValidateUseCase;
+import com.cdtde.chongdetang.useCase.PasswordValidateUseCase;
 
 
 /**

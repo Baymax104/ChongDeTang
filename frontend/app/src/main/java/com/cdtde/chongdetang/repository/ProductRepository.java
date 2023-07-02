@@ -111,21 +111,16 @@ public class ProductRepository {
                         throwable -> callback.onFail.accept(throwable.getMessage()));
     }
 
-    public void requestDeleteShopping(Shopping shopping, ReqCallback<List<Shopping>> callback) {
+    public void requestDeleteShopping(Shopping shopping, ReqCallback<Object> callback) {
         String token = WebService.TOKEN_PREFIX + UserStore.getToken();
 
         productService.deleteShopping(token, shopping)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
-                .flatMap(result -> result.isSuccess() ?
-                        productService.getShoppingByUser(token)
-                                .subscribeOn(Schedulers.io()):
-                        Single.error(new Exception(result.getMessage())))
-                .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
-                        Single.just(res.getData()) :
+                        Single.just(new Object()) :
                         Single.error(new Exception(res.getMessage())))
                 .subscribe(callback.onSuccess,
                         throwable -> callback.onFail.accept(throwable.getMessage()));

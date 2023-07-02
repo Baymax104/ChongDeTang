@@ -20,11 +20,9 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserProductBinding;
 import com.cdtde.chongdetang.entity.Product;
-import com.cdtde.chongdetang.requester.my.UserCollectRequester;
-import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.requester.UserCollectRequester;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.shop.ProductActivity;
-import com.cdtde.chongdetang.view.shop.UserProductDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +74,11 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
         super.onViewCreated(view, savedInstanceState);
 
         requester.updateUserProduct(states.products::setValue, ToastUtils::showShort);
+
+        productMessenger.updateCollectEvent.observeSend(getViewLifecycleOwner(),
+                value -> requester.updateUserProduct(
+                        states.products::setValue,
+                        ToastUtils::showShort)
+        );
     }
 }

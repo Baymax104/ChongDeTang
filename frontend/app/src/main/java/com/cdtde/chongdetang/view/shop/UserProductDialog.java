@@ -15,7 +15,7 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.UserStore;
-import com.cdtde.chongdetang.requester.shop.ProductRequester;
+import com.cdtde.chongdetang.requester.ProductRequester;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.lxj.xpopup.core.AttachPopupView;

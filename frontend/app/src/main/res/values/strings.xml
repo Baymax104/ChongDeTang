@@ -133,4 +133,5 @@
     <string name="commit">提交</string>
     <string name="collect">收藏</string>
     <string name="cancel_collect">取消收藏</string>
+    <string name="opening_time">开馆时间：9:00\n闭馆时间：17:00\n停止入馆：16:00\n观众离场：16:30</string>
 </resources>

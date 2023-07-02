@@ -19,7 +19,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
     private String photo;
     private String mail;

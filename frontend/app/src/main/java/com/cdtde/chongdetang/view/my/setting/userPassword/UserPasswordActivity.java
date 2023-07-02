@@ -20,9 +20,9 @@ import com.cdtde.chongdetang.databinding.ActivityUserPasswordBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
-import com.cdtde.chongdetang.requester.my.PasswordValidateUseCase;
-import com.cdtde.chongdetang.requester.my.UserInfoRequester;
-import com.cdtde.chongdetang.requester.my.ValidateUseCase;
+import com.cdtde.chongdetang.useCase.PasswordValidateUseCase;
+import com.cdtde.chongdetang.requester.UserInfoRequester;
+import com.cdtde.chongdetang.useCase.ValidateUseCase;
 
 import java.util.Arrays;
 import java.util.List;

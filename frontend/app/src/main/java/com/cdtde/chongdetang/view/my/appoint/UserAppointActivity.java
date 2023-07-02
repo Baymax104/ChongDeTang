@@ -21,7 +21,7 @@ import com.cdtde.chongdetang.databinding.ActivityUserAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.my.AppointRequester;
+import com.cdtde.chongdetang.requester.AppointRequester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +75,6 @@ public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding
     protected void initUIComponent(@NonNull ActivityUserAppointBinding binding) {
         WindowUtil.initActivityWindow(this, binding.toolbar, binding.toolbar);
     }
-    // TODO：查看预约bug
-    //  下单时间、预约时间与后端数据库不一致
 
 
     @Override

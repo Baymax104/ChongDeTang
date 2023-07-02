@@ -6,8 +6,11 @@
     <data>
         <import type="android.view.View"/>
         <variable
-                name="viewModel"
-                type="com.cdtde.chongdetang.requester.index.SearchViewModel" />
+                name="state"
+                type="com.cdtde.chongdetang.view.index.SearchActivity.States" />
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.index.SearchActivity.Handler" />
     </data>
 
     <LinearLayout
@@ -26,7 +29,7 @@
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="65dp"
                     android:background="@color/bar_color"
                     android:id="@+id/toolbar"
                     android:fitsSystemWindows="true"
@@ -63,18 +66,22 @@
                                 android:hint="@string/search_hint"
                                 android:fontFamily="@font/text_regular"
                                 android:background="#00ffffff"
+                                android:textSize="15sp"
                                 android:id="@+id/search_edit"
                                 android:layout_toStartOf="@id/clean_btn"
-                                android:maxLength="20" />
+                                android:maxLength="20"
+                                android:text="@{state.content}"
+                                android:afterTextChanged="@{handler::setContent}"/>
 
                         <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="10dp"
                                 android:layout_alignParentEnd="true"
+                                android:src="@drawable/clean_button"
                                 android:id="@+id/clean_btn"
                                 android:onClick="@{()->searchEdit.setText(``)}"
-                                android:visibility="@{searchEdit.text.toString().equals(``) ? View.INVISIBLE : View.VISIBLE}" />
+                                android:visibility="@{searchEdit.text.toString().equals(``) ? View.GONE : View.VISIBLE}" />
                     </RelativeLayout>
 
                     <TextView
@@ -87,7 +94,7 @@
                             android:fontFamily="@font/text_regular"
                             android:layout_marginHorizontal="10dp"
                             android:id="@+id/search_btn"
-                            android:onClick="@{() -> viewModel.search(searchEdit.getText().toString())}"/>
+                            android:onClick="@{handler.search}"/>
                 </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
@@ -99,7 +106,7 @@
                 android:layout_height="40dp"
                 android:id="@+id/history_label"
                 android:paddingHorizontal="15dp"
-                android:visibility="@{viewModel.historyTags.size()==0 ? View.GONE : View.VISIBLE}">
+                android:visibility="@{state.isEmpty ? View.GONE : View.VISIBLE}">
 
             <TextView
                     style="@style/SearchLabelStyle"
@@ -112,7 +119,7 @@
                     android:src="@drawable/delete"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/delete_btn"
-                    android:onClick="@{()->viewModel.clearTag()}"/>
+                    android:onClick="@{handler.clear}"/>
         </RelativeLayout>
 
         <com.zhy.view.flowlayout.TagFlowLayout
@@ -121,9 +128,9 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/history_flow"
-                android:visibility="@{viewModel.historyTags.size()==0 ? View.GONE : View.VISIBLE}"
-                tag_data="@{viewModel.historyTags}"
-                tag_bind="@{searchEdit}"/>
+                android:visibility="@{state.isEmpty ? View.GONE : View.VISIBLE}"
+                tag_data="@{state.histories}"
+                tag_onClick="@{handler.contentConsumer}"/>
 
 
         <TextView
@@ -137,8 +144,8 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/collection_flow"
-                tag_data="@{viewModel.collectionTags}"
-                tag_bind="@{searchEdit}"/>
+                tag_data="@{state.collections}"
+                tag_onClick="@{handler.contentConsumer}"/>
 
 
         <TextView
@@ -152,8 +159,8 @@
                 app:max_select="1"
                 android:padding="15dp"
                 android:id="@+id/product_flow"
-                tag_data="@{viewModel.productTags}"
-                tag_bind="@{searchEdit}"/>
+                tag_data="@{state.products}"
+                tag_onClick="@{handler.contentConsumer}"/>
 
     </LinearLayout>
 </layout>

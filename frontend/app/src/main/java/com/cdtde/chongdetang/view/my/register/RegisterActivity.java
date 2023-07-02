@@ -21,8 +21,8 @@ import com.cdtde.chongdetang.databinding.ActivityRegisterBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
-import com.cdtde.chongdetang.requester.my.UserRequester;
-import com.cdtde.chongdetang.requester.my.ValidateUseCase;
+import com.cdtde.chongdetang.requester.UserRequester;
+import com.cdtde.chongdetang.useCase.ValidateUseCase;
 
 import java.util.Arrays;
 import java.util.List;

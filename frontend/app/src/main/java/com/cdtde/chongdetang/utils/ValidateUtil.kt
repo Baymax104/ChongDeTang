@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.utils
 
+import androidx.core.text.isDigitsOnly
 import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.StringUtils
@@ -113,6 +114,26 @@ object ValidateUtil {
         if (uri == null) return false
         val pattern = "^(?i)(?:file:///|android.resource://).+"
         return Pattern.matches(pattern, uri)
+    }
+
+    /**
+     * 验证预约人数，范围为1-20
+     * @param number 人数字符串
+     * @return true/false
+     */
+    @JvmStatic
+    fun validateAppointNumber(number: String?): Boolean {
+        if (number == null) {
+            return false
+        }
+        if (!number.isDigitsOnly()) {
+            return false
+        }
+        val n = number.toInt()
+        if (n < 1 || n > 20) {
+            return false
+        }
+        return true
     }
 
 }

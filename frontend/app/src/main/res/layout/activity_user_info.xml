@@ -247,45 +247,45 @@
 
             </RelativeLayout>
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray_3" />
+<!--            <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="@color/gray_3" />-->
 
 
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="15dp">
+<!--            <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="55dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingHorizontal="15dp">-->
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_mail"
-                        android:layout_centerVertical="true"
-                        style="@style/UserInfoTextStyle"/>
+<!--                <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/user_mail"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        style="@style/UserInfoTextStyle"/>-->
 
-                <TextView
-                        android:id="@+id/user_mail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{state.user.mail ?? `未填写`}"
-                        android:layout_centerVertical="true"
-                        style="@style/UserInfoTextStyle"
-                        android:layout_toStartOf="@id/mail_arrow"
-                        android:gravity="end"/>
+<!--                <TextView-->
+<!--                        android:id="@+id/user_mail"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@{state.user.mail ?? `未填写`}"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        style="@style/UserInfoTextStyle"-->
+<!--                        android:layout_toStartOf="@id/mail_arrow"-->
+<!--                        android:gravity="end"/>-->
 
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="10dp"
-                        android:id="@+id/mail_arrow"
-                        android:src="@drawable/arrow_right"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"/>
+<!--                <ImageView-->
+<!--                        android:layout_width="25dp"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:id="@+id/mail_arrow"-->
+<!--                        android:src="@drawable/arrow_right"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_alignParentEnd="true"/>-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
             <View
                     android:layout_width="match_parent"

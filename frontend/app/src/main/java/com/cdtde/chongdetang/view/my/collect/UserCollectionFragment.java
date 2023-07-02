@@ -15,22 +15,17 @@ import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
-import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserCollectionBinding;
 import com.cdtde.chongdetang.entity.Collection;
-import com.cdtde.chongdetang.requester.my.UserCollectRequester;
-import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.requester.UserCollectRequester;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
-import com.cdtde.chongdetang.view.exhibit.UserCollectionDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.Unit;
 
 /**
  * @Description
@@ -51,15 +46,8 @@ public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionB
     @InjectScope(Scopes.APPLICATION)
     private CollectionActivity.Messenger collectionMessenger;
 
-    @InjectScope(Scopes.APPLICATION)
-    private Messenger messenger;
-
     public static class States extends StateHolder {
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
-    }
-
-    public static class Messenger extends MessageHolder {
-        public final Event<Collection, Unit> updateUserCollect = new Event<>();
     }
 
     public class ListHandler extends ListHandlerFactory {

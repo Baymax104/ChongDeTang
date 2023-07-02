@@ -20,7 +20,7 @@ import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.register.RegisterActivity;
-import com.cdtde.chongdetang.requester.my.UserRequester;
+import com.cdtde.chongdetang.requester.UserRequester;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 

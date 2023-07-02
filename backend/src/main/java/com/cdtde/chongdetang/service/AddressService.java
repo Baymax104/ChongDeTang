@@ -13,6 +13,11 @@ import java.util.List;
  * @Version 1
  */
 public interface AddressService {
+
+    /**
+     * 获取所有地址
+     * @return Address列表
+     */
     Result<List<Address>> getAllAddress();
 
     Result<Address> updateAddress(Address address);
