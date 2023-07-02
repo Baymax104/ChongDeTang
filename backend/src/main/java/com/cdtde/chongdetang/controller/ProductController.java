@@ -28,6 +28,11 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
+    @GetMapping("/admin")
+    public Result<List<Product>> getAllProductByAdmin(){
+        return productService.getAllProductByAdmin();
+    }
+
     @GetMapping("/hot")
     public Result<List<Product>> getHotProduct() {
         return productService.getHotProduct();
@@ -45,13 +50,32 @@ public class ProductController {
         return productService.updateShoppingNumber(shoppingId, productId, number);
     }
 
+    @PostMapping("/admin/{productId}")
+    public Result<Object> updateProductByAdmin(@PathVariable("productId") Integer productId,@RequestBody Product newproduct){
+        return productService.updateProductByAdmin(productId,newproduct);
+    }
+
     @PostMapping("/shopping")
     public Result<Object> addShopping(@RequestBody Shopping shopping) {
         return productService.addShopping(shopping);
+    }
+
+    @PostMapping("/admin")
+    public Result<Object> addProductByAdmin(@RequestBody Product product) {
+        return productService.addProductByAdmin(product);
     }
 
     @DeleteMapping("/shopping")
     public Result<Object> deleteShopping(@RequestBody Shopping shopping) {
         return productService.deleteShopping(shopping);
     }
+
+    @DeleteMapping("/admin")
+    public Result<Object> deleteProductByAdmin(@RequestBody Product product) {
+        return productService.deleteProductByAdmin(product);
+    }
+
+
+
+
 }

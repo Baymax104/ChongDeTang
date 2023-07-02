@@ -1,15 +1,12 @@
 # 后端说明
 
-### 注意事项
-    1.有什么需要的接口随时联系
-    2.backend/test_api.py是使用python向后端发送请求的代码，可供调试
-    3.backend/create_tables.sql是生成数据库的sql语句，请先创建名为chongdetang的database
+## 注意事项
+    1. backend/test_api.py是使用python向后端发送请求的代码，可供调试
+    2. backend/create_tables.sql是生成数据库的sql语句，请先创建名为chongdetang的database
 
-### Controller
+## UserController
 
-#### UserController
-
-##### register
+### register
 
     对于所填信息的判断（两次密码是否一致、手机号是否是11位数字等已经判断并返回）
     url:/api/user/register
@@ -22,7 +19,7 @@
         ResponseResult<Object>  // 包含status(success、error)、message(为什么error)
     }
 
-##### login
+### login
 
     采用jwt验证，返回值中有token，记得存储
     url:/api/user/login
@@ -35,9 +32,7 @@
         ResponseResult<User>  // data为user信息，包含token
     }
 
-
-
-##### updateInfo
+### updateInfo
 
 ``` 
 更新用户信息
@@ -52,7 +47,7 @@ return: {
 }
 ```
 
-##### updatePassword
+### updatePassword
 
 ``` 
 修改密码
@@ -67,7 +62,7 @@ return: {
 }
 ```
 
-##### updatePhone
+### updatePhone
 
 ``` 
 修改手机号
@@ -80,7 +75,7 @@ return: {
 	success
 }
 ```
-##### setAdmin
+### setAdmin
 ``` 
 修改管理员权限
 url: /api/user/admin
@@ -94,7 +89,7 @@ return: {
 }
 ```
 
-##### checkToken
+### checkToken
 ``` 
 判断token是否有效，若有效则判断是否为管理员
 url: /api/user/checkToken
@@ -110,7 +105,7 @@ return: {
 }
 ```
 
-##### getAllUser
+### getAllUser
 ``` 
 获取用户列表
 url: /api/user/admin
@@ -122,9 +117,9 @@ return: {
 ```
 
 
-#### AddressController
+## AddressController
 
-##### getAllAddress
+### getAllAddress
 
 ``` 
 获取用户的所有地址
@@ -136,7 +131,7 @@ return: {
 }
 ```
 
-##### updateAddress
+### updateAddress
 
 ``` 
 修改地址
@@ -150,7 +145,7 @@ return: {
 }
 ```
 
-##### deleteAddress
+### deleteAddress
 
 ``` 
 删除地址
@@ -164,9 +159,9 @@ return: {
 }
 ```
 
-#### AppointmentController
+## AppointmentController
 
-##### getAllAppointment
+### getAllAppointment
 
 ``` 
 获取用户的预约
@@ -178,7 +173,7 @@ return: {
 }
 ```
 
-##### addAppointment
+### addAppointment
 
 ``` 
 添加预约
@@ -191,7 +186,7 @@ return: {
 	success
 }
 ```
-##### changeStatus
+### changeStatus
 ``` 
 更改审核状态
 url: /api/user/appointment/status
@@ -205,7 +200,7 @@ return: {
 }
 ```
 
-##### getAppointmentCheckList
+### getAppointmentCheckList
 
 ``` 
 获取需要审核列表（按类型）
@@ -219,9 +214,9 @@ return: {
 }
 ```
 
-#### CollectionController
+## CollectionController
 
-##### download
+### download
 ``` 
 获取所有藏品
 url: /api/collection
@@ -232,7 +227,7 @@ return: {
 }
 ```
 
-##### getHot
+### getHot
 
 ``` 
 获取热搜藏品
@@ -244,7 +239,7 @@ return: {
 }
 ```
 
-##### getNotHot
+### getNotHot
 
 ``` 
 获取热搜藏品
@@ -256,7 +251,7 @@ return: {
 }
 ```
 
-##### setSelected
+### setSelected
 
 ``` 
 藏品设置精选
@@ -276,9 +271,9 @@ return: {
 }
 ```
 
-#### CultureController
+## CultureController
 
-##### download
+### download
 ```
     // 在前端区分四个type，取值["beyl","shzk","zzys","tpdk"]
     url:/api/culture
@@ -288,7 +283,7 @@ return: {
         List<Culture>    //  Culture列表
     }
 ```
-##### upload
+### upload
 ```
 //代表匾额楹联，书画篆刻，造纸印刷，拓片雕刻
 url:/api/culture/{type} // 表示是哪个子栏，取值["beyl","shzk","zzys","tpdk"]
@@ -305,9 +300,9 @@ return:{
 }
 ```
 
-#### NewsController
+## NewsController
 
-##### download
+### download
 ```
 代表行业资讯、展馆动态、每日一联
 url:/api/news/{type}    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
@@ -317,7 +312,7 @@ return:{
     ResponseResult<List<News>>    //  列表形式的所有信息
 }
 ```
-##### upload
+### upload
 ```
 url:/api/news/{type}    // 表示是哪个子栏，取值["hyzx","zgdt","mryl"]
 method:post
@@ -334,12 +329,12 @@ return:{
 ```
 
 
-#### ProductController
+## ProductController
 
-##### getAllProduct
+### getAllProduct
 
 ``` 
-获取所有商品
+如果处于未登陆状态则获取所有商品,如果处于登陆状态则获取收藏商品
 url: /api/product
 method: get
 data: null
@@ -348,7 +343,7 @@ return: {
 }
 ```
 
-##### getShoppingByUser
+### getShoppingByUser
 
 ``` 
 获取用户购物车
@@ -360,7 +355,7 @@ return: {
 }
 ```
 
-##### updateShoppingNumber
+### updateShoppingNumber
 
 ``` 
 修改购物车商品数量
@@ -376,7 +371,7 @@ return: {
 }
 ```
 
-##### addShopping
+### addShopping
 
 ``` 
 添加购物车商品
@@ -390,7 +385,7 @@ return: {
 }
 ```
 
-##### deleteShopping
+### deleteShopping
 
 ``` 
 删除购物车商品
@@ -404,3 +399,64 @@ return: {
 }
 ```
 
+### getAllProductByAdmin
+
+``` 
+管理员获取全部商品信息
+url: /api/product/admin
+method: get
+data: null
+return: {
+	List<Product>  // 商品列表
+}
+```
+### addProductByAdmin
+
+```
+管理员添加商品
+url: /api/product/admin
+method: post
+body: {
+	name,
+	price,
+	launch_time,	// yyyy-mm-dd
+	photo,	// url
+	introduction,
+	storage
+}
+return: {
+	status:success/error
+	
+}
+```
+### updateProductNumberByAdmin
+
+```
+管理员修改商品信息
+在前端要带上未修改的字段
+url: /api/product/admin/{productId}
+method: post
+parameters: {
+	同addProductByAdmin
+}
+return: {
+	status:success/error
+}
+```
+
+
+
+### deleteProductByAdmin
+
+```
+管理员删除商品
+url: /api/product/admin
+method: delete
+body: {
+	id	// product id
+}
+return: {
+	status:success/error
+	
+}
+```
