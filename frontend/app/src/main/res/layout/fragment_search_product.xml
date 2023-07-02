@@ -6,22 +6,22 @@
     <data>
         <variable
                 name="state"
-                type="com.cdtde.chongdetang.view.my.collect.UserCollectionFragment.States" />
+                type="com.cdtde.chongdetang.view.index.search.SearchProductFragment.States" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.recycler.UserCollectionAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.SearchProductAdapter" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            tools:listitem="@layout/item_user_collection"
+            tools:listitem="@layout/item_user_product"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             android:orientation="vertical"
-            recycler_data="@{state.collections}"
-            recycler_adapter="@{adapter}">
+            recycler_adapter="@{adapter}"
+            recycler_data="@{state.products}">
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

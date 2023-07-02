@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="state"
+                type="com.cdtde.chongdetang.view.index.search.SearchListFragment.States" />
+        <variable
+                name="adapter"
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.angcyo.tablayout.DslTabLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/tabs"
+                android:background="@color/bar_color"
+                android:paddingHorizontal="5dp"
+                style="@style/DslTabStyle"
+                app:tab_indicator_width="90dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/collection"
+                    style="@style/TabTextStyle"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/product"
+                    style="@style/TabTextStyle"/>
+        </com.angcyo.tablayout.DslTabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                android:id="@+id/view_pager"
+                viewPager_fragments="@{state.fragments}"
+                viewPager_adapter="@{adapter}" />
+
+    </LinearLayout>
+</layout>

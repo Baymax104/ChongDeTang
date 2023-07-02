@@ -28,17 +28,10 @@ public class UserCollectActivity extends BaseActivity<ActivityUserCollectBinding
     private States states;
 
     public static class States extends StateHolder {
-        public final State<Integer> page = new State<>(0);
         public final List<Fragment> fragments = Arrays.asList(
                 new UserCollectionFragment(),
                 new UserProductFragment()
         );
-    }
-
-    public class Handler {
-        public void setPage(int page) {
-            states.page.setValue(page);
-        }
     }
 
     @Override
@@ -54,8 +47,4 @@ public class UserCollectActivity extends BaseActivity<ActivityUserCollectBinding
         ViewPager2Delegate.Companion.install(binding.viewPager, binding.tabs, true);
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 }

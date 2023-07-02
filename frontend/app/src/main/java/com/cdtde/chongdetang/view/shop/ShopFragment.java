@@ -28,7 +28,7 @@ import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.requester.ShopRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.view.index.SearchActivity;
+import com.cdtde.chongdetang.view.index.search.SearchActivity;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.youth.banner.indicator.CircleIndicator;
 

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            tools:listitem="@layout/item_shop_product"
+            tools:listitem="@layout/item_user_product"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             android:orientation="vertical"

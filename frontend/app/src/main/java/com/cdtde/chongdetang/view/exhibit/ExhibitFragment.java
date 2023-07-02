@@ -10,7 +10,6 @@ import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.Fragment;
 
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate;
-import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.base.view.BaseFragment;
@@ -21,8 +20,7 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentExhibitBinding;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.view.index.SearchActivity;
+import com.cdtde.chongdetang.view.index.search.SearchActivity;
 
 import java.util.Arrays;
 import java.util.List;

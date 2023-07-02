@@ -6,10 +6,10 @@
     <data>
         <variable
                 name="state"
-                type="com.cdtde.chongdetang.view.my.collect.UserCollectionFragment.States" />
+                type="com.cdtde.chongdetang.view.index.search.SearchCollectionFragment.States" />
         <variable
                 name="adapter"
-                type="com.cdtde.chongdetang.adapter.recycler.UserCollectionAdapter" />
+                type="com.cdtde.chongdetang.adapter.recycler.SearchCollectionAdapter" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

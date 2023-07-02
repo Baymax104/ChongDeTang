@@ -51,8 +51,7 @@ public class ProductRepository {
     }
 
     public void requestAllProduct(ReqCallback<List<Product>> callback) {
-        String token = UserStore.getUser().getToken() != null ?
-                WebService.TOKEN_PREFIX + UserStore.getUser().getToken() : null;
+        String token = WebService.TOKEN_PREFIX + UserStore.getUser().getToken();
 
         productService.getAllProduct(token)
                 .subscribeOn(Schedulers.io())

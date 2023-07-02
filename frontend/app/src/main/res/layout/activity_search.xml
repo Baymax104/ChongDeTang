@@ -7,16 +7,19 @@
         <import type="android.view.View"/>
         <variable
                 name="state"
-                type="com.cdtde.chongdetang.view.index.SearchActivity.States" />
+                type="com.cdtde.chongdetang.view.index.search.SearchActivity.States" />
         <variable
                 name="handler"
-                type="com.cdtde.chongdetang.view.index.SearchActivity.Handler" />
+                type="com.cdtde.chongdetang.view.index.search.SearchActivity.Handler" />
+        <variable
+                name="adapter"
+                type="com.cdtde.chongdetang.adapter.FragmentAdapter" />
     </data>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.index.SearchActivity"
+            tools:context=".view.index.search.SearchActivity"
             android:orientation="vertical"
             android:fitsSystemWindows="true"
             tools:ignore="ContentDescription,RelativeOverlap">
@@ -69,7 +72,7 @@
                                 android:textSize="15sp"
                                 android:id="@+id/search_edit"
                                 android:layout_toStartOf="@id/clean_btn"
-                                android:maxLength="20"
+                                edit_length="@{30}"
                                 android:text="@{state.content}"
                                 android:afterTextChanged="@{handler::setContent}"/>
 
@@ -80,8 +83,8 @@
                                 android:layout_alignParentEnd="true"
                                 android:src="@drawable/clean_button"
                                 android:id="@+id/clean_btn"
-                                android:onClick="@{()->searchEdit.setText(``)}"
-                                android:visibility="@{searchEdit.text.toString().equals(``) ? View.GONE : View.VISIBLE}" />
+                                android:onClick="@{handler.clearContent}"
+                                android:visibility="@{state.content.equals(``) ? View.GONE : View.VISIBLE}" />
                     </RelativeLayout>
 
                     <TextView
@@ -101,66 +104,15 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <RelativeLayout
+        <androidx.viewpager2.widget.ViewPager2
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:id="@+id/history_label"
-                android:paddingHorizontal="15dp"
-                android:visibility="@{state.isEmpty ? View.GONE : View.VISIBLE}">
-
-            <TextView
-                    style="@style/SearchLabelStyle"
-                    android:text="@string/search_history"
-                    android:layout_alignParentStart="true" />
-
-            <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/delete"
-                    android:layout_alignParentEnd="true"
-                    android:id="@+id/delete_btn"
-                    android:onClick="@{handler.clear}"/>
-        </RelativeLayout>
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:max_select="1"
-                android:padding="15dp"
-                android:id="@+id/history_flow"
-                android:visibility="@{state.isEmpty ? View.GONE : View.VISIBLE}"
-                tag_data="@{state.histories}"
-                tag_onClick="@{handler.contentConsumer}"/>
-
-
-        <TextView
-                style="@style/SearchLabelStyle"
-                android:text="@string/search_collection"
-                android:layout_marginStart="15dp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:max_select="1"
-                android:padding="15dp"
-                android:id="@+id/collection_flow"
-                tag_data="@{state.collections}"
-                tag_onClick="@{handler.contentConsumer}"/>
-
-
-        <TextView
-                style="@style/SearchLabelStyle"
-                android:text="@string/search_product"
-                android:layout_marginStart="15dp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:max_select="1"
-                android:padding="15dp"
-                android:id="@+id/product_flow"
-                tag_data="@{state.products}"
-                tag_onClick="@{handler.contentConsumer}"/>
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                android:id="@+id/view_pager"
+                viewPager_fragments="@{state.fragments}"
+                viewPager_adapter="@{adapter}"
+                viewPager_page="@{state.page}"
+                viewPager_smooth="@{false}"/>
 
     </LinearLayout>
 </layout>

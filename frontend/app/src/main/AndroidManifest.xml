@@ -67,8 +67,7 @@
                 android:exported="false" />
         <activity
                 android:name=".view.index.origin.OriginActivity"
-                android:exported="false"
-                android:label="@string/title_activity_origin" />
+                android:exported="false" />
         <activity
                 android:name="com.cdtde.chongdetang.view.index.culture.CultureDetailActivity"
                 android:exported="false" />
@@ -86,27 +85,20 @@
         <activity android:name=".view.my.setting.userPassword.UserPasswordActivity" />
         <activity android:name=".view.my.address.AddressActivity" />
         <activity android:name=".view.my.appoint.UserAppointActivity" />
+        <activity android:name=".view.index.search.SearchActivity" />
         <activity
                 android:name="com.yalantis.ucrop.UCropActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                 tools:ignore="LockedOrientationActivity" />
         <activity
-                android:name=".view.index.SearchActivity"
-                android:exported="false">
-            <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
-        </activity>
-        <activity
                 android:name=".view.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Android7.0以后读取文件需要配置Provider -->
+        </activity>
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.cdtde.chongdetang.fileprovider"
