@@ -54,7 +54,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
         );
 
         public final List<String> products = Arrays.asList(
-                "书签护身符",
+                "当思历",
                 "德文化书简装签套装",
                 "德福-厚德载福条屏",
                 "堂主作品（舍念清净）",

@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
@@ -49,21 +50,25 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding> {
     }
 
     public class Handler {
-        public final OnClickListener search = v ->
-                requester.searchCollection(states.content.getValue(),
-                        collections -> {
-                            collectionMessenger.showEvent.send(collections);
-                            requester.searchProduct(states.content.getValue(),
-                                    products -> {
-                                        productMessenger.showEvent.send(products);
-                                        messenger.contentEvent.reply(states.content.getValue());
-                                        states.page.setValue(1);
-                                    },
-                                    ToastUtils::showShort
-                            );
-                        },
-                        ToastUtils::showShort
-                );
+        public final OnClickListener search = v -> {
+            if (StringUtils.isEmpty(states.content.getValue())) {
+                return;
+            }
+            requester.searchCollection(states.content.getValue(),
+                    collections -> {
+                        collectionMessenger.showEvent.send(collections);
+                        requester.searchProduct(states.content.getValue(),
+                                products -> {
+                                    productMessenger.showEvent.send(products);
+                                    messenger.contentEvent.reply(states.content.getValue());
+                                    states.page.setValue(1);
+                                },
+                                ToastUtils::showShort
+                        );
+                    },
+                    ToastUtils::showShort
+            );
+        };
 
         public final OnClickListener clearContent = v -> {
             states.content.setValue("");
