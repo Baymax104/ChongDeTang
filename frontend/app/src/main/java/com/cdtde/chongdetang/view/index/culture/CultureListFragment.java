@@ -20,7 +20,7 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentCultureListBinding;
 import com.cdtde.chongdetang.entity.Culture;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.requester.index.CultureRequester;
+import com.cdtde.chongdetang.requester.CultureRequester;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
@@ -22,11 +21,9 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentExhibitListBinding;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.repository.UserStore;
-import com.cdtde.chongdetang.requester.exhibit.ExhibitRequester;
+import com.cdtde.chongdetang.requester.ExhibitRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.view.my.collect.UserCollectionFragment;
-import com.cdtde.chongdetang.view.my.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;

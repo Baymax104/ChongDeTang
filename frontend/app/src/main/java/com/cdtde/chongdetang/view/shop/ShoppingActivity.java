@@ -24,7 +24,7 @@ import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.utils.binding.CheckBoxAdapter.OnCheckBoxClick;
-import com.cdtde.chongdetang.requester.shop.ShoppingRequester;
+import com.cdtde.chongdetang.requester.ShoppingRequester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +122,15 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
 
         public final OnItemClickListener<CheckedShopping> delete = (data, view) ->
                 requester.deleteShopping(data,
-                        states.checkedShoppings::setValue, ToastUtils::showShort);
+                        o -> {
+                            List<CheckedShopping> list = states.checkedShoppings.getValue();
+                            list.remove(data);
+                            states.checkedShoppings.setValue(list);
+                            if (data.isChecked()) {
+                                states.selected.setValue(states.selected.getValue() - 1);
+                            }
+                            states.priceSum.setValue(refreshPrice(states.checkedShoppings.getValue()));
+                        }, ToastUtils::showShort);
 
         @Override
         public BindingConfig getBindingConfig() {
@@ -159,14 +167,17 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
             checkedShoppings.forEach(checkedShopping -> checkedShopping.setChecked(true));
             states.checkedShoppings.setValue(checkedShoppings);
             states.selected.setValue(checkedShoppings.size());
-            double sum = checkedShoppings.stream()
-                    .filter(CheckedShopping::isChecked)
-                    .map(CheckedShopping::getShopping)
-                    .mapToDouble(value -> value.getNumber() * value.getProduct().getPrice())
-                    .reduce(Double::sum)
-                    .orElse(0.);
-            states.priceSum.setValue(sum);
+            states.priceSum.setValue(refreshPrice(checkedShoppings));
         }, ToastUtils::showShort);
+    }
+
+    private double refreshPrice(List<CheckedShopping> list) {
+        return list.stream()
+                .filter(CheckedShopping::isChecked)
+                .map(CheckedShopping::getShopping)
+                .mapToDouble(value -> value.getNumber() * value.getProduct().getPrice())
+                .reduce(Double::sum)
+                .orElse(0.);
     }
 
 }

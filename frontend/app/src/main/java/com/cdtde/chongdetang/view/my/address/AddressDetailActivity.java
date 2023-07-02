@@ -21,7 +21,7 @@ import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.my.AddressRequester;
+import com.cdtde.chongdetang.requester.AddressRequester;
 
 import kotlin.Unit;
 

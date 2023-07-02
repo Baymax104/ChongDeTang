@@ -19,8 +19,8 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserPhoneBinding;
 import com.cdtde.chongdetang.repository.UserStore;
-import com.cdtde.chongdetang.requester.my.PhoneValidateUseCase;
-import com.cdtde.chongdetang.requester.my.ValidateUseCase;
+import com.cdtde.chongdetang.useCase.PhoneValidateUseCase;
+import com.cdtde.chongdetang.useCase.ValidateUseCase;
 
 /**
  * @Description

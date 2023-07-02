@@ -64,7 +64,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="测试\n测试测试测试测试测试"
+                        android:text="@string/opening_time"
                         style="@style/AppointTextAreaStyle"
                         android:lineSpacingMultiplier="1.5"/>
                 <include

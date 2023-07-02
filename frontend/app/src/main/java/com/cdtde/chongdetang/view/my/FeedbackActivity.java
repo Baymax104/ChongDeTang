@@ -19,7 +19,7 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityFeedbackBinding;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.my.UserRequester;
+import com.cdtde.chongdetang.requester.UserRequester;
 
 public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding> {
 

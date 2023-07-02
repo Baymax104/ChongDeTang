@@ -32,7 +32,7 @@ import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Permission;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.my.UserInfoRequester;
+import com.cdtde.chongdetang.requester.UserInfoRequester;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;

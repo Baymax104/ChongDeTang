@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.requester.shop;
+package com.cdtde.chongdetang.requester;
 
 import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.entity.CheckedShopping;
@@ -40,14 +40,8 @@ public class ShoppingRequester extends Requester {
     }
 
     public void deleteShopping(CheckedShopping checkedShopping,
-                               Consumer<List<CheckedShopping>> onSuccess, Consumer<String> onFail) {
-        Consumer<List<Shopping>> transform = shoppings -> {
-            List<CheckedShopping> wrap = shoppings.stream()
-                    .map(CheckedShopping::new)
-                    .collect(Collectors.toList());
-            onSuccess.accept(wrap);
-        };
-        ReqCallback<List<Shopping>> callback = new ReqCallback<>(transform, onFail, this);
+                               Consumer<Object> onSuccess, Consumer<String> onFail) {
+        ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
         repo.requestDeleteShopping(checkedShopping.getShopping(), callback);
     }
 }

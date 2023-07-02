@@ -1,6 +1,5 @@
 package com.cdtde.chongdetang.utils.binding
 
-import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +8,7 @@ import com.cdtde.chongdetang.adapter.SearchTagAdapter
 import com.cdtde.chongdetang.base.view.BaseAdapter
 import com.youth.banner.Banner
 import com.zhy.view.flowlayout.TagFlowLayout
+import java.util.function.Consumer
 
 /**
  *@Description
@@ -22,18 +22,17 @@ object ListAdapter {
     @JvmStatic
     @BindingAdapter("tag_data")
     fun TagFlowLayout.adapter(data: List<String>) {
-        val adapter = (this.adapter as? SearchTagAdapter) ?: SearchTagAdapter(
-            data
-        )
+        val adapter = (this.adapter as? SearchTagAdapter) ?: SearchTagAdapter(data)
         adapter.setData(data)
         this.adapter = adapter
     }
 
     @JvmStatic
-    @BindingAdapter("tag_bind")
-    fun TagFlowLayout.bind(editText: EditText) {
+    @BindingAdapter("tag_onClick")
+    fun TagFlowLayout.bind(consumer: Consumer<String>) {
         setOnTagClickListener { _, position, _ ->
-            editText.setText(this.adapter.getItem(position) as? String)
+            val tag = adapter.getItem(position) as String
+            consumer.accept(tag)
             return@setOnTagClickListener true
         }
     }

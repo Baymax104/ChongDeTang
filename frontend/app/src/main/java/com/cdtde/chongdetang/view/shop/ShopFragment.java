@@ -25,7 +25,7 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentShopBinding;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.repository.UserStore;
-import com.cdtde.chongdetang.requester.shop.ShopRequester;
+import com.cdtde.chongdetang.requester.ShopRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.index.SearchActivity;
