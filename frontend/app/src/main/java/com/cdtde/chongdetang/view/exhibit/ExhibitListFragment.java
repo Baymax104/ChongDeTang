@@ -5,6 +5,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
@@ -25,6 +27,8 @@ import com.cdtde.chongdetang.requester.ExhibitRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,4 +131,18 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
         return fragment;
     }
 
+    @Override
+    protected void initUIComponent(@NonNull FragmentExhibitListBinding binding) {
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        binding.tabList.setLayoutManager(layoutManager);
+        binding.tabList.setItemAnimator(null);
+        binding.tabList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                layoutManager.invalidateSpanAssignments();
+            }
+        });
+    }
 }

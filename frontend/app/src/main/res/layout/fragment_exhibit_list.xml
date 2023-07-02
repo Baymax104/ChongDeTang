@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -18,9 +17,6 @@
             android:id="@+id/tab_list"
             android:paddingHorizontal="5dp"
             tools:listitem="@layout/item_exhibit_collection"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="2"
-            android:orientation="vertical"
             recycler_adapter="@{adapter}"
             recycler_data="@{state.collections}"/>
 </layout>
