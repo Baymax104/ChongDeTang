@@ -32,5 +32,8 @@ export const pathMap = {
   event_audit: '活动预约审核',
   collection_filtrate: '藏品精选筛选',
   message_configuration: '消息推送设置',
-  auth_manage: '人员权限管理'
+  auth_manage: '人员权限管理',
+  collection_manage: '藏品管理',
+  product_manage: '商品管理',
+  order_manage: '订单管理',
 }

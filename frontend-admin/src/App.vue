@@ -4,17 +4,19 @@
             <el-aside class="aside">
                 <div class="head">
                     <div>
-                        <img src="//s.weituibao.com/1582958061265/mlogo.png" alt="logo">
+                        <img src="/src/assets/logo.png" alt="logo">
                         <span>崇德堂</span>
                     </div>
                 </div>
                 <div class="line" />
                 <el-menu background-color="#222832" text-color="#fff" :router="true" :default-openeds="state.defaultOpen"
                     :default-active='state.currentPath'>
+
                   <el-menu-item index="/dashboard">
                     <el-icon><Plus /></el-icon>
-                    <span>大盘数据</span>
+                    <span>数据分析</span>
                   </el-menu-item>
+
                     <el-sub-menu index="2">
                         <template #title><el-icon><setting /></el-icon>
                             <span>首页管理</span>
@@ -26,12 +28,21 @@
                             <el-menu-item index="/collection_filtrate"><el-icon>
                                     <StarFilled />
                                 </el-icon>藏品精选筛选</el-menu-item>
-                            <el-menu-item index="/message_configuration"><el-icon>
-                                    <Sell />
-                                </el-icon>消息推送配置</el-menu-item>
-
                         </el-menu-item-group>
                     </el-sub-menu>
+
+                  <el-menu-item index="/collection_manage">
+                    <el-icon><setting /></el-icon>
+                    <span>藏品管理</span>
+                  </el-menu-item>
+                  <el-menu-item index="/product_manage">
+                    <el-icon><setting /></el-icon>
+                    <span>商品管理</span>
+                  </el-menu-item>
+                  <el-menu-item index="/order_manage">
+                    <el-icon><setting /></el-icon>
+                    <span>订单管理</span>
+                  </el-menu-item>
                   <el-menu-item index="/auth_manage">
                     <el-icon><setting /></el-icon>
                     <span>权限管理</span>
@@ -118,7 +129,7 @@ router.beforeEach((to, from, next) => {
 
 .head img {
     width: 50px;
-    height: 50px;
+    height: 46px;
     margin-right: 10px;
 }
 

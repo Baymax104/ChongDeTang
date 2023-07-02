@@ -5,7 +5,7 @@
         <span>授权用户为管理员</span>
       </div>
     </template>
-    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%">
+    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="table_loading">
       <el-table-column label="id" prop="id" sortable />
       <el-table-column label="头像">
         <template #default="scope">
@@ -71,12 +71,13 @@ const judgeCurrentUserRole = (curId) => {
 
 // 表格数据
 const tableData = ref([])
-
+const table_loading = ref(true)
 // 后端获取用户列表
 const handleGetUserList = () => {
   getUserList().then(res => {
     console.log(res)
     tableData.value = res
+    table_loading.value = false
   })
 }
 // 页面加载时刷新
