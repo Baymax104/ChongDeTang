@@ -47,8 +47,6 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
         public State<List<Product>> products = new State<>(new ArrayList<>());
     }
 
-    // TODO： 商品收藏bug
-    //  从我的收藏页面进入商品详情页面更新收藏状态后，没有通知商品页面进行刷新
     public class ListHandler extends ListHandlerFactory {
         public OnItemClickListener<Product> itemClick = (data, view) -> {
             productMessenger.showEvent.send(data);

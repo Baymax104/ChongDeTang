@@ -119,10 +119,7 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
                     numChange * data.getShopping().getNumber() * data.getShopping().getProduct().getPrice();
             states.priceSum.setValue(price);
         };
-        // TODO：购物车删除bug
-        //  1删除一件商品后，界面仍然处于“编辑状态”但无法继续删除其他商品
-        //  2删除商品后，商品总金额不变
-        //  3删除一件商品后，其他商品的“选择状态”自动变为不选择
+
         public final OnItemClickListener<CheckedShopping> delete = (data, view) ->
                 requester.deleteShopping(data,
                         o -> {
