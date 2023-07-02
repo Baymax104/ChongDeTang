@@ -24,6 +24,7 @@ public class Product {
     private Date launchTime;
     private String photo;
     private String introduction;
+    private Integer storage;
 
     @TableField(exist = false)
     private String userCollect = "0";

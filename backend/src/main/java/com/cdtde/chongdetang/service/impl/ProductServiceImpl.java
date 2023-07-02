@@ -1,5 +1,6 @@
 package com.cdtde.chongdetang.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cdtde.chongdetang.mapper.ProductMapper;
 import com.cdtde.chongdetang.mapper.ShoppingMapper;
@@ -61,6 +62,20 @@ public class ProductServiceImpl implements ProductService {
         return new Result<>("success", null, products);
     }
 
+    public Result<List<Product>> getAllProductByAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            List<Product> products = productMapper.selectList(null);
+            return new Result<>("success",null,products);
+        }
+        return new Result<>("error", "您未登录或没有管理员权限", null);
+    }
+
     @Override
     public Result<List<Product>> getHotProduct() {
         List<Product> allProducts = productMapper.selectList(null);
@@ -77,6 +92,7 @@ public class ProductServiceImpl implements ProductService {
         }
         return new Result<>("success", null, hotProducts);
     }
+
 
     @Override
     public Result<List<Shopping>> getShoppingByUser() {
@@ -102,6 +118,37 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("修改购物车商品数量错误");
         }
         result.setStatus("success").setData(number);
+        return result;
+    }
+
+    @Override
+    public Result<Object> updateProductByAdmin(Integer productId, Product product) {
+        Result<Object> result = new Result<>();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            UpdateWrapper<Product> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id",productId)
+                    .set("storage",product.getStorage())
+                    .set("photo",product.getPhoto())
+                    .set("Introduction",product.getIntroduction())
+                    .set("price",product.getPrice())
+                    .set("launch_time",product.getLaunchTime())
+                    .set("name",product.getName());
+
+            int update = productMapper.update(null,wrapper);
+            if (update != 1) {
+                throw new RuntimeException("修改商品错误");
+            }
+            result.setStatus("success").setData(null);
+            return result;
+        }
+        result.setStatus("error");
         return result;
     }
 
@@ -133,6 +180,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Result<Object> addProductByAdmin(Product product) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("name",product.getName());
+            List<Product> product1 = productMapper.selectList(queryWrapper);
+            if(!product1.isEmpty()){
+                throw new RuntimeException("存在同名商品");
+            }
+            int i = productMapper.insert(product);
+            if(i != 1){
+                throw new RuntimeException("添加商品失败");
+            }
+            return new Result<>("success",null,null);
+        }
+
+        return new Result<>("error", null, null);
+    }
+
+    @Override
     public Result<Object> deleteShopping(Shopping shopping) {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
@@ -146,6 +219,24 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("删除购物车失败");
         }
 
+        return new Result<>("success", null, null);
+    }
+
+    @Override
+    public Result<Object> deleteProductByAdmin(Product product) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            int i = productMapper.deleteById(product);
+            if(i!=1){
+                throw new RuntimeException("删除商品失败");
+            }
+        }
         return new Result<>("success", null, null);
     }
 }
