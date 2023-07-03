@@ -25,6 +25,9 @@ import com.cdtde.chongdetang.requester.IndexRequester;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * “行业资讯”列表页
+ */
 public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -38,6 +41,9 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
 
     public static class States extends StateHolder {
+        /**
+         * “行业资讯”内容对象列表
+         */
         public final State<List<Info>> infos = new State<>(new ArrayList<>());
     }
 

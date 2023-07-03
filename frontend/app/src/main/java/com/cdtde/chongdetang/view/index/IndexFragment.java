@@ -46,11 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2022/12/21 20:52
- * @Version 1
+ * 首页
  */
 public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
 
@@ -68,11 +64,27 @@ public class IndexFragment extends BaseFragment<FragmentIndexBinding> {
     private InfoDetailActivity.Messenger infoDetailMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 精选藏品列表
+         */
         public final State<List<Collection>> hotCollections = new State<>(new ArrayList<>());
+        /**
+         * “展馆动态”内容列表
+         */
         public final State<List<Moment>> moments = new State<>(new ArrayList<>());
+        /**
+         * “行业资讯”内容列表
+         */
         public final State<List<Info>> infos = new State<>(new ArrayList<>());
+        /**
+         * 首页展示的“展馆动态”内容
+         */
         public final State<Moment> showMoment = new State<>(new Moment());
+        /**
+         * 首页展示的“行业资讯”内容
+         */
         public final State<Info> showInfo = new State<>(new Info());
+
         public final List<Integer> banner = Arrays.asList(
                 R.drawable.index_banner1,
                 R.drawable.index_banner2,

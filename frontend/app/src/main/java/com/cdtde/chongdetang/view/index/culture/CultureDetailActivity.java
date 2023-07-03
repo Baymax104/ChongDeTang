@@ -18,6 +18,9 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 
 import kotlin.Unit;
 
+/**
+ * “崇德讲堂”内容详情页
+ */
 public class CultureDetailActivity extends BaseActivity<ActivityCultureDetailBinding> {
 
     @InjectScope(Scopes.ACTIVITY)
@@ -27,11 +30,17 @@ public class CultureDetailActivity extends BaseActivity<ActivityCultureDetailBin
 
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Culture, Unit> showEvent = new Event<>();
     }
 
 
     public static class States extends StateHolder {
+        /**
+         * 当前展示内容对象
+         */
         public final State<Culture> culture = new State<>(new Culture());
     }
 

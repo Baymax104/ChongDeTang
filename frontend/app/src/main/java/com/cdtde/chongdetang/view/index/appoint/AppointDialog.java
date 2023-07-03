@@ -21,11 +21,7 @@ import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/8 17:10
- * @Version 1
+ * 预约信息填写页
  */
 public class AppointDialog extends BottomPopupView {
 
@@ -38,6 +34,9 @@ public class AppointDialog extends BottomPopupView {
 
 
     public static class States extends StateHolder {
+        /**
+         * 当前填写的预约对象
+         */
         public final State<Appointment> appointment = new State<>(new Appointment());
     }
 

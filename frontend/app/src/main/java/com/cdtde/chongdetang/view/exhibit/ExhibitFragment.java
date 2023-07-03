@@ -25,13 +25,6 @@ import com.cdtde.chongdetang.view.index.search.SearchActivity;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @Description
- * @Author John
- * @email
- * @Date 2022/12/21 22:02
- * @Version 1
- */
 public class ExhibitFragment extends BaseFragment<FragmentExhibitBinding> {
 
     @InjectScope(Scopes.FRAGMENT)

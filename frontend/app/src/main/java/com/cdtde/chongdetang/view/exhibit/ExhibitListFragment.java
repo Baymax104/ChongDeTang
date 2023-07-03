@@ -59,7 +59,7 @@ public class ExhibitListFragment extends BaseFragment<FragmentExhibitListBinding
          */
         public int page = 0;
         /**
-         * 当前列表页请求的藏品类别
+         * 当前列表页展示的藏品类别
          */
         public String type = "";
     }

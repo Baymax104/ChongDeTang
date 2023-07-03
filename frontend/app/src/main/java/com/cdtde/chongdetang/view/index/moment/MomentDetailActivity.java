@@ -20,6 +20,9 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 
 import kotlin.Unit;
 
+/**
+ * “展馆动态”内容详情页
+ */
 public class MomentDetailActivity extends BaseActivity<ActivityMomentDetailBinding> {
 
     @InjectScope(Scopes.ACTIVITY)
@@ -29,10 +32,16 @@ public class MomentDetailActivity extends BaseActivity<ActivityMomentDetailBindi
 
 
     public static class States extends StateHolder {
+        /**
+         * 当前展示内容对象
+         */
         public final State<Moment> moment = new State<>(new Moment());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Moment, Unit> showEvent = new Event<>();
     }
 

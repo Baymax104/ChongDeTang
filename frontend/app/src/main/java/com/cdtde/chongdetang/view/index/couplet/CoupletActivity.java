@@ -25,6 +25,9 @@ import com.cdtde.chongdetang.requester.CoupletRequester;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ”每日一联“列表页
+ */
 public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -35,6 +38,9 @@ public class CoupletActivity extends BaseActivity<ActivityCoupletBinding> {
     private CoupletDetailActivity.Messenger messenger;
 
     public static class States extends StateHolder{
+        /**
+         * “每日一联”内容对象列表
+         */
         public final State<List<Couplet>> couplets = new State<>(new ArrayList<>());
 
     }

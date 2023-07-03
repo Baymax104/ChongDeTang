@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.view.index.couplet;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,16 +15,15 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCoupletDetailBinding;
 import com.cdtde.chongdetang.entity.Couplet;
-import com.cdtde.chongdetang.entity.News;
 import com.cdtde.chongdetang.utils.WebViewUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import kotlin.Unit;
 
+/**
+ * “每日一联”内容详情页
+ */
 public class CoupletDetailActivity extends BaseActivity<ActivityCoupletDetailBinding> {
-
-
 
     @InjectScope(Scopes.ACTIVITY)
     private States states;
@@ -34,9 +31,15 @@ public class CoupletDetailActivity extends BaseActivity<ActivityCoupletDetailBin
     private Messenger messenger;
 
     public static class States extends StateHolder{
+        /**
+         * 当前展示内容对象
+         */
         public final State<Couplet> data = new State<>(new Couplet());
     }
     public static class Messenger extends MessageHolder{
+        /**
+         * 展示事件
+         */
         public final Event<Couplet, Unit> showEvent = new Event<>();
     }
 
@@ -55,20 +58,7 @@ public class CoupletDetailActivity extends BaseActivity<ActivityCoupletDetailBin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding = DataBindingUtil.setContentView(this, R.layout.activity_couplet_detail);
-//        binding.setLifecycleOwner(this);
-//        vm = new ViewModelProvider(this).get(CoupletDetailViewModel.class);
-//        binding.setViewModel(vm);
-
-//        WindowUtil.initActivityWindow(binding.toolbar, this, true, true);
-//        WebViewUtil.configure(binding.webPage, false);
-
-
         messenger.showEvent.observeSend(this, true, states.data::setValue);
-//        LiveEventBus.get("CoupletDetailActivity-getData", News.class)
-//                .observeSticky(this, vm::setCouplet);
     }
-
-
 
 }

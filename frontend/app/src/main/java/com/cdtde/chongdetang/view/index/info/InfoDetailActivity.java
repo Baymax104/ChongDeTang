@@ -20,6 +20,9 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 
 import kotlin.Unit;
 
+/**
+ * “行业资讯”内容详情页
+ */
 public class InfoDetailActivity extends BaseActivity<ActivityInfoDetailBinding> {
 
     @InjectScope(Scopes.ACTIVITY)
@@ -29,10 +32,16 @@ public class InfoDetailActivity extends BaseActivity<ActivityInfoDetailBinding> 
     private Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * 当前展示内容对象
+         */
         public final State<Info> info = new State<>(new Info());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Info, Unit> showEvent = new Event<>();
     }
 

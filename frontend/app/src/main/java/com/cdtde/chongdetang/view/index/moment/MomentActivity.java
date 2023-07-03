@@ -25,6 +25,9 @@ import com.cdtde.chongdetang.requester.IndexRequester;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * “展馆动态”列表页
+ */
 public class MomentActivity extends BaseActivity<ActivityMomentBinding> {
 
     @InjectScope(Scopes.ACTIVITY)
@@ -37,6 +40,9 @@ public class MomentActivity extends BaseActivity<ActivityMomentBinding> {
     private MomentDetailActivity.Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * “展馆动态”内容对象列表
+         */
         public final State<List<Moment>> moments = new State<>(new ArrayList<>());
     }
 

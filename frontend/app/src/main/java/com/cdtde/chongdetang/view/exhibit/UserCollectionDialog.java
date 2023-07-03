@@ -23,13 +23,6 @@ import com.lxj.xpopup.core.AttachPopupView;
 import kotlin.Unit;
 
 
-/**
- * @Description
- * @Author John
- * @email
- * @Date 2023/3/13 13:32
- * @Version 1
- */
 public class UserCollectionDialog extends AttachPopupView {
 
     private States states = DialogScope.getFromActivity(this, States.class);

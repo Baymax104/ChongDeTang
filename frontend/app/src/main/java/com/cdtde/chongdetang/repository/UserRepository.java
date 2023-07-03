@@ -84,6 +84,7 @@ public class UserRepository {
     public void requestUpdateInfo(User newUser, ReqCallback<Object> callback) {
         String token = WebService.TOKEN_PREFIX + UserStore.getToken();
 
+        // TODO 只修改信息，不修改头像，json里没有头像字段
         if (!User.DEFAULT_PHOTO.equals(newUser.getPhoto())) {
             File file = UriUtils.uri2File(Uri.parse(newUser.getPhoto()));
             String base64 = CameraUtil.file2Base64(file);

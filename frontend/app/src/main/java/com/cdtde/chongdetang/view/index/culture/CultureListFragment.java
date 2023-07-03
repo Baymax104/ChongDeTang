@@ -27,7 +27,7 @@ import java.util.List;
 
 
 /**
- * A placeholder fragment containing a simple view.
+ * “崇德讲堂”列表页
  */
 public class CultureListFragment extends BaseFragment<FragmentCultureListBinding> {
 
@@ -39,8 +39,17 @@ public class CultureListFragment extends BaseFragment<FragmentCultureListBinding
     private CultureDetailActivity.Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * “崇德讲堂”内容对象列表
+         */
         public final State<List<Culture>> cultures = new State<>(new ArrayList<>());
+        /**
+         * 当前列表页所在页数
+         */
         public int page = 0;
+        /**
+         * 当前列表页展示的内容类别
+         */
         public String type = "";
     }
 
