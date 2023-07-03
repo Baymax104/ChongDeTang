@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="handler"
+                type="com.cdtde.chongdetang.view.shop.PayActivity.Handler" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".view.shop.PayActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bar_color"
+                    android:id="@+id/toolbar"
+                    android:fitsSystemWindows="true">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="支付示例"
+                        style="@style/CommonToolbarTitleStyle"
+                        tools:ignore="HardcodedText" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <Button
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/button_bg"
+                    style="@style/ButtonTextStyle"
+                    android:layout_gravity="center"
+                    android:text="完成支付"
+                    tools:ignore="HardcodedText"
+                    android:onClick="@{handler.pay}" />
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

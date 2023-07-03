@@ -40,6 +40,8 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
     private Messenger messenger;
     @InjectScope(Scopes.APPLICATION)
     private AddressDetailActivity.Messenger detailMessenger;
+    @InjectScope(Scopes.APPLICATION)
+    private PayActivity.Messenger payMessenger;
 
     public static class States extends StateHolder {
         public final State<List<Shopping>> shoppings = new State<>(new ArrayList<>());
@@ -65,9 +67,8 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
             }
         };
 
-        public final OnClickListener pay = v -> {
-            ToastUtils.showShort("支付");
-        };
+        public final OnClickListener pay = v ->
+                Starter.actionStart(activity, PayActivity.class);
     }
 
     @Override
@@ -122,5 +123,10 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
                         ToastUtils.showShort("出了点小问题~");
                     }
                 }, ToastUtils::showShort));
+
+        payMessenger.payEvent.observeSend(this, value -> {
+            // TODO 发送订单
+            ToastUtils.showShort("发送订单");
+        });
     }
 }
