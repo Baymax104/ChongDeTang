@@ -1,9 +1,10 @@
 package com.cdtde.chongdetang.repository;
 
+import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.base.vm.Requester.ReqCallback;
 import com.cdtde.chongdetang.dataSource.web.WebService;
-import com.cdtde.chongdetang.dataSource.web.api.AddressService;
-import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.dataSource.web.api.OrderService;
+import com.cdtde.chongdetang.entity.Order;
 import com.cdtde.chongdetang.exception.WebException;
 
 import java.net.SocketTimeoutException;
@@ -14,40 +15,36 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * @Description
+ * @ClassName OrderRepository
  * @Author John
- * @email
- * @Date 2023/6/20 0:35
- * @Version 1
+ * @Date 2023/7/3 15:52
+ * @Version 1.0
  */
 @SuppressWarnings("CheckResult")
-public class AddressRepository {
+public class OrderRepository {
 
-    private AddressService service = WebService.create(AddressService.class);
+    private OrderService service = WebService.create(OrderService.class);
 
-    private static AddressRepository instance;
+    private static OrderRepository instance;
 
-    private AddressRepository() {
-    }
-
-    public static AddressRepository getInstance() {
+    public static OrderRepository getInstance() {
         if (instance == null) {
-            instance = new AddressRepository();
+            instance = new OrderRepository();
         }
         return instance;
     }
 
-    public void requestAllAddress(ReqCallback<List<Address>> callback) {
+    public void requestAllOrders(ReqCallback<List<Order>> callback) {
         String token = WebService.TOKEN_PREFIX + UserStore.getToken();
 
-        service.getAllAddress(token)
+        service.getAllOrders(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(result -> result.isSuccess() ?
-                        Single.just(result.getData()) :
-                        Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
+                .flatMap(res -> res.isSuccess() ?
+                        Single.just(res.getData()) :
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
                         throwable -> {
                             if (throwable instanceof SocketTimeoutException) {
@@ -60,17 +57,17 @@ public class AddressRepository {
                         });
     }
 
-    public void requestUpdateAddress(Address address, ReqCallback<Address> callback) {
+    public void requestAddOrder(Order order, ReqCallback<Object> callback) {
         String token = WebService.TOKEN_PREFIX + UserStore.getToken();
 
-        service.updateAddress(token, address)
+        service.addOrder(token, order)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(result -> result.isSuccess() ?
-                        Single.just(address) :
-                        Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
+                .flatMap(res -> res.isSuccess() ?
+                        Single.just(res.getData()) :
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
                         throwable -> {
                             if (throwable instanceof SocketTimeoutException) {
@@ -83,17 +80,22 @@ public class AddressRepository {
                         });
     }
 
-    public void requestRemoveAddress(Address address, ReqCallback<Address> callback) {
+    public void requestRemoveOrder(Order order, ReqCallback<List<Order>> callback) {
         String token = WebService.TOKEN_PREFIX + UserStore.getToken();
 
-        service.deleteAddress(token, address)
+        service.removeOrder(token, order)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(result -> result.isSuccess() ?
-                        Single.just(address) :
-                        Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
+                .flatMap(res -> res.isSuccess() ?
+                        service.getAllOrders(token)
+                                .subscribeOn(Schedulers.io()) :
+                        Single.error(new WebException(res.getMessage())))
+                .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
+                .flatMap(res -> res.isSuccess() ?
+                        Single.just(res.getData()) :
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
                         throwable -> {
                             if (throwable instanceof SocketTimeoutException) {
@@ -105,6 +107,4 @@ public class AddressRepository {
                             }
                         });
     }
-
-
 }

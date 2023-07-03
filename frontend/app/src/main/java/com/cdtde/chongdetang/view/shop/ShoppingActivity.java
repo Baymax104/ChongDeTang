@@ -20,14 +20,18 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityShoppingBinding;
 import com.cdtde.chongdetang.entity.CheckedShopping;
+import com.cdtde.chongdetang.entity.Shopping;
+import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.utils.binding.CheckBoxAdapter.OnCheckBoxClick;
 import com.cdtde.chongdetang.requester.ShoppingRequester;
+import com.cdtde.chongdetang.view.my.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
 
@@ -38,6 +42,8 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
     private States states;
     @InjectScope(Scopes.APPLICATION)
     private ProductActivity.Messenger messenger;
+    @InjectScope(Scopes.APPLICATION)
+    private OrderActivity.Messenger orderMessenger;
 
     public static class States extends StateHolder {
         public final State<List<CheckedShopping>> checkedShoppings = new State<>(new ArrayList<>());
@@ -69,6 +75,19 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
             states.editEnabled.setValue(!states.editEnabled.getValue());
             states.checkedShoppings.getValue()
                     .forEach(item -> item.setEditEnabled(states.editEnabled.getValue()));
+        };
+
+        public final OnClickListener buy = v -> {
+            if (UserStore.isLogin()) {
+                List<Shopping> shoppings = states.checkedShoppings.getValue().stream()
+                        .filter(CheckedShopping::isChecked)
+                        .map(CheckedShopping::getShopping)
+                        .collect(Collectors.toList());
+                orderMessenger.confirmOrderEvent.send(shoppings);
+                Starter.actionStart(activity, OrderActivity.class);
+            } else {
+                Starter.actionStart(activity, LoginActivity.class);
+            }
         };
     }
 

@@ -4,7 +4,9 @@ import com.cdtde.chongdetang.base.vm.Requester.ReqCallback;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.NewsService;
 import com.cdtde.chongdetang.entity.Couplet;
+import com.cdtde.chongdetang.exception.WebException;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +46,20 @@ public class CoupletRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .map(news -> news.stream()
                         .map(Couplet::new)
                         .collect(Collectors.toList()))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
 
     }
 

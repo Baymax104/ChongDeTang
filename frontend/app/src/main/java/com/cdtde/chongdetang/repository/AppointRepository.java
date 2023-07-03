@@ -4,7 +4,9 @@ import com.cdtde.chongdetang.base.vm.Requester.ReqCallback;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.AppointmentService;
 import com.cdtde.chongdetang.entity.Appointment;
+import com.cdtde.chongdetang.exception.WebException;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -43,11 +45,19 @@ public class AppointRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestAddAppointment(Appointment appointment, ReqCallback<Appointment> callback) {
@@ -58,11 +68,19 @@ public class AppointRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(appointment) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
 }

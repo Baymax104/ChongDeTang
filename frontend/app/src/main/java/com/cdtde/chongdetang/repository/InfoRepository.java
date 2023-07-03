@@ -4,7 +4,9 @@ import com.cdtde.chongdetang.base.vm.Requester.ReqCallback;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.NewsService;
 import com.cdtde.chongdetang.entity.Info;
+import com.cdtde.chongdetang.exception.WebException;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,11 +47,19 @@ public class InfoRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .map(news -> news.stream()
                         .map(Info::new)
                         .collect(Collectors.toList()))
-                .subscribe(callback.onSuccess, throwable -> callback.onFail.accept(throwable.getMessage()));
+                .subscribe(callback.onSuccess, throwable -> {
+                    if (throwable instanceof SocketTimeoutException) {
+                        callback.onFail.accept("网络出了点小问题~");
+                    } else if (throwable instanceof WebException) {
+                        callback.onFail.accept("服务器出了点小问题~");
+                    } else {
+                        callback.onFail.accept(throwable.getMessage());
+                    }
+                });
     }
 
 

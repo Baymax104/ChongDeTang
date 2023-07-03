@@ -35,9 +35,6 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
     private States states;
 
     @InjectScope(Scopes.APPLICATION)
-    private AddressActivity.Messenger parentMessenger;
-
-    @InjectScope(Scopes.APPLICATION)
     private Messenger messenger;
 
     public static class States extends StateHolder {
@@ -45,6 +42,7 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
     }
 
     public static class Messenger extends MessageHolder {
+        public final Event<Address, Unit> showEvent = new Event<>();
         public final Event<Unit, Unit> deleteEvent = new Event<>();
         public final Event<Unit, Unit> updateAllEvent = new Event<>();
     }
@@ -102,7 +100,7 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        parentMessenger.detailEvent.observeSend(this, true, states.address::setValue);
+        messenger.showEvent.observeSend(this, true, states.address::setValue);
 
         messenger.deleteEvent.observeSend(this, value ->
                 requester.removeAddress(

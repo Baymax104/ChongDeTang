@@ -5,7 +5,9 @@ import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.UserCollectService;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.exception.WebException;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -45,11 +47,19 @@ public class UserCollectRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(result.getData()) :
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
 
     }
 
@@ -61,11 +71,19 @@ public class UserCollectRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(result.getData()) :
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestAddUserCollection(Collection collection, ReqCallback<Collection> callback) {
@@ -79,9 +97,17 @@ public class UserCollectRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(collection) :
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestAddUserProduct(Product product, ReqCallback<Product> callback) {
@@ -95,9 +121,17 @@ public class UserCollectRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(product) :
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestRemoveUserCollection(Collection collection, ReqCallback<List<Collection>> callback) {
@@ -110,14 +144,22 @@ public class UserCollectRepository {
                 .flatMap(result -> result.isSuccess() ?
                         service.getUserCollection(token)
                                 .subscribeOn(Schedulers.io()):
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestRemoveUserCollectionWithoutList(Collection collection,
@@ -132,9 +174,17 @@ public class UserCollectRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(collection) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestRemoveUserProduct(Product product, ReqCallback<List<Product>> callback) {
@@ -148,14 +198,22 @@ public class UserCollectRepository {
                 .flatMap(result -> result.isSuccess() ?
                         service.getUserProduct(token)
                                 .subscribeOn(Schedulers.io()):
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(result.getData()) :
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestRemoveUserProductWithoutList(Product product,
@@ -170,9 +228,17 @@ public class UserCollectRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(product) :
-                        Single.error(new Exception(result.getMessage())))
+                        Single.error(new WebException(result.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
 }

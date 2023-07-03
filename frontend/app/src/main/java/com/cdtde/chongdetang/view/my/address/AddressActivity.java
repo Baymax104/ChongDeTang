@@ -39,22 +39,15 @@ public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
     private States states;
 
     @InjectScope(Scopes.APPLICATION)
-    private Messenger messenger;
-
-    @InjectScope(Scopes.APPLICATION)
     private AddressDetailActivity.Messenger detailMessenger;
 
     public static class States extends StateHolder {
         public final State<List<Address>> addresses = new State<>(new ArrayList<>());
     }
 
-    public static class Messenger extends MessageHolder {
-        public final Event<Address, Unit> detailEvent = new Event<>();
-    }
-
     public class Handler {
         public OnClickListener add = v -> {
-            messenger.detailEvent.send(new Address());
+            detailMessenger.showEvent.send(new Address());
             Starter.actionStart(activity, AddressDetailActivity.class);
         };
     }
@@ -62,7 +55,7 @@ public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
     public class ListHandler extends ListHandlerFactory {
 
         public OnItemClickListener<Address> modify = (data, view) -> {
-            messenger.detailEvent.send(data);
+            detailMessenger.showEvent.send(data);
             Starter.actionStart(activity, AddressDetailActivity.class);
         };
 

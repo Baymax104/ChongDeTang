@@ -27,6 +27,9 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.shop.OrderActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.my.collect.UserCollectActivity"
                 android:exported="false" />
         <activity
@@ -96,9 +99,11 @@
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.cdtde.chongdetang.fileprovider"

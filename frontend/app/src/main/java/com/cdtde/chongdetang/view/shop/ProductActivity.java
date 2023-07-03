@@ -17,12 +17,16 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityProductBinding;
 import com.cdtde.chongdetang.entity.Product;
+import com.cdtde.chongdetang.entity.Shopping;
 import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.requester.ProductRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import kotlin.Unit;
 
@@ -34,6 +38,8 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
     private States states;
     @InjectScope(Scopes.APPLICATION)
     private Messenger messenger;
+    @InjectScope(Scopes.APPLICATION)
+    private OrderActivity.Messenger orderMessenger;
 
     public static class States extends StateHolder {
         public final State<Product> product = new State<>(new Product());
@@ -75,6 +81,17 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
             } else {
                 Starter.actionStart(activity, LoginActivity.class);
             }
+        };
+
+        public final OnClickListener buy = v -> {
+              if (UserStore.isLogin()) {
+                  List<Shopping> shoppings = new ArrayList<>();
+                  shoppings.add(new Shopping(states.product.getValue()));
+                  orderMessenger.confirmOrderEvent.send(shoppings);
+                  Starter.actionStart(activity, OrderActivity.class);
+              } else {
+                  Starter.actionStart(activity, LoginActivity.class);
+              }
         };
     }
 

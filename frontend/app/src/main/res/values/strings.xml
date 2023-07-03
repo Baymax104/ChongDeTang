@@ -1,7 +1,7 @@
 <resources>
     <string name="app_chinese">崇德堂</string>
     <string name="nav_menu_index">首页</string>
-    <string name="nav_menu_exhibit">展览</string>
+    <string name="nav_menu_exhibit">藏品</string>
     <string name="nav_menu_shop">文创商店</string>
     <string name="nav_menu_my">我的</string>
     <string name="toolbar_search">搜索</string>
@@ -121,8 +121,8 @@
     <string name="add_shopping">加入购物车</string>
     <string name="collection_detail">藏品详情</string>
     <string name="select_tip">已选：</string>
-    <string name="edit">编辑</string>
-    <string name="exit_edit">退出编辑</string>
+    <string name="edit">删除</string>
+    <string name="exit_edit">退出删除</string>
     <string name="all_select">全选</string>
     <string name="settle">结算</string>
     <string name="sum_tip">总计：</string>
@@ -133,4 +133,9 @@
     <string name="collect">收藏</string>
     <string name="cancel_collect">取消收藏</string>
     <string name="opening_time">开馆时间：9:00\n闭馆时间：17:00\n停止入馆：16:00\n观众离场：16:30</string>
+    <string name="fill_order">确认订单</string>
+    <string name="commit_order">提交订单</string>
+    <string name="order_address">收货地址</string>
+    <string name="delete_tip">右滑可删除商品</string>
+    <string name="empty_tip">内容为空</string>
 </resources>

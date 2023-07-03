@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="state"
                 type="com.cdtde.chongdetang.view.shop.ShoppingActivity.States" />
@@ -80,8 +81,21 @@
                             android:layout_alignParentEnd="true"
                             android:text="@{state.editEnabled ? @string/exit_edit : @string/edit}"
                             style="@style/ButtonTextStyle"
+                            android:id="@+id/edit"
                             tools:ignore="TouchTargetSizeCheck"
                             android:onClick="@{handler.edit}"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@id/edit"
+                            android:gravity="center_vertical"
+                            android:text="@string/delete_tip"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray_1"
+                            android:fontFamily="@font/text_regular"
+                            android:layout_marginEnd="10dp"
+                            android:visibility="@{state.editEnabled ? View.VISIBLE : View.INVISIBLE}"/>
                 </RelativeLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -147,7 +161,8 @@
                     android:layout_alignParentEnd="true"
                     android:text="@string/settle"
                     style="@style/ButtonTextStyle"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:onClick="@{handler.buy}"/>
 
         </RelativeLayout>
 

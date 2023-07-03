@@ -7,10 +7,12 @@ import com.cdtde.chongdetang.base.vm.Requester.ReqCallback;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.UserService;
 import com.cdtde.chongdetang.entity.User;
+import com.cdtde.chongdetang.exception.WebException;
 import com.cdtde.chongdetang.utils.CameraUtil;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 
 import java.io.File;
+import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,11 +52,19 @@ public class UserRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(new Object()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestLogin(String phone, String password, ReqCallback<Object> callback) {
@@ -72,13 +82,21 @@ public class UserRepository {
                         UserStore.setUser(res.getData());
                         return Single.just(new Object());
                     } else {
-                        return Single.error(new Exception(res.getMessage()));
+                        return Single.error(new WebException(res.getMessage()));
                     }
                 })
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestUpdateInfo(User newUser, ReqCallback<Object> callback) {
@@ -99,13 +117,21 @@ public class UserRepository {
                         UserStore.setUserInfo(res.getData());
                         return Single.just(new Object());
                     } else {
-                        return Single.error(new Exception(res.getMessage()));
+                        return Single.error(new WebException(res.getMessage()));
                     }
                 })
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestRegister(String phone, String password,
@@ -121,11 +147,19 @@ public class UserRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(new Object()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestUpdatePassword(String oldPassword, String newPassword,
@@ -147,13 +181,21 @@ public class UserRepository {
                         UserStore.setPassword(res.getData());
                         return Single.just(new Object());
                     } else {
-                        return Single.error(new Exception(res.getMessage()));
+                        return Single.error(new WebException(res.getMessage()));
                     }
                 })
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestUpdatePhone(String phone, ReqCallback<Object> callback) {
@@ -168,13 +210,21 @@ public class UserRepository {
                         UserStore.setPhone(phone);
                         return Single.just(new Object());
                     } else {
-                        return Single.error(new Exception(res.getMessage()));
+                        return Single.error(new WebException(res.getMessage()));
                     }
                 })
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
 }

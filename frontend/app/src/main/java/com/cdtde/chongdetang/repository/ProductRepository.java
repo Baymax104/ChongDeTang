@@ -5,7 +5,9 @@ import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.ProductService;
 import com.cdtde.chongdetang.entity.Product;
 import com.cdtde.chongdetang.entity.Shopping;
+import com.cdtde.chongdetang.exception.WebException;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -43,11 +45,19 @@ public class ProductRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestAllProduct(ReqCallback<List<Product>> callback) {
@@ -60,9 +70,17 @@ public class ProductRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestShopping(ReqCallback<List<Shopping>> callback) {
@@ -75,9 +93,17 @@ public class ProductRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestUpdateShoppingNumber(Shopping shopping, Integer number, ReqCallback<Integer> callback) {
@@ -90,9 +116,17 @@ public class ProductRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestAddShopping(Shopping shopping, ReqCallback<Object> callback) {
@@ -105,9 +139,17 @@ public class ProductRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(new Object()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
     public void requestDeleteShopping(Shopping shopping, ReqCallback<Object> callback) {
@@ -120,9 +162,17 @@ public class ProductRepository {
                 .doFinally(callback.lifeCycle::onFinish)
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(new Object()) :
-                        Single.error(new Exception(res.getMessage())))
+                        Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess,
-                        throwable -> callback.onFail.accept(throwable.getMessage()));
+                        throwable -> {
+                            if (throwable instanceof SocketTimeoutException) {
+                                callback.onFail.accept("网络出了点小问题~");
+                            } else if (throwable instanceof WebException) {
+                                callback.onFail.accept("服务器出了点小问题~");
+                            } else {
+                                callback.onFail.accept(throwable.getMessage());
+                            }
+                        });
     }
 
 }

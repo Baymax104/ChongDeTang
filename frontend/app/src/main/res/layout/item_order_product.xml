@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="shopping"
+                type="com.cdtde.chongdetang.entity.Shopping" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:id="@+id/item"
+            android:orientation="vertical"
+            android:onClick="@{v->itemClick.onClick(shopping, v)}">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="109dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                tools:ignore="ContentDescription">
+
+            <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    img_url="@{shopping.product.photo}"
+                    img_cos="@{true}"
+                    img_rounded="@{true}"
+                    img_fix="@{true}"/>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="10dp">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="@{shopping.product.name}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/regular"
+                        android:gravity="center_vertical|start"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        tools:ignore="RelativeOverlap">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@{`￥`+shopping.product.price}"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/main_color"
+                            android:letterSpacing="0.1"
+                            android:fontFamily="@font/text_regular"
+                            android:layout_alignParentStart="true"/>
+
+                    <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical|start"
+                            android:id="@+id/number"
+                            android:text="@{`数量：`+shopping.number+`件`}"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/text_regular"
+                            android:textSize="16sp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_4"
+                android:layout_marginHorizontal="15dp"/>
+
+    </LinearLayout>
+
+</layout>

@@ -56,6 +56,7 @@ android {
         outputDirectory.set(new File('./doc', 'html'))
         suppressInheritedMembers.set(true)
         suppressObviousFunctions.set(true)
+        offlineMode.set(true)
 
         dokkaSourceSets {
             configureEach {
@@ -75,13 +76,13 @@ android {
 
                 // suppress packages
                 perPackageOption {
-                    matchingRegex.set("com.cdtde.chongdetang.[adapter|aop|entity|exception].*")
+                    matchingRegex.set("com.cdtde.chongdetang.[adapter|aop|entity|exception|utils].*")
                     suppress.set(true)
                 }
 
                 // suppress packages
                 perPackageOption {
-                    matchingRegex.set("com.cdtde.chongdetang.utils.binding.*")
+                    matchingRegex.set("com.cdtde.chongdetang.view.index.scenes.*")
                     suppress.set(true)
                 }
             }
@@ -173,4 +174,6 @@ dependencies {
     implementation 'com.kunminx.arch:unpeek-livedata:7.8.0'
 
     dokkaPlugin 'org.jetbrains.dokka:android-documentation-plugin:1.8.20'
+
+    implementation 'com.github.liangjingkanji:StateLayout:1.4.1'
 }
