@@ -24,6 +24,7 @@ import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
+import com.cdtde.chongdetang.view.shop.order.OrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;

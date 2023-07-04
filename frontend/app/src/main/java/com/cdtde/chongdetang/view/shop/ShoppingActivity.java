@@ -28,6 +28,7 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.utils.binding.CheckBoxAdapter.OnCheckBoxClick;
 import com.cdtde.chongdetang.requester.ShoppingRequester;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
+import com.cdtde.chongdetang.view.shop.order.OrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;

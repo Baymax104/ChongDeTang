@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="address"
+                type="com.cdtde.chongdetang.entity.Address" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:onClick="@{v->itemClick.onClick(address, v)}">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/gray_1"
+                android:textSize="16sp"
+                android:fontFamily="@font/text_regular"
+                android:text="@{address.province + ` ` + address.city}"
+                android:maxLines="1" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/text_regular"
+                android:ellipsize="end"
+                android:text="@{address.detail}"
+                android:maxLines="1" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/text_regular"
+                    android:maxLength="10"
+                    android:text="@{address.consignee}" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray_1"
+                    android:fontFamily="@font/text_regular"
+                    android:text="@{address.phone}" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

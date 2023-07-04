@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.shop;
+package com.cdtde.chongdetang.view.shop.order;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

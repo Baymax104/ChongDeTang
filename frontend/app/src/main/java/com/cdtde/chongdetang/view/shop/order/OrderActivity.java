@@ -1,4 +1,4 @@
-package com.cdtde.chongdetang.view.shop;
+package com.cdtde.chongdetang.view.shop.order;
 
 import android.os.Bundle;
 import android.view.View.OnClickListener;
@@ -11,6 +11,8 @@ import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.recycler.OrderProductAdapter;
 import com.cdtde.chongdetang.base.view.BaseActivity;
+import com.cdtde.chongdetang.base.view.BaseAdapter;
+import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
 import com.cdtde.chongdetang.base.vm.MessageHolder;
@@ -21,6 +23,7 @@ import com.cdtde.chongdetang.databinding.ActivityOrderBinding;
 import com.cdtde.chongdetang.entity.Address;
 import com.cdtde.chongdetang.entity.Shopping;
 import com.cdtde.chongdetang.requester.OrderRequester;
+import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.address.AddressDetailActivity;
@@ -42,6 +45,8 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
     private AddressDetailActivity.Messenger detailMessenger;
     @InjectScope(Scopes.APPLICATION)
     private PayActivity.Messenger payMessenger;
+    @InjectScope(Scopes.APPLICATION)
+    private OrderAddressDialog.Messenger addressMessenger;
 
     public static class States extends StateHolder {
         public final State<List<Shopping>> shoppings = new State<>(new ArrayList<>());
@@ -62,9 +67,14 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
                 detailMessenger.showEvent.send(new Address());
                 Starter.actionStart(activity, AddressDetailActivity.class);
             } else {
-                // TODO
-                ToastUtils.showShort("选择地址");
+                DialogUtil.create(activity, OrderAddressDialog.class).show();
+                addressMessenger.selectEvent.send(states.addresses);
             }
+        };
+
+        public final OnItemClickListener<Address> addressClick = (data, view) -> {
+            DialogUtil.create(activity, OrderAddressDialog.class).show();
+            addressMessenger.selectEvent.send(states.addresses);
         };
 
         public final OnClickListener pay = v ->
@@ -128,5 +138,7 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
             // TODO 发送订单
             ToastUtils.showShort("发送订单");
         });
+
+        addressMessenger.selectEvent.observeReply(this, states.address::setValue);
     }
 }

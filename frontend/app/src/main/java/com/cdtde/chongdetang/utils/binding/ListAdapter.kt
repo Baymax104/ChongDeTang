@@ -2,7 +2,9 @@ package com.cdtde.chongdetang.utils.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.Utils
 import com.cdtde.chongdetang.adapter.BannerAdapter
 import com.cdtde.chongdetang.adapter.SearchTagAdapter
 import com.cdtde.chongdetang.base.view.BaseAdapter
@@ -42,6 +44,14 @@ object ListAdapter {
     fun <T, B : ViewDataBinding> RecyclerView.adapter(adapter: BaseAdapter<T, B>, data: List<T>) {
         adapter.setList(data)
         this.adapter = adapter
+    }
+
+    @JvmStatic
+    @BindingAdapter("recycler_hasDivider")
+    fun RecyclerView.divider(boolean: Boolean) {
+        if (boolean) {
+            addItemDecoration(DividerItemDecoration(Utils.getApp(), DividerItemDecoration.VERTICAL))
+        }
     }
 
     @JvmStatic
