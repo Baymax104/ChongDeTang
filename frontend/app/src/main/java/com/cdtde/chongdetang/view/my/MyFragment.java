@@ -20,7 +20,6 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentMyBinding;
 import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.utils.Starter;
-import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.address.AddressActivity;
 import com.cdtde.chongdetang.view.my.appoint.UserAppointActivity;
 import com.cdtde.chongdetang.view.my.collect.UserCollectActivity;

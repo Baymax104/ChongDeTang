@@ -18,10 +18,10 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityAddressDetailBinding;
 import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.requester.AddressRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.AddressRequester;
 
 import kotlin.Unit;
 

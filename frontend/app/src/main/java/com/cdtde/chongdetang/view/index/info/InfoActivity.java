@@ -18,9 +18,9 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityInfoBinding;
 import com.cdtde.chongdetang.entity.Info;
+import com.cdtde.chongdetang.requester.IndexRequester;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.IndexRequester;
 
 import java.util.ArrayList;
 import java.util.List;

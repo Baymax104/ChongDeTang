@@ -1,11 +1,8 @@
 package com.cdtde.chongdetang.view.shop.order;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.view.View;
 import android.view.View.OnClickListener;
+
+import androidx.annotation.NonNull;
 
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;

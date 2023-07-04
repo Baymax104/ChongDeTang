@@ -19,9 +19,9 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityUserAppointBinding;
 import com.cdtde.chongdetang.entity.Appointment;
+import com.cdtde.chongdetang.requester.AppointRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.AppointRequester;
 
 import java.util.ArrayList;
 import java.util.List;

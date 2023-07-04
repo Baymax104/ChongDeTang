@@ -4,6 +4,7 @@ import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BaseActivity;
@@ -36,6 +37,10 @@ public class AppointActivity extends BaseActivity<ActivityAppointBinding> {
     @Override
     protected void initUIComponent(@NonNull ActivityAppointBinding binding) {
         WindowUtil.initActivityWindow(this, binding.toolbar);
+        // 两张大图在布局初始化时加载会非常耗时，导致Activity无法立即打开
+        // 在Activity初始化时加载不会影响Activity的打开
+        Glide.with(this).load(R.drawable.contact_banner).into(binding.banner);
+        Glide.with(this).load(R.drawable.appoint_traffic).into(binding.traffic);
     }
 
 }

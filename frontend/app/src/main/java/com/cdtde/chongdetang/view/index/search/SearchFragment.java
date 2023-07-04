@@ -23,8 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import kotlin.Unit;
-
 /**
  * @ClassName SearchFragment
  * @Author John

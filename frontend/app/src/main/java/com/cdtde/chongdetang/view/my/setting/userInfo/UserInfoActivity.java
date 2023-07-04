@@ -27,12 +27,12 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityUserInfoBinding;
 import com.cdtde.chongdetang.entity.User;
 import com.cdtde.chongdetang.repository.UserStore;
+import com.cdtde.chongdetang.requester.UserInfoRequester;
 import com.cdtde.chongdetang.utils.CameraUtil;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Permission;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.UserInfoRequester;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;

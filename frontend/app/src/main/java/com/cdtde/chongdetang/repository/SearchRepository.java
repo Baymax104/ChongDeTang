@@ -1,6 +1,5 @@
 package com.cdtde.chongdetang.repository;
 
-import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.base.vm.Requester.ReqCallback;
 import com.cdtde.chongdetang.dataSource.web.WebService;
 import com.cdtde.chongdetang.dataSource.web.api.SearchService;

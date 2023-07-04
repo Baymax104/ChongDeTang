@@ -1,9 +1,6 @@
 package com.cdtde.chongdetang.view.my.collect;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.Fragment;
 
@@ -14,7 +11,6 @@ import com.cdtde.chongdetang.base.view.BaseActivity;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
 import com.cdtde.chongdetang.base.vm.Scopes;
-import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityUserCollectBinding;
 import com.cdtde.chongdetang.utils.WindowUtil;

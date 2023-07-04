@@ -3,8 +3,6 @@ package com.cdtde.chongdetang.requester;
 import com.cdtde.chongdetang.base.vm.Requester;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.Product;
-import com.cdtde.chongdetang.repository.CollectionRepository;
-import com.cdtde.chongdetang.repository.ProductRepository;
 import com.cdtde.chongdetang.repository.SearchRepository;
 
 import java.util.List;

@@ -18,9 +18,9 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityCoupletBinding;
 import com.cdtde.chongdetang.entity.Couplet;
+import com.cdtde.chongdetang.requester.CoupletRequester;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.WindowUtil;
-import com.cdtde.chongdetang.requester.CoupletRequester;
 
 import java.util.ArrayList;
 import java.util.List;

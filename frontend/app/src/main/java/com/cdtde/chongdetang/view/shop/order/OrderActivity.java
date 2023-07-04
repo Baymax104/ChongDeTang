@@ -11,7 +11,6 @@ import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.recycler.OrderProductAdapter;
 import com.cdtde.chongdetang.base.view.BaseActivity;
-import com.cdtde.chongdetang.base.view.BaseAdapter;
 import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;

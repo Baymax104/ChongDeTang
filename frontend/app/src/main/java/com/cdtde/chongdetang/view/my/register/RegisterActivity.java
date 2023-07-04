@@ -18,11 +18,11 @@ import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityRegisterBinding;
+import com.cdtde.chongdetang.requester.UserRequester;
+import com.cdtde.chongdetang.useCase.ValidateUseCase;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
-import com.cdtde.chongdetang.requester.UserRequester;
-import com.cdtde.chongdetang.useCase.ValidateUseCase;
 
 import java.util.Arrays;
 import java.util.List;

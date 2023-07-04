@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.recycler.SearchCollectionAdapter;
-import com.cdtde.chongdetang.base.view.BaseAdapter;
 import com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory;
 import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.BindingConfig;

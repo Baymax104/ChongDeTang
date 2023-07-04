@@ -120,8 +120,10 @@
                         android:id="@+id/date_edit"
                         android:textColor="@color/black"
                         android:fontFamily="@font/text_regular"
-                        android:enabled="false"
-                        text_date="@{state.appointment.orderTime}"/>
+                        text_date="@{state.appointment.orderTime}"
+                        android:longClickable="false"
+                        android:focusable="false"
+                        android:onClick="@{handler.selectDate}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView

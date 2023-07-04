@@ -14,9 +14,9 @@ import com.cdtde.chongdetang.base.vm.DialogScope;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.entity.Appointment;
+import com.cdtde.chongdetang.requester.AppointRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.ValidateUtil;
-import com.cdtde.chongdetang.requester.AppointRequester;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopupext.popup.TimePickerPopup;
 

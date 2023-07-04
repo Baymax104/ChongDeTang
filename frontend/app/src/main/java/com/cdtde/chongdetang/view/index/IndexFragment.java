@@ -25,6 +25,7 @@ import com.cdtde.chongdetang.databinding.FragmentIndexBinding;
 import com.cdtde.chongdetang.entity.Collection;
 import com.cdtde.chongdetang.entity.Info;
 import com.cdtde.chongdetang.entity.Moment;
+import com.cdtde.chongdetang.requester.IndexRequester;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.view.MainActivity;
 import com.cdtde.chongdetang.view.exhibit.CollectionActivity;
@@ -37,7 +38,6 @@ import com.cdtde.chongdetang.view.index.moment.MomentActivity;
 import com.cdtde.chongdetang.view.index.moment.MomentDetailActivity;
 import com.cdtde.chongdetang.view.index.origin.OriginActivity;
 import com.cdtde.chongdetang.view.index.scenes.ScenesActivity;
-import com.cdtde.chongdetang.requester.IndexRequester;
 import com.cdtde.chongdetang.view.index.search.SearchActivity;
 import com.youth.banner.indicator.CircleIndicator;
 

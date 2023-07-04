@@ -117,7 +117,9 @@
                         android:fontFamily="@font/text_regular"
                         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
                         android:text="@{state.address.province != null ? state.address.province + ` ` + state.address.city : ``}"
-                        android:enabled="false"/>
+                        android:focusable="false"
+                        android:longClickable="false"
+                        android:onClick="@{handler.selectAddress}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView

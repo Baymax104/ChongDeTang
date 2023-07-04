@@ -15,12 +15,12 @@ import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityLoginBinding;
+import com.cdtde.chongdetang.requester.UserRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
 import com.cdtde.chongdetang.utils.Starter;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.register.RegisterActivity;
-import com.cdtde.chongdetang.requester.UserRequester;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 

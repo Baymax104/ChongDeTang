@@ -1,7 +1,5 @@
 package com.cdtde.chongdetang.adapter.recycler;
 
-import androidx.annotation.NonNull;
-
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BaseAdapter;
 import com.cdtde.chongdetang.databinding.ItemOrderAddressBinding;

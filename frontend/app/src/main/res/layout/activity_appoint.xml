@@ -37,8 +37,7 @@
                         android:id="@+id/banner"
                         android:scaleType="centerCrop"
                         android:fitsSystemWindows="true"
-                        bind:layout_collapseMode="parallax"
-                        img_res="@{@drawable/contact_banner}"/>
+                        bind:layout_collapseMode="parallax" />
                 <androidx.appcompat.widget.Toolbar
                         android:layout_width="match_parent"
                         android:layout_height="?actionBarSize"
@@ -80,8 +79,7 @@
                         bind:riv_border_width="0.5dp"
                         bind:riv_border_color="@color/gray_3"
                         android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="10dp"
-                        img_res="@{@drawable/appoint_traffic}"/>
+                        android:layout_marginTop="10dp" />
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
