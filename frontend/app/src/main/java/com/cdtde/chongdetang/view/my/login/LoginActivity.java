@@ -22,6 +22,9 @@ import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.register.RegisterActivity;
 
+/**
+ * 登录页
+ */
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
 
@@ -32,7 +35,13 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     private States states;
 
     public static class States extends StateHolder {
+        /**
+         * 用户输入手机号
+         */
         public final State<String> phone = new State<>("");
+        /**
+         * 用户输入密码
+         */
         public final State<String> password = new State<>("");
     }
 

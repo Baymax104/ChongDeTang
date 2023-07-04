@@ -20,12 +20,7 @@ import com.lxj.xpopup.core.BottomPopupView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @ClassName OrderAddressDialog
- * @Author John
- * @Date 2023/7/4 9:46
- * @Version 1.0
- */
+
 public class OrderAddressDialog extends BottomPopupView {
 
     private States states = DialogScope.getFromActivity(this, States.class);

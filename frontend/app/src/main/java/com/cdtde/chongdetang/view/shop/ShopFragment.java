@@ -37,11 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2022/12/21 22:03
- * @Version 1
+ * 文创商店页
  */
 public class ShopFragment extends BaseFragment<FragmentShopBinding> {
 
@@ -56,7 +52,13 @@ public class ShopFragment extends BaseFragment<FragmentShopBinding> {
 
 
     public static class States extends StateHolder {
+        /**
+         * 商品列表
+         */
         public final State<List<Product>> products = new State<>(new ArrayList<>());
+        /**
+         * 热门商品列表
+         */
         public final State<List<Product>> hotProducts = new State<>(new ArrayList<>());
         public final State<Product> showHot1 = new State<>(new Product());
         public final State<Product> showHot2 = new State<>(new Product());

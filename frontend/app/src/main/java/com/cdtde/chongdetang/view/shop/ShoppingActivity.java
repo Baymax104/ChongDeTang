@@ -34,11 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 购物车页
+ */
 public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
 
     @InjectScope(Scopes.APPLICATION)
     private ShoppingRequester requester;
-
     @InjectScope(Scopes.ACTIVITY)
     private States states;
     @InjectScope(Scopes.APPLICATION)
@@ -49,9 +51,21 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
     private ShoppingDeleteDialog.Messenger deleteMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 带选择状态的购物车商品列表
+         */
         public final State<List<CheckedShopping>> checkedShoppings = new State<>(new ArrayList<>());
+        /**
+         * 勾选数量
+         */
         public final State<Integer> selected = new State<>(0);
+        /**
+         * 勾选商品总价
+         */
         public final State<Double> priceSum = new State<>(0.);
+        /**
+         * 是否可编辑
+         */
         public final State<Boolean> editEnabled = new State<>(false);
     }
 

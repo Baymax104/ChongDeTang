@@ -32,6 +32,9 @@ import java.util.List;
 
 import kotlin.Unit;
 
+/**
+ * 订单确认页
+ */
 public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -48,10 +51,22 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
     private OrderAddressDialog.Messenger addressMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 已选购物车商品列表
+         */
         public final State<List<Shopping>> shoppings = new State<>(new ArrayList<>());
+        /**
+         * 选择的收货地址
+         */
         public final State<Address> address = new State<>(new Address());
+        /**
+         * 订单商品总价
+         */
         public final State<Double> price = new State<>(0.);
         public final State<Boolean> isAddressEmpty = new State<>(true);
+        /**
+         * 收货地址列表
+         */
         public List<Address> addresses = new ArrayList<>();
     }
 

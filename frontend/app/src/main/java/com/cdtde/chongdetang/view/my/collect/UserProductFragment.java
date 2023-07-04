@@ -28,11 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/24 20:40
- * @Version 1
+ * 用户收藏商品列表
  */
 public class UserProductFragment extends BaseFragment<FragmentUserProductBinding> {
 
@@ -44,6 +40,9 @@ public class UserProductFragment extends BaseFragment<FragmentUserProductBinding
     private ProductActivity.Messenger productMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 用户收藏商品列表
+         */
         public State<List<Product>> products = new State<>(new ArrayList<>());
     }
 

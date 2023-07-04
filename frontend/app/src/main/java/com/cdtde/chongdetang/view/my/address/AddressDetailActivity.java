@@ -25,6 +25,9 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 
 import kotlin.Unit;
 
+/**
+ * 收货地址详情页
+ */
 public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBinding> {
 
 
@@ -41,11 +44,20 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
     private AddressDeleteDialog.Messenger deleteMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 当前展示的收货地址信息
+         */
         public final State<Address> address = new State<>(new Address());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Address, Unit> showEvent = new Event<>();
+        /**
+         * 请求刷新事件，在当前地址删除后，刷新列表
+         */
         public final Event<Unit, Unit> updateAllEvent = new Event<>();
     }
 

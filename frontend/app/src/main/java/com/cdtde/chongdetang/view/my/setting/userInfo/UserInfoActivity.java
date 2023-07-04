@@ -41,6 +41,9 @@ import kotlin.Unit;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
+/**
+ * 用户信息页
+ */
 public class UserInfoActivity extends BaseActivity<ActivityUserInfoBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -53,13 +56,25 @@ public class UserInfoActivity extends BaseActivity<ActivityUserInfoBinding> {
     private Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * 用户信息实体
+         */
         public final State<User> user = new State<>(new User(UserStore.getUser()));
         public Uri photoUri;
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 用户信息修改事件
+         */
         public final Event<User, User> userEvent = new Event<>();
+        /**
+         * 头像获取事件
+         */
         public final Event<Integer, Unit> photoAction = new Event<>();
+        /**
+         * 用户信息更新通知事件
+         */
         public final Event<Unit, Unit> userInfoUpdate = new Event<>();
     }
 

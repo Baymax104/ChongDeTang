@@ -18,9 +18,6 @@ import com.cdtde.chongdetang.databinding.FragmentOriginBinding;
 import com.cdtde.chongdetang.utils.WebViewUtil;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class OriginFragment extends BaseFragment<FragmentOriginBinding> {
 
     @InjectScope(Scopes.FRAGMENT)

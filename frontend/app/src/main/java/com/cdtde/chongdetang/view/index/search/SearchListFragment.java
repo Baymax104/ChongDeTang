@@ -17,12 +17,7 @@ import com.cdtde.chongdetang.databinding.FragmentSearchListBinding;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @ClassName SearchListFragment
- * @Author John
- * @Date 2023/7/2 17:05
- * @Version 1.0
- */
+
 public class SearchListFragment extends BaseFragment<FragmentSearchListBinding> {
 
     @InjectScope(Scopes.FRAGMENT)

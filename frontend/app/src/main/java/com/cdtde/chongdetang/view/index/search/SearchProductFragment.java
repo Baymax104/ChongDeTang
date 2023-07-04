@@ -29,10 +29,7 @@ import java.util.List;
 import kotlin.Unit;
 
 /**
- * @ClassName SearchProductFragment
- * @Author John
- * @Date 2023/7/2 17:14
- * @Version 1.0
+ * 搜索商品结果页
  */
 public class SearchProductFragment extends BaseFragment<FragmentSearchProductBinding> {
 
@@ -44,10 +41,16 @@ public class SearchProductFragment extends BaseFragment<FragmentSearchProductBin
     private ProductActivity.Messenger productMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 搜索商品结果列表
+         */
         public final State<List<Product>> products = new State<>(new ArrayList<>());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 结果点击事件，进入详情
+         */
         public final Event<List<Product>, Unit> showEvent = new Event<>();
     }
 

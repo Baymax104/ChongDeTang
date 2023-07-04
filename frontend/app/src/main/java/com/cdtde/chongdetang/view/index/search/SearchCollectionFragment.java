@@ -29,10 +29,7 @@ import java.util.List;
 import kotlin.Unit;
 
 /**
- * @ClassName SearchCollectionFragment
- * @Author John
- * @Date 2023/7/2 17:15
- * @Version 1.0
+ * 搜索藏品结果页
  */
 public class SearchCollectionFragment extends BaseFragment<FragmentSearchCollectionBinding> {
 
@@ -44,10 +41,16 @@ public class SearchCollectionFragment extends BaseFragment<FragmentSearchCollect
     private CollectionActivity.Messenger collectionMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 搜索藏品结果列表
+         */
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 结果点击事件，进入详情
+         */
         public final Event<List<Collection>, Unit> showEvent = new Event<>();
     }
 

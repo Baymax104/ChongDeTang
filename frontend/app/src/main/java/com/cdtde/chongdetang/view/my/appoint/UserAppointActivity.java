@@ -29,6 +29,9 @@ import java.util.List;
 import kotlin.Unit;
 
 
+/**
+ * 用户预约列表页
+ */
 public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -41,10 +44,16 @@ public class UserAppointActivity extends BaseActivity<ActivityUserAppointBinding
     private Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * 用户预约列表
+         */
         public final State<List<Appointment>> appointments = new State<>(new ArrayList<>());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Appointment, Unit> infoEvent = new Event<>();
     }
 

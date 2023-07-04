@@ -136,7 +136,7 @@
     <string name="fill_order">确认订单</string>
     <string name="commit_order">提交订单</string>
     <string name="order_address">收货地址</string>
-    <string name="delete_tip">右滑可删除商品</string>
+    <string name="delete_tip">左滑可删除商品</string>
     <string name="empty_tip">内容为空</string>
     <string name="fill_appoint">填写预约信息</string>
     <string name="select_order_address">选择收货地址</string>

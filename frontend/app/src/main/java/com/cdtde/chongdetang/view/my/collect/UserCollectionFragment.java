@@ -28,11 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/24 20:35
- * @Version 1
+ * 用户收藏藏品列表页
  */
 public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionBinding> {
 
@@ -47,6 +43,9 @@ public class UserCollectionFragment extends BaseFragment<FragmentUserCollectionB
     private CollectionActivity.Messenger collectionMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 用户收藏藏品
+         */
         public final State<List<Collection>> collections = new State<>(new ArrayList<>());
     }
 

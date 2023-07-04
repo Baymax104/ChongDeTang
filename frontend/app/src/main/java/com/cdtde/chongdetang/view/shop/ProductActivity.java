@@ -31,6 +31,9 @@ import java.util.List;
 
 import kotlin.Unit;
 
+/**
+ * 商品详情页
+ */
 public class ProductActivity extends BaseActivity<ActivityProductBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -43,11 +46,20 @@ public class ProductActivity extends BaseActivity<ActivityProductBinding> {
     private OrderActivity.Messenger orderMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 当前展示商品实体
+         */
         public final State<Product> product = new State<>(new Product());
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 展示事件
+         */
         public final Event<Product, Unit> showEvent = new Event<>();
+        /**
+         * 更新收藏状态事件
+         */
         public final Event<Product, Unit> updateCollectEvent = new Event<>();
     }
 

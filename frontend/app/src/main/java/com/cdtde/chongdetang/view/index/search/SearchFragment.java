@@ -24,10 +24,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * @ClassName SearchFragment
- * @Author John
- * @Date 2023/7/2 16:56
- * @Version 1.0
+ * 搜索记录页
  */
 public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
 
@@ -39,9 +36,18 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
 
     public static class States extends StateHolder {
 
+        /**
+         * 历史记录是否为空
+         */
         public final State<Boolean> isEmpty = new State<>(true);
+        /**
+         * 历史记录列表
+         */
         public final State<List<String>> histories = new State<>(new LinkedList<>());
 
+        /**
+         * 藏品精选列表
+         */
         public final List<String> collections = Arrays.asList(
                 "王琦书法作品 明德惟馨",
                 "贾若愚书法作品 俭以养德",
@@ -51,6 +57,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
                 "功德匾 德重桑梓"
         );
 
+        /**
+         * 商品精选列表
+         */
         public final List<String> products = Arrays.asList(
                 "当思历",
                 "德文化书简装签套装",
@@ -63,6 +72,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     }
 
     public static class Messenger extends MessageHolder {
+        /**
+         * 记录标签点击事件，填充输入框
+         */
         public final Event<String, String> contentEvent = new Event<>();
     }
 

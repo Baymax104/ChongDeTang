@@ -19,11 +19,7 @@ import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.utils.ValidateUtil;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/5 2:20
- * @Version 1
+ * 注册信息填写页
  */
 public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
 
@@ -34,12 +30,29 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     private RegisterActivity.Messenger messenger;
 
     public static class States extends StateHolder {
+        /**
+         * 输入手机号
+         */
         public State<String> phone = new State<>("");
+        /**
+         * 输入密码
+         */
         public State<String> pwd = new State<>("");
+        /**
+         * 重复输入密码
+         */
         public State<String> repeat = new State<>("");
-
+        /**
+         * 手机号是否合法
+         */
         public State<Boolean> isPhoneValid = new State<>(true);
+        /**
+         * 密码是否合法
+         */
         public State<Boolean> isPwdValid = new State<>(true);
+        /**
+         * 重复输入是否合法
+         */
         public State<Boolean> isRepeatValid = new State<>(true);
     }
 

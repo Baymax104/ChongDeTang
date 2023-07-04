@@ -30,11 +30,7 @@ import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.shop.ShoppingActivity;
 
 /**
- * @Description
- * @Author John
- * @email
- * @Date 2022/12/21 22:05
- * @Version 1
+ * 我的
  */
 public class MyFragment extends BaseFragment<FragmentMyBinding> {
 
@@ -48,7 +44,13 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     private UserInfoActivity.Messenger infoMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 展示用户头像
+         */
         public State<String> userPhoto = new State<>(UserStore.getPhoto());
+        /**
+         * 展示用户名
+         */
         public State<String> username = new State<>(UserStore.getUsername());
     }
 

@@ -14,13 +14,7 @@ import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.entity.Appointment;
 import com.lxj.xpopup.core.CenterPopupView;
 
-/**
- * @Description
- * @Author John
- * @email
- * @Date 2023/2/9 1:41
- * @Version 1
- */
+
 public class AppointInfoDialog extends CenterPopupView {
 
 

@@ -27,6 +27,9 @@ import com.cdtde.chongdetang.utils.WindowUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 用户收货地址列表页
+ */
 public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
 
     @InjectScope(Scopes.APPLICATION)
@@ -39,6 +42,9 @@ public class AddressActivity extends BaseActivity<ActivityAddressBinding> {
     private AddressDetailActivity.Messenger detailMessenger;
 
     public static class States extends StateHolder {
+        /**
+         * 收货地址列表
+         */
         public final State<List<Address>> addresses = new State<>(new ArrayList<>());
     }
 

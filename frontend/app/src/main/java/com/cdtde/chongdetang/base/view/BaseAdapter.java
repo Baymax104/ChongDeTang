@@ -35,14 +35,26 @@ public abstract class BaseAdapter<E, B extends ViewDataBinding>
     protected ListHandlerFactory factory;
 
 
+    /**
+     * BaseAdapter构造器
+     * @param layout 子项布局ID
+     */
     public BaseAdapter(@NonNull Integer layout) {
         this.layout = layout;
     }
 
+    /**
+     * 设置展示列表
+     * @param list 列表对象
+     */
     public void setList(@NonNull List<E> list) {
         this.list = list;
     }
 
+    /**
+     * 设置子项事件处理器工厂
+     * @param factory {@link ListHandlerFactory}子类
+     */
     public void setFactory(ListHandlerFactory factory) {
         this.factory = factory;
     }
