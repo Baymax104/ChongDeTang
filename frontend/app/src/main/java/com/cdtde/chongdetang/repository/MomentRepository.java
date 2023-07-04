@@ -51,15 +51,6 @@ public class MomentRepository {
                 .map(news -> news.stream()
                         .map(Moment::new)
                         .collect(Collectors.toList()))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 }

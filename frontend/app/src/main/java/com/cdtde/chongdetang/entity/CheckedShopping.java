@@ -17,6 +17,8 @@ public class CheckedShopping extends BaseObservable {
     private boolean editEnabled;
     private Shopping shopping;
 
+    public CheckedShopping() {
+    }
     public CheckedShopping(Shopping shopping) {
         this(false, false, shopping);
     }

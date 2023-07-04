@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cdtde.chongdetang.base.web.NetLifeCycle
 import com.cdtde.chongdetang.base.web.NetLifeCycleObserver
 import io.reactivex.functions.Consumer
+import java.net.SocketTimeoutException
 
 /**
  * ViewModel组件之一，负责页面的数据请求.
@@ -27,7 +28,14 @@ abstract class Requester : ViewModel(), NetLifeCycle {
         @JvmField val onSuccess: Consumer<E>,
         @JvmField val onFail: Consumer<String>,
         @JvmField val lifeCycle: NetLifeCycle
-    )
+    ) {
+        fun baseHandleException(throwable: Throwable) {
+            when (throwable) {
+                is SocketTimeoutException -> "网络出了点小问题~"
+                else -> throwable.message
+            }?.let { onFail.accept(it) }
+        }
+    }
 
     private val observers: MutableList<NetLifeCycleObserver> = mutableListOf()
 

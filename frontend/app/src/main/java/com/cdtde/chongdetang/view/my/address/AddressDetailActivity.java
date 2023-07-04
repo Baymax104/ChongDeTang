@@ -37,13 +37,15 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
     @InjectScope(Scopes.APPLICATION)
     private Messenger messenger;
 
+    @InjectScope(Scopes.APPLICATION)
+    private AddressDeleteDialog.Messenger deleteMessenger;
+
     public static class States extends StateHolder {
         public final State<Address> address = new State<>(new Address());
     }
 
     public static class Messenger extends MessageHolder {
         public final Event<Address, Unit> showEvent = new Event<>();
-        public final Event<Unit, Unit> deleteEvent = new Event<>();
         public final Event<Unit, Unit> updateAllEvent = new Event<>();
     }
 
@@ -59,7 +61,7 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
                 ).show();
 
         public OnClickListener delete = v ->
-                DialogUtil.create(activity, DeleteDialog.class).show();
+                DialogUtil.create(activity, AddressDeleteDialog.class).show();
         public OnClickListener save = v -> {
             Address address = states.address.getValue();
             if (StringUtils.isEmpty(address.getConsignee()) ||
@@ -102,7 +104,7 @@ public class AddressDetailActivity extends BaseActivity<ActivityAddressDetailBin
 
         messenger.showEvent.observeSend(this, true, states.address::setValue);
 
-        messenger.deleteEvent.observeSend(this, value ->
+        deleteMessenger.deleteEvent.observeSend(this, value ->
                 requester.removeAddress(
                 states.address.getValue(),
                 address -> {

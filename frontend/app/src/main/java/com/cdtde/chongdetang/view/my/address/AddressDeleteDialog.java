@@ -9,6 +9,7 @@ import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.DialogBinder;
 import com.cdtde.chongdetang.base.vm.DialogScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.lxj.xpopup.core.CenterPopupView;
 
 import kotlin.Unit;
@@ -20,11 +21,15 @@ import kotlin.Unit;
  * @Date 2023/2/6 16:14
  * @Version 1
  */
-public class DeleteDialog extends CenterPopupView {
+public class AddressDeleteDialog extends CenterPopupView {
 
-    private AddressDetailActivity.Messenger messenger = DialogScope.getFromApplication(AddressDetailActivity.Messenger.class);
+    private Messenger messenger = DialogScope.getFromApplication(Messenger.class);
 
-    public DeleteDialog(@NonNull Context context) {
+    public static class Messenger extends MessageHolder {
+        public final Event<Unit, Unit> deleteEvent = new Event<>();
+    }
+
+    public AddressDeleteDialog(@NonNull Context context) {
         super(context);
     }
 

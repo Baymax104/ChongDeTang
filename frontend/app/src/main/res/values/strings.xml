@@ -140,4 +140,5 @@
     <string name="empty_tip">内容为空</string>
     <string name="fill_appoint">填写预约信息</string>
     <string name="select_order_address">选择收货地址</string>
+    <string name="delete_shopping_confirm">确定删除该商品</string>
 </resources>

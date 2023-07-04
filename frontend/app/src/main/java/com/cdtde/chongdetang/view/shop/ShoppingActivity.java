@@ -45,6 +45,8 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
     private ProductActivity.Messenger messenger;
     @InjectScope(Scopes.APPLICATION)
     private OrderActivity.Messenger orderMessenger;
+    @InjectScope(Scopes.APPLICATION)
+    private ShoppingDeleteDialog.Messenger deleteMessenger;
 
     public static class States extends StateHolder {
         public final State<List<CheckedShopping>> checkedShoppings = new State<>(new ArrayList<>());
@@ -140,17 +142,10 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
             states.priceSum.setValue(price);
         };
 
-        public final OnItemClickListener<CheckedShopping> delete = (data, view) ->
-                requester.deleteShopping(data,
-                        o -> {
-                            List<CheckedShopping> list = states.checkedShoppings.getValue();
-                            list.remove(data);
-                            states.checkedShoppings.setValue(list);
-                            if (data.isChecked()) {
-                                states.selected.setValue(states.selected.getValue() - 1);
-                            }
-                            states.priceSum.setValue(refreshPrice(states.checkedShoppings.getValue()));
-                        }, ToastUtils::showShort);
+        public final OnItemClickListener<CheckedShopping> delete = (data, view) -> {
+            DialogUtil.create(activity, ShoppingDeleteDialog.class).show();
+            deleteMessenger.deleteEvent.send(data);
+        };
 
         @Override
         public BindingConfig getBindingConfig() {
@@ -189,6 +184,18 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
             states.selected.setValue(checkedShoppings.size());
             states.priceSum.setValue(refreshPrice(checkedShoppings));
         }, ToastUtils::showShort);
+
+        deleteMessenger.deleteEvent.observeReply(this, value ->
+                requester.deleteShopping(value,
+                o -> {
+                    List<CheckedShopping> list = states.checkedShoppings.getValue();
+                    list.remove(value);
+                    states.checkedShoppings.setValue(list);
+                    if (value.isChecked()) {
+                        states.selected.setValue(states.selected.getValue() - 1);
+                    }
+                    states.priceSum.setValue(refreshPrice(states.checkedShoppings.getValue()));
+                }, ToastUtils::showShort));
     }
 
     private double refreshPrice(List<CheckedShopping> list) {

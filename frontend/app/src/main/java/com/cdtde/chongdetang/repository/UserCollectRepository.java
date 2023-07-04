@@ -50,16 +50,7 @@ public class UserCollectRepository {
                         Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
 
     }
 
@@ -74,16 +65,7 @@ public class UserCollectRepository {
                         Single.error(new WebException(result.getMessage())))
                 .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
                 .doFinally(callback.lifeCycle::onFinish)
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
     public void requestAddUserCollection(Collection collection, ReqCallback<Collection> callback) {
@@ -98,16 +80,7 @@ public class UserCollectRepository {
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(collection) :
                         Single.error(new WebException(result.getMessage())))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
     public void requestAddUserProduct(Product product, ReqCallback<Product> callback) {
@@ -122,16 +95,7 @@ public class UserCollectRepository {
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(product) :
                         Single.error(new WebException(result.getMessage())))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
     public void requestRemoveUserCollection(Collection collection, ReqCallback<List<Collection>> callback) {
@@ -150,16 +114,7 @@ public class UserCollectRepository {
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(res.getData()) :
                         Single.error(new WebException(res.getMessage())))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
     public void requestRemoveUserCollectionWithoutList(Collection collection,
@@ -175,16 +130,7 @@ public class UserCollectRepository {
                 .flatMap(res -> res.isSuccess() ?
                         Single.just(collection) :
                         Single.error(new WebException(res.getMessage())))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
     public void requestRemoveUserProduct(Product product, ReqCallback<List<Product>> callback) {
@@ -204,16 +150,7 @@ public class UserCollectRepository {
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(result.getData()) :
                         Single.error(new WebException(result.getMessage())))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
     public void requestRemoveUserProductWithoutList(Product product,
@@ -229,16 +166,7 @@ public class UserCollectRepository {
                 .flatMap(result -> result.isSuccess() ?
                         Single.just(product) :
                         Single.error(new WebException(result.getMessage())))
-                .subscribe(callback.onSuccess,
-                        throwable -> {
-                            if (throwable instanceof SocketTimeoutException) {
-                                callback.onFail.accept("网络出了点小问题~");
-                            } else if (throwable instanceof WebException) {
-                                callback.onFail.accept("服务器出了点小问题~");
-                            } else {
-                                callback.onFail.accept(throwable.getMessage());
-                            }
-                        });
+                .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
 }
