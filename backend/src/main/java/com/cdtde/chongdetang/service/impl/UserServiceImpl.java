@@ -91,8 +91,13 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("用户信息错误");
         }
 
-        // 头像有修改，进行上传
-        if (!newUser.getPhoto().endsWith(".jpg")) {
+        /*
+        对于用户上传的头像信息，getPhoto有三种情况
+        1. 用户没有头像，此时上传的newUser中的photo为null
+        2. 用户已经有头像，且此次上传未更新，则newUser中的photo值依然是COS中的路径，以.jpg结尾
+        3. 用户无论是否有头像，此次上传更新了头像，则newUser中的photo值为头像的Base64编码值，进行解码后上传COS
+         */
+        if (newUser.getPhoto() != null && !newUser.getPhoto().endsWith(".jpg")) {
             String filename = "user_" + id + ".jpg";
             File dest = new File("src/main/resources/static/imgs", filename);
             File file = Base64.decodeToFile(newUser.getPhoto(), dest);
