@@ -36,6 +36,10 @@ public class UserOrderActivity extends BaseActivity<ActivityUserOrderBinding> {
     private OrderRequester requester;
     @InjectScope(Scopes.APPLICATION)
     private OrderDetailActivity.Messenger detailMessenger;
+    @InjectScope(Scopes.APPLICATION)
+    private OrderDeleteDialog.Messenger deleteMessenger;
+    @InjectScope(Scopes.APPLICATION)
+    private OrderConfirmDialog.Messenger confirmMessenger;
 
     public static class States extends StateHolder {
         public final State<List<Order>> orders = new State<>(new ArrayList<>());
@@ -47,9 +51,22 @@ public class UserOrderActivity extends BaseActivity<ActivityUserOrderBinding> {
             detailMessenger.showEvent.send(data);
         };
 
+        public final OnItemClickListener<Order> confirm = (data, view) -> {
+            DialogUtil.create(activity, OrderConfirmDialog.class).show();
+            confirmMessenger.confirmEvent.send(data);
+        };
+
+        public final OnItemClickListener<Order> delete = (data, view) -> {
+            DialogUtil.create(activity, OrderDeleteDialog.class).show();
+            deleteMessenger.deleteEvent.send(data);
+        };
+
         @Override
         public BindingConfig getBindingConfig() {
-            return new BindingConfig().add(BR.itemClick, itemClick);
+            return new BindingConfig()
+                    .add(BR.itemClick, itemClick)
+                    .add(BR.confirmClick, confirm)
+                    .add(BR.deleteClick, delete);
         }
     }
 
@@ -72,5 +89,16 @@ public class UserOrderActivity extends BaseActivity<ActivityUserOrderBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requester.getAllOrder(states.orders::setValue, ToastUtils::showShort);
+
+        confirmMessenger.confirmEvent.observeReply(this, value ->
+                requester.confirmOrder(value,
+                o -> {
+                    value.setStatus("SUCCESS");
+                    ToastUtils.showShort("收货成功");
+                }, ToastUtils::showShort));
+
+        deleteMessenger.deleteEvent.observeReply(this, value ->
+                requester.removeOrder(value,
+                states.orders::setValue, ToastUtils::showShort));
     }
 }

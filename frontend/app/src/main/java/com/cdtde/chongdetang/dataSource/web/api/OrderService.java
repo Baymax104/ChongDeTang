@@ -7,6 +7,8 @@ import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
@@ -41,7 +43,20 @@ public interface OrderService {
      * @param order order对象，json格式传输
      * @return 结果状态
      */
-    @HTTP(path = "/api/user/collect/collection", method = "DELETE", hasBody = true)
+    @HTTP(path = "/api/order", method = "DELETE", hasBody = true)
     Single<Result<Object>> removeOrder(@Header("Authorization") String token,
                                        @Body Order order);
+
+    /**
+     * 确认订单
+     * @param token 用户token
+     * @param orderId 订单id
+     * @param status 确认状态
+     * @return 结果状态
+     */
+    @FormUrlEncoded
+    @POST("/api/order/change")
+    Single<Result<Object>> confirmOrder(@Header("Authorization") String token,
+                                        @Field("id") Integer orderId,
+                                        @Field("status") String status);
 }

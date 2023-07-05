@@ -10,6 +10,12 @@
         <variable
                 name="itemClick"
                 type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="confirmClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+        <variable
+                name="deleteClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -209,6 +215,7 @@
                         android:text="@string/order_delete"
                         android:textColor="@color/white"
                         android:fontFamily="@font/regular"
+                        android:onClick="@{v->deleteClick.onClick(order, v)}"
                         tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
                 <Button
                         android:layout_width="80dp"
@@ -218,6 +225,7 @@
                         android:text="@string/order_confirm"
                         android:textColor="@color/white"
                         android:fontFamily="@font/regular"
+                        android:onClick="@{v->confirmClick.onClick(order, v)}"
                         tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
             </RelativeLayout>
 

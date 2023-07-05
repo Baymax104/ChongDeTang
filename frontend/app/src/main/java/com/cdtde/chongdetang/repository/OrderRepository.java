@@ -79,4 +79,18 @@ public class OrderRepository {
                         Single.error(new WebException(res.getMessage())))
                 .subscribe(callback.onSuccess, callback::baseHandleException);
     }
+
+    public void requestConfirmOrder(Order order, ReqCallback<Object> callback) {
+        String token = WebService.TOKEN_PREFIX + UserStore.getToken();
+
+        service.confirmOrder(token, order.getId(), "SUCCESS")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
+                .doFinally(callback.lifeCycle::onFinish)
+                .flatMap(res -> res.isSuccess() ?
+                        Single.just(new Object()) :
+                        Single.error(new WebException(res.getMessage())))
+                .subscribe(callback.onSuccess, callback::baseHandleException);
+    }
 }
