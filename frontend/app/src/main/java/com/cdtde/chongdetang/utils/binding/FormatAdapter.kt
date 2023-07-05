@@ -48,4 +48,15 @@ object FormatAdapter {
             else -> ""
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("text_order_state")
+    fun TextView.orderState(state: String?) {
+        text = when (state) {
+            "SUCCESS" -> "订单完成"
+            "PROCESSING" -> "待收货"
+            "FAIL" -> "订单异常"
+            else -> ""
+        }
+    }
 }

@@ -31,4 +31,9 @@ public class OrderRequester extends Requester {
         ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
         orderRepo.requestAddOrder(order, callback);
     }
+
+    public void getAllOrder(Consumer<List<Order>> onSuccess, Consumer<String> onFail) {
+        ReqCallback<List<Order>> callback = new ReqCallback<>(onSuccess, onFail, this);
+        orderRepo.requestAllOrders(callback);
+    }
 }

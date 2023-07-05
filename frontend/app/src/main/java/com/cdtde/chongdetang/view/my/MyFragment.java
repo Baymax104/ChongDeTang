@@ -25,6 +25,7 @@ import com.cdtde.chongdetang.view.my.appoint.UserAppointActivity;
 import com.cdtde.chongdetang.view.my.collect.UserCollectActivity;
 import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.my.login.LogoutDialog;
+import com.cdtde.chongdetang.view.my.order.UserOrderActivity;
 import com.cdtde.chongdetang.view.my.setting.SettingActivity;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.shop.ShoppingActivity;
@@ -103,7 +104,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
                 } else if (v.getId() == R.id.shopping_entry) {
                     Starter.actionStart(activity, ShoppingActivity.class);
                 } else if (v.getId() == R.id.order_entry) {
-                    ToastUtils.showShort("进入订单");
+                    Starter.actionStart(activity, UserOrderActivity.class);
                 } else if (v.getId() == R.id.address_entry) {
                     Starter.actionStart(activity, AddressActivity.class);
                 } else if (v.getId() == R.id.feedback_entry) {

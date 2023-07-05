@@ -27,6 +27,9 @@
             android:theme="@style/Theme.ChongDeTang"
             tools:targetApi="31">
         <activity
+                android:name=".view.my.order.OrderDetailActivity"
+                android:exported="false" />
+        <activity
                 android:name=".view.my.order.UserOrderActivity"
                 android:exported="false" />
         <activity

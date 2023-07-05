@@ -83,4 +83,12 @@ public class Order extends BaseObservable implements Serializable {
         this.orderDate = orderDate;
         notifyPropertyChanged(BR.orderDate);
     }
+
+    @Bindable
+    public Double getPrice() {
+        return shoppings.stream()
+                .mapToDouble(shopping -> shopping.getNumber() * shopping.getProduct().getPrice())
+                .reduce(Double::sum)
+                .orElse(0.);
+    }
 }

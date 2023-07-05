@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="order"
+                type="com.cdtde.chongdetang.entity.Order" />
+        <variable
+                name="itemClick"
+                type="com.cdtde.chongdetang.base.view.BaseAdapter.ListHandlerFactory.OnItemClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="10dp"
+            app:cardElevation="0dp"
+            tools:ignore="RelativeOverlap">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingVertical="5dp">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="5dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:text="@{`订单编号：` + order.id}"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/text_regular"
+                        android:gravity="center" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/appoint_state"
+                        android:gravity="center"
+                        text_order_state="@{order.status}"
+                        android:textStyle="bold"
+                        android:textColor="@{order.status==`FAIL` ? @color/black : @color/main_color}"
+                        android:fontFamily="@font/text_regular"/>
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_4"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:id="@+id/item"
+                    android:orientation="vertical"
+                    android:onClick="@{v->itemClick.onClick(order, v)}">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="109dp"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        tools:ignore="ContentDescription">
+
+                    <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            img_url="@{order.shoppings[0].product.photo}"
+                            img_cos="@{true}"
+                            img_rounded="@{true}"
+                            img_fix="@{true}"/>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp">
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:text="@{order.shoppings[0].product.name}"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:fontFamily="@font/regular"
+                                android:gravity="center_vertical|start"
+                                android:maxLines="1"
+                                android:ellipsize="end"/>
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                tools:ignore="RelativeOverlap">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:text="@{String.format(`￥%.2f`, order.shoppings[0].product.price)}"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/main_color"
+                                    android:letterSpacing="0.1"
+                                    android:fontFamily="@font/text_regular"
+                                    android:layout_alignParentStart="true"/>
+
+                            <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical|start"
+                                    android:id="@+id/number"
+                                    android:text="@{`数量：`+order.shoppings[0].number+`件`}"
+                                    android:layout_alignParentEnd="true"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/text_regular"
+                                    android:textSize="16sp"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_4"
+                        android:layout_marginHorizontal="15dp"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:padding="10dp">
+                
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@{String.format(`￥%.2f`, order.price)}"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical"
+                        android:id="@+id/price"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/regular"
+                        android:textColor="@color/main_variant_color"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" 件商品， 总价："
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_toStartOf="@id/price"
+                        android:id="@+id/tip1"
+                        android:fontFamily="@font/regular"
+                        tools:ignore="HardcodedText" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@{String.valueOf(order.shoppings.size())}"
+                        android:textSize="15sp"
+                        android:textColor="@color/main_variant_color"
+                        android:fontFamily="@font/regular"
+                        android:id="@+id/count"
+                        android:layout_toStartOf="@id/tip1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" 共 "
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/regular"
+                        android:layout_toStartOf="@id/count"
+                        tools:ignore="HardcodedText" />
+                
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_4"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp">
+
+                <Button
+                        android:layout_width="80dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/button_bg"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/order_delete"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/regular"
+                        tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
+                <Button
+                        android:layout_width="80dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/button_bg"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/order_confirm"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/regular"
+                        tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

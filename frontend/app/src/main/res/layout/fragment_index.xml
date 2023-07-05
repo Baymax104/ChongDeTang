@@ -145,6 +145,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/collection_list"
                         android:padding="5dp"
+                        android:background="@color/bar_color"
                         tools:listitem="@layout/item_index_collection"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="horizontal"
