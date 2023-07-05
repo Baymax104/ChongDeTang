@@ -67,18 +67,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Result<Object> changeStatus(String order_id,String status){
+    public Result<Object> changeStatus(Integer orderId, String status){
         QueryWrapper<Orders> wrapper = new QueryWrapper<>();
-        Integer id = Integer.valueOf(order_id);
-        wrapper.eq("id",id);
-        Orders order1 = orderMapper.selectOne(wrapper);
-        order1.setStatus(status);
-        int i = orderMapper.update(order1,wrapper);
+        wrapper.eq("id", orderId);
+        Orders orders = orderMapper.selectOne(wrapper);
+        orders.setStatus(status);
+        int i = orderMapper.update(orders,wrapper);
         if(i!=1){
-            throw new RuntimeException("支付状态更改失败");
+            throw new RuntimeException("订单状态更改失败");
         }
         return new Result<>("success",null,null);
-
     }
 
 

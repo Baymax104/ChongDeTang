@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -30,7 +29,8 @@ public class OrderController {
     public Result<Object> removeOrder(@RequestBody Orders order){return orderService.removeOrder(order);}
 
     @PostMapping("/change")
-    public Result<Object> changeStatus(@RequestBody Map<String,String> map){
-        return orderService.changeStatus(map.get("id"),map.get("status"));
+    public Result<Object> changeStatus(@RequestParam("id") Integer id,
+                                       @RequestParam("status") String status){
+        return orderService.changeStatus(id, status);
     }
 }

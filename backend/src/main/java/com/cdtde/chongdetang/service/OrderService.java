@@ -13,22 +13,22 @@ public interface OrderService {
     Result<List<Orders>> getAllOrders();
     /**
      * 为当前用户添加一个order
-     * @param  order
-     * @return success
+     * @param  order order对象
+     * @return 结果状态
      */
     Result<Object> addOrder(Orders order);
     /**
      * 删除一个订单
-     * @param order
-     * @return success
+     * @param order order对象
+     * @return 结果状态
      */
     Result<Object> removeOrder(Orders order);
 
     /**
-     * 更改订单支付状态
-     * @param order_id
-     * @param status
-     * @return
+     * 更改订单状态
+     * @param orderId order对象id
+     * @param status 修改的状态值
+     * @return 结果状态
      */
-    Result<Object> changeStatus(String order_id,String status);
+    Result<Object> changeStatus(Integer orderId,String status);
 }
