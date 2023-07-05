@@ -20,6 +20,7 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityOrderBinding;
 import com.cdtde.chongdetang.entity.Address;
+import com.cdtde.chongdetang.entity.Order;
 import com.cdtde.chongdetang.entity.Shopping;
 import com.cdtde.chongdetang.requester.OrderRequester;
 import com.cdtde.chongdetang.utils.DialogUtil;
@@ -97,6 +98,7 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
 
     @Override
     protected ViewConfig configBinding() {
+        requester.registerObserver(DialogUtil.createNetLoading(this), this);
         return new ViewConfig(R.layout.activity_order)
                 .add(BR.state, states)
                 .add(BR.handler, new Handler())
@@ -149,8 +151,8 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
                 }, ToastUtils::showShort));
 
         payMessenger.payEvent.observeSend(this, value -> {
-            // TODO 发送订单
-            ToastUtils.showShort("发送订单");
+            Order order = new Order(states.address.getValue(), states.shoppings.getValue());
+            requester.addOrder(order, o -> ToastUtils.showShort("提交成功"), ToastUtils::showShort);
         });
 
         addressMessenger.selectEvent.observeReply(this, states.address::setValue);

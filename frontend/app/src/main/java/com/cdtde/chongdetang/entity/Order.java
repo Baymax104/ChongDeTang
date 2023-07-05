@@ -33,12 +33,7 @@ public class Order extends BaseObservable implements Serializable {
     public Order(Address address, List<Shopping> shoppings) {
         this.address = address;
         this.shoppings = shoppings;
-    }
-
-    public Order(Address address, List<Shopping> shoppings, String status) {
-        this.address = address;
-        this.shoppings = shoppings;
-        this.status = status;
+        this.orderDate = new Date();
     }
 
     public Integer getId() {
