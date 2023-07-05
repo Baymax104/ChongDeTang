@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdtde.chongdetang.mapper.OrderMapper">
+
+    <select id="getOrders" resultMap="order">
+        SELECT o.id, o.user_id, o.order_date, o.status,
+               s.id AS shopping_id, s.user_id,
+               p.id AS product_id, p.name, p.price, p.launch_time, p.photo, p.introduction, p.storage,
+               s.number,
+               a.id AS address_id, a.user_id, a.province, a.city, a.detail, a.consignee, a.phone
+        FROM orders o
+                 JOIN order_shopping os ON o.id = os.order_id
+                 JOIN shopping s ON os.shopping_id = s.id
+                 JOIN address a ON o.address_id = a.id
+                 JOIN product p ON s.product_id = p.id
+        WHERE o.user_id = #{userId}
+    </select>
+
+    <insert id="addOrder" parameterType="com.cdtde.chongdetang.pojo.Orders" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders (user_id, order_date, address_id)
+        VALUES (#{order.userId}, #{order.orderDate}, #{order.address.id})
+    </insert>
+
+    <delete id="removeOrder" parameterType="com.cdtde.chongdetang.pojo.Orders">
+        DELETE FROM orders
+        WHERE id = #{order.id}
+    </delete>
+
+
+    <resultMap id="order" type="com.cdtde.chongdetang.pojo.Orders">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="status" column="status"/>
+        <association property="address" javaType="com.cdtde.chongdetang.pojo.Address">
+            <id property="id" column="address_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="province" column="province"/>
+            <result property="city" column="city"/>
+            <result property="detail" column="detail"/>
+            <result property="consignee" column="consignee"/>
+            <result property="phone" column="phone"/>
+        </association>
+        <collection property="shoppings" ofType="com.cdtde.chongdetang.pojo.Shopping">
+            <id property="id" column="shopping_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="number" column="number"/>
+            <association property="product" javaType="com.cdtde.chongdetang.pojo.Product">
+                <id property="id" column="product_id"/>
+                <result property="name" column="name"/>
+                <result property="price" column="price"/>
+                <result property="launchTime" column="launch_time"/>
+                <result property="photo" column="photo"/>
+                <result property="introduction" column="introduction"/>
+                <result property="storage" column="storage"/>
+            </association>
+        </collection>
+    </resultMap>
+
+
+
+
+</mapper>

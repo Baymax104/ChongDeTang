@@ -444,8 +444,6 @@ return: {
 }
 ```
 
-
-
 ### deleteProductByAdmin
 
 ```
@@ -458,5 +456,79 @@ body: {
 return: {
 	status:success/error
 	
+}
+```
+
+## Order
+### 类定义
+```java
+public class Order {
+    @TableId(type = IdType.AUTO)
+    private Integer id;
+    private Integer userId;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date orderDate;
+    @TableField(exist = false)
+    private Address address;
+    private Integer addressId;
+    @TableField(exist = false)
+    private List<Shopping> shoppings;
+    private String status;
+}
+```
+
+### getAllOrders
+
+``` 
+获取当前登录用户全部订单信息
+url: /api/order
+method: get
+data: null
+return: {
+	List<Order>  // 订单列表
+}
+```
+
+### addOrder
+
+``` 
+为当前用户添加一个订单
+url: /api/order
+method: post
+data: {
+	Date orderDate
+	Address address
+	List<Shopping> shoppings
+}
+return: {
+	success
+}
+```
+
+### removeOrder
+
+``` 
+为当前用户删除一个订单
+url: /api/order
+method: post
+data: {
+	Integer id	// order的id
+}
+return: {
+	success
+}
+```
+### changeStatus
+
+``` 
+更改订单状态，包含PROCESSING,SUCCESS,FAIL
+url: /api/order/change
+method: post
+data: {
+	String id	// order的id
+	String stauts	// 上述三种状态
+}
+return: {
+	success
 }
 ```

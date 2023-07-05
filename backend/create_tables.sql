@@ -36,7 +36,7 @@ create table `order`
 );
 
 create index order_user_id_fk
-    on `order` (user_id);
+    on orders (user_id);
 
 create table user
 (
