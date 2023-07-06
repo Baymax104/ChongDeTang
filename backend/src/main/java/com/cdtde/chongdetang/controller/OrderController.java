@@ -22,6 +22,9 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    @GetMapping("/admin")
+    public Result<List<Orders>> getOrdersByAdmin(){return orderService.getOrdersByAdmin();};
+
     @PostMapping
     public Result<Object> addOrder(@RequestBody Orders order){return orderService.addOrder(order);}
 

@@ -529,6 +529,18 @@ return: {
 }
 ```
 
+### getOrdersByAdmin
+
+``` 
+管理员获取所有订单信息（必须所有字段均存在）
+url: /api/order/admin
+method: get
+data: null
+return: {
+	List<Order>  // 订单列表
+}
+```
+
 ### addOrder
 
 ``` 

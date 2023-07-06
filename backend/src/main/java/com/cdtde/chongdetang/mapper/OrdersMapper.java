@@ -12,10 +12,14 @@ import java.util.List;
 @Mapper
 public interface OrdersMapper extends BaseMapper<Orders> {
     List<Orders> getOrders(@Param("userId") Integer userId);
+
+    List<Orders> getOrdersByAdmin();
     void addOrder(@Param("order") Orders order);
     void removeOrder(@Param("order") Orders order);
     Integer getMatchingOrderCount(@Param("aDate") LocalDate aDate);
     Double getOrderTotalAmount(@Param("today") LocalDate today);
+
+
 
 
 

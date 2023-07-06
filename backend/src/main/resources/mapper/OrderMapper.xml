@@ -18,6 +18,19 @@
         WHERE o.user_id = #{userId}
     </select>
 
+    <select id="getOrdersByAdmin" resultMap="order">
+        SELECT o.id, o.user_id, o.order_date, o.status,
+               s.id AS shopping_id, s.user_id,
+               p.id AS product_id, p.name, p.price, p.launch_time, p.photo, p.introduction, p.storage,
+               s.number,
+               a.id AS address_id, a.user_id, a.province, a.city, a.detail, a.consignee, a.phone
+        FROM orders o
+                 JOIN order_shopping os ON o.id = os.order_id
+                 JOIN shopping s ON os.shopping_id = s.id
+                 JOIN address a ON o.address_id = a.id
+                 JOIN product p ON s.product_id = p.id
+    </select>
+
     <insert id="addOrder" parameterType="com.cdtde.chongdetang.pojo.Orders" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO orders (user_id, order_date, address_id)
         VALUES (#{order.userId}, #{order.orderDate}, #{order.address.id})

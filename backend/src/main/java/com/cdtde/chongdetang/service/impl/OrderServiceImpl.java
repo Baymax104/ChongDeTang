@@ -15,9 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -77,6 +75,23 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("订单状态更改失败");
         }
         return new Result<>("success",null,null);
+    }
+
+    @Override
+    public Result<List<Orders>> getOrdersByAdmin(){
+        List<Orders> orders = new ArrayList<>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            orders = orderMapper.getOrdersByAdmin();
+            return new Result<>("success", null, orders);
+
+        }
+        return new Result<>("无管理员权限", null, null);
     }
 
 

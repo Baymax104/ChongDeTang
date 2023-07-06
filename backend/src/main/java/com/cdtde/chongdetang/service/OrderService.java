@@ -31,4 +31,11 @@ public interface OrderService {
      * @return 结果状态
      */
     Result<Object> changeStatus(Integer orderId,String status);
+
+    /**
+     * 管理员获取全部订单信息
+     * @return 全部订单信息
+     */
+
+    Result<List<Orders>> getOrdersByAdmin();
 }

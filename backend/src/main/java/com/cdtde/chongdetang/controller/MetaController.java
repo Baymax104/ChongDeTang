@@ -1,9 +1,6 @@
 package com.cdtde.chongdetang.controller;
 
-import com.cdtde.chongdetang.pojo.News;
-import com.cdtde.chongdetang.pojo.Orders;
 import com.cdtde.chongdetang.pojo.Result;
-import com.cdtde.chongdetang.service.NewsService;
 import com.cdtde.chongdetang.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
