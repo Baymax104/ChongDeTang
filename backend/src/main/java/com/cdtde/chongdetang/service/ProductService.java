@@ -5,6 +5,7 @@ import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.pojo.Shopping;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description
@@ -36,6 +37,10 @@ public interface ProductService {
     Result<Object> addProductByAdmin(Product product);
 
     Result<Object> removeProductByAdmin(Product product);
+
+    Result<Map<String,Integer>> getNums();
+
+    Result<List<Map<String,Double>>> getOrderInfo(Integer days);
 
 
 }

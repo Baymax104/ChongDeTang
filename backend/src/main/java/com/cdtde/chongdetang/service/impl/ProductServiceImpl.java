@@ -2,9 +2,7 @@ package com.cdtde.chongdetang.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.cdtde.chongdetang.mapper.ProductMapper;
-import com.cdtde.chongdetang.mapper.ShoppingMapper;
-import com.cdtde.chongdetang.mapper.UserProductMapper;
+import com.cdtde.chongdetang.mapper.*;
 import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.ProductService;
@@ -14,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -34,6 +34,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private UserProductMapper userProductMapper;
+
+    @Autowired
+    private CollectionMapper collectionMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private OrdersMapper ordersMapper;
 
     @Override
     public Result<List<Product>> getAllProduct() {
@@ -238,5 +247,41 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return new Result<>("success", null, null);
+    }
+
+    @Override
+    public Result<Map<String ,Integer>> getNums(){
+        Map<String ,Integer> result = new HashMap<>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            result.put("product",productMapper.selectList(null).size());
+            result.put("collection",collectionMapper.selectList(null).size());
+            result.put("user",userMapper.selectList(null).size());
+
+        }
+        return new Result<>("success", null, result);
+    }
+
+    @Override
+    public Result<List<Map<String,Double>>> getOrderInfo(Integer days){
+        List<Map<String,Double>> result = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
+        for (int i = 0; i < days; i++) {
+            Map<String,Double> map = new HashMap<>();
+            LocalDate targetDate = currentDate.minusDays(i);
+
+            Integer orderNum = ordersMapper.getMatchingOrderCount(targetDate);
+            map.put("order_num",Double.valueOf(orderNum));
+            Double orderMoney = ordersMapper.getOrderTotalAmount(targetDate);
+            if(orderMoney == null) orderMoney = 0.0;
+            map.put("order_money",orderMoney);
+            result.add(map);
+        }
+        return new Result<>("success",null,result);
     }
 }

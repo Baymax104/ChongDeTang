@@ -1,7 +1,7 @@
 package com.cdtde.chongdetang.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cdtde.chongdetang.mapper.OrderMapper;
+import com.cdtde.chongdetang.mapper.OrdersMapper;
 import com.cdtde.chongdetang.mapper.OrderShoppingMapper;
 import com.cdtde.chongdetang.pojo.Orders;
 import com.cdtde.chongdetang.pojo.OrderShopping;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Slf4j
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    private OrderMapper orderMapper;
+    private OrdersMapper orderMapper;
     @Autowired
     private OrderShoppingMapper orderShoppingMapper;
 

@@ -282,14 +282,32 @@ return: {
 }
 ```
 
-### addAllCollectionByAdmin
+### addCollectionByAdmin
 ``` 
 管理员端添加藏品
 url: /api/collection/admin
-method: get
-data: null
+method: post
+data: {
+	title	
+	url		// 链接
+	type	// zk、pb、sf
+	photo
+}
 return: {
-	List<Collection>  // 藏品列表
+	success
+}
+```
+
+### removeCollectionByAdmin
+``` 
+管理员端删除藏品
+url: /api/collection/admin
+method: delete
+data: {
+	id
+}
+return: {
+	success
 }
 ```
 
@@ -552,5 +570,33 @@ data: {
 }
 return: {
 	success
+}
+```
+
+## MetaData
+
+### getNums
+
+``` 
+获取商品、藏品、用户数量
+url: /api/meta/basis
+method: get
+data: None
+return: {
+	Map<String,Integer>	// 包含三个字段，分别为product，collection和user
+}
+```
+
+### getOrderInfo
+
+``` 
+获取七天内的订单数量和总金额
+url: /api/meta/order
+method: post
+data: {
+	Integer days	// 获取的天数
+}
+return: {
+	List<Map<String,Double>>	// 从今天开始的前days天的Map数据，每个map包含order_num和order_money
 }
 ```

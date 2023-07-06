@@ -5,13 +5,17 @@ import com.cdtde.chongdetang.pojo.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
-public interface OrderMapper extends BaseMapper<Orders> {
+public interface OrdersMapper extends BaseMapper<Orders> {
     List<Orders> getOrders(@Param("userId") Integer userId);
     void addOrder(@Param("order") Orders order);
     void removeOrder(@Param("order") Orders order);
+    Integer getMatchingOrderCount(@Param("aDate") LocalDate aDate);
+    Double getOrderTotalAmount(@Param("today") LocalDate today);
 
 
 

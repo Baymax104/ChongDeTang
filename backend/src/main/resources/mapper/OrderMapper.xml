@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cdtde.chongdetang.mapper.OrderMapper">
+<mapper namespace="com.cdtde.chongdetang.mapper.OrdersMapper">
 
     <select id="getOrders" resultMap="order">
         SELECT o.id, o.user_id, o.order_date, o.status,
@@ -27,6 +27,21 @@
         DELETE FROM orders
         WHERE id = #{order.id}
     </delete>
+
+    <select id="getMatchingOrderCount" parameterType="java.time.LocalDate" resultType="Integer">
+        SELECT COUNT(*)
+        FROM orders
+        WHERE DATE_FORMAT(order_date, '%Y-%m-%d') = #{aDate}
+    </select>
+
+    <select id="getOrderTotalAmount" resultType="java.lang.Double">
+        SELECT SUM(p.price * s.number) AS total_amount
+        FROM orders o
+                 JOIN order_shopping os ON o.id = os.order_id
+                 JOIN shopping s ON os.shopping_id = s.id
+                 JOIN product p ON s.product_id = p.id
+        WHERE DATE(o.order_date) = #{today}
+    </select>
 
 
     <resultMap id="order" type="com.cdtde.chongdetang.pojo.Orders">
