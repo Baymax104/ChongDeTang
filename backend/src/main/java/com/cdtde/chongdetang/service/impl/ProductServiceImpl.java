@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
             List<Product> products = productMapper.selectList(null);
             return new Result<>("success",null,products);
         }
-        return new Result<>("error", "您未登录或没有管理员权限", null);
+        return new Result<>("error", "您没有管理员权限", null);
     }
 
     @Override
@@ -202,11 +202,11 @@ public class ProductServiceImpl implements ProductService {
             return new Result<>("success",null,null);
         }
 
-        return new Result<>("error", null, null);
+        return new Result<>("error", "您没有管理员权限", null);
     }
 
     @Override
-    public Result<Object> deleteShopping(Shopping shopping) {
+    public Result<Object> removeShopping(Shopping shopping) {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = loginUser.getUser().getId();
 
@@ -223,7 +223,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Result<Object> deleteProductByAdmin(Product product) {
+    public Result<Object> removeProductByAdmin(Product product) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication.getPrincipal() instanceof LoginUser)) {

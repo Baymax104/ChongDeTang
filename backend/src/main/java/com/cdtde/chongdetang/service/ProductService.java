@@ -26,7 +26,7 @@ public interface ProductService {
 
     Result<Object> addShopping(Shopping shopping);
 
-    Result<Object> deleteShopping(Shopping shopping);
+    Result<Object> removeShopping(Shopping shopping);
 
     // 管理员交互
     Result<List<Product>> getAllProductByAdmin();
@@ -35,7 +35,7 @@ public interface ProductService {
 
     Result<Object> addProductByAdmin(Product product);
 
-    Result<Object> deleteProductByAdmin(Product product);
+    Result<Object> removeProductByAdmin(Product product);
 
 
 }

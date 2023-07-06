@@ -67,12 +67,12 @@ public class ProductController {
 
     @DeleteMapping("/shopping")
     public Result<Object> deleteShopping(@RequestBody Shopping shopping) {
-        return productService.deleteShopping(shopping);
+        return productService.removeShopping(shopping);
     }
 
     @DeleteMapping("/admin")
     public Result<Object> deleteProductByAdmin(@RequestBody Product product) {
-        return productService.deleteProductByAdmin(product);
+        return productService.removeProductByAdmin(product);
     }
 
 

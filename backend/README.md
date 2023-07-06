@@ -218,8 +218,8 @@ return: {
 
 ### download
 ``` 
-获取所有藏品
-url: /api/collection
+根据藏品类型获取所有藏品（sf、zk、pb）
+url: /api/collection/{type}
 method: get
 data: null
 return: {
@@ -268,6 +268,28 @@ data: {
 
 return: {
 	success
+}
+```
+
+### getAllCollectionByAdmin
+``` 
+获取所有藏品
+url: /api/collection/admin
+method: get
+data: null
+return: {
+	List<Collection>  // 藏品列表
+}
+```
+
+### addAllCollectionByAdmin
+``` 
+管理员端添加藏品
+url: /api/collection/admin
+method: get
+data: null
+return: {
+	List<Collection>  // 藏品列表
 }
 ```
 

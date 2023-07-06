@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cdtde.chongdetang.mapper.CollectionMapper;
 import com.cdtde.chongdetang.mapper.UserCollectionMapper;
 import com.cdtde.chongdetang.pojo.Collection;
+import com.cdtde.chongdetang.pojo.Product;
 import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.pojo.UserCollection;
 import com.cdtde.chongdetang.service.CollectionService;
@@ -74,5 +75,63 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         List<Collection> selectedList = collectionMapper.selectList(queryWrapper);
         result.setStatus("success").setData(selectedList);
         return result;
+    }
+
+    @Override
+    public Result<List<Collection>> getAllCollectionByAdmin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            List<Collection> products = collectionMapper.selectList(null);
+            return new Result<>("success",null,products);
+        }
+        return new Result<>("error", "您没有管理员权限", null);
+    }
+
+    @Override
+    public Result<Object> addCollectionByAdmin(Collection collection){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            QueryWrapper<Collection> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("title",collection.getTitle());
+            List<Collection> collections = collectionMapper.selectList(queryWrapper);
+            if(!collections.isEmpty()){
+                throw new RuntimeException("存在同名藏品");
+            }
+            int i = collectionMapper.insert(collection);
+            if(i != 1){
+                throw new RuntimeException("添加藏品失败");
+            }
+            return new Result<>("success",null,null);
+        }
+
+        return new Result<>("error", "您没有管理员权限", null);
+    }
+
+    @Override
+    public Result<Object> removeCollectionByAdmin(Collection collection) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            int i = collectionMapper.deleteById(collection);
+            if(i!=1){
+                throw new RuntimeException("删除藏品失败");
+            }
+        }
+        return new Result<>("success", null, null);
     }
 }

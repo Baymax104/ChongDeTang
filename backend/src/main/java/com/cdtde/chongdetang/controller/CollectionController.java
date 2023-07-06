@@ -41,4 +41,18 @@ public class CollectionController {
         }
         return new Result<>().setStatus("success");
     }
+
+    @GetMapping("/admin")
+    public Result<List<Collection>> getAllCollection(){
+        return collectionService.getAllCollectionByAdmin();
+    }
+
+    @PostMapping("/admin")
+    public Result<Object> addCollection(@RequestBody Collection collection){
+        return collectionService.addCollectionByAdmin(collection);
+    }
+    @DeleteMapping("/admin")
+    public Result<Object> removeCollection(@RequestBody Collection collection){
+        return collectionService.removeCollectionByAdmin(collection);
+    }
 }
