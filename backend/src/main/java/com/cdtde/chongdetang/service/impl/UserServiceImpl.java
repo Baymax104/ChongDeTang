@@ -224,8 +224,7 @@ public class UserServiceImpl implements UserService {
             res.setStatus("not admin");
             return res;
         }
-//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.ne("phone",-1);
+
         List<User> users = userMapper.selectList(null);
         users.forEach(user -> {
             if (user.getPhoto() != null) {

@@ -29,7 +29,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     private UserCollectionMapper userCollectionMapper;
 
     @Override
-    public Result<List<Collection>> download(String type) {
+    public Result<List<Collection>> getCollection(String type) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         QueryWrapper<Collection> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type", type);

@@ -587,7 +587,7 @@ return: {
 
 ## MetaData
 
-### getNums
+### getNumsByAdmin
 
 ``` 
 获取商品、藏品、用户数量
@@ -599,7 +599,7 @@ return: {
 }
 ```
 
-### getOrderInfo
+### getOrderInfoByDay
 
 ``` 
 获取七天内的订单数量和总金额

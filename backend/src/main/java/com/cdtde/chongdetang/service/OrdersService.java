@@ -4,13 +4,14 @@ import com.cdtde.chongdetang.pojo.Orders;
 import com.cdtde.chongdetang.pojo.Result;
 
 import java.util.List;
+import java.util.Map;
 
-public interface OrderService {
+public interface OrdersService {
     /**
      * 获取当前用户所有订单信息
      * @return 订单列表
      */
-    Result<List<Orders>> getAllOrders();
+    Result<List<Orders>> getAllOrdersByUser();
     /**
      * 为当前用户添加一个order
      * @param  order order对象
@@ -38,4 +39,6 @@ public interface OrderService {
      */
 
     Result<List<Orders>> getOrdersByAdmin();
+
+    Result<List<Map<String,Double>>> getOrderInfoByDay(Integer days);
 }

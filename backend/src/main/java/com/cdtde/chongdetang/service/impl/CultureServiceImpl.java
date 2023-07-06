@@ -18,7 +18,7 @@ public class CultureServiceImpl implements CultureService {
     private CulturalMapper culturalMapper;
 
     @Override
-    public Result<List<Culture>> download(String type) {
+    public Result<List<Culture>> getCultures(String type) {
         QueryWrapper<Culture> query = new QueryWrapper<>();
         query.eq("type", type);
         List<Culture> cultureList = culturalMapper.selectList(query);
@@ -26,8 +26,7 @@ public class CultureServiceImpl implements CultureService {
     }
 
     @Override
-    public Result<Object> upload(String type, String date, String title, String url, String description, String photo) {
-        Culture culture = new Culture(date, title, photo, url, type, description);
+    public Result<Object> addCulture(Culture culture) {
         culturalMapper.insert(culture);
         return new Result<>("success", null, null);
     }

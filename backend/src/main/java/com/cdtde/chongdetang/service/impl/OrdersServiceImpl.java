@@ -8,18 +8,19 @@ import com.cdtde.chongdetang.pojo.OrderShopping;
 import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.pojo.Shopping;
 import com.cdtde.chongdetang.service.LoginUser;
-import com.cdtde.chongdetang.service.OrderService;
+import com.cdtde.chongdetang.service.OrdersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
 @Slf4j
-public class OrderServiceImpl implements OrderService {
+public class OrdersServiceImpl implements OrdersService {
     @Autowired
     private OrdersMapper orderMapper;
     @Autowired
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Result<List<Orders>> getAllOrders(){
+    public Result<List<Orders>> getAllOrdersByUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         int userId = loginUser.getUser().getId();
@@ -92,6 +93,24 @@ public class OrderServiceImpl implements OrderService {
 
         }
         return new Result<>("无管理员权限", null, null);
+    }
+
+    @Override
+    public Result<List<Map<String,Double>>> getOrderInfoByDay(Integer days){
+        List<Map<String,Double>> result = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
+        for (int i = 0; i < days; i++) {
+            Map<String,Double> map = new HashMap<>();
+            LocalDate targetDate = currentDate.minusDays(i);
+
+            Integer orderNum = orderMapper.getMatchingOrderCount(targetDate);
+            map.put("order_num",Double.valueOf(orderNum));
+            Double orderMoney = orderMapper.getOrderTotalAmount(targetDate);
+            if(orderMoney == null) orderMoney = 0.0;
+            map.put("order_money",orderMoney);
+            result.add(map);
+        }
+        return new Result<>("success",null,result);
     }
 
 

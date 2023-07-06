@@ -3,7 +3,7 @@ package com.cdtde.chongdetang.controller;
 
 import com.cdtde.chongdetang.pojo.Orders;
 import com.cdtde.chongdetang.pojo.Result;
-import com.cdtde.chongdetang.service.OrderService;
+import com.cdtde.chongdetang.service.OrdersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +15,11 @@ import java.util.List;
 @RequestMapping("/api/order")
 public class OrderController {
     @Autowired
-    private OrderService orderService;
+    private OrdersService orderService;
 
     @GetMapping
-    public Result<List<Orders>> getAllOrders() {
-        return orderService.getAllOrders();
+    public Result<List<Orders>> getAllOrdersByUser() {
+        return orderService.getAllOrdersByUser();
     }
 
     @GetMapping("/admin")

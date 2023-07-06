@@ -18,7 +18,7 @@ public class NewsServiceImpl implements NewsService {
     private NewsMapper newsMapper;
 
     @Override
-    public Result<List<News>> download(String type) {
+    public Result<List<News>> getNews(String type) {
 
         QueryWrapper<News> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type", type);
@@ -30,8 +30,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public Result<Object> upload(String date, String title, String photo, String url, String type, String description) {
-        News news = new News(date, title, photo, url, type, description);
+    public Result<Object> addNews(News news) {
         newsMapper.insert(news);
         return new Result<>("success", null, null);
     }

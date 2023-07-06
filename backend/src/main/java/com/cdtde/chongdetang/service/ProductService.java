@@ -38,9 +38,9 @@ public interface ProductService {
 
     Result<Object> removeProductByAdmin(Product product);
 
-    Result<Map<String,Integer>> getNums();
+    Result<Map<String,Integer>> getNumsByAdmin();
 
-    Result<List<Map<String,Double>>> getOrderInfo(Integer days);
+
 
 
 }

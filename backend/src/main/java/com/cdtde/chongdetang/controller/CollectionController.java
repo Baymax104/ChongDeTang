@@ -17,8 +17,8 @@ public class CollectionController {
     private CollectionService collectionService;
 
     @GetMapping("/{type}")
-    public Result<List<Collection>> download(@PathVariable String type) {
-        return collectionService.download(type);
+    public Result<List<Collection>> getCollection(@PathVariable String type) {
+        return collectionService.getCollection(type);
     }
 
     @GetMapping("/hot")

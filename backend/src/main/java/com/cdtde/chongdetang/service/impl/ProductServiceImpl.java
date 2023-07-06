@@ -250,7 +250,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Result<Map<String ,Integer>> getNums(){
+    public Result<Map<String ,Integer>> getNumsByAdmin(){
         Map<String ,Integer> result = new HashMap<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication.getPrincipal() instanceof LoginUser)) {
@@ -267,21 +267,5 @@ public class ProductServiceImpl implements ProductService {
         return new Result<>("success", null, result);
     }
 
-    @Override
-    public Result<List<Map<String,Double>>> getOrderInfo(Integer days){
-        List<Map<String,Double>> result = new ArrayList<>();
-        LocalDate currentDate = LocalDate.now();
-        for (int i = 0; i < days; i++) {
-            Map<String,Double> map = new HashMap<>();
-            LocalDate targetDate = currentDate.minusDays(i);
 
-            Integer orderNum = ordersMapper.getMatchingOrderCount(targetDate);
-            map.put("order_num",Double.valueOf(orderNum));
-            Double orderMoney = ordersMapper.getOrderTotalAmount(targetDate);
-            if(orderMoney == null) orderMoney = 0.0;
-            map.put("order_money",orderMoney);
-            result.add(map);
-        }
-        return new Result<>("success",null,result);
-    }
 }

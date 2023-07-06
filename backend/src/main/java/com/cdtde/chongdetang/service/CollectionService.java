@@ -12,7 +12,7 @@ public interface CollectionService extends IService<Collection> {
      * @param type 藏品类型
      * @return Collection列表
      */
-    Result<List<Collection>> download(String type);
+    Result<List<Collection>> getCollection(String type);
 
     Result<List<Collection>> getHot();
 
