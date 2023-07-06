@@ -1,21 +1,20 @@
 package com.cdtde.chongdetang.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cdtde.chongdetang.pojo.Orders;
+import com.cdtde.chongdetang.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Mapper
-public interface OrdersMapper extends BaseMapper<Orders> {
-    List<Orders> getOrders(@Param("userId") Integer userId);
+public interface OrderMapper extends BaseMapper<Order> {
+    List<Order> getOrders(@Param("userId") Integer userId);
 
-    List<Orders> getOrdersByAdmin();
-    void addOrder(@Param("order") Orders order);
-    void removeOrder(@Param("order") Orders order);
+    List<Order> getOrdersByAdmin();
+    void addOrder(@Param("order") Order order);
+    void removeOrder(@Param("order") Order order);
     Integer getMatchingOrderCount(@Param("aDate") LocalDate aDate);
     Double getOrderTotalAmount(@Param("today") LocalDate today);
 

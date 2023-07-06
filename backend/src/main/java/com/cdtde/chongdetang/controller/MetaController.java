@@ -1,7 +1,7 @@
 package com.cdtde.chongdetang.controller;
 
 import com.cdtde.chongdetang.pojo.Result;
-import com.cdtde.chongdetang.service.OrdersService;
+import com.cdtde.chongdetang.service.OrderService;
 import com.cdtde.chongdetang.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class MetaController {
     private ProductService productService;
 
     @Autowired
-    private OrdersService orderService;
+    private OrderService orderService;
 
     @GetMapping("/basis")
     public Result<Map<String,Integer>> getNums() {

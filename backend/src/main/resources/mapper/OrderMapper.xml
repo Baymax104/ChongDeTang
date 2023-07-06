@@ -2,43 +2,40 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cdtde.chongdetang.mapper.OrdersMapper">
+<mapper namespace="com.cdtde.chongdetang.mapper.OrderMapper">
 
     <select id="getOrders" resultMap="order">
         SELECT o.id, o.user_id, o.order_date, o.status,
-               s.id AS shopping_id, s.user_id,
-               p.id AS product_id, p.name, p.price, p.launch_time, p.photo, p.introduction, p.storage,
-               s.number,
-               a.id AS address_id, a.user_id, a.province, a.city, a.detail, a.consignee, a.phone
+               o.province, o.city, o.detail, o.consignee, o.phone,
+               os.id AS shopping_id, os.order_id, os.number,
+               p.id AS product_id, p.name, p.price, p.launch_time, p.photo, p.introduction, p.storage
         FROM orders o
                  JOIN order_shopping os ON o.id = os.order_id
-                 JOIN shopping s ON os.shopping_id = s.id
-                 JOIN address a ON o.address_id = a.id
-                 JOIN product p ON s.product_id = p.id
+                 JOIN product p ON os.product_id = p.id
         WHERE o.user_id = #{userId}
     </select>
 
     <select id="getOrdersByAdmin" resultMap="order">
         SELECT o.id, o.user_id, o.order_date, o.status,
-               s.id AS shopping_id, s.user_id,
-               p.id AS product_id, p.name, p.price, p.launch_time, p.photo, p.introduction, p.storage,
-               s.number,
-               a.id AS address_id, a.user_id, a.province, a.city, a.detail, a.consignee, a.phone
+               o.province, o.city, o.detail, o.consignee, o.phone,
+               os.id AS shopping_id, os.order_id, os.number,
+               p.id AS product_id, p.name, p.price, p.launch_time, p.photo, p.introduction, p.storage
         FROM orders o
                  JOIN order_shopping os ON o.id = os.order_id
-                 JOIN shopping s ON os.shopping_id = s.id
-                 JOIN address a ON o.address_id = a.id
-                 JOIN product p ON s.product_id = p.id
+                 JOIN product p ON os.product_id = p.id
     </select>
 
-    <insert id="addOrder" parameterType="com.cdtde.chongdetang.pojo.Orders" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO orders (user_id, order_date, address_id)
-        VALUES (#{order.userId}, #{order.orderDate}, #{order.address.id})
+    <insert id="addOrder" parameterType="com.cdtde.chongdetang.pojo.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders (user_id, order_date, province, city, detail, consignee, phone)
+        VALUES (#{order.userId}, #{order.orderDate},
+                #{order.address.province}, #{order.address.city}, #{order.address.detail},
+                #{order.address.consignee}, #{order.address.phone})
     </insert>
 
-    <delete id="removeOrder" parameterType="com.cdtde.chongdetang.pojo.Orders">
-        DELETE FROM orders
-        WHERE id = #{order.id}
+    <delete id="removeOrder" parameterType="com.cdtde.chongdetang.pojo.Order">
+        DELETE o
+        FROM orders o
+        WHERE o.id = #{order.id}
     </delete>
 
     <select id="getMatchingOrderCount" parameterType="java.time.LocalDate" resultType="Integer">
@@ -48,32 +45,29 @@
     </select>
 
     <select id="getOrderTotalAmount" resultType="java.lang.Double">
-        SELECT SUM(p.price * s.number) AS total_amount
+        SELECT SUM(p.price * os.number) AS total_amount
         FROM orders o
                  JOIN order_shopping os ON o.id = os.order_id
-                 JOIN shopping s ON os.shopping_id = s.id
-                 JOIN product p ON s.product_id = p.id
+                 JOIN product p ON os.product_id = p.id
         WHERE DATE(o.order_date) = #{today}
     </select>
 
 
-    <resultMap id="order" type="com.cdtde.chongdetang.pojo.Orders">
+    <resultMap id="order" type="com.cdtde.chongdetang.pojo.Order">
         <id property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="orderDate" column="order_date"/>
         <result property="status" column="status"/>
         <association property="address" javaType="com.cdtde.chongdetang.pojo.Address">
-            <id property="id" column="address_id"/>
-            <result property="userId" column="user_id"/>
             <result property="province" column="province"/>
             <result property="city" column="city"/>
             <result property="detail" column="detail"/>
             <result property="consignee" column="consignee"/>
             <result property="phone" column="phone"/>
         </association>
-        <collection property="shoppings" ofType="com.cdtde.chongdetang.pojo.Shopping">
+        <collection property="shoppings" ofType="com.cdtde.chongdetang.pojo.OrderShopping">
             <id property="id" column="shopping_id"/>
-            <result property="userId" column="user_id"/>
+            <result property="orderId" column="order_id"/>
             <result property="number" column="number"/>
             <association property="product" javaType="com.cdtde.chongdetang.pojo.Product">
                 <id property="id" column="product_id"/>

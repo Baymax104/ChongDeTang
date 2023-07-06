@@ -12,8 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -40,9 +38,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private OrdersMapper ordersMapper;
 
     @Override
     public Result<List<Product>> getAllProduct() {

@@ -15,10 +15,7 @@ public class OrderShopping {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer orderId;
-    private Integer shoppingId;
+    private Product product;
+    private Integer number;
 
-    public OrderShopping(Integer orderId, Integer shoppingId) {
-        this.orderId = orderId;
-        this.shoppingId = shoppingId;
-    }
 }
