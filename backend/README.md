@@ -62,6 +62,21 @@ return: {
 }
 ```
 
+### forgetPassword
+
+``` 
+修改密码
+url:/api/user/forget/password
+method: post
+data: {
+	phone
+	password   // AES加密
+}
+return: {
+	success 
+}
+```
+
 ### updatePhone
 
 ``` 
