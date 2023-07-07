@@ -2,6 +2,7 @@ package com.cdtde.chongdetang.useCase;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.cdtde.chongdetang.base.vm.MessageHolder;
+import com.cdtde.chongdetang.utils.ValidateUtil;
 
 import kotlin.Unit;
 
@@ -47,17 +48,17 @@ public class PhoneValidateUseCase extends MessageHolder {
     }
 
     public boolean validateCode() {
-        if (StringUtils.isEmpty(code)) {
-            return false;
-        }
 
         // 测试专用，0000为测试码
         // ******************
         if ("0000".equals(code)) {
-            validCode = "0000";
+            return true;
         }
         //********************
 
+        if (!ValidateUtil.validateCode(code) || !ValidateUtil.validateCode(validCode)) {
+            return false;
+        }
         return code.equals(validCode);
     }
 

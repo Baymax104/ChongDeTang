@@ -152,7 +152,10 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
 
         payMessenger.payEvent.observeSend(this, value -> {
             Order order = new Order(states.address.getValue(), states.shoppings.getValue());
-            requester.addOrder(order, o -> ToastUtils.showShort("提交成功"), ToastUtils::showShort);
+            requester.addOrder(order, o -> {
+                ToastUtils.showShort("提交成功");
+                finish();
+            }, ToastUtils::showShort);
         });
 
         addressMessenger.selectEvent.observeReply(this, states.address::setValue);

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.library.baseAdapters.BR;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.ViewConfig;
@@ -21,6 +22,7 @@ import com.cdtde.chongdetang.databinding.FragmentUserPhoneBinding;
 import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.useCase.PhoneValidateUseCase;
 import com.cdtde.chongdetang.useCase.ValidateUseCase;
+import com.cdtde.chongdetang.utils.ValidateUtil;
 
 /**
  * @Description
@@ -52,10 +54,14 @@ public class UserPhoneFragment extends BaseFragment<FragmentUserPhoneBinding> {
 
     public class Handler {
         public final OnClickListener sendSms = v -> {
-            Timer timer = new Timer();
-            timer.start();
-            validateUseCase.sendSms(states.inputPhone.getValue());
-            states.finalPhone = states.inputPhone.getValue();
+            if (ValidateUtil.validatePhone(states.inputPhone.getValue())) {
+                Timer timer = new Timer();
+                timer.start();
+                validateUseCase.sendSms(states.inputPhone.getValue());
+                states.finalPhone = states.inputPhone.getValue();
+            } else {
+                ToastUtils.showShort("手机号格式错误");
+            }
         };
 
         public void setCode(Editable s) {

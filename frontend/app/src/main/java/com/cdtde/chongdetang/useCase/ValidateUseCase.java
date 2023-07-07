@@ -58,27 +58,25 @@ public class ValidateUseCase extends MessageHolder {
     }
 
     public boolean validateCode() {
-        if (ValidateUtil.validateCode(code) && ValidateUtil.validateCode(validCode)) {
-            return false;
-        }
 
         // 测试专用，0000为测试码
         // ******************
         if (code.equals("0000")) {
-            validCode = "0000";
+            return true;
         }
         //********************
 
+        if (!ValidateUtil.validateCode(code) || !ValidateUtil.validateCode(validCode)) {
+            return false;
+        }
         return code.equals(validCode);
     }
 
     @SuppressLint("CheckResult")
     public void sendSms(String phone) {
-        // validate phone
+
+        // generate validate code
         validCode = String.valueOf((int) (Math.random() * 9000) + 1000);
-        if (!ValidateUtil.validatePhone(phone)) {
-            return;
-        }
 
         // setting
         SendSmsRequest request = new SendSmsRequest()

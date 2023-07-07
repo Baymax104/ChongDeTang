@@ -21,6 +21,7 @@ import com.cdtde.chongdetang.requester.UserInfoRequester;
 import com.cdtde.chongdetang.useCase.PhoneValidateUseCase;
 import com.cdtde.chongdetang.useCase.ValidateUseCase;
 import com.cdtde.chongdetang.utils.DialogUtil;
+import com.cdtde.chongdetang.utils.ValidateUtil;
 import com.cdtde.chongdetang.utils.WindowUtil;
 import com.cdtde.chongdetang.view.my.setting.ValidateFragment;
 
@@ -91,8 +92,12 @@ public class UserPhoneActivity extends BaseActivity<ActivityUserPhoneBinding> {
 
         phoneValidateUseCase.validateEvent.observeReply(this, value -> {
             if (value) {
-                requester.updatePhone(phoneValidateUseCase.getFinalPhone(),
-                        o -> finish(), ToastUtils::showShort);
+                if (ValidateUtil.validatePhone(phoneValidateUseCase.getFinalPhone())) {
+                    requester.updatePhone(phoneValidateUseCase.getFinalPhone(),
+                            o -> finish(), ToastUtils::showShort);
+                } else {
+                    ToastUtils.showShort("手机号格式错误");
+                }
             } else {
                 ToastUtils.showShort("验证码错误！");
             }

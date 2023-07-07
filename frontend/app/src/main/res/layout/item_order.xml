@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="order"
                 type="com.cdtde.chongdetang.entity.Order" />
@@ -226,6 +227,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/regular"
                         android:onClick="@{v->confirmClick.onClick(order, v)}"
+                        android:visibility="@{`PROCESSING`.equals(order.status) ? View.VISIBLE : View.GONE}"
                         tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
             </RelativeLayout>
 
