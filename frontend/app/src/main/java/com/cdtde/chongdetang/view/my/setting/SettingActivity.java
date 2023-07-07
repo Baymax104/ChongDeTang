@@ -66,15 +66,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         messenger.logout.observeSend(this, value -> finish());
-//        LiveEventBus.get("LogoutDialog-logout", Boolean.class)
-//                        .observe(this, aBoolean -> {
-//                            if (aBoolean) {
-//                                finish();
-//                            }
-//                        });
     }
 
 }

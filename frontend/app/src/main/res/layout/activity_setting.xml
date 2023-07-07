@@ -146,48 +146,47 @@
 
             </RelativeLayout>
 
+<!--            <RelativeLayout-->
+<!--                    android:id="@+id/copyright_entry"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:layout_below="@id/phone_entry"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:onClick="@{handler.copyrightClick}">-->
 
-            <RelativeLayout
-                    android:id="@+id/copyright_entry"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_below="@id/phone_entry"
-                    android:layout_marginTop="5dp"
-                    android:onClick="@{handler.copyrightClick}">
+<!--                <ImageView-->
+<!--                        android:layout_width="25dp"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:src="@drawable/copyright"-->
+<!--                        android:id="@+id/copyright_icon"-->
+<!--                        android:layout_marginStart="10dp" />-->
 
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/copyright"
-                        android:id="@+id/copyright_icon"
-                        android:layout_marginStart="10dp" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/copyright_icon"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/copyright"
-                        style="@style/EntryTextStyle" />
+<!--                <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_toEndOf="@id/copyright_icon"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:text="@string/copyright"-->
+<!--                        style="@style/EntryTextStyle" />-->
 
 
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/arrow_right"
-                        android:layout_marginEnd="10dp" />
+<!--                <ImageView-->
+<!--                        android:layout_width="25dp"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:src="@drawable/arrow_right"-->
+<!--                        android:layout_marginEnd="10dp" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
             <RelativeLayout
                     android:id="@+id/version_entry"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_below="@id/copyright_entry"
+                    android:layout_below="@id/phone_entry"
                     android:layout_marginTop="5dp"
                     android:onClick="@{handler.versionClick}">
 
