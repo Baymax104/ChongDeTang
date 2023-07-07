@@ -24,9 +24,7 @@ object ListAdapter {
     @JvmStatic
     @BindingAdapter("tag_data")
     fun TagFlowLayout.adapter(data: List<String>) {
-        val adapter = (this.adapter as? SearchTagAdapter) ?: SearchTagAdapter(data)
-        adapter.setData(data)
-        this.adapter = adapter
+        this.adapter = SearchTagAdapter(data)
     }
 
     @JvmStatic

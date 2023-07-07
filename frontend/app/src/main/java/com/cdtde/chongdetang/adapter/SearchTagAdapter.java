@@ -19,15 +19,8 @@ import java.util.List;
  */
 public class SearchTagAdapter extends TagAdapter<String> {
 
-    private List<String> data;
-
     public SearchTagAdapter(List<String> datas) {
         super(datas);
-        this.data = datas;
-    }
-
-    public void setData(List<String> data) {
-        this.data = data;
     }
 
     @Override
