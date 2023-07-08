@@ -15,6 +15,8 @@ public interface UserService {
 
     Result<String> updatePassword(String oldPassword, String newPassword);
 
+    Result<Object> forgetPassword(String phone, String newPassword);
+
     Result<Object> updatePhone(String phone);
 
     Result<Object> setAdmin(String phone, String mode);

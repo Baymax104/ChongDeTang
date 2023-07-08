@@ -79,6 +79,18 @@ public class UserController {
         return userService.updatePassword(oldDecrypt, newDecrypt);
     }
 
+    @PostMapping("/forget")
+    public Result<Object> updatePassword(@RequestParam("phone") String phone,
+                                         @RequestParam("password") String password) {
+
+        byte[] key = passwordKey.getBytes(StandardCharsets.UTF_8);
+        byte[] iv = passwordIv.getBytes(StandardCharsets.UTF_8);
+        AES aes = new AES(Mode.CBC, Padding.PKCS5Padding, key, iv);
+        String newDecrypt = aes.decryptStr(password);
+
+        return userService.forgetPassword(phone, newDecrypt);
+    }
+
     @PostMapping("/update/phone")
     public Result<Object> updatePhone(@RequestParam("phone") String phone) {
         return userService.updatePhone(phone);

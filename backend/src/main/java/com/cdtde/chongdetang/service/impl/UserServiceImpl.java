@@ -178,6 +178,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Result<Object> forgetPassword(String phone, String newPassword) {
+        String newEncrypt = passwordEncoder.encode(newPassword);
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("phone", phone)
+                .set("password", newEncrypt);
+        int update = userMapper.update(null, wrapper);
+        if (update != 1) {
+            throw new RuntimeException("用户不存在");
+        }
+        return new Result<>("success",null,null);
+    }
+
+    @Override
     public Result<Object> updatePhone(String phone) {
         Result<Object> result = new Result<>();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
