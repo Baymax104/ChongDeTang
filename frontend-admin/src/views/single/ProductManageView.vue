@@ -180,6 +180,7 @@ import {
   getAllProductByAdmin,
   updateProductNumberByAdmin
 } from "../../api/product";
+import {photoPrefix} from "../../../config/app-key";
 
 
 const dateRange = ref([])
@@ -193,7 +194,10 @@ const table_loading = ref(true)
 const handleGetProductList = async () => {
   const res = await getAllProductByAdmin()
   table_loading.value = false
-  tableData.value = res
+  tableData.value = res.map(x => {
+    x.photo = photoPrefix + x.photo
+    return x
+  })
   console.log(res)
 }
 // 页面加载时刷新
