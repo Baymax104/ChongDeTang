@@ -93,7 +93,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     }
 
     @Override
-    public Result<Object> addCollectionByAdmin(Collection collection){
+    public Result<Integer> addCollectionByAdmin(Collection collection){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication.getPrincipal() instanceof LoginUser)) {
             return new Result<>("error", "未登录", null);
@@ -111,7 +111,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
             if(i != 1){
                 throw new RuntimeException("添加藏品失败");
             }
-            return new Result<>("success",null,null);
+            return new Result<>("success",null,collection.getId());
         }
 
         return new Result<>("error", "您没有管理员权限", null);

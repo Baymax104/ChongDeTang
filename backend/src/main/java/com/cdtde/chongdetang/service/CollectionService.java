@@ -29,7 +29,7 @@ public interface CollectionService extends IService<Collection> {
      * @param collection 藏品
      * @return success
      */
-    Result<Object> addCollectionByAdmin(Collection collection);
+    Result<Integer> addCollectionByAdmin(Collection collection);
 
     /**
      * 修改藏品（管理员）

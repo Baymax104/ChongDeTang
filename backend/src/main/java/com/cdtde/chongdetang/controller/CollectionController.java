@@ -48,7 +48,7 @@ public class CollectionController {
     }
 
     @PostMapping("/admin")
-    public Result<Object> addCollection(@RequestBody Collection collection){
+    public Result<Integer> addCollection(@RequestBody Collection collection){
         return collectionService.addCollectionByAdmin(collection);
     }
 
