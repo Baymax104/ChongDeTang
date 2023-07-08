@@ -5,7 +5,7 @@
         <span>授权用户为管理员</span>
       </div>
     </template>
-    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="table_loading">
+    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="table_loading" height="77vh">
       <el-table-column label="id" prop="id" sortable />
       <el-table-column label="头像">
         <template #default="scope">
@@ -38,12 +38,12 @@
         <template #default="scope">
         <!--          非管理员-->
           <div v-if="!judgeCurrentUserRole(scope.row.id)">
-          <el-button size="small" type="success" text @click="handleSetAdmin(scope.$index, scope.row)">授权</el-button>
+          <el-button size="small" type="primary" text @click="handleSetAdmin(scope.$index, scope.row)">授权</el-button>
           <el-button size="small" type="danger" text @click="handleResetAdmin(scope.$index, scope.row)">取消</el-button>
           </div>
         <!--          管理员-->
           <div v-else>
-            <el-button size="small" type="success" text disabled @click="handleSetAdmin(scope.$index, scope.row)">授权</el-button>
+            <el-button size="small" type="primary" text disabled @click="handleSetAdmin(scope.$index, scope.row)">授权</el-button>
             <el-button size="small" type="danger" text disabled @click="handleResetAdmin(scope.$index, scope.row)">取消</el-button>
           </div>
         </template>
