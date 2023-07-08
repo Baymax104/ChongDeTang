@@ -52,3 +52,15 @@ export function setHotList(idList, dir) {
 
     return axios.post('/api/collection/select', dataList)
 }
+
+// 首页数据加载
+export function getSysInfo() {
+    return axios.get('/api/meta/basis')
+}
+
+// 首页图片数据加载
+export function getChartData(days) {
+    return axios.post('/api/meta/order', {
+        days: days
+    })
+}
