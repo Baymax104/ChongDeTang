@@ -3,11 +3,11 @@
 
     <div class="list-header">
         <slot name="list-header-text">列表标题</slot>
-      <el-input v-model="searchData" placeholder="快捷筛选" clearable style="width: 50%">
-        <template #prefix="">
-          <el-icon><Search /></el-icon>
-        </template>
-      </el-input>
+<!--      <el-input v-model="searchData" placeholder="快捷筛选" clearable style="width: 50%">-->
+<!--        <template #prefix="">-->
+<!--          <el-icon><Search /></el-icon>-->
+<!--        </template>-->
+<!--      </el-input>-->
     </div>
     
     <div class="list-body">
