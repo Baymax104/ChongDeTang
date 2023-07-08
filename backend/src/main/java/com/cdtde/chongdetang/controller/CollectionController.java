@@ -51,6 +51,12 @@ public class CollectionController {
     public Result<Object> addCollection(@RequestBody Collection collection){
         return collectionService.addCollectionByAdmin(collection);
     }
+
+    @PostMapping("/admin/{collectionId}")
+    public Result<Object> updateCollection(@PathVariable("collectionId") Integer collectionId, @RequestBody Collection collection){
+        return collectionService.updateCollectionByAdmin(collectionId,collection);
+    }
+
     @DeleteMapping("/admin")
     public Result<Object> removeCollection(@RequestBody Collection collection){
         return collectionService.removeCollectionByAdmin(collection);
