@@ -36,4 +36,10 @@ public class UserInfoRequester extends Requester {
         ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
         repo.requestUpdatePhone(phone, callback);
     }
+
+    public void forgetPassword(String phone, String password,
+                               Consumer<Object> onSuccess, Consumer<String> onFail) {
+        ReqCallback<Object> callback = new ReqCallback<>(onSuccess, onFail, this);
+        repo.requestForgetPassword(phone, password, callback);
+    }
 }

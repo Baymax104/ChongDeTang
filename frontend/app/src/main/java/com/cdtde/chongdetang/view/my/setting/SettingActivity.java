@@ -21,12 +21,15 @@ import com.cdtde.chongdetang.view.my.login.LoginActivity;
 import com.cdtde.chongdetang.view.my.login.LogoutDialog;
 import com.cdtde.chongdetang.view.my.setting.userInfo.UserInfoActivity;
 import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordActivity;
+import com.cdtde.chongdetang.view.my.setting.userPassword.UserPasswordFragment;
 import com.cdtde.chongdetang.view.my.setting.userPhone.UserPhoneActivity;
 
 public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
 
     @InjectScope(Scopes.APPLICATION)
     private LogoutDialog.Messenger messenger;
+    @InjectScope(Scopes.APPLICATION)
+    private UserPasswordFragment.Messenger passwordMessenger;
 
     public class Handler {
         public OnClickListener entry = v -> {
@@ -34,6 +37,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
                 if (v.getId() == R.id.data_entry) {
                     Starter.actionStart(activity, UserInfoActivity.class);
                 } else if (v.getId() == R.id.password_entry) {
+                    passwordMessenger.forgetEvent.send(false);
                     Starter.actionStart(activity, UserPasswordActivity.class);
                 } else if (v.getId() == R.id.phone_entry) {
                     Starter.actionStart(activity, UserPhoneActivity.class);

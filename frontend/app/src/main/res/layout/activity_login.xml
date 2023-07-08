@@ -117,5 +117,14 @@
                 android:fontFamily="@font/regular"
                 android:id="@+id/register_entry"
                 android:onClick="@{handler.register}"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forget_password"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"
+                android:textColor="@color/gray_1"
+                android:fontFamily="@font/regular"
+                android:onClick="@{handler.forget}"/>
     </LinearLayout>
 </layout>

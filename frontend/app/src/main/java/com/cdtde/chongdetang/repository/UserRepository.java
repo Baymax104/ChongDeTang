@@ -178,4 +178,19 @@ public class UserRepository {
                 .subscribe(callback.onSuccess, callback::baseHandleException);
     }
 
+    public void requestForgetPassword(String phone, String password, ReqCallback<Object> callback) {
+
+        String encrypt = ValidateUtil.encrypt(password);
+
+        userService.forgetPassword(phone, encrypt)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> callback.lifeCycle.onStart())
+                .doFinally(callback.lifeCycle::onFinish)
+                .flatMap(res -> res.isSuccess() ?
+                        Single.just(new Object()) :
+                        Single.error(new WebException(res.getMessage())))
+                .subscribe(callback.onSuccess, callback::baseHandleException);
+    }
+
 }

@@ -3,8 +3,8 @@ package com.cdtde.chongdetang.view.index.couplet;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BaseActivity;
 import com.cdtde.chongdetang.base.view.ViewConfig;

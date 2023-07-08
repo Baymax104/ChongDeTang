@@ -19,6 +19,7 @@ public class PasswordValidateUseCase extends MessageHolder {
     private String oldPassword;
     private String newPassword;
     private String repeatPassword;
+    private boolean isForget;
 
     public final Event<Unit, String> validateEvent = new Event<>();
 
@@ -46,21 +47,22 @@ public class PasswordValidateUseCase extends MessageHolder {
         return repeatPassword;
     }
 
+    public boolean isForget() {
+        return isForget;
+    }
+
+    public void setForget(boolean forget) {
+        isForget = forget;
+    }
+
     public String validatePassword() {
-        String userPwd = UserStore.getPassword();
         if (StringUtils.isEmpty(newPassword) ||
                 StringUtils.isEmpty(repeatPassword)) {
             return "输入不能为空！";
         }
-        // user.password可能为null
-        // user.password == null时，不需要判断oldPassword，设为null
-        if (userPwd == null) {
-            oldPassword = null;
-        }
         if (!StringUtils.equals(newPassword, repeatPassword)) {
             return "重复输入不一致！";
         }
-
         boolean isValid = ValidateUtil.validatePassword(newPassword);
         if (!isValid) {
             return "密码格式错误！";

@@ -3,9 +3,9 @@ package com.cdtde.chongdetang.view.index.couplet;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.library.baseAdapters.BR;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.recycler.CoupletAdapter;
 import com.cdtde.chongdetang.base.view.BaseActivity;

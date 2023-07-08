@@ -27,7 +27,7 @@ public class WebService {
 
     private WebService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> XLog.tag("cdt-web-log").i(s))
-                .setLevel(HttpLoggingInterceptor.Level.BASIC);
+                .setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -40,7 +40,7 @@ public class WebService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl(AppKey.SERVER_BASE_URL)
+                .baseUrl(AppKey.TEST_SERVER_BASE_URL)
                 .build();
     }
 

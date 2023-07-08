@@ -43,4 +43,9 @@ public interface UserService {
     @POST("/api/user/feedback")
     Single<Result<Object>> addFeedback(@Header("Authorization") String token,
                                        @Body String feedbackContent);
+
+    @FormUrlEncoded
+    @POST("/api/user/forget")
+    Single<Result<Object>> forgetPassword(@Field("phone") String phone,
+                                          @Field("password") String newPwd);
 }

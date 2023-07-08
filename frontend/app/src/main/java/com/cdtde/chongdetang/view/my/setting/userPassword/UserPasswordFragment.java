@@ -7,17 +7,20 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.ViewConfig;
 import com.cdtde.chongdetang.base.vm.InjectScope;
+import com.cdtde.chongdetang.base.vm.MessageHolder;
 import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentUserPasswordBinding;
 import com.cdtde.chongdetang.useCase.PasswordValidateUseCase;
+
+import kotlin.Unit;
 
 
 /**
@@ -31,14 +34,20 @@ public class UserPasswordFragment extends BaseFragment<FragmentUserPasswordBindi
 
     @InjectScope(Scopes.ACTIVITY)
     private PasswordValidateUseCase useCase;
-
     @InjectScope(Scopes.FRAGMENT)
     private States states;
+    @InjectScope(Scopes.APPLICATION)
+    private Messenger messenger;
 
     public static class States extends StateHolder {
-        public State<String> oldPwd = new State<>("");
-        public State<String> newPwd = new State<>("");
-        public State<String> repeatPwd = new State<>("");
+        public final State<Boolean> isForget = new State<>(false);
+        public final State<String> oldPwd = new State<>("");
+        public final State<String> newPwd = new State<>("");
+        public final State<String> repeatPwd = new State<>("");
+    }
+
+    public static class Messenger extends MessageHolder {
+        public final Event<Boolean, Unit> forgetEvent = new Event<>();
     }
 
     public class Handler {
@@ -66,11 +75,15 @@ public class UserPasswordFragment extends BaseFragment<FragmentUserPasswordBindi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        useCase.validateEvent.observeSend(this, value -> {
+        useCase.validateEvent.observeSend(getViewLifecycleOwner(), value -> {
+            useCase.setForget(states.isForget.getValue());
             useCase.setOldPassword(states.oldPwd.getValue());
             useCase.setNewPassword(states.newPwd.getValue());
             useCase.setRepeatPassword(states.repeatPwd.getValue());
             useCase.validateEvent.reply(useCase.validatePassword());
         });
+
+        messenger.forgetEvent.observeSend(getViewLifecycleOwner(), true,
+                states.isForget::setValue);
     }
 }
