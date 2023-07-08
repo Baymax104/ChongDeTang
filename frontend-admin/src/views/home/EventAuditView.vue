@@ -12,7 +12,7 @@
         </el-select>
       </div>
     </template>
-    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading">
+    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading" height="75vh">
       <el-table-column label="用户id" prop="userId" sortable />
       <el-table-column label="预约人" prop="subscriber" />
       <el-table-column label="预约时间" prop="date" />
