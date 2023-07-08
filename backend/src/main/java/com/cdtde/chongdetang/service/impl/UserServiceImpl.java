@@ -241,7 +241,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.selectList(null);
         users.forEach(user -> {
             if (user.getPhoto() != null) {
-                user.setPhoto(urlFront + user.getPhoto());
+                user.setPhoto(urlFront + '/' + user.getPhoto());
             }
         });
         res.setData(users);
