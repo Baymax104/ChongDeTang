@@ -17,7 +17,6 @@ import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.FragmentSearchBinding;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +80,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     public class Handler {
 
         public final View.OnClickListener clear = v -> {
-            states.histories.setValue(new ArrayList<>());
+            states.histories.setValue(new LinkedList<>());
             states.isEmpty.setValue(true);
         };
 

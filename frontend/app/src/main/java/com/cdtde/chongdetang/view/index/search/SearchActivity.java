@@ -70,12 +70,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding> {
             );
         };
 
-        public final OnClickListener clearContent = v -> {
-            states.content.setValue("");
-            if (states.page.getValue() != 0) {
-                states.page.setValue(0);
-            }
-        };
+        public final OnClickListener clearContent = v -> states.content.setValue("");
 
         public void setContent(Editable s) {
             states.content.setValue(s.toString());

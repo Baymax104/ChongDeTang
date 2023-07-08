@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
@@ -92,8 +93,18 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding> {
             addressMessenger.selectEvent.send(states.addresses);
         };
 
-        public final OnClickListener pay = v ->
-                Starter.actionStart(activity, PayActivity.class);
+        public final OnClickListener pay = v -> {
+            Address address = states.address.getValue();
+            if (StringUtils.isEmpty(address.getConsignee()) ||
+                    StringUtils.isEmpty(address.getPhone()) ||
+                    StringUtils.isEmpty(address.getProvince()) ||
+                    StringUtils.isEmpty(address.getCity()) ||
+                    StringUtils.isEmpty(address.getDetail())) {
+                ToastUtils.showShort("未选择地址");
+                return;
+            }
+            Starter.actionStart(activity, PayActivity.class);
+        };
     }
 
     @Override
