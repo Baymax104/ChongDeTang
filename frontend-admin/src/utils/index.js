@@ -28,7 +28,7 @@ export const uploadImgsServer = 'http://backend-api-02.newbee.ltd/manage-api/v1/
 
 export const pathMap = {
   login: '登录',
-  dashboard: '监控数据',
+  dashboard: '数据分析看板',
   event_audit: '活动预约审核',
   collection_filtrate: '藏品精选筛选',
   message_configuration: '消息推送设置',
