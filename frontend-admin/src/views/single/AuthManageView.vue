@@ -22,7 +22,7 @@
       <el-table-column label="邮箱" prop="mail" />
       <el-table-column label="权限等级" prop="admin" :rolepad = "rolePad">
         <template #default="scope">
-          <el-tag :type="scope.row.admin === '1' ? 'danger' : '' " disable-transitions>{{ rolePad[scope.row.admin] }}</el-tag>
+          <el-tag :type="scope.row.admin === '2' ? 'success' : scope.row.admin === '1' ? 'danger' : '' " disable-transitions>{{ rolePad[scope.row.admin] }}</el-tag>
           <span>&nbsp;&nbsp;</span>
           <el-tag v-if="judgeCurrentUserRole(scope.row.id)" type="warning" disable-transitions>当前</el-tag>
         </template>
@@ -36,15 +36,25 @@
           </el-input>
         </template>
         <template #default="scope">
-        <!--          非管理员-->
-          <div v-if="!judgeCurrentUserRole(scope.row.id)">
-          <el-button size="small" type="primary" text @click="handleSetAdmin(scope.$index, scope.row)">授权</el-button>
-          <el-button size="small" type="danger" text @click="handleResetAdmin(scope.$index, scope.row)">取消</el-button>
+        <!--          其他人-->
+          <div v-if="!judgeCurrentUserRole(scope.row.id) ">
+            <div v-if="sessionGet('userinfo').admin === '2'">
+              <el-button size="small" type="primary" text @click="handleSetAdmin(scope.$index, scope.row)" :disabled="scope.row.admin === '1'">授权</el-button>
+              <el-button size="small" type="danger" text @click="handleResetAdmin(scope.$index, scope.row)" :disabled="scope.row.admin === '0'">取消</el-button>
+            </div>
+            <div v-else>
+              <div v-if="sessionGet('userinfo').admin === '1' && ((scope.row.admin === '1') || (scope.row.admin === '2'))">
+                无授权权限
+              </div>
+              <div v-else>
+                无授权权限
+              </div>
+            </div>
           </div>
-        <!--          管理员-->
+
+        <!--          我自己-->
           <div v-else>
-            <el-button size="small" type="primary" text disabled @click="handleSetAdmin(scope.$index, scope.row)">授权</el-button>
-            <el-button size="small" type="danger" text disabled @click="handleResetAdmin(scope.$index, scope.row)">取消</el-button>
+            <div>无法授权自己</div>
           </div>
         </template>
       </el-table-column>
@@ -54,19 +64,21 @@
 
 <script setup>
 import {computed, ref} from 'vue'
-import {localGet} from "../../utils";
+import {sessionGet} from "../../utils";
 import { setAdmin, resetAdmin, getUserList } from "../../api/auth";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
+import {deleteProductByAdmin} from "../../api/product";
 
 // tag标签数据
 const rolePad = ref({
   "0": "普通",
-  "1": "管理员"
+  "1": "管理员",
+  "2": "超级管理员"
 })
 
 // 判断是否为当前管理员
 const judgeCurrentUserRole = (curId) => {
-  return curId === localGet("userinfo").id
+  return curId === sessionGet("userinfo").id
 }
 
 // 表格数据
@@ -96,17 +108,33 @@ const filterTableData = computed(() =>
 
 // 授权
 const handleSetAdmin = (index, row) => {
-  setAdmin(row.phone, 1).then( res => {
-    ElMessage.success(`授权<${row.username}>为管理员成功`)
-    handleGetUserList()
+  ElMessageBox.confirm(`确认授权用户<${row.username}>为管理员吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    setAdmin(row.phone, 1).then( res => {
+      ElMessage.success(`授权<${row.username}>为管理员成功`)
+      handleGetUserList()
+    })
+  }).catch(() => {
+
   })
 }
 
 // 取消授权
 const handleResetAdmin = (index, row) => {
-  resetAdmin(row.phone, 0).then( res => {
-    ElMessage.success(`取消授权<${row.username}>成功`)
-    handleGetUserList()
+  ElMessageBox.confirm(`确认取消用户<${row.username}>的管理员身份吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    resetAdmin(row.phone, 0).then( res => {
+      ElMessage.success(`取消授权<${row.username}>成功`)
+      handleGetUserList()
+    })
+  }).catch(() => {
+
   })
 }
 </script>
