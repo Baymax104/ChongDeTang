@@ -134,7 +134,9 @@
 <script setup>
 import { computed, ref } from 'vue'
 import {auditEvent, getAuditEventList} from "../../api/home";
-import { ElMessage } from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
+import { InfoFilled } from '@element-plus/icons-vue'
+import {removeCollectionByAdmin} from "../../api/collection";
 
 // 弹出框样式
 const size = ref('default')
@@ -222,11 +224,20 @@ const handleAuditOp = obj => {
 
 // 不通过审核
 const handleRejectEvent = () => {
-  auditEvent(dialogText.value.id, "FAIL").then(res => {
-    ElMessage.warning('<拒绝审核>操作成功')
-    centerDialogVisible.value = false
-    handleGetUserList()
+  ElMessageBox.confirm(`确认拒绝审核吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    auditEvent(dialogText.value.id, "FAIL").then(res => {
+      ElMessage.warning('<拒绝审核>操作成功')
+      centerDialogVisible.value = false
+      handleGetUserList()
+    })
+  }).catch(() => {
+
   })
+
 }
 
 // 通过审核

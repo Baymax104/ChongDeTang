@@ -188,6 +188,7 @@ import {
 } from "../../api/product";
 import {photoPrefix} from "../../../config/app-key";
 import { RefreshLeft } from '@element-plus/icons-vue'
+import {ElMessageBox} from "element-plus";
 
 const dateRange = ref([])
 const priceStart = ref()
@@ -297,8 +298,20 @@ const add_Product = async () => {
 }
 // 删除商品
 const deleteProduct = async (product) => {
-  await deleteProductByAdmin(product.id)
-  await handleGetProductList()
+  ElMessageBox.confirm(`确认删除商品<${product.name}>吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    const f = async function () {
+      await deleteProductByAdmin(product.id)
+      await handleGetProductList()
+    }
+    f()
+  }).catch(() => {
+
+  })
+
 }
 
 

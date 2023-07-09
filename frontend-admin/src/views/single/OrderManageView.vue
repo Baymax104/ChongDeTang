@@ -79,7 +79,7 @@
       </el-table-column>
     </el-table>
   </el-card>
-  <el-dialog v-model="centerDialogVisible" title="订单详情信息"  center >
+  <el-dialog v-model="centerDialogVisible" title="订单详情信息"  center style="width: 70vw">
     <el-descriptions
         class="margin-top"
         title="收货信息"
@@ -234,10 +234,11 @@
 <script setup>
 import {computed, reactive, ref, watch} from 'vue'
 import {auditEvent, getAuditEventList} from "../../api/home";
-import { ElMessage } from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 import {changeOrderStatus, getOrdersByAdmin} from "../../api/order";
 import {photoPrefix} from "../../../config/app-key";
 import { RefreshLeft } from '@element-plus/icons-vue'
+import {deleteProductByAdmin} from "../../api/product";
 
 const onClickResetPrice = function () {
   priceStart.value = undefined
@@ -434,9 +435,26 @@ const handleAuditOp = obj => {
 
 // 修改状态
 const handleEvent = async (t) => {
-  console.log('change', dialogText.value.id)
-  await changeOrderStatus(dialogText.value.id, t)
-  await handleGetUserList()
+  if (t === "FAIL") {
+    ElMessageBox.confirm(`确认更新订单状态为<取消订单>吗？`, '警告！', {
+      distinguishCancelAndClose: true,
+      confirmButtonText: '确认',
+      cancelButtonText: '返回',
+    }).then(()=> {
+      const f = async function () {
+        await changeOrderStatus(dialogText.value.id, t)
+        await handleGetUserList()
+      }
+      f()
+    }).catch(() => {
+
+    })
+  }
+  else {
+    console.log('change', dialogText.value.id)
+    await changeOrderStatus(dialogText.value.id, t)
+    await handleGetUserList()
+  }
   centerDialogVisible.value = false
 }
 
