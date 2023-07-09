@@ -27,7 +27,7 @@
       </el-table-column>
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="查询" clearable>
+          <el-input v-model="search" style="width: 8.5vw" placeholder="查询预约人、手机号" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
