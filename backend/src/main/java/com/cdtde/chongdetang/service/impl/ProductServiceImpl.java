@@ -7,7 +7,6 @@ import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -39,9 +38,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Value("${cos.url}")
-    private String urlFront;
 
     @Override
     public Result<List<Product>> getAllProduct() {
@@ -84,6 +80,21 @@ public class ProductServiceImpl implements ProductService {
 //                    product.setPhoto(urlFront + '/' + product.getPhoto());
 //                }
 //            });
+            // 统计收藏数
+            Map<Integer, Integer> counts = new HashMap<>();
+            List<UserProduct> userProducts = userProductMapper.selectList(null);
+            userProducts.stream()
+                    .map(UserProduct::getProduct)
+                    .map(Product::getId)
+                    .forEach(id -> {
+                        Integer count = counts.getOrDefault(id, 0);
+                        counts.put(id, count + 1);
+                    });
+            // 赋值userCollect
+            products.forEach(p -> {
+                String count = counts.getOrDefault(p.getId(), 0).toString();
+                p.setUserCollect(count);
+            });
 
             return new Result<>("success",null,products);
         }
