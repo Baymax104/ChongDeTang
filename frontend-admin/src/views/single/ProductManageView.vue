@@ -20,9 +20,15 @@
           </div>
           <div style="margin-top: 5px">
             <span><b>商品价格区间:&nbsp;&nbsp;&nbsp;</b></span>
-            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
+<!--            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>-->
+            <el-input-number v-model="priceStart" :precision="2" :step="0.1" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
             -
-            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+<!--            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>-->
+<!--            <el-input-number v-model="num" :precision="2" :step="0.1" :max="10" />-->
+            <el-input-number v-model="priceEnd" :precision="2" :step="0.1"  class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+            &nbsp;&nbsp;&nbsp;
+            <el-button :icon="RefreshLeft" size="small" @click="onClickResetPrice">重置价格区间</el-button>
+
           </div>
         </div>
         <el-button type="primary" @click="onClickAddProduct">上架新商品</el-button>
@@ -181,7 +187,7 @@ import {
   updateProductNumberByAdmin
 } from "../../api/product";
 import {photoPrefix} from "../../../config/app-key";
-
+import { RefreshLeft } from '@element-plus/icons-vue'
 
 const dateRange = ref([])
 const priceStart = ref()
@@ -321,7 +327,10 @@ watch(checkList, (n, o) => {
     checkList.value = ['全部', "有库存", "无库存"]
   }
 })
-
+const onClickResetPrice = function () {
+  priceStart.value = undefined
+  priceEnd.value = undefined
+}
 
 // 模糊搜索与筛选
 const search = ref('')
@@ -354,11 +363,13 @@ const filterTableData = computed(() => {
     })
   }
 
+  console.log("price", priceStart.value, priceEnd.value)
   // 价格筛选
-  if (priceStart.value && priceEnd.value) {
-    priceStart.value = Number(priceStart.value)
-    priceEnd.value = Number(priceEnd.value)
+  if (priceStart.value !== 'undifined' && priceEnd.value) {
+    // priceStart.value = Number(priceStart.value)
+    // priceEnd.value = Number(priceEnd.value)
     if (priceStart.value < priceEnd.value) {
+      console.log("开始筛选")
       res.value = res.value.filter(data => data.price >= priceStart.value && data.price <= priceEnd.value)
     }
   }

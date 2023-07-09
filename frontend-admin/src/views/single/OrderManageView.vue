@@ -28,9 +28,13 @@
           </div>
           <div style="margin-top: 5px">
             <span><b>订单总价区间:&nbsp;&nbsp;&nbsp;</b></span>
-            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
+<!--            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>-->
+            <el-input-number v-model="priceStart" :precision="2" :step="0.1" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
             -
-            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+<!--            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>-->
+            <el-input-number v-model="priceEnd" :precision="2" :step="0.1"  class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+            &nbsp;&nbsp;&nbsp;
+            <el-button :icon="RefreshLeft" size="small" @click="onClickResetPrice">重置价格区间</el-button>
           </div>
         </div>
       </div>
@@ -46,7 +50,7 @@
       </el-table-column>
       <el-table-column label="收获地址">
         <template #default="scope">
-          {{ scope.row.address.detail }}
+          {{ scope.row.address.province + '-' + scope.row.address.city + '-' + scope.row.address.detail }}
         </template>
       </el-table-column>
       <el-table-column label="收货人">
@@ -233,6 +237,12 @@ import {auditEvent, getAuditEventList} from "../../api/home";
 import { ElMessage } from "element-plus";
 import {changeOrderStatus, getOrdersByAdmin} from "../../api/order";
 import {photoPrefix} from "../../../config/app-key";
+import { RefreshLeft } from '@element-plus/icons-vue'
+
+const onClickResetPrice = function () {
+  priceStart.value = undefined
+  priceEnd.value = undefined
+}
 
 const getOrderMoney = (od) => {
   let res = 0
@@ -306,6 +316,15 @@ const handleGetUserList = async () => {
   const res = await getOrdersByAdmin()
   console.log(res)
   tableData.value = res;
+  tableData.value.sort((a, b) => {
+    const aa = new Date(a.orderDate)
+    const bb = new Date(b.orderDate)
+
+    if (aa.getTime() === bb.getTime()) {
+      return getOrderMoney(b) - getOrderMoney(a)
+    }
+    return bb -aa
+  })
   tableLoading.value = false
 }
 // 页面加载时刷新
@@ -378,8 +397,8 @@ const filterTableData = computed(() => {
 
   // 价格筛选
   if (priceStart.value && priceEnd.value) {
-    priceStart.value = Number(priceStart.value)
-    priceEnd.value = Number(priceEnd.value)
+    // priceStart.value = Number(priceStart.value)
+    // priceEnd.value = Number(priceEnd.value)
     if (priceStart.value < priceEnd.value) {
       res.value = res.value.filter(data => {
         console.log("价格筛选", getOrderMoney(data), priceStart.value)
