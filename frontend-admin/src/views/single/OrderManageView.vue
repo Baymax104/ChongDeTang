@@ -36,7 +36,7 @@
       </div>
     </template>
     <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading" height="69vh">
-      <el-table-column label="订单id" prop="id" sortable />
+      <el-table-column label="订单id" prop="id" />
       <el-table-column label="下单用户" prop="userId" />
       <el-table-column label="下单时间" prop="orderDate" />
       <el-table-column label="订单状态">
@@ -364,7 +364,7 @@ const filterTableData = computed(() => {
     }
   }
   // 日期筛选
-  if (dateRange.value.length) {
+  if (dateRange.value && dateRange.value.length) {
     console.log("需要日期")
     let std = new Date(dateRange.value[0])
     let edd = new Date(dateRange.value[1])

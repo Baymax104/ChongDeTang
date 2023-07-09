@@ -29,7 +29,7 @@
       </div>
     </template>
     <el-table :data="filterTableData"  stripe style="width: 100%" v-loading="table_loading" height="69vh">
-      <el-table-column label="商品id" prop="id" sortable />
+      <el-table-column label="商品id" prop="id" />
       <el-table-column label="商品图">
         <template #default="scope">
           <div style="display: flex; align-items: center; width: 80%">
@@ -342,7 +342,7 @@ const filterTableData = computed(() => {
     }
   }
   // 日期筛选
-  if (dateRange.value.length) {
+  if (dateRange.value && dateRange.value.length) {
     console.log("需要日期")
     let std = new Date(dateRange.value[0])
     let edd = new Date(dateRange.value[1])
