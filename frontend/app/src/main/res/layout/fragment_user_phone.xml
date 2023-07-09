@@ -98,7 +98,7 @@
                         android:layout_marginVertical="5dp"
                         android:background="@drawable/button_bg"
                         style="@style/SmallButtonTextStyle"
-                        android:paddingHorizontal="5dp"
+                        android:paddingHorizontal="10dp"
                         android:text="@{state.tip}"
                         android:enabled="@{state.enabled}"
                         tools:ignore="TouchTargetSizeCheck"

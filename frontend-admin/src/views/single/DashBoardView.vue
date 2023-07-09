@@ -26,7 +26,8 @@
         <div class="item">{{ dashBoardData.product }}</div>
       </el-card>
     </div>
-    <div id="zoom"></div>
+    <div id="zoom1"></div>
+    <div id="zoom2"></div>
   </el-card>
 </template>
 
@@ -35,6 +36,7 @@ import {onMounted, onUnmounted, reactive, ref} from 'vue'
 import {getChartData, getSysInfo} from "../../api/home";
 
 let myChart = null
+let myChart2 = null
 
 const dashBoardData = reactive({
   product: 0,
@@ -75,7 +77,8 @@ onMounted(() => {
 
   if (window.echarts) {
     // 基于准备好的dom，初始化echarts实例
-    myChart = window.echarts.init(document.getElementById('zoom'))
+    myChart = window.echarts.init(document.getElementById('zoom1'))
+    myChart2 = window.echarts.init(document.getElementById('zoom2'))
 
     // 使用刚指定的配置项和数据显示图表。
     const processChartData = async function (days) {
@@ -95,7 +98,7 @@ onMounted(() => {
       // 指定图表的配置项和数据
       const option = {
         title: {
-          text: '订单数与订单金额每日变化'
+          text: '订单数每日变化'
         },
         tooltip: {
           trigger: 'axis',
@@ -107,7 +110,7 @@ onMounted(() => {
           }
         },
         legend: {
-          data: ['订单数', '订单金额']
+          data: ['订单数']
         },
         toolbox: {
           feature: {
@@ -142,7 +145,49 @@ onMounted(() => {
               focus: 'series'
             },
             data: order_num.value //[20, 132, 101, 134, 90, 230, 210]
-          },
+          }
+        ]
+      }
+      const option2 = {
+        title: {
+          text: '订单金额每日变化'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        legend: {
+          data: ['订单金额']
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            data: generatePastSevenDays()//['2021-03-11', '2021-03-12', '2021-03-13', '2021-03-14', '2021-03-15', '2021-03-16', '2021-03-17']
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
           {
             name: '订单金额',
             type: 'line',
@@ -156,6 +201,7 @@ onMounted(() => {
         ]
       }
       myChart.setOption(option)
+      myChart2.setOption(option2)
     }
     processChartData(7)
   } 
@@ -177,7 +223,10 @@ onUnmounted(() => {
   .introduce .order .order-item:last-child{
     margin-right: 0;
   }
-  #zoom {
+  #zoom1 {
+    min-height: 300px;
+  }
+  #zoom2 {
     min-height: 300px;
   }
 </style>

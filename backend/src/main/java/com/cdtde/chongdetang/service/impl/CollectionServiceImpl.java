@@ -1,11 +1,11 @@
 package com.cdtde.chongdetang.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cdtde.chongdetang.mapper.CollectionMapper;
 import com.cdtde.chongdetang.mapper.UserCollectionMapper;
 import com.cdtde.chongdetang.pojo.Collection;
-import com.cdtde.chongdetang.pojo.Product;
 import com.cdtde.chongdetang.pojo.Result;
 import com.cdtde.chongdetang.pojo.UserCollection;
 import com.cdtde.chongdetang.service.CollectionService;
@@ -93,7 +93,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     }
 
     @Override
-    public Result<Object> addCollectionByAdmin(Collection collection){
+    public Result<Integer> addCollectionByAdmin(Collection collection){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication.getPrincipal() instanceof LoginUser)) {
             return new Result<>("error", "未登录", null);
@@ -111,10 +111,39 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
             if(i != 1){
                 throw new RuntimeException("添加藏品失败");
             }
-            return new Result<>("success",null,null);
+            return new Result<>("success",null,collection.getId());
         }
 
         return new Result<>("error", "您没有管理员权限", null);
+    }
+
+    @Override
+    public Result<Object> updateCollectionByAdmin(Integer collecitonId, Collection collection){
+        Result<Object> result = new Result<>();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication.getPrincipal() instanceof LoginUser)) {
+            return new Result<>("error", "未登录", null);
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String isAdmin = loginUser.getUser().getAdmin();
+        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+            UpdateWrapper<Collection> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id",collecitonId)
+                    .set("title",collection.getTitle())
+                    .set("photo",collection.getPhoto())
+                    .set("url",collection.getUrl())
+                    .set("type",collection.getType());
+
+            int update = collectionMapper.update(null,wrapper);
+            if (update != 1) {
+                throw new RuntimeException("修改藏品错误");
+            }
+            result.setStatus("success").setData(null);
+            return result;
+        }
+        result.setStatus("error");
+        return result;
     }
 
     @Override

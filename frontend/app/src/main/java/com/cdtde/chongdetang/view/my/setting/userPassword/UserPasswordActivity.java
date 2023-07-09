@@ -17,6 +17,7 @@ import com.cdtde.chongdetang.base.vm.Scopes;
 import com.cdtde.chongdetang.base.vm.State;
 import com.cdtde.chongdetang.base.vm.StateHolder;
 import com.cdtde.chongdetang.databinding.ActivityUserPasswordBinding;
+import com.cdtde.chongdetang.repository.UserStore;
 import com.cdtde.chongdetang.requester.UserInfoRequester;
 import com.cdtde.chongdetang.useCase.PasswordValidateUseCase;
 import com.cdtde.chongdetang.useCase.ValidateUseCase;
@@ -91,8 +92,16 @@ public class UserPasswordActivity extends BaseActivity<ActivityUserPasswordBindi
 
         passwordUseCase.validateEvent.observeReply(this, value -> {
             if ("OK".equals(value)) {
-                requester.updatePassword(passwordUseCase.getOldPassword(), passwordUseCase.getNewPassword(),
-                        o -> finish(), ToastUtils::showShort);
+                if (passwordUseCase.isForget()) {
+                    requester.forgetPassword(UserStore.getPhone(), passwordUseCase.getNewPassword(),
+                            o -> {
+                                ToastUtils.showShort("修改成功");
+                                finish();
+                            }, ToastUtils::showShort);
+                } else {
+                    requester.updatePassword(passwordUseCase.getOldPassword(), passwordUseCase.getNewPassword(),
+                            o -> finish(), ToastUtils::showShort);
+                }
             } else {
                 ToastUtils.showShort(value);
             }

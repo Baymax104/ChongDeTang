@@ -150,4 +150,5 @@
     <string name="order_delete">删除订单</string>
     <string name="delete_order_confirm">确定删除该订单</string>
     <string name="order_confirm_tip">确认要收货吗</string>
+    <string name="forget_password">忘记密码</string>
 </resources>

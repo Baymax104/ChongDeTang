@@ -181,14 +181,12 @@ public class UserServiceImpl implements UserService {
     public Result<Object> forgetPassword(String phone, String newPassword) {
         String newEncrypt = passwordEncoder.encode(newPassword);
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("phone", phone);
-        User user1 = userMapper.selectOne(wrapper);
-        user1.setPassword(newEncrypt);
-        int update = userMapper.update(user1, wrapper);
+        wrapper.eq("phone", phone)
+                .set("password", newEncrypt);
+        int update = userMapper.update(null, wrapper);
         if (update != 1) {
-            throw new RuntimeException("密码修改失败");
+            throw new RuntimeException("用户不存在");
         }
-
         return new Result<>("success",null,null);
     }
 
@@ -243,7 +241,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.selectList(null);
         users.forEach(user -> {
             if (user.getPhoto() != null) {
-                user.setPhoto(urlFront + user.getPhoto());
+                user.setPhoto(urlFront + '/' + user.getPhoto());
             }
         });
         res.setData(users);

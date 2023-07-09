@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.adapter.FragmentAdapter;
 import com.cdtde.chongdetang.base.view.BaseActivity;

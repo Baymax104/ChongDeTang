@@ -7,6 +7,7 @@ import com.cdtde.chongdetang.pojo.*;
 import com.cdtde.chongdetang.service.LoginUser;
 import com.cdtde.chongdetang.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Value("${cos.url}")
+    private String urlFront;
 
     @Override
     public Result<List<Product>> getAllProduct() {
@@ -75,6 +79,12 @@ public class ProductServiceImpl implements ProductService {
         String isAdmin = loginUser.getUser().getAdmin();
         if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
             List<Product> products = productMapper.selectList(null);
+            products.forEach(product -> {
+                if (product.getPhoto() != null) {
+                    product.setPhoto(urlFront + '/' + product.getPhoto());
+                }
+            });
+
             return new Result<>("success",null,products);
         }
         return new Result<>("error", "您没有管理员权限", null);

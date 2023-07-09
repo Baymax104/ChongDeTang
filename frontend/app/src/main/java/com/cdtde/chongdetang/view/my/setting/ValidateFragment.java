@@ -8,8 +8,8 @@ import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BaseFragment;
 import com.cdtde.chongdetang.base.view.ViewConfig;
@@ -66,7 +66,7 @@ public class ValidateFragment extends BaseFragment<FragmentValidateBinding> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        useCase.validateEvent.observeSend(this, value -> {
+        useCase.validateEvent.observeSend(getViewLifecycleOwner(), value -> {
             useCase.setCode(states.code.getValue());
             useCase.validateEvent.reply(useCase.validateCode());
         });

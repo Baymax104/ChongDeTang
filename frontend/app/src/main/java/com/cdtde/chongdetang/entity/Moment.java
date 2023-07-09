@@ -2,8 +2,8 @@ package com.cdtde.chongdetang.entity;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.utils.DateFormatSerializer;
 import com.google.gson.annotations.JsonAdapter;
 

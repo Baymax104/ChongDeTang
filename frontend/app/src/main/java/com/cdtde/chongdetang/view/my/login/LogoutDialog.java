@@ -3,8 +3,8 @@ package com.cdtde.chongdetang.view.my.login;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.library.baseAdapters.BR;
 
+import com.cdtde.chongdetang.BR;
 import com.cdtde.chongdetang.R;
 import com.cdtde.chongdetang.base.view.BindingConfig;
 import com.cdtde.chongdetang.base.view.DialogBinder;
