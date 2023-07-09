@@ -313,6 +313,22 @@ return: {
 }
 ```
 
+### updateCollectionByAdmin
+``` 
+管理员端更改藏品信息(未更改的字段赋原值传入)
+url: /api/collection/{collectionId}
+method: post
+data: {
+	title
+	photo
+	url
+	type
+}
+return: {
+	success
+}
+```
+
 ### removeCollectionByAdmin
 ``` 
 管理员端删除藏品

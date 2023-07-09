@@ -85,7 +85,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         // 查用户表, 是不是admin
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id)
-                .eq("admin", "1");
+                .ne("admin", "0");
         User user = userMapper.selectOne(wrapper);
         Result<List<Appointment>> result = new Result<>();
         // 是admin
