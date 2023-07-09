@@ -31,8 +31,8 @@
 <script setup>
 import {onMounted, reactive} from 'vue'
 import {useRouter} from 'vue-router'
-import {localRemove, pathMap} from '@/utils'
-import {localGet} from "../../utils";
+import {sessionRemove, pathMap} from '../../utils'
+import {sessionGet} from "../../utils";
 
 const router = useRouter()
 const state = reactive({
@@ -49,13 +49,13 @@ const state = reactive({
 })
 // 获取用户信息
 const getUserInfo = async () => {
-  state.userInfo = localGet('userinfo')
+  state.userInfo = sessionGet('userinfo')
 }
 // 退出登录
 const logout = () => {
   // 退出之后，将本地保存的 token  清理掉
-  localRemove('token')
-  localRemove('userinfo')
+  sessionRemove('token')
+  sessionRemove('userinfo')
   // 回到登录页
   router.push({ path: '/login' })
 }

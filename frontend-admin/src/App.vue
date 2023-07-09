@@ -77,7 +77,7 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import Header from '../src/components/layout/Header.vue'
 import Footer from '../src/components/layout/Footer.vue'
-import { localGet, pathMap } from './utils'
+import { sessionGet, pathMap } from './utils'
 import { ElMessage } from "element-plus";
 
 const noMenu = ['/login']
@@ -94,7 +94,7 @@ router.beforeEach((to, from, next) => {
         next()
     } else {
         // 如果不是 /login，判断是否有 token
-        if (!localGet('token')) {
+        if (!sessionGet('token')) {
             // 如果没有，则跳至登录页面
             ElMessage.error("登录过期，请重新登录！")
             next({ path: '/login' })

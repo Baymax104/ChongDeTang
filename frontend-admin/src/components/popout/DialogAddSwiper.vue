@@ -40,7 +40,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import axios from '@/utils/axios'
-import { localGet, uploadImgServer } from '@/utils'
+import { sessionGet, uploadImgServer } from '@/utils'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({
@@ -51,7 +51,7 @@ const props = defineProps({
 const formRef = ref(null)
 const state = reactive({
   uploadImgServer,
-  token: localGet('token') || '',
+  token: sessionGet('token') || '',
   visible: false,
   ruleForm: {
     url: '',
