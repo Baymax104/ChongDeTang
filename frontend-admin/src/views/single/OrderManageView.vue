@@ -364,7 +364,7 @@ const filterTableData = computed(() => {
     }
   }
   // 日期筛选
-  if (dateRange.value.length) {
+  if (dateRange.value && dateRange.value.length) {
     console.log("需要日期")
     let std = new Date(dateRange.value[0])
     let edd = new Date(dateRange.value[1])
