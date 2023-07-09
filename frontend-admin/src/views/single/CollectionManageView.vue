@@ -164,9 +164,9 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="是否设置精选">
-        <el-switch v-model="updateCurrentInfo.selected" />
-      </el-form-item>
+<!--      <el-form-item label="是否设置精选">-->
+<!--        <el-switch v-model="updateCurrentInfo.selected" />-->
+<!--      </el-form-item>-->
 
       <el-form-item label="被收藏数">
         <div>{{ updateCurrentInfo.userCollect }} </div>
@@ -194,6 +194,7 @@ import {
   updateCollectionByAdmin
 } from "../../api/collection";
 import {setHotList} from "../../api/home";
+import {ElDialog, ElMessageBox} from "element-plus";
 
 // tag数据
 const val2tag = {
@@ -247,13 +248,13 @@ const confirmUpdateCollectionInfo = async function () {
       updateCurrentInfo.type,
       updateCurrentInfo.photo
   )
-  // update selected
-  if (updateCurrentInfo.selected) {
-    await setHotList([updateCurrentInfo.id], 'right')
-  }
-  else {
-    await setHotList([updateCurrentInfo.id], 'left')
-  }
+  // // update selected
+  // if (updateCurrentInfo.selected) {
+  //   await setHotList([updateCurrentInfo.id], 'right')
+  // }
+  // else {
+  //   await setHotList([updateCurrentInfo.id], 'left')
+  // }
   // close popout
   cancelUpdate()
   await handleGetCollectionList()
@@ -283,9 +284,20 @@ const cancelSelected = async function (collection) {
 }
 
 const deleteCollection = async function (collection) {
-  await removeCollectionByAdmin(collection.id)
-  await handleGetCollectionList()
-  console.log("删除", collection)
+  ElMessageBox.confirm(`确认删除藏品<${collection.title}>吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    const f = async function() {
+      await removeCollectionByAdmin(collection.id)
+      await handleGetCollectionList()
+      console.log("删除", collection)
+    }
+    f()
+  }).catch(() => {
+
+  })
 }
 
 const centerDialogVisible = ref(false)
