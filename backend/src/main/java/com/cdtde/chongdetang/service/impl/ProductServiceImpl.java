@@ -79,11 +79,11 @@ public class ProductServiceImpl implements ProductService {
         String isAdmin = loginUser.getUser().getAdmin();
         if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
             List<Product> products = productMapper.selectList(null);
-            products.forEach(product -> {
-                if (product.getPhoto() != null) {
-                    product.setPhoto(urlFront + '/' + product.getPhoto());
-                }
-            });
+//            products.forEach(product -> {
+//                if (product.getPhoto() != null) {
+//                    product.setPhoto(urlFront + '/' + product.getPhoto());
+//                }
+//            });
 
             return new Result<>("success",null,products);
         }
