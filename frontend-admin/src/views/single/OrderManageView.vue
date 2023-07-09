@@ -45,7 +45,7 @@
       <el-table-column label="下单时间" prop="orderDate" />
       <el-table-column label="订单状态">
         <template #default="scope">
-          <el-tag :type="tagStyle[scope.row.status]">{{ scope.row.status }}</el-tag>
+          <el-tag :type="tagStyle[scope.row.status]">{{ orderStatus[scope.row.status] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="收获地址">
@@ -88,7 +88,7 @@
         border
     >
       <template #extra>
-        <el-tag size="large" :type="tagStyle[dialogText.status]" disable-transitions>{{ '【订单状态】' + dialogText.status }}</el-tag>
+        <el-tag size="large" :type="tagStyle[dialogText.status]" disable-transitions>{{ '【订单状态】' + orderStatus[dialogText.status] }}</el-tag>
       </template>
 
       <el-descriptions-item>
@@ -218,7 +218,7 @@
         <el-button @click="centerDialogVisible = false">返回列表</el-button>
         修改订单状态:
         <el-button type="danger" @click="handleEvent('FAIL')">
-          用户已退货，订单结束
+          用户已取消，订单结束
         </el-button>
         <el-button type="warning" @click="handleEvent('PROCESSING')">
           仓库已发货，订单进行中
@@ -271,6 +271,12 @@ const iconStyle = computed(() => {
 // 控制是否弹出
 const centerDialogVisible = ref(false)
 
+// 订单状态
+const orderStatus = {
+  "PROCESSING": "进行中",
+  "SUCCESS": "已完成",
+  "FAIL": "已取消"
+}
 // 筛选框
 const filterOption = ref('')
 const options = [
@@ -331,12 +337,12 @@ const handleGetUserList = async () => {
 handleGetUserList()
 
 // 多选框逻辑
-const checkList = ref(['全部', "进行中", "已完成", "已退货"])
+const checkList = ref(['全部', "进行中", "已完成", "已取消"])
 const cbox = reactive([
   {"id": 1, "label": "全部", "disabled": false},
   {"id": 2, "label": "进行中", "disabled": false},
   {"id": 3, "label": "已完成", "disabled": false},
-  {"id": 4, "label": "已退货", "disabled": false}
+  {"id": 4, "label": "已取消", "disabled": false}
 ])
 const dateRange = ref([])
 const priceStart = ref()
@@ -346,7 +352,7 @@ watch(checkList, (n, o) => {
     checkList.value = []
   }
   if (!o.includes("全部") && n.includes("全部")) {
-    checkList.value = ['全部', "进行中", "已完成", "已退货"]
+    checkList.value = ['全部', "进行中", "已完成", "已取消"]
   }
   if (n.length !== 4) {
     const index = checkList.value.indexOf("全部")
@@ -355,7 +361,7 @@ watch(checkList, (n, o) => {
     }
   }
   if (n.length === 3 && checkList.value.indexOf("全部") === -1 && o.length !== 4) {
-    checkList.value = ['全部', "进行中", "已完成", "已退货"]
+    checkList.value = ['全部', "进行中", "已完成", "已取消"]
   }
 })
 
@@ -377,7 +383,7 @@ const filterTableData = computed(() => {
       else if(t === "已完成") {
         res.value.push(...tableData.value.filter(data => data.status === 'SUCCESS'))
       }
-      else if(t === "已退货") {
+      else if(t === "已取消") {
         res.value.push(...tableData.value.filter(data => data.status === 'FAIL'))
       }
     }
