@@ -5,8 +5,8 @@
         <span>授权用户为管理员</span>
       </div>
     </template>
-    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="table_loading" height="77vh">
-      <el-table-column label="id" prop="id" sortable />
+    <el-table :data="filterTableData" stripe style="width: 100%" v-loading="table_loading" height="77vh">
+      <el-table-column label="id" prop="id" />
       <el-table-column label="头像">
         <template #default="scope">
           <div style="display: flex; align-items: center">
@@ -20,7 +20,7 @@
       <el-table-column label="生日" prop="birthday" />
       <el-table-column label="手机号" prop="phone" />
       <el-table-column label="邮箱" prop="mail" />
-      <el-table-column label="权限等级" prop="admin" :rolepad = "rolePad" sortable>
+      <el-table-column label="权限等级" prop="admin" :rolepad = "rolePad">
         <template #default="scope">
           <el-tag :type="scope.row.admin === '1' ? 'danger' : '' " disable-transitions>{{ rolePad[scope.row.admin] }}</el-tag>
           <span>&nbsp;&nbsp;</span>

@@ -29,7 +29,7 @@
       </div>
     </template>
     <el-table :data="filterTableData"  stripe style="width: 100%" v-loading="table_loading" height="69vh">
-      <el-table-column label="商品id" prop="id" sortable />
+      <el-table-column label="商品id" prop="id" />
       <el-table-column label="商品图">
         <template #default="scope">
           <div style="display: flex; align-items: center; width: 80%">
