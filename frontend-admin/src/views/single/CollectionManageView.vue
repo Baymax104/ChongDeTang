@@ -48,7 +48,7 @@
       <el-table-column label="被用户收藏数" prop="userCollect" />
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="查询" clearable>
+          <el-input v-model="search" placeholder="查询藏品名" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
@@ -98,7 +98,7 @@
               :zoom-rate="1.2"
               :preview-src-list="[colloec.photo]"
               :initial-index="4"
-              fit="cover"
+              fit="fill"
           />
           (若链接有效，则可点击图片进行预览)
         </div>

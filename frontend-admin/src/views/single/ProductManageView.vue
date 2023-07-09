@@ -53,7 +53,7 @@
       <el-table-column label="被用户收藏数" prop="userCollect" />
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="查询" clearable>
+          <el-input v-model="search" placeholder="查询商品名" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
@@ -101,7 +101,7 @@
               :zoom-rate="1.2"
               :preview-src-list="[updateProductData.photo]"
               :initial-index="4"
-              fit="cover"
+              fit="fill"
           />
           (若链接有效，则可点击图片进行预览)
         </div>
@@ -146,7 +146,7 @@
               :zoom-rate="1.2"
               :preview-src-list="[updateProductData.photo]"
               :initial-index="4"
-              fit="cover"
+              fit="fill"
           />
           (若链接有效，则可点击图片进行预览)
         </div>
@@ -355,6 +355,8 @@ const filterTableData = computed(() => {
 
   // 价格筛选
   if (priceStart.value && priceEnd.value) {
+    priceStart.value = Number(priceStart.value)
+    priceEnd.value = Number(priceEnd.value)
     if (priceStart.value < priceEnd.value) {
       res.value = res.value.filter(data => data.price >= priceStart.value && data.price <= priceEnd.value)
     }
@@ -363,7 +365,7 @@ const filterTableData = computed(() => {
   return res.value.filter(
       (data) =>
           !search.value ||
-          data.title.toLowerCase().includes(search.value.toLowerCase()) //搜索藏品名
+          data.name.toLowerCase().includes(search.value.toLowerCase()) //搜索藏品名
   )
 })
 
