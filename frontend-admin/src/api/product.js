@@ -17,7 +17,7 @@ export function addProductByAdmin(
     return axios.post('/api/product/admin', {
         name: name,
         price: price,
-        launch_time: formatDate(),
+        launchTime: formatDate(),
         photo: photo,
         introduction: introduction,
         storage: storage
@@ -36,7 +36,7 @@ export function updateProductNumberByAdmin(
     return axios.post(`/api/product/admin/${productId}`, {
         name: name,
         price: price,
-        launch_time: formatDate(),
+        launchTime: formatDate(),
         photo: photo,
         introduction: introduction,
         storage: storage
