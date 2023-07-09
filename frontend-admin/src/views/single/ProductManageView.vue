@@ -198,6 +198,7 @@ const handleGetProductList = async () => {
     x.photo = photoPrefix + x.photo
     return x
   })
+  tableData.value.sort((a, b) => new Date(b.launchTime) - new Date(a.launchTime))
   console.log(res)
 }
 // 页面加载时刷新

@@ -195,6 +195,7 @@ const tableLoading = ref(true)
 const handleGetUserList = () => {
   getAuditEventList(filterOption.value).then( res => {
     tableData.value = res;
+    tableData.value.sort((a, b) => new Date(b.date) - new Date(a.date))
     tableLoading.value = false
   })
 }
