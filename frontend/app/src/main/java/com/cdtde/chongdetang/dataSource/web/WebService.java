@@ -27,7 +27,7 @@ public class WebService {
 
     private WebService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(s -> XLog.tag("cdt-web-log").i(s))
-                .setLevel(HttpLoggingInterceptor.Level.BODY);
+                .setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
