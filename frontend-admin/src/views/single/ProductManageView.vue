@@ -21,11 +21,11 @@
           <div style="margin-top: 5px">
             <span><b>商品价格区间:&nbsp;&nbsp;&nbsp;</b></span>
 <!--            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>-->
-            <el-input-number v-model="priceStart" :precision="2" :step="0.1" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
+            <el-input-number v-model="priceStart" :precision="2" :step="0.1" class="w-50 m-2" placeholder="最低价格" :min="0" style="width: 9vw"/>
             -
 <!--            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>-->
 <!--            <el-input-number v-model="num" :precision="2" :step="0.1" :max="10" />-->
-            <el-input-number v-model="priceEnd" :precision="2" :step="0.1"  class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+            <el-input-number v-model="priceEnd" :precision="2" :step="0.1"  class="w-50 m-2" placeholder="最高价格" :min="0" style="width: 9vw"/>
             &nbsp;&nbsp;&nbsp;
             <el-button :icon="RefreshLeft" size="small" @click="onClickResetPrice">重置价格区间</el-button>
 
@@ -103,9 +103,9 @@
         <div class="demo-image__preview">
           <el-image
               style="width: 150px; height: 150px; margin-top: 10px"
-              :src="updateProductData.photo"
+              :src="photoPrefix + newProductData.photo"
               :zoom-rate="1.2"
-              :preview-src-list="[updateProductData.photo]"
+              :preview-src-list="[photoPrefix + newProductData.photo]"
               :initial-index="4"
               fit="fill"
           />
@@ -117,7 +117,7 @@
       </el-form-item>
 
       <el-form-item label="商品库存">
-        <el-input-number v-model="newProductData.storage" :min="0" :max="99" />
+        <el-input-number v-model="newProductData.storage" :min="0" />
       </el-form-item>
 
     </el-form>
@@ -188,7 +188,7 @@ import {
 } from "../../api/product";
 import {photoPrefix} from "../../../config/app-key";
 import { RefreshLeft } from '@element-plus/icons-vue'
-import {ElMessageBox} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 const dateRange = ref([])
 const priceStart = ref()
@@ -378,12 +378,15 @@ const filterTableData = computed(() => {
 
   console.log("price", priceStart.value, priceEnd.value)
   // 价格筛选
-  if (priceStart.value !== 'undifined' && priceEnd.value) {
+  if (priceStart.value !== undefined && priceEnd.value !== undefined) {
     // priceStart.value = Number(priceStart.value)
     // priceEnd.value = Number(priceEnd.value)
-    if (priceStart.value < priceEnd.value) {
+    if (priceStart.value <= priceEnd.value) {
       console.log("开始筛选")
       res.value = res.value.filter(data => data.price >= priceStart.value && data.price <= priceEnd.value)
+    }
+    else {
+      res.value = []
     }
   }
 

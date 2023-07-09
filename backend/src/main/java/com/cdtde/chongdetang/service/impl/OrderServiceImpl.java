@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             List<Order> orders = orderMapper.getOrdersByAdmin();
             return new Result<>("success", null, orders);
         }

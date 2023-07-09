@@ -16,6 +16,8 @@
                 size="default"
                 :loading="onlySelectedBtnLoading"
             />
+            &nbsp;&nbsp;&nbsp;
+            <el-button :icon="Position" size="small" @click="onClickGotoVisual">可视化设置精选藏品</el-button>
           </div>
         </div>
         <el-button type="primary" @click="onClickAddCollection">导入新藏品</el-button>
@@ -186,7 +188,7 @@
 
 <script setup>
 import {computed, onUpdated, reactive, ref, watch} from 'vue'
-import { ArrowDown } from '@element-plus/icons-vue'
+import { ArrowDown, Position } from '@element-plus/icons-vue'
 import {
   addCollection,
   getAllCollectionByAdmin,
@@ -195,6 +197,7 @@ import {
 } from "../../api/collection";
 import {setHotList} from "../../api/home";
 import {ElDialog, ElMessageBox} from "element-plus";
+import router from "../../router";
 
 // tag数据
 const val2tag = {
@@ -215,6 +218,7 @@ const handleGetCollectionList = async () => {
 // 页面加载时刷新
 handleGetCollectionList()
 
+const onClickGotoVisual = () => router.push('/collection_filtrate')
 // update collection
 const updateDialogVisable = ref(false)
 const updateCurrentInfo = reactive({

@@ -19,6 +19,15 @@
         where user_id = #{userId}
     </select>
 
+    <select id="getAllUserProduct" resultMap="user_product">
+        select
+            uc.id uid,
+            uc.user_id,
+            p.*
+        from user_product uc
+        join product p on p.id = uc.product_id
+    </select>
+
     <resultMap id="user_product" type="com.cdtde.chongdetang.pojo.UserProduct">
         <id column="uid" property="id"/>
         <result column="user_id" property="userId"/>

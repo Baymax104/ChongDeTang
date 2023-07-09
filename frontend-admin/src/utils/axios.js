@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '@/router/index'
-import { localGet } from './index'
+import { sessionGet } from './index'
 import config from '~/config'
 
 
@@ -12,13 +12,13 @@ axios.defaults.withCredentials = true
 // 请求头，headers 信息
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 // 请求头加token, 这个项目没用， 用的是 Authorization Bearer
-axios.defaults.headers['token'] = localGet('token') || ''
+axios.defaults.headers['token'] = sessionGet('token') || ''
 // 默认 post 请求，使用 application/json 形式
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 // cdt用的 Bearer + 鉴权
-if (localGet('token') !== null){
-  console.log("有token", localGet('token'))
-  axios.defaults.headers['Authorization'] = 'Bearer ' + localGet('token')
+if (sessionGet('token') !== null){
+  console.log("有token", sessionGet('token'))
+  axios.defaults.headers['Authorization'] = 'Bearer ' + sessionGet('token')
 }
 // 请求拦截器，内部根据返回值，重新组装，统一管理。
 axios.interceptors.response.use(res => {

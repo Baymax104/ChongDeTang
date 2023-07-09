@@ -15,6 +15,23 @@ export function localRemove (key) {
   window.localStorage.removeItem(key)
 }
 
+export function sessionGet (key) {
+  const value = window.sessionStorage.getItem(key)
+  try {
+    return JSON.parse(window.sessionStorage.getItem(key))
+  } catch (error) {
+    return value
+  }
+}
+
+export function sessionSet (key, value) {
+  window.sessionStorage.setItem(key, JSON.stringify(value))
+}
+
+export function sessionRemove (key) {
+  window.sessionStorage.removeItem(key)
+}
+
 // 判断内容是否含有表情字符，现有数据库不支持。
 export function hasEmoji (str = '') {
   const reg = /[^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n]/g;

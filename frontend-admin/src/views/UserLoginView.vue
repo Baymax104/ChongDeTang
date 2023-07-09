@@ -28,7 +28,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { localSet } from '../utils'
+import { sessionSet } from '../utils'
 import {ElMessage} from "element-plus";
 import { login } from "../api/login";
 
@@ -52,10 +52,10 @@ const submitForm = async () => {
   loginForm.value.validate((valid) => {
     if (valid) {
       login(state.ruleForm.phone, state.ruleForm.password).then(res => {
-        if (res.admin === "1"){
+        if (res.admin === "1" || res.admin === "2"){
           console.log("登录返回数据", res)
-          localSet('token', res.token)
-          localSet('userinfo', res)
+          sessionSet('token', res.token)
+          sessionSet('userinfo', res)
           window.location.href = '/'
         }
         else {

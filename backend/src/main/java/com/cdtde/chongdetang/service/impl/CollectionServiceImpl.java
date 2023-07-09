@@ -85,11 +85,11 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             List<Collection> collections = collectionMapper.selectList(null);
             // 统计用户收藏数
             Map<Integer, Integer> counts = new HashMap<>();
-            List<UserCollection> userCollections = userCollectionMapper.selectList(null);
+            List<UserCollection> userCollections = userCollectionMapper.getAllUserCollection();
             userCollections.stream()
                     .map(UserCollection::getCollection)
                     .map(Collection::getId)
@@ -115,7 +115,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             QueryWrapper<Collection> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("title",collection.getTitle());
             List<Collection> collections = collectionMapper.selectList(queryWrapper);
@@ -142,7 +142,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             UpdateWrapper<Collection> wrapper = new UpdateWrapper<>();
             wrapper.eq("id",collecitonId)
                     .set("title",collection.getTitle())
@@ -170,7 +170,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             int i = collectionMapper.deleteById(collection);
             if(i!=1){
                 throw new RuntimeException("删除藏品失败");

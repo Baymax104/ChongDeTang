@@ -20,4 +20,6 @@ public interface UserProductMapper extends BaseMapper<UserProduct> {
     List<UserProduct> getUserProduct(@Param("userId") Integer userId);
 
     int insertUserProduct(@Param("userProduct") UserProduct userProduct);
+
+    List<UserProduct> getAllUserProduct();
 }
