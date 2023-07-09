@@ -100,8 +100,12 @@ public class ShoppingActivity extends BaseActivity<ActivityShoppingBinding> {
                         .filter(CheckedShopping::isChecked)
                         .map(CheckedShopping::getShopping)
                         .collect(Collectors.toList());
-                orderMessenger.confirmOrderEvent.send(shoppings);
-                Starter.actionStart(activity, OrderActivity.class);
+                if (!shoppings.isEmpty()) {
+                    orderMessenger.confirmOrderEvent.send(shoppings);
+                    Starter.actionStart(activity, OrderActivity.class);
+                } else {
+                    ToastUtils.showShort("未选择商品");
+                }
             } else {
                 Starter.actionStart(activity, LoginActivity.class);
             }
