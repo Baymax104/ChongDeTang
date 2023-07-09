@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             List<Product> products = productMapper.selectList(null);
 //            products.forEach(product -> {
 //                if (product.getPhoto() != null) {
@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
 //            });
             // 统计收藏数
             Map<Integer, Integer> counts = new HashMap<>();
-            List<UserProduct> userProducts = userProductMapper.selectList(null);
+            List<UserProduct> userProducts = userProductMapper.getAllUserProduct();
             userProducts.stream()
                     .map(UserProduct::getProduct)
                     .map(Product::getId)
@@ -156,7 +156,7 @@ public class ProductServiceImpl implements ProductService {
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             UpdateWrapper<Product> wrapper = new UpdateWrapper<>();
             wrapper.eq("id",productId)
                     .set("storage",product.getStorage())
@@ -213,7 +213,7 @@ public class ProductServiceImpl implements ProductService {
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("name",product.getName());
             List<Product> product1 = productMapper.selectList(queryWrapper);
@@ -256,7 +256,7 @@ public class ProductServiceImpl implements ProductService {
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             int i = productMapper.deleteById(product);
             if(i!=1){
                 throw new RuntimeException("删除商品失败");
@@ -274,7 +274,7 @@ public class ProductServiceImpl implements ProductService {
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
-        if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
+        if(!Objects.equals(isAdmin, "0")){   // 判断管理员身份
             result.put("product",productMapper.selectList(null).size());
             result.put("collection",collectionMapper.selectList(null).size());
             result.put("user",userMapper.selectList(null).size());
