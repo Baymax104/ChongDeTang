@@ -19,6 +19,15 @@
         where user_id = #{userId};
     </select>
 
+    <select id="getAllUserCollection" resultMap="user_collection">
+        select
+            uc.id uid,
+            uc.user_id,
+            c.*
+        from user_collection uc
+        join collection c on uc.collection_id = c.id
+    </select>
+
     <resultMap id="user_collection" type="com.cdtde.chongdetang.pojo.UserCollection">
         <id column="uid" property="id"/>
         <result column="user_id" property="userId"/>

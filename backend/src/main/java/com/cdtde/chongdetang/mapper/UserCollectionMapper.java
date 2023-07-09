@@ -19,4 +19,6 @@ public interface UserCollectionMapper extends BaseMapper<UserCollection> {
     List<UserCollection> getUserCollection(@Param("userId") Integer userId);
 
     int insertUserCollection(@Param("userCollection") UserCollection userCollection);
+
+    List<UserCollection> getAllUserCollection();
 }
