@@ -13,7 +13,7 @@
       </div>
     </template>
     <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading" height="75vh">
-      <el-table-column label="用户id" prop="userId" sortable />
+      <el-table-column label="用户id" prop="userId" />
       <el-table-column label="预约人" prop="subscriber" />
       <el-table-column label="预约时间" prop="date" />
       <el-table-column label="预约人数" prop="number" />
@@ -27,7 +27,7 @@
       </el-table-column>
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="查询" clearable>
+          <el-input v-model="search" style="width: 8.5vw" placeholder="查询预约人、手机号" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
@@ -134,7 +134,9 @@
 <script setup>
 import { computed, ref } from 'vue'
 import {auditEvent, getAuditEventList} from "../../api/home";
-import { ElMessage } from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
+import { InfoFilled } from '@element-plus/icons-vue'
+import {removeCollectionByAdmin} from "../../api/collection";
 
 // 弹出框样式
 const size = ref('default')
@@ -195,6 +197,7 @@ const tableLoading = ref(true)
 const handleGetUserList = () => {
   getAuditEventList(filterOption.value).then( res => {
     tableData.value = res;
+    tableData.value.sort((a, b) => new Date(b.date) - new Date(a.date))
     tableLoading.value = false
   })
 }
@@ -221,11 +224,20 @@ const handleAuditOp = obj => {
 
 // 不通过审核
 const handleRejectEvent = () => {
-  auditEvent(dialogText.value.id, "FAIL").then(res => {
-    ElMessage.warning('<拒绝审核>操作成功')
-    centerDialogVisible.value = false
-    handleGetUserList()
+  ElMessageBox.confirm(`确认拒绝审核吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    auditEvent(dialogText.value.id, "FAIL").then(res => {
+      ElMessage.warning('<拒绝审核>操作成功')
+      centerDialogVisible.value = false
+      handleGetUserList()
+    })
+  }).catch(() => {
+
   })
+
 }
 
 // 通过审核

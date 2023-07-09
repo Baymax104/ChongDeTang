@@ -86,8 +86,23 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String isAdmin = loginUser.getUser().getAdmin();
         if(Objects.equals(isAdmin, "1")){   // 判断管理员身份
-            List<Collection> products = collectionMapper.selectList(null);
-            return new Result<>("success",null,products);
+            List<Collection> collections = collectionMapper.selectList(null);
+            // 统计用户收藏数
+            Map<Integer, Integer> counts = new HashMap<>();
+            List<UserCollection> userCollections = userCollectionMapper.selectList(null);
+            userCollections.stream()
+                    .map(UserCollection::getCollection)
+                    .map(Collection::getId)
+                    .forEach(id -> {
+                        Integer count = counts.getOrDefault(id, 0);
+                        counts.put(id, count + 1);
+                    });
+            // 赋值userCollect
+            collections.forEach(c -> {
+                String count = counts.getOrDefault(c.getId(), 0).toString();
+                c.setUserCollect(count);
+            });
+            return new Result<>("success",null,collections);
         }
         return new Result<>("error", "您没有管理员权限", null);
     }

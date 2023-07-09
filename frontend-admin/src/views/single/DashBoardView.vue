@@ -196,7 +196,7 @@ onMounted(() => {
             emphasis: {
               focus: 'series'
             },
-            data: order_money.value // [220, 182, 191, 234, 290, 330, 310]
+            data: order_money.value.map(x => Number(x).toFixed(2)) // [220, 182, 191, 234, 290, 330, 310]
           }
         ]
       }

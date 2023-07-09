@@ -12,11 +12,12 @@
         <el-form-item label="手机号" prop="phone">
           <el-input  type="text" v-model.trim="state.ruleForm.phone" autocomplete="off"></el-input>
         </el-form-item>
+        <div style="height: 15px"></div>
         <el-form-item label="密码" prop="password">
           <el-input type="password" v-model.trim="state.ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
+          <div style="color: #333; margin-top: 15px">登录表示您已同意<a href="https://weixin.qq.com/agreement?lang=zh_CN" target="_blank">《服务条款》</a></div>
           <el-button style="width: 100%; background-color: #ac2c28; border-color: #ac2c28" type="primary" @click="submitForm">立即登录</el-button>
 <!--          <el-checkbox v-model="state.checked" @change="!state.checked" >下次自动登录</el-checkbox>-->
         </el-form-item>

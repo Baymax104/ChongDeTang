@@ -22,7 +22,7 @@
       </div>
     </template>
     <el-table :data="filterTableData"  stripe style="width: 100%" v-loading="table_loading" height="73vh">
-      <el-table-column label="藏品id" prop="id" sortable />
+      <el-table-column label="藏品id" prop="id" />
       <el-table-column label="藏品图">
         <template #default="scope">
           <div style="display: flex; align-items: center">
@@ -48,7 +48,7 @@
       <el-table-column label="被用户收藏数" prop="userCollect" />
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="查询" clearable>
+          <el-input v-model="search" placeholder="查询藏品名" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
@@ -98,7 +98,7 @@
               :zoom-rate="1.2"
               :preview-src-list="[colloec.photo]"
               :initial-index="4"
-              fit="cover"
+              fit="fill"
           />
           (若链接有效，则可点击图片进行预览)
         </div>
@@ -164,9 +164,9 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="是否设置精选">
-        <el-switch v-model="updateCurrentInfo.selected" />
-      </el-form-item>
+<!--      <el-form-item label="是否设置精选">-->
+<!--        <el-switch v-model="updateCurrentInfo.selected" />-->
+<!--      </el-form-item>-->
 
       <el-form-item label="被收藏数">
         <div>{{ updateCurrentInfo.userCollect }} </div>
@@ -194,6 +194,7 @@ import {
   updateCollectionByAdmin
 } from "../../api/collection";
 import {setHotList} from "../../api/home";
+import {ElDialog, ElMessageBox} from "element-plus";
 
 // tag数据
 const val2tag = {
@@ -247,13 +248,13 @@ const confirmUpdateCollectionInfo = async function () {
       updateCurrentInfo.type,
       updateCurrentInfo.photo
   )
-  // update selected
-  if (updateCurrentInfo.selected) {
-    await setHotList([updateCurrentInfo.id], 'right')
-  }
-  else {
-    await setHotList([updateCurrentInfo.id], 'left')
-  }
+  // // update selected
+  // if (updateCurrentInfo.selected) {
+  //   await setHotList([updateCurrentInfo.id], 'right')
+  // }
+  // else {
+  //   await setHotList([updateCurrentInfo.id], 'left')
+  // }
   // close popout
   cancelUpdate()
   await handleGetCollectionList()
@@ -283,9 +284,20 @@ const cancelSelected = async function (collection) {
 }
 
 const deleteCollection = async function (collection) {
-  await removeCollectionByAdmin(collection.id)
-  await handleGetCollectionList()
-  console.log("删除", collection)
+  ElMessageBox.confirm(`确认删除藏品<${collection.title}>吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    const f = async function() {
+      await removeCollectionByAdmin(collection.id)
+      await handleGetCollectionList()
+      console.log("删除", collection)
+    }
+    f()
+  }).catch(() => {
+
+  })
 }
 
 const centerDialogVisible = ref(false)

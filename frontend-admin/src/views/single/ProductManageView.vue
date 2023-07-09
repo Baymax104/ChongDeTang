@@ -20,16 +20,22 @@
           </div>
           <div style="margin-top: 5px">
             <span><b>商品价格区间:&nbsp;&nbsp;&nbsp;</b></span>
-            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
+<!--            <el-input v-model="priceStart" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>-->
+            <el-input-number v-model="priceStart" :precision="2" :step="0.1" class="w-50 m-2" placeholder="最低价格" style="width: 9vw"/>
             -
-            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+<!--            <el-input v-model="priceEnd" class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>-->
+<!--            <el-input-number v-model="num" :precision="2" :step="0.1" :max="10" />-->
+            <el-input-number v-model="priceEnd" :precision="2" :step="0.1"  class="w-50 m-2" placeholder="最高价格" style="width: 9vw"/>
+            &nbsp;&nbsp;&nbsp;
+            <el-button :icon="RefreshLeft" size="small" @click="onClickResetPrice">重置价格区间</el-button>
+
           </div>
         </div>
         <el-button type="primary" @click="onClickAddProduct">上架新商品</el-button>
       </div>
     </template>
     <el-table :data="filterTableData"  stripe style="width: 100%" v-loading="table_loading" height="69vh">
-      <el-table-column label="商品id" prop="id" sortable />
+      <el-table-column label="商品id" prop="id" />
       <el-table-column label="商品图">
         <template #default="scope">
           <div style="display: flex; align-items: center; width: 80%">
@@ -53,7 +59,7 @@
       <el-table-column label="被用户收藏数" prop="userCollect" />
       <el-table-column align="right">
         <template #header>
-          <el-input v-model="search" placeholder="查询" clearable>
+          <el-input v-model="search" placeholder="查询商品名" clearable>
             <template #prefix="">
               <el-icon><Search /></el-icon>
             </template>
@@ -101,7 +107,7 @@
               :zoom-rate="1.2"
               :preview-src-list="[updateProductData.photo]"
               :initial-index="4"
-              fit="cover"
+              fit="fill"
           />
           (若链接有效，则可点击图片进行预览)
         </div>
@@ -146,7 +152,7 @@
               :zoom-rate="1.2"
               :preview-src-list="[updateProductData.photo]"
               :initial-index="4"
-              fit="cover"
+              fit="fill"
           />
           (若链接有效，则可点击图片进行预览)
         </div>
@@ -181,7 +187,8 @@ import {
   updateProductNumberByAdmin
 } from "../../api/product";
 import {photoPrefix} from "../../../config/app-key";
-
+import { RefreshLeft } from '@element-plus/icons-vue'
+import {ElMessageBox} from "element-plus";
 
 const dateRange = ref([])
 const priceStart = ref()
@@ -198,6 +205,7 @@ const handleGetProductList = async () => {
     x.photo = photoPrefix + x.photo
     return x
   })
+  tableData.value.sort((a, b) => new Date(b.launchTime) - new Date(a.launchTime))
   console.log(res)
 }
 // 页面加载时刷新
@@ -290,8 +298,20 @@ const add_Product = async () => {
 }
 // 删除商品
 const deleteProduct = async (product) => {
-  await deleteProductByAdmin(product.id)
-  await handleGetProductList()
+  ElMessageBox.confirm(`确认删除商品<${product.name}>吗？`, '警告！', {
+    distinguishCancelAndClose: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '返回',
+  }).then(()=> {
+    const f = async function () {
+      await deleteProductByAdmin(product.id)
+      await handleGetProductList()
+    }
+    f()
+  }).catch(() => {
+
+  })
+
 }
 
 
@@ -320,7 +340,10 @@ watch(checkList, (n, o) => {
     checkList.value = ['全部', "有库存", "无库存"]
   }
 })
-
+const onClickResetPrice = function () {
+  priceStart.value = undefined
+  priceEnd.value = undefined
+}
 
 // 模糊搜索与筛选
 const search = ref('')
@@ -342,7 +365,7 @@ const filterTableData = computed(() => {
     }
   }
   // 日期筛选
-  if (dateRange.value.length) {
+  if (dateRange.value && dateRange.value.length) {
     console.log("需要日期")
     let std = new Date(dateRange.value[0])
     let edd = new Date(dateRange.value[1])
@@ -353,9 +376,13 @@ const filterTableData = computed(() => {
     })
   }
 
+  console.log("price", priceStart.value, priceEnd.value)
   // 价格筛选
-  if (priceStart.value && priceEnd.value) {
+  if (priceStart.value !== 'undifined' && priceEnd.value) {
+    // priceStart.value = Number(priceStart.value)
+    // priceEnd.value = Number(priceEnd.value)
     if (priceStart.value < priceEnd.value) {
+      console.log("开始筛选")
       res.value = res.value.filter(data => data.price >= priceStart.value && data.price <= priceEnd.value)
     }
   }
@@ -363,7 +390,7 @@ const filterTableData = computed(() => {
   return res.value.filter(
       (data) =>
           !search.value ||
-          data.title.toLowerCase().includes(search.value.toLowerCase()) //搜索藏品名
+          data.name.toLowerCase().includes(search.value.toLowerCase()) //搜索藏品名
   )
 })
 

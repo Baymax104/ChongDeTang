@@ -4,19 +4,19 @@
       @handleBtnClick="(direction, idlist) => changeStatus(direction, idlist)"
   >
     <template v-slot:transfer-header-text>
-      设置热销商品
+      设置热销藏品
     </template>
     <template v-slot:transfer-footer-text>
 
     </template>
     <template v-slot:inner-list-left-header-text>
-      未上架：&nbsp;{{ leftData.length }}件商品
+      未上架：&nbsp;{{ leftData.length }}件藏品
     </template>
     <template v-slot:inner-list-left-footer-text>
 
     </template>
     <template v-slot:inner-list-right-header-text>
-      已上架：&nbsp;{{ rightData.length }}件商品
+      已上架：&nbsp;{{ rightData.length }}件藏品
     </template>
     <template v-slot:inner-list-right-footer-text>
 

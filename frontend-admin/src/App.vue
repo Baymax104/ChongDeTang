@@ -14,12 +14,12 @@
 
                   <el-menu-item index="/dashboard">
                     <el-icon><Plus /></el-icon>
-                    <span>数据分析</span>
+                    <span>数据分析看板</span>
                   </el-menu-item>
 
                     <el-sub-menu index="2">
                         <template #title><el-icon><setting /></el-icon>
-                            <span>首页管理</span>
+                            <span>软件首页管理</span>
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/event_audit"><el-icon>
@@ -31,21 +31,30 @@
                         </el-menu-item-group>
                     </el-sub-menu>
 
-                  <el-menu-item index="/collection_manage">
-                    <el-icon><setting /></el-icon>
-                    <span>藏品管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/product_manage">
-                    <el-icon><setting /></el-icon>
-                    <span>商品管理</span>
-                  </el-menu-item>
-                  <el-menu-item index="/order_manage">
-                    <el-icon><setting /></el-icon>
-                    <span>订单管理</span>
-                  </el-menu-item>
+
+                  <el-sub-menu index="3">
+                    <template #title><el-icon><setting /></el-icon>
+                      <span>软件业务管理</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item index="/collection_manage">
+                        <el-icon><setting /></el-icon>
+                        <span>藏品管理</span>
+                      </el-menu-item>
+                      <el-menu-item index="/product_manage">
+                        <el-icon><setting /></el-icon>
+                        <span>商品管理</span>
+                      </el-menu-item>
+                      <el-menu-item index="/order_manage">
+                        <el-icon><setting /></el-icon>
+                        <span>订单管理</span>
+                      </el-menu-item>
+                    </el-menu-item-group>
+                  </el-sub-menu>
+
                   <el-menu-item index="/auth_manage">
                     <el-icon><setting /></el-icon>
-                    <span>权限管理</span>
+                    <span>人员权限管理</span>
                   </el-menu-item>
                 </el-menu>
             </el-aside>
