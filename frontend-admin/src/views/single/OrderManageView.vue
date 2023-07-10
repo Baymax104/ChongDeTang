@@ -217,13 +217,13 @@
       <span class="dialog-footer">
         <el-button @click="centerDialogVisible = false">返回列表</el-button>
         修改订单状态:
-        <el-button type="danger" @click="handleEvent('FAIL')">
+        <el-button type="danger" @click="handleEvent('FAIL')" :disabled="btnDisabled.fail">
           用户已取消，订单结束
         </el-button>
-        <el-button type="warning" @click="handleEvent('PROCESSING')">
+        <el-button type="warning" @click="handleEvent('PROCESSING')" :disabled="btnDisabled.processing">
           仓库已发货，订单进行中
         </el-button>
-        <el-button type="primary" @click="handleEvent('SUCCESS')">
+        <el-button type="primary" @click="handleEvent('SUCCESS')" :disabled="btnDisabled.success">
           用户已收货，订单完成
         </el-button>
       </span>
@@ -428,10 +428,18 @@ const filterTableData = computed(() => {
 
 // 弹出框数据
 const dialogText = ref({})
+const btnDisabled = {
+  success: true,
+  processing: true,
+  fail: true
+}
 const handleAuditOp = obj => {
   console.log('pop', obj)
   centerDialogVisible.value = true
   dialogText.value = obj
+  btnDisabled.success = (dialogText.value.status === 'SUCCESS')
+  btnDisabled.processing = (dialogText.value.status === 'PROCESSING')
+  btnDisabled.fail = (dialogText.value.status === 'FAIL')
   console.log(dialogText.value)
 }
 
@@ -446,6 +454,7 @@ const handleEvent = async (t) => {
       const f = async function () {
         await changeOrderStatus(dialogText.value.id, t)
         await handleGetUserList()
+        ElMessage.success(`更新状态成功：订单${dialogText.value.id}`)
       }
       f()
     }).catch(() => {
@@ -456,6 +465,7 @@ const handleEvent = async (t) => {
     console.log('change', dialogText.value.id)
     await changeOrderStatus(dialogText.value.id, t)
     await handleGetUserList()
+    ElMessage.success(`更新状态成功：订单${dialogText.value.id}`)
   }
   centerDialogVisible.value = false
 }
