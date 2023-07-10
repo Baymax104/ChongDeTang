@@ -99,17 +99,17 @@
         <el-input v-model="newProductData.price" />
       </el-form-item>
       <el-form-item label="商品图片">
-        <el-input v-model="newProductData.photo" />
+        <input id="fileSelector" type="file" @change="uploadNew" accept=".jpg, .png"/>
         <div class="demo-image__preview">
           <el-image
               style="width: 150px; height: 150px; margin-top: 10px"
-              :src="photoPrefix + newProductData.photo"
+              :src="newProductData.photo"
               :zoom-rate="1.2"
-              :preview-src-list="[photoPrefix + newProductData.photo]"
+              :preview-src-list="[newProductData.photo]"
               :initial-index="4"
               fit="fill"
           />
-          (若链接有效，则可点击图片进行预览)
+          (若图片有效，则可点击进行预览)
         </div>
       </el-form-item>
       <el-form-item label="商品介绍">
@@ -133,7 +133,7 @@
 <!--  更新-->
   <el-dialog
       v-model="updateDialogVisable"
-      title="上架新商品"
+      title="更改商品信息"
       width="50%"
   >
     <el-form :model="updateProductData" label-width="120px">
@@ -144,7 +144,7 @@
         <el-input-number v-model="updateProductData.price" :precision="2"/>
       </el-form-item>
       <el-form-item label="商品图片">
-        <el-input v-model="updateProductData.photo" />
+        <input id="fileSelector2" type="file" @change="uploadUpdate" accept=".jpg, .png"/>
         <div class="demo-image__preview">
           <el-image
               style="width: 150px; height: 150px; margin-top: 10px"
@@ -154,7 +154,7 @@
               :initial-index="4"
               fit="fill"
           />
-          (若链接有效，则可点击图片进行预览)
+          (若图片有效，则可点击进行预览)
         </div>
       </el-form-item>
       <el-form-item label="商品介绍">
@@ -186,9 +186,12 @@ import {
   getAllProductByAdmin,
   updateProductNumberByAdmin
 } from "../../api/product";
-import {photoPrefix} from "../../../config/app-key";
+import {cosConfig, photoPrefix} from "../../../config/app-key";
 import { RefreshLeft } from '@element-plus/icons-vue'
 import {ElMessage, ElMessageBox} from "element-plus";
+
+import cos from "../../utils/cos";
+
 
 const dateRange = ref([])
 const priceStart = ref()
@@ -233,6 +236,58 @@ const updateProductData = reactive({
   introduction: "",
   storage: 0,
 })
+
+function randomString(length) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_=-';
+  let result = '';
+  for (let i = length; i > 0; --i) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}
+
+function uploadUpdate(e) {
+  const uuid = randomString(64)
+  const file = e.target.files && e.target.files[0];
+  const fileExtension = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1)
+
+  /* 直接调用 cos sdk 的方法 */
+  cos.uploadFile({
+    Bucket: cosConfig['bkt'], /* 填写自己的 bucket，必须字段 */
+    Region: cosConfig['rg'],     /* 存储桶所在地域，必须字段 */
+    Key: `img/products/${uuid}.${fileExtension}`,              /* 存储在桶里的对象键（例如1.jpg，a/b/test.txt），必须字段 */
+    Body: file, // 上传文件对象
+    SliceSize: 1024 * 1024 * 5,     /* 触发分块上传的阈值，超过5MB 使用分块上传，小于5MB使用简单上传。可自行设置，非必须 */
+  }, function (err, data) {
+    console.log("err", err)
+    console.log("data", data)
+    if (data.statusCode === 200) {
+        updateProductData.photo = 'https://' + data.Location
+    }
+  });
+}
+
+function uploadNew(e) {
+  const uuid = randomString(64)
+  const file = e.target.files && e.target.files[0];
+  const fileExtension = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1)
+
+  /* 直接调用 cos sdk 的方法 */
+  cos.uploadFile({
+    Bucket: cosConfig['bkt'], /* 填写自己的 bucket，必须字段 */
+    Region: cosConfig['rg'],     /* 存储桶所在地域，必须字段 */
+    Key: `img/products/${uuid}.${fileExtension}`,              /* 存储在桶里的对象键（例如1.jpg，a/b/test.txt），必须字段 */
+    Body: file, // 上传文件对象
+    SliceSize: 1024 * 1024 * 5,     /* 触发分块上传的阈值，超过5MB 使用分块上传，小于5MB使用简单上传。可自行设置，非必须 */
+  }, function (err, data) {
+    console.log("err", err)
+    console.log("data", data)
+    if (data.statusCode === 200) {
+      newProductData.photo = 'https://' + data.Location
+    }
+  });
+}
+
 const updateDialogVisable = ref(false)
 const updateProductInfo = function (product) {
   // popout

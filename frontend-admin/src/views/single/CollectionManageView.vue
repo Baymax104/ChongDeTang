@@ -92,7 +92,7 @@
         <el-input v-model="colloec.url" />
       </el-form-item>
       <el-form-item label="藏品图片链接">
-        <el-input v-model="colloec.photo" />
+        <input id="fileSelector" type="file" @change="uploadNew" accept=".jpg, .png"/>
         <div class="demo-image__preview">
           <el-image
               style="width: 150px; height: 150px; margin-top: 10px"
@@ -102,7 +102,7 @@
               :initial-index="4"
               fit="fill"
           />
-          (若链接有效，则可点击图片进行预览)
+          (若图片有效，则可点击进行预览)
         </div>
       </el-form-item>
       <el-form-item label="藏品类别">
@@ -144,7 +144,7 @@
         <el-input v-model="updateCurrentInfo.url" />
       </el-form-item>
       <el-form-item label="藏品图片链接">
-        <el-input v-model="updateCurrentInfo.photo" />
+        <input id="fileSelector2" type="file" @change="uploadUpdate" accept=".jpg, .png"/>
         <div class="demo-image__preview">
           <el-image
               style="width: 150px; height: 150px; margin-top: 10px"
@@ -155,7 +155,7 @@
               fit="cover"
 
           />
-          (若链接有效，则可点击图片进行预览)
+          (若图片有效，则可点击进行预览)
         </div>
       </el-form-item>
       <el-form-item label="藏品类别">
@@ -198,6 +198,8 @@ import {
 import {setHotList} from "../../api/home";
 import {ElDialog, ElMessageBox} from "element-plus";
 import router from "../../router";
+import cos from "../../utils/cos";
+import {cosConfig} from "../../../config/app-key";
 
 // tag数据
 const val2tag = {
@@ -213,6 +215,7 @@ const handleGetCollectionList = async () => {
   const res = await getAllCollectionByAdmin()
   table_loading.value = false
   tableData.value = res
+  tableData.value.sort((a, b) => b.id - a.id)
   console.log(res)
 }
 // 页面加载时刷新
@@ -314,6 +317,57 @@ const colloec = reactive({
   photo: "",
   selected: 0
 })
+function randomString(length) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_=-';
+  let result = '';
+  for (let i = length; i > 0; --i) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}
+
+
+function uploadUpdate(e) {
+  const uuid = randomString(64)
+  const file = e.target.files && e.target.files[0];
+  const fileExtension = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1)
+
+  /* 直接调用 cos sdk 的方法 */
+  cos.uploadFile({
+    Bucket: cosConfig['bkt'], /* 填写自己的 bucket，必须字段 */
+    Region: cosConfig['rg'],     /* 存储桶所在地域，必须字段 */
+    Key: `img/products/${uuid}.${fileExtension}`,              /* 存储在桶里的对象键（例如1.jpg，a/b/test.txt），必须字段 */
+    Body: file, // 上传文件对象
+    SliceSize: 1024 * 1024 * 5,     /* 触发分块上传的阈值，超过5MB 使用分块上传，小于5MB使用简单上传。可自行设置，非必须 */
+  }, function (err, data) {
+    console.log("err", err)
+    console.log("data", data)
+    if (data.statusCode === 200) {
+      updateCurrentInfo.photo = 'https://' + data.Location
+    }
+  });
+}
+
+function uploadNew(e) {
+  const uuid = randomString(64)
+  const file = e.target.files && e.target.files[0];
+  const fileExtension = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1)
+
+  /* 直接调用 cos sdk 的方法 */
+  cos.uploadFile({
+    Bucket: cosConfig['bkt'], /* 填写自己的 bucket，必须字段 */
+    Region: cosConfig['rg'],     /* 存储桶所在地域，必须字段 */
+    Key: `img/products/${uuid}.${fileExtension}`,              /* 存储在桶里的对象键（例如1.jpg，a/b/test.txt），必须字段 */
+    Body: file, // 上传文件对象
+    SliceSize: 1024 * 1024 * 5,     /* 触发分块上传的阈值，超过5MB 使用分块上传，小于5MB使用简单上传。可自行设置，非必须 */
+  }, function (err, data) {
+    console.log("err", err)
+    console.log("data", data)
+    if (data.statusCode === 200) {
+      colloec.photo = 'https://' + data.Location
+    }
+  });
+}
 
 // 添加藏品
 const add_Collection = async function () {
