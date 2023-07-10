@@ -68,8 +68,8 @@
               <div>
                 <el-dropdown-menu>
                   <el-dropdown-item @click="updateCollectionInfo(scope.row)">更新藏品信息</el-dropdown-item>
-                  <el-dropdown-item divided @click="setSelected(scope.row)">设置精选</el-dropdown-item>
-                  <el-dropdown-item @click="cancelSelected(scope.row)">取消精选</el-dropdown-item>
+                  <el-dropdown-item divided @click="setSelected(scope.row)" :disabled="scope.row.selected === '1'">设置精选</el-dropdown-item>
+                  <el-dropdown-item @click="cancelSelected(scope.row)" :disabled="scope.row.selected === '0'">取消精选</el-dropdown-item>
                   <el-dropdown-item divided style="color: firebrick" @click="deleteCollection(scope.row)">删除藏品</el-dropdown-item>
                 </el-dropdown-menu>
               </div>
@@ -196,7 +196,7 @@ import {
   updateCollectionByAdmin
 } from "../../api/collection";
 import {setHotList} from "../../api/home";
-import {ElDialog, ElMessageBox} from "element-plus";
+import {ElDialog, ElMessage, ElMessageBox} from "element-plus";
 import router from "../../router";
 import cos from "../../utils/cos";
 import {cosConfig} from "../../../config/app-key";
@@ -281,12 +281,14 @@ const cancelUpdate = function () {
 const setSelected = async function (collection) {
   await setHotList([collection.id], 'right')
   await handleGetCollectionList()
+  ElMessage.success(`设置精选：藏品${collection.title}`)
   console.log("精选", collection)
 }
 
 const cancelSelected = async function (collection) {
   await setHotList([collection.id], 'left')
   await handleGetCollectionList()
+  ElMessage.success(`取消精选：藏品${collection.title}`)
   console.log("取消", collection)
 }
 
@@ -300,6 +302,7 @@ const deleteCollection = async function (collection) {
       await removeCollectionByAdmin(collection.id)
       await handleGetCollectionList()
       console.log("删除", collection)
+      ElMessage.success(`删除成功：藏品${collection.title}`)
     }
     f()
   }).catch(() => {
@@ -371,6 +374,12 @@ function uploadNew(e) {
 
 // 添加藏品
 const add_Collection = async function () {
+
+  if (!colloec.title || !colloec.url || !colloec.type || !colloec.photo) {
+    ElMessage.error('添加藏品错误：藏品信息存在空值!')
+    return
+  }
+
   const res = await addCollection(colloec.title, colloec.url, colloec.type, colloec.photo)
   console.log("tjcp", res)
   if (colloec.selected) {
