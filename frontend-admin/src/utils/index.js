@@ -54,3 +54,12 @@ export const pathMap = {
   product_manage: '商品管理',
   order_manage: '订单管理',
 }
+
+export function randomString(length) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_=-';
+  let result = '';
+  for (let i = length; i > 0; --i) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}

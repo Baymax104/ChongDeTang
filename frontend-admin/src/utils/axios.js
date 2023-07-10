@@ -4,6 +4,10 @@ import router from '@/router/index'
 import { sessionGet } from './index'
 import config from '~/config'
 
+const ERROR_MESSAGE = {
+  "修改藏品错误": "更新失败：请查看当前信息是否与原始信息相同!",
+  "修改商品错误": "更新失败：请查看当前信息是否与原始信息相同!",
+}
 
 // 这边由于后端没有区分测试和正式，姑且都写成一个接口。
 axios.defaults.baseURL = config[import.meta.env.MODE].baseUrl
@@ -32,7 +36,9 @@ axios.interceptors.response.use(res => {
       router.push({ path: '/login' })
       ElMessage.error('您还不是管理员！')
     }
-    if (res.data.message) ElMessage.error(res.data.message)
+    if (res.data.message) {
+      ElMessage.error(ERROR_MESSAGE[res.data.message])
+    }
     if (res.data.resultCode === 419) {
       router.push({ path: '/login' })
     }

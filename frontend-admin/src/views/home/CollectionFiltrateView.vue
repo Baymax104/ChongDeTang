@@ -60,6 +60,7 @@ const changeStatus = (d, idl) => {
     setHotList(idl, d).then(res=> {
       console.log("change-ok")
       loadData()
+      ElMessage.success(`${d === "right" ? "上架" : "下架"}了${idl.length}件藏品`)
     })
     console.log(d, idl)
   }

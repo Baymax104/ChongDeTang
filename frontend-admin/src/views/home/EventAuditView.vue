@@ -120,10 +120,10 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="centerDialogVisible = false">返回列表</el-button>
-        <el-button type="danger" @click="handleRejectEvent">
+        <el-button type="danger" @click="handleRejectEvent" :disabled="btnDisabled.fail">
           拒绝预约
         </el-button>
-        <el-button type="primary" @click="handlePassEvent">
+        <el-button type="primary" @click="handlePassEvent" :disabled="btnDisabled.success">
           通过预约
         </el-button>
       </span>
@@ -170,7 +170,7 @@ const options = [
   },
   {
     value: 'FAIL',
-    label: '审核失败'
+    label: '审核未通过'
   }
 ]
 const handleFilterChange = val => {
@@ -181,8 +181,8 @@ const handleFilterChange = val => {
 // tag标签数据
 const rolePad = ref({
   "PROCESSING": "待审核",
-  "SUCCESS": "审核完成",
-  "FAIL": "审核失败"
+  "SUCCESS": "审核成功",
+  "FAIL": "审核未通过"
 })
 const rolePadTag = ref({
   "PROCESSING": "warning",
@@ -216,10 +216,16 @@ const filterTableData = computed(() =>
 )
 
 // 弹出框数据
+const btnDisabled = {
+  success: true,
+  fail: true
+}
 const dialogText = ref('')
 const handleAuditOp = obj => {
   centerDialogVisible.value = true
   dialogText.value = obj
+  btnDisabled.success = (dialogText.value.status === 'SUCCESS')
+  btnDisabled.fail = (dialogText.value.status === 'FAIL')
 }
 
 // 不通过审核

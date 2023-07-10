@@ -46,7 +46,13 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="是否为精选" prop="selected" />
+      <el-table-column label="是否为精选">
+        <template #default="scope">
+          <el-tag :type="selTag[scope.row.selected][1]">
+            {{ selTag[scope.row.selected][0] }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="被用户收藏数" prop="userCollect" />
       <el-table-column align="right">
         <template #header>
@@ -200,12 +206,17 @@ import {ElDialog, ElMessage, ElMessageBox} from "element-plus";
 import router from "../../router";
 import cos from "../../utils/cos";
 import {cosConfig} from "../../../config/app-key";
+import {randomString} from "../../utils";
 
 // tag数据
 const val2tag = {
   "sf": ["书法", ""],
   "pb": ["牌匾", "warning"],
   "zk": ["篆刻", "danger"]
+}
+const selTag = {
+  "0": ["普通藏品", "info"],
+  "1": ["精选藏品", 'success']
 }
 // 表格数据
 const tableData = ref([])
@@ -320,18 +331,9 @@ const colloec = reactive({
   photo: "",
   selected: 0
 })
-function randomString(length) {
-  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_=-';
-  let result = '';
-  for (let i = length; i > 0; --i) {
-    result += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return result;
-}
-
 
 function uploadUpdate(e) {
-  const uuid = randomString(64)
+  const uuid = randomString(32)
   const file = e.target.files && e.target.files[0];
   const fileExtension = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1)
 

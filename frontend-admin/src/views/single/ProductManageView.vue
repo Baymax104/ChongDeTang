@@ -191,6 +191,7 @@ import { RefreshLeft } from '@element-plus/icons-vue'
 import {ElMessage, ElMessageBox} from "element-plus";
 
 import cos from "../../utils/cos";
+import {randomString} from "../../utils";
 
 
 const dateRange = ref([])
@@ -237,17 +238,9 @@ const updateProductData = reactive({
   storage: 0,
 })
 
-function randomString(length) {
-  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_=-';
-  let result = '';
-  for (let i = length; i > 0; --i) {
-    result += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return result;
-}
 
 function uploadUpdate(e) {
-  const uuid = randomString(64)
+  const uuid = randomString(32)
   const file = e.target.files && e.target.files[0];
   const fileExtension = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1)
 
@@ -313,6 +306,7 @@ const confirmUpdateProductInfo = async function () {
   )
 
   await handleGetProductList()
+  ElMessage.success(`更新成功：商品<${updateProductData.name}>`)
   cancelUpdate()
 }
 const cancelUpdate = function () {
@@ -341,15 +335,27 @@ const cancelAdd = () => {
 }
 // 新增商品
 const add_Product = async () => {
+  if (
+      !newProductData.name
+      || !newProductData.price
+      || !newProductData.photo
+      || !newProductData.introduction
+      || !newProductData.storage
+  )
+  {
+    ElMessage.error('新增失败：商品信息不全!')
+    return
+  }
   await addProductByAdmin(
       newProductData.name,
       newProductData.price,
-      newProductData.photo,
+      newProductData.photo.replace('https://cdt-1309988842.cos.ap-beijing.myqcloud.com/', ''),
       newProductData.introduction,
       newProductData.storage
   )
   await handleGetProductList()
   cancelAdd()
+  ElMessage.success(`新增成功：商品<${newProductData.name}>`)
 }
 // 删除商品
 const deleteProduct = async (product) => {
@@ -361,6 +367,7 @@ const deleteProduct = async (product) => {
     const f = async function () {
       await deleteProductByAdmin(product.id)
       await handleGetProductList()
+      ElMessage.success(`删除成功：商品<${product.name}>`)
     }
     f()
   }).catch(() => {
