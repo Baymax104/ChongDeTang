@@ -62,6 +62,21 @@ return: {
 }
 ```
 
+### forgetPassword
+
+``` 
+修改密码
+url:/api/user/forget/password
+method: post
+data: {
+	phone
+	password   // AES加密
+}
+return: {
+	success 
+}
+```
+
 ### updatePhone
 
 ``` 
@@ -292,6 +307,22 @@ data: {
 	url		// 链接
 	type	// zk、pb、sf
 	photo
+}
+return: {
+	success
+}
+```
+
+### updateCollectionByAdmin
+``` 
+管理员端更改藏品信息(未更改的字段赋原值传入)
+url: /api/collection/{collectionId}
+method: post
+data: {
+	title
+	photo
+	url
+	type
 }
 return: {
 	success
