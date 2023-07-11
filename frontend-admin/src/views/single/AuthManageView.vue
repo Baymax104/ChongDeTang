@@ -5,7 +5,7 @@
         <span>授权用户为管理员</span>
       </div>
     </template>
-    <el-table :data="filterTableData" stripe style="width: 100%" v-loading="table_loading" height="77vh">
+    <el-table :data="pageData" stripe style="width: 100%" v-loading="table_loading" height="70vh">
       <el-table-column label="id" prop="id" />
       <el-table-column label="头像">
         <template #default="scope">
@@ -59,6 +59,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination background layout="sizes, prev, pager, next"
+                   :total="totalPage"
+                   :page-sizes="[10, 20, 50]"
+                   v-model:current-page="curPage"
+                   v-model:page-size="pageSize"
+                   @size-change="handleSizeChange"
+    />
   </el-card>
 </template>
 
@@ -69,6 +76,13 @@ import { setAdmin, resetAdmin, getUserList } from "../../api/auth";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {deleteProductByAdmin} from "../../api/product";
 
+
+const pageSize = ref(20)
+const curPage = ref(1)
+const totalPage = ref(1)
+const handleSizeChange = function (val) {
+  pageSize.value = val
+}
 // tag标签数据
 const rolePad = ref({
   "0": "普通",
@@ -89,6 +103,7 @@ const handleGetUserList = () => {
   getUserList().then(res => {
     console.log(res)
     tableData.value = res
+    totalPage.value = tableData.value.length
     table_loading.value = false
   })
 }
@@ -137,6 +152,13 @@ const handleResetAdmin = (index, row) => {
 
   })
 }
+
+const pageData = computed(() => {
+  console.log(totalPage, "t")
+  console.log(totalPage.value, "2")
+  console.log(filterTableData.value.slice((curPage.value - 1) * 20, curPage.value * 20 > totalPage.value ? totalPage.value : curPage.value));
+  return filterTableData.value.slice((curPage.value-1)*pageSize.value, curPage.value*pageSize.value > totalPage.value ? totalPage.value : curPage.value*pageSize.value)
+})
 </script>
 
 <style scoped>

@@ -23,7 +23,7 @@
         <el-button type="primary" @click="onClickAddCollection">导入新藏品</el-button>
       </div>
     </template>
-    <el-table :data="filterTableData"  stripe style="width: 100%" v-loading="table_loading" height="73vh">
+    <el-table :data="pageData"  stripe style="width: 100%" v-loading="table_loading" height="66vh">
       <el-table-column label="藏品id" prop="id" />
       <el-table-column label="藏品图">
         <template #default="scope">
@@ -84,6 +84,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination background layout="sizes, prev, pager, next"
+                   :total="totalPage"
+                   :page-sizes="[10, 20, 50]"
+                   v-model:current-page="curPage"
+                   v-model:page-size="pageSize"
+                   @size-change="handleSizeChange"
+    />
   </el-card>
   <el-dialog
       v-model="centerDialogVisible"
@@ -208,6 +215,13 @@ import cos from "../../utils/cos";
 import {cosConfig} from "../../../config/app-key";
 import {randomString} from "../../utils";
 
+
+const pageSize = ref(20)
+const curPage = ref(1)
+const totalPage = ref(1)
+const handleSizeChange = function (val) {
+  pageSize.value = val
+}
 // tag数据
 const val2tag = {
   "sf": ["书法", ""],
@@ -227,6 +241,7 @@ const handleGetCollectionList = async () => {
   table_loading.value = false
   tableData.value = res
   tableData.value.sort((a, b) => b.id - a.id)
+  totalPage.value = tableData.value.length
   console.log(res)
 }
 // 页面加载时刷新
@@ -258,6 +273,15 @@ const updateCollectionInfo = async function (collection) {
 }
 
 const confirmUpdateCollectionInfo = async function () {
+  if (
+      updateCurrentInfo.title === ""
+      || updateCurrentInfo.url === ""
+      || updateCurrentInfo.type === ""
+      || updateCurrentInfo.photo === ""
+  ) {
+    ElMessage.error('更新藏品错误：藏品信息存在空值!')
+    return
+  }
   // update
   await updateCollectionByAdmin(
       updateCurrentInfo.id,
@@ -377,7 +401,7 @@ function uploadNew(e) {
 // 添加藏品
 const add_Collection = async function () {
 
-  if (!colloec.title || !colloec.url || !colloec.type || !colloec.photo) {
+  if (colloec.title === "" || colloec.url === "" || colloec.type === "" || colloec.photo === "") {
     ElMessage.error('添加藏品错误：藏品信息存在空值!')
     return
   }
@@ -470,6 +494,13 @@ const filterTableData = computed(() => {
   )
 })
 
+
+const pageData = computed(() => {
+  console.log(totalPage, "t")
+  console.log(totalPage.value, "2")
+  console.log(filterTableData.value.slice((curPage.value - 1) * 20, curPage.value * 20 > totalPage.value ? totalPage.value : curPage.value));
+  return filterTableData.value.slice((curPage.value-1)*pageSize.value, curPage.value*pageSize.value > totalPage.value ? totalPage.value : curPage.value*pageSize.value)
+})
 
 </script>
 

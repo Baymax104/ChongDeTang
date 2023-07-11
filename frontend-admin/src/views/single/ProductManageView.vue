@@ -34,7 +34,7 @@
         <el-button type="primary" @click="onClickAddProduct">上架新商品</el-button>
       </div>
     </template>
-    <el-table :data="filterTableData"  stripe style="width: 100%" v-loading="table_loading" height="69vh">
+    <el-table :data="pageData"  stripe style="width: 100%" v-loading="table_loading" height="60vh">
       <el-table-column label="商品id" prop="id" />
       <el-table-column label="商品图">
         <template #default="scope">
@@ -85,6 +85,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination background layout="sizes, prev, pager, next"
+                   :total="totalPage"
+                   :page-sizes="[5, 10, 20]"
+                   v-model:current-page="curPage"
+                   v-model:page-size="pageSize"
+                   @size-change="handleSizeChange"
+    />
   </el-card>
   <el-dialog
       v-model="centerDialogVisible"
@@ -96,7 +103,7 @@
         <el-input v-model="newProductData.name" />
       </el-form-item>
       <el-form-item label="商品价格">
-        <el-input v-model="newProductData.price" />
+        <el-input-number v-model="newProductData.price" :precision="2"/>
       </el-form-item>
       <el-form-item label="商品图片">
         <input id="fileSelector" type="file" @change="uploadNew" accept=".jpg, .png"/>
@@ -194,6 +201,13 @@ import cos from "../../utils/cos";
 import {randomString} from "../../utils";
 
 
+const pageSize = ref(10)
+const curPage = ref(1)
+const totalPage = ref(1)
+const handleSizeChange = function (val) {
+  pageSize.value = val
+}
+
 const dateRange = ref([])
 const priceStart = ref()
 const priceEnd = ref()
@@ -209,7 +223,15 @@ const handleGetProductList = async () => {
     x.photo = photoPrefix + x.photo
     return x
   })
-  tableData.value.sort((a, b) => new Date(b.launchTime) - new Date(a.launchTime))
+  tableData.value.sort((a, b) => {
+    const aa = new Date(a.launchTime)
+    const bb = new Date(b.launchTime)
+    if (aa.getTime() === bb.getTime()) {
+      return b.id - a.id
+    }
+    return bb - aa
+  })
+  totalPage.value = tableData.value.length
   console.log(res)
 }
 // 页面加载时刷新
@@ -295,7 +317,15 @@ const updateProductInfo = function (product) {
 }
 const confirmUpdateProductInfo = async function () {
   console.log("confirm")
-
+  if (
+      updateProductData.name === ""
+      || updateProductData.photo === ""
+      || updateProductData.introduction === ""
+  )
+  {
+    ElMessage.error('更新失败：商品信息不全!')
+    return
+  }
   await updateProductNumberByAdmin(
       updateProductData.id,
       updateProductData.name,
@@ -327,7 +357,7 @@ const cancelUpdate = function () {
 // 弹窗取消
 const cancelAdd = () => {
   newProductData.name = ""
-  newProductData.price = ""
+  newProductData.price = 0
   newProductData.photo = ""
   newProductData.introduction = ""
   newProductData.storage = 0
@@ -336,11 +366,9 @@ const cancelAdd = () => {
 // 新增商品
 const add_Product = async () => {
   if (
-      !newProductData.name
-      || !newProductData.price
-      || !newProductData.photo
-      || !newProductData.introduction
-      || !newProductData.storage
+      newProductData.name === ""
+      || newProductData.photo === ""
+      || newProductData.introduction === ""
   )
   {
     ElMessage.error('新增失败：商品信息不全!')
@@ -354,8 +382,8 @@ const add_Product = async () => {
       newProductData.storage
   )
   await handleGetProductList()
-  cancelAdd()
   ElMessage.success(`新增成功：商品<${newProductData.name}>`)
+  cancelAdd()
 }
 // 删除商品
 const deleteProduct = async (product) => {
@@ -457,6 +485,13 @@ const filterTableData = computed(() => {
           !search.value ||
           data.name.toLowerCase().includes(search.value.toLowerCase()) //搜索藏品名
   )
+})
+
+const pageData = computed(() => {
+  console.log(totalPage, "t")
+  console.log(totalPage.value, "2")
+  console.log(filterTableData.value.slice((curPage.value - 1) * 20, curPage.value * 20 > totalPage.value ? totalPage.value : curPage.value));
+  return filterTableData.value.slice((curPage.value-1)*pageSize.value, curPage.value*pageSize.value > totalPage.value ? totalPage.value : curPage.value*pageSize.value)
 })
 
 </script>

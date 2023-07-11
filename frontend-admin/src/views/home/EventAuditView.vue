@@ -12,7 +12,7 @@
         </el-select>
       </div>
     </template>
-    <el-table :data="filterTableData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading" height="75vh">
+    <el-table :data="pageData" :default-sort="{ prop: 'admin', order: 'descending' }" stripe style="width: 100%" v-loading="tableLoading" height="68vh">
       <el-table-column label="用户id" prop="userId" />
       <el-table-column label="预约人" prop="subscriber" />
       <el-table-column label="预约时间" prop="date" />
@@ -38,6 +38,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination background layout="sizes, prev, pager, next"
+                   :total="totalPage"
+                   :page-sizes="[10, 20, 50]"
+                   v-model:current-page="curPage"
+                   v-model:page-size="pageSize"
+                   @size-change="handleSizeChange"
+    />
   </el-card>
   <el-dialog v-model="centerDialogVisible" title="确认你的操作"  center >
     <el-descriptions
@@ -138,6 +145,13 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import { InfoFilled } from '@element-plus/icons-vue'
 import {removeCollectionByAdmin} from "../../api/collection";
 
+const pageSize = ref(20)
+const curPage = ref(1)
+const totalPage = ref(1)
+const handleSizeChange = function (val) {
+  pageSize.value = val
+}
+
 // 弹出框样式
 const size = ref('default')
 const iconStyle = computed(() => {
@@ -198,6 +212,7 @@ const handleGetUserList = () => {
   getAuditEventList(filterOption.value).then( res => {
     tableData.value = res;
     tableData.value.sort((a, b) => new Date(b.date) - new Date(a.date))
+    totalPage.value = tableData.value.length
     tableLoading.value = false
   })
 }
@@ -245,6 +260,13 @@ const handleRejectEvent = () => {
   })
 
 }
+
+const pageData = computed(() => {
+  console.log(totalPage, "t")
+  console.log(totalPage.value, "2")
+  console.log(filterTableData.value.slice((curPage.value - 1) * 20, curPage.value * 20 > totalPage.value ? totalPage.value : curPage.value));
+  return filterTableData.value.slice((curPage.value-1)*pageSize.value, curPage.value*pageSize.value > totalPage.value ? totalPage.value : curPage.value*pageSize.value)
+})
 
 // 通过审核
 const handlePassEvent = () => {
