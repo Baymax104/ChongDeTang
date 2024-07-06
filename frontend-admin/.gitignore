@@ -34,5 +34,5 @@ pnpm-debug.log*
 /.nb-gradle/
 
 dist
-config/app-key.js
+#config/app-key.js
 deploy.sh
